@@ -64,7 +64,7 @@ jobs:
             export VERIFY_STRICT_READY="${{ vars.VERIFY_STRICT_READY }}"
 
             REPO_ROOT="${{ vars.EC2_REPO_ROOT }}"
-            REPO_ROOT="${REPO_ROOT:-/home/ubuntu/durgasai-backend}"
+            REPO_ROOT="${REPO_ROOT:-/home/ubuntu/aibackend}"
             SUB="${{ vars.DEPLOY_SUBDIR }}"
             SUB="${SUB:-}"
 
