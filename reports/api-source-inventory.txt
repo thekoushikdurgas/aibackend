@@ -1,5 +1,5 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Sun 05/10/2026  1:18:38.97
+Generated: Sun 05/10/2026  5:22:30.20
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
@@ -205,6 +205,7 @@ E:\durgas_ai\ai.backend\app\services\metrics\analytics.py
 E:\durgas_ai\ai.backend\app\services\metrics\collector.py
 E:\durgas_ai\ai.backend\app\services\metrics\council_metrics.py
 E:\durgas_ai\ai.backend\app\services\metrics\instrumentation.py
+E:\durgas_ai\ai.backend\app\services\metrics\service.py
 E:\durgas_ai\ai.backend\app\services\metrics\websocket_metrics.py
 E:\durgas_ai\ai.backend\app\services\metrics\__init__.py
 E:\durgas_ai\ai.backend\app\services\multimodal\deepgram_speech.py
