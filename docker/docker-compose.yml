@@ -1,0 +1,98 @@
+# Self-hosted Supabase (Kong, Auth, PostgREST, Realtime, Storage, Studio, …)
+include:
+  - path: docker-compose.supabase.yml
+
+services:
+  # Main backend service
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - '8000:8000'
+    env_file:
+      - ../.env
+      - ./supabase/supabase.env
+    environment:
+      - ENVIRONMENT=production
+      # Supabase Postgres (service name `db` from included compose). Set POSTGRES_PASSWORD in ai.backend/.env for interpolation.
+      - DATABASE_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
+      - POSTGRESQL_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
+      - SUPABASE_URL=http://kong:8000
+      - SUPABASE_ANON_KEY=${ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SERVICE_ROLE_KEY}
+      - SUPABASE_JWT_SECRET=${JWT_SECRET}
+      - REDIS_URL=redis://redis:6379/0
+      - USE_REDIS=true
+    volumes:
+      - backend_data:/app/data
+      - ../config/config.json:/app/config/config.json:ro
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      chromadb:
+        condition: service_started
+      kong:
+        condition: service_healthy
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8000/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis for caching and session storage
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Ollama for local LLM inference (optional)
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - '11434:11434'
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+
+  # ChromaDB server (optional - for distributed setup)
+  chromadb:
+    image: chromadb/chroma:latest
+    ports:
+      - '8001:8000'
+    volumes:
+      - chroma_data:/chroma/chroma
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma/chroma
+
+networks:
+  durgasai_network:
+    driver: bridge
+
+volumes:
+  backend_data:
+  redis_data:
+  ollama_data:
+  chroma_data:

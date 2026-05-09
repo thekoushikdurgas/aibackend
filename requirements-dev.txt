@@ -1,0 +1,18 @@
+# Include base requirements
+-r requirements.txt
+
+# Testing
+pytest==8.0.2
+pytest-asyncio==0.23.5
+pytest-cov==4.1.0
+
+# Code Quality
+black==24.2.0
+isort==5.13.2
+flake8==7.0.0
+mypy==1.8.0
+ruff==0.8.4
+
+# Documentation
+mkdocs==1.5.3
+mkdocs-material==9.5.9

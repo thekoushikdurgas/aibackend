@@ -1,0 +1,452 @@
+{
+  "info": {
+    "_postman_id": "a6987fd3-e538-475d-b97c-c9beb9148c2c",
+    "name": "🛠️ Postman Tool Generation API",
+    "description": "### About\n\nFor use in agentic ReAct pattern (reasoning and acting), generates JSON definition and Python/JavaScript/TypeScript implementation of tool to invoke public Postman collection request. Supported agent frameworks include: OpenAI, Anthropic, Gemini, Mistral, AutoGen, and LangChain.\n\n### Prerequisites\n\n- Postman Account\n    \n- OpenAI Account: [https://platform.openai.com/](https://platform.openai.com/)\n    \n\n### Usage\n\n1. Create a fork\n    \n2. Update collection variables\n    \n3. Go to tool generation request and run\n    \n4. Go to function calling request, update function value with JSON definition, and run\n    \n\n### Example\n\nThis collection, tool generation request, language Python, agent framework OpenAI:\n\n``` python\nimport requests\ndef generate_tool(collection_id, request_id, language=\"python\", agent_framework=\"openai\"):\n    \"\"\"\n    Function to generate a tool using the Postman API.\n    :param collection_id: The ID of the collection to which the tool belongs.\n    :param request_id: The ID of the request for which the tool is generated.\n    :param language: The programming language for the generated tool (default: \"python\").\n    :param agent_framework: The agent framework to be used (default: \"openai\").\n    :return: The response from the tool generation request as a dictionary.\n    \"\"\"\n    base_url = \"https://api.getpostman.com/postbot/generations/tool\"\n    api_key = \"\"  # will be provided by the user\n    payload = {\n        \"collectionId\": collection_id,\n        \"requestId\": request_id,\n        \"config\": {\n            \"language\": language,\n            \"agentFramework\": agent_framework\n        }\n    }\n    headers = {\n        \"X-API-Key\": api_key,\n        \"Content-Type\": \"application/json\"\n    }\n    try:\n        response = requests.post(base_url, json=payload, headers=headers)\n        response.raise_for_status()  # Raises an error for HTTP errors\n        return response.json()\n    except requests.exceptions.RequestException as e:\n        print(f\"Error generating tool: {e}\")\n        return {\"error\": \"An error occurred while generating the tool.\"}\napi_tool = {\n    \"function\": generate_tool,\n    \"definition\": {\n        \"name\": \"generate_tool\",\n        \"description\": \"Generate a tool using the Postman API.\",\n        \"parameters\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"collection_id\": {\n                    \"type\": \"string\",\n                    \"description\": \"The ID of the collection to which the tool belongs.\"\n                },\n                \"request_id\": {\n                    \"type\": \"string\",\n                    \"description\": \"The ID of the request for which the tool is generated.\"\n                },\n                \"language\": {\n                    \"type\": \"string\",\n                    \"description\": \"The programming language for the generated tool.\"\n                },\n                \"agent_framework\": {\n                    \"type\": \"string\",\n                    \"description\": \"The agent framework to be used.\"\n                }\n            },\n            \"required\": [\"collection_id\", \"request_id\"]\n        }\n    }\n}\n# If this script is imported as a module, we expose `api_tool`\n__all__ = [\"api_tool\"]\n\n ```",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20572666",
+    "_collection_link": "https://www.postman.com/ai-engineer/generative-ai-apis/collection/kydb1ge/postman-tool-generation-api?action=share&source=collection_link&creator=20572666"
+  },
+  "item": [
+    {
+      "name": "Tool Generation",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const jsonResponse = pm.response.json();\r",
+              "pm.collectionVariables.set('temp.toolGeneration', jsonResponse.data.text);"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"collectionId\": \"{{collectionId}}\",\r\n    \"requestId\": \"{{requestId}}\",\r\n    \"config\": {\r\n        \"language\": \"{{language}}\",\r\n        \"agentFramework\": \"{{agentFramework}}\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/postbot/generations/tool",
+          "host": ["{{baseUrl}}"],
+          "path": ["postbot", "generations", "tool"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"collectionId\": \"{{collectionId}}\",\r\n    \"requestId\": \"{{requestId}}\",\r\n    \"config\": {\r\n        \"language\": \"{{language}}\",\r\n        \"agentFramework\": \"{{agentFramework}}\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/postbot/generations/tool",
+              "host": ["{{baseUrl}}"],
+              "path": ["postbot", "generations", "tool"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sat, 22 Feb 2025 23:01:00 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json;charset=utf-8"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "RateLimit-Reset",
+              "value": "5"
+            },
+            {
+              "key": "RateLimit-Remaining",
+              "value": "299"
+            },
+            {
+              "key": "RateLimit-Limit",
+              "value": "300"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "SAMEORIGIN"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=15552000; includeSubDomains"
+            },
+            {
+              "key": "X-Download-Options",
+              "value": "noopen"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Origin-Agent-Cluster",
+              "value": "?1"
+            },
+            {
+              "key": "X-Permitted-Cross-Domain-Policies",
+              "value": "none"
+            },
+            {
+              "key": "Referrer-Policy",
+              "value": "no-referrer"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "X-RateLimit-Reset",
+              "value": "5"
+            },
+            {
+              "key": "RateLimit",
+              "value": "limit=300, remaining=299, reset=5"
+            },
+            {
+              "key": "Server",
+              "value": "nginx"
+            },
+            {
+              "key": "RateLimit-Policy",
+              "value": "300;w=60"
+            },
+            {
+              "key": "X-RateLimit-Remaining",
+              "value": "299"
+            },
+            {
+              "key": "X-RateLimit-Limit",
+              "value": "300"
+            },
+            {
+              "key": "Content-Security-Policy",
+              "value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+            },
+            {
+              "key": "Cross-Origin-Embedder-Policy",
+              "value": "require-corp"
+            },
+            {
+              "key": "Cross-Origin-Opener-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "Cross-Origin-Resource-Policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "X-DNS-Prefetch-Control",
+              "value": "off"
+            },
+            {
+              "key": "X-RateLimit-Limit-Month",
+              "value": "10000"
+            },
+            {
+              "key": "RateLimit-Remaining-Month",
+              "value": "9991"
+            },
+            {
+              "key": "RateLimit-Limit-Month",
+              "value": "10000"
+            },
+            {
+              "key": "X-RateLimit-Remaining-Month",
+              "value": "9991"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "X-Kong-Upstream-Latency",
+              "value": "5109"
+            },
+            {
+              "key": "X-Kong-Proxy-Latency",
+              "value": "139"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"text\": \"import requests\\n\\ndef generate_tool(collection_id, request_id, language=\\\"python\\\", agent_framework=\\\"openai\\\"):\\n    \\\"\\\"\\\"\\n    Function to generate a tool using the Postman API.\\n\\n    :param collection_id: The ID of the collection to which the tool belongs.\\n    :param request_id: The ID of the request for which the tool is generated.\\n    :param language: The programming language for the generated tool (default: \\\"python\\\").\\n    :param agent_framework: The agent framework to be used (default: \\\"openai\\\").\\n    :return: The response from the tool generation request as a dictionary.\\n    \\\"\\\"\\\"\\n    base_url = \\\"https://api.getpostman.com/postbot/generations/tool\\\"\\n    api_key = \\\"\\\"  # will be provided by the user\\n\\n    payload = {\\n        \\\"collectionId\\\": collection_id,\\n        \\\"requestId\\\": request_id,\\n        \\\"config\\\": {\\n            \\\"language\\\": language,\\n            \\\"agentFramework\\\": agent_framework\\n        }\\n    }\\n\\n    headers = {\\n        \\\"X-API-Key\\\": api_key,\\n        \\\"Content-Type\\\": \\\"application/json\\\"\\n    }\\n\\n    try:\\n        response = requests.post(base_url, json=payload, headers=headers)\\n        response.raise_for_status()  # Raises an error for HTTP errors\\n        return response.json()\\n    except requests.exceptions.RequestException as e:\\n        print(f\\\"Error generating tool: {e}\\\")\\n        return {\\\"error\\\": \\\"An error occurred while generating the tool.\\\"}\\n\\napi_tool = {\\n    \\\"function\\\": generate_tool,\\n    \\\"definition\\\": {\\n        \\\"name\\\": \\\"generate_tool\\\",\\n        \\\"description\\\": \\\"Generate a tool using the Postman API.\\\",\\n        \\\"parameters\\\": {\\n            \\\"type\\\": \\\"object\\\",\\n            \\\"properties\\\": {\\n                \\\"collection_id\\\": {\\n                    \\\"type\\\": \\\"string\\\",\\n                    \\\"description\\\": \\\"The ID of the collection to which the tool belongs.\\\"\\n                },\\n                \\\"request_id\\\": {\\n                    \\\"type\\\": \\\"string\\\",\\n                    \\\"description\\\": \\\"The ID of the request for which the tool is generated.\\\"\\n                },\\n                \\\"language\\\": {\\n                    \\\"type\\\": \\\"string\\\",\\n                    \\\"description\\\": \\\"The programming language for the generated tool.\\\"\\n                },\\n                \\\"agent_framework\\\": {\\n                    \\\"type\\\": \\\"string\\\",\\n                    \\\"description\\\": \\\"The agent framework to be used.\\\"\\n                }\\n            },\\n            \\\"required\\\": [\\\"collection_id\\\", \\\"request_id\\\"]\\n        }\\n    }\\n}\\n\\n# If this script is imported as a module, we expose `api_tool`\\n__all__ = [\\\"api_tool\\\"]\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Function Calling (OpenAI)",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{apiKey_openai}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"gpt-4o\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"Generate a tool for collection {{collectionId}}, request {{requestId}}, language {{language}}, and framework {{agentFramework}}.\"\r\n        }\r\n    ],\r\n    \"tools\": [\r\n        {\r\n            \"type\": \"function\",\r\n            \"function\": {\r\n                \"name\": \"generate_tool\",\r\n                \"description\": \"Generate a tool using the Postman API.\",\r\n                \"parameters\": {\r\n                    \"type\": \"object\",\r\n                    \"properties\": {\r\n                        \"collection_id\": {\r\n                            \"type\": \"string\",\r\n                            \"description\": \"The ID of the collection to which the tool belongs.\"\r\n                        },\r\n                        \"request_id\": {\r\n                            \"type\": \"string\",\r\n                            \"description\": \"The ID of the request for which the tool is generated.\"\r\n                        },\r\n                        \"language\": {\r\n                            \"type\": \"string\",\r\n                            \"description\": \"The programming language for the generated tool.\"\r\n                        },\r\n                        \"agent_framework\": {\r\n                            \"type\": \"string\",\r\n                            \"description\": \"The agent framework to be used.\"\r\n                        }\r\n                    },\r\n                    \"required\": [\"collection_id\", \"request_id\"]\r\n                }\r\n            }\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl_openai}}/chat/completions",
+          "host": ["{{baseUrl_openai}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"gpt-4o\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"Generate a tool for collection {{collectionId}}, request {{requestId}}, language {{language}}, and framework {{agentFramework}}.\"\r\n        }\r\n    ],\r\n    \"tools\": [\r\n        {\r\n            \"type\": \"function\",\r\n            \"function\": {\r\n                \"name\": \"generate_tool\",\r\n                \"description\": \"Generate a tool using the Postman API.\",\r\n                \"parameters\": {\r\n                    \"type\": \"object\",\r\n                    \"properties\": {\r\n                        \"collection_id\": {\r\n                            \"type\": \"string\",\r\n                            \"description\": \"The ID of the collection to which the tool belongs.\"\r\n                        },\r\n                        \"request_id\": {\r\n                            \"type\": \"string\",\r\n                            \"description\": \"The ID of the request for which the tool is generated.\"\r\n                        },\r\n                        \"language\": {\r\n                            \"type\": \"string\",\r\n                            \"description\": \"The programming language for the generated tool.\"\r\n                        },\r\n                        \"agent_framework\": {\r\n                            \"type\": \"string\",\r\n                            \"description\": \"The agent framework to be used.\"\r\n                        }\r\n                    },\r\n                    \"required\": [\"collection_id\", \"request_id\"]\r\n                }\r\n            }\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl_openai}}/chat/completions",
+              "host": ["{{baseUrl_openai}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sat, 22 Feb 2025 23:01:58 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "access-control-expose-headers",
+              "value": "X-Request-ID"
+            },
+            {
+              "key": "openai-organization",
+              "value": "user-rkkghdqu18op7h28k5tshgsi"
+            },
+            {
+              "key": "openai-processing-ms",
+              "value": "1765"
+            },
+            {
+              "key": "openai-version",
+              "value": "2020-10-01"
+            },
+            {
+              "key": "x-ratelimit-limit-requests",
+              "value": "10000"
+            },
+            {
+              "key": "x-ratelimit-limit-tokens",
+              "value": "2000000"
+            },
+            {
+              "key": "x-ratelimit-remaining-requests",
+              "value": "9999"
+            },
+            {
+              "key": "x-ratelimit-remaining-tokens",
+              "value": "1999939"
+            },
+            {
+              "key": "x-ratelimit-reset-requests",
+              "value": "6ms"
+            },
+            {
+              "key": "x-ratelimit-reset-tokens",
+              "value": "1ms"
+            },
+            {
+              "key": "x-request-id",
+              "value": "req_8d5a5ec90202cd0fde06a51d30b48d0d"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "CF-Cache-Status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "__cf_bm=5Lwu2arz3hA6vakru.zTizV4Sy2Pd9c2yqiOibCLEAM-1740265318-1.0.1.1-6D3i8KkSBA763_Tj3nOX7uJBhqiKx2bznhcxLGFNwDh_q_b0w9oQEAg15koxYbl9sB1dD16Q5bn71Bb8.aMMoQ; path=/; expires=Sat, 22-Feb-25 23:31:58 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "916299d5bbf02acf-LAX"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": \"chatcmpl-B3snNbUxYbiV9qvV2qacGA1cNezPK\",\n    \"object\": \"chat.completion\",\n    \"created\": 1740265317,\n    \"model\": \"gpt-4o-2024-08-06\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": null,\n                \"tool_calls\": [\n                    {\n                        \"id\": \"call_ba2TcV0JE7y6FLf8kbJ1ZTG0\",\n                        \"type\": \"function\",\n                        \"function\": {\n                            \"name\": \"generate_tool\",\n                            \"arguments\": \"{\\\"collection_id\\\":\\\"7643177-a6987fd3-e538-475d-b97c-c9beb9148c2c\\\",\\\"request_id\\\":\\\"7643177-d47f8296-d9b8-4a21-9f11-d3bb69d5cce3\\\",\\\"language\\\":\\\"python\\\",\\\"agent_framework\\\":\\\"openai\\\"}\"\n                        }\n                    }\n                ],\n                \"refusal\": null\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"tool_calls\"\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 171,\n        \"completion_tokens\": 82,\n        \"total_tokens\": 253,\n        \"prompt_tokens_details\": {\n            \"cached_tokens\": 0,\n            \"audio_tokens\": 0\n        },\n        \"completion_tokens_details\": {\n            \"reasoning_tokens\": 0,\n            \"audio_tokens\": 0,\n            \"accepted_prediction_tokens\": 0,\n            \"rejected_prediction_tokens\": 0\n        }\n    },\n    \"service_tier\": \"default\",\n    \"system_fingerprint\": \"fp_eb9dce56a8\"\n}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.getpostman.com"
+    },
+    {
+      "key": "baseUrl_openai",
+      "value": "https://api.openai.com/v1"
+    },
+    {
+      "key": "apiKey",
+      "value": ""
+    },
+    {
+      "key": "apiKey_openai",
+      "value": ""
+    },
+    {
+      "key": "collectionId",
+      "value": "7643177-a6987fd3-e538-475d-b97c-c9beb9148c2c"
+    },
+    {
+      "key": "requestId",
+      "value": "7643177-d47f8296-d9b8-4a21-9f11-d3bb69d5cce3"
+    },
+    {
+      "key": "language",
+      "value": "python"
+    },
+    {
+      "key": "agentFramework",
+      "value": "openai"
+    },
+    {
+      "key": "temp.toolGeneration",
+      "value": ""
+    }
+  ]
+}

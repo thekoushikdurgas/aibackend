@@ -1,0 +1,2253 @@
+{
+  "info": {
+    "_postman_id": "9667bf7c-7af3-4cb8-bae6-9159d8ba2ce0",
+    "name": "📌 Replicate API",
+    "description": "### About Replicate\n\n\"We’re making machine learning accessible to every software developer.\"\n\n### Prerequisites\n\n- Postman Account\n    \n- Replicate Account: [https://replicate.com/](https://replicate.com/)\n    \n\n### Usage\n\n1. Create a fork\n    \n2. Update collection variables\n    \n3. Send requests\n    \n\n### Documentation\n\n- API: [https://replicate.com/docs/reference/http](https://replicate.com/docs/reference/http)\n    \n- Models: [https://replicate.com/explore#collections](https://replicate.com/explore#collections)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20572666",
+    "_collection_link": "https://www.postman.com/ai-engineer/generative-ai-apis/collection/e9pzeup/replicate-api?action=share&source=collection_link&creator=20572666"
+  },
+  "item": [
+    {
+      "name": "🚀 Get Started",
+      "item": [
+        {
+          "name": "Chat (deepseek-ai/deepseek-r1)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.id', jsonResponse.id)"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\t\"stream\": true,\r\n\t\"input\": {\r\n        \"prompt\": \"What is the speed of an unladen swallow?\"\r\n\t}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/models/deepseek-ai/deepseek-r1/predictions",
+              "host": ["{{baseUrl}}"],
+              "path": ["models", "deepseek-ai", "deepseek-r1", "predictions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n\t\"stream\": true,\r\n\t\"input\": {\r\n        \"prompt\": \"What is the speed of an unladen swallow?\"\r\n\t}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models/deepseek-ai/deepseek-r1/predictions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["models", "deepseek-ai", "deepseek-r1", "predictions"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:51:38 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "90b4d2156a2ef7b7-LAX"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "599"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=SF9mmm%2FyWGOeJMhgvuOYcadmtkqHl%2FJDiNeWobBSfYf1rmm9T4r7zJQnk%2FSs3sxCUZsdUfWPgNjOc5LD%2BUs%2B2%2FRVjOHxeQ0cHFEy09zWo53l7s%2BekfTUpMJU0AU%2BDvnKmMMF\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=17829&min_rtt=14387&rtt_var=7854&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2816&recv_bytes=839&delivery_rate=202961&cwnd=215&unsent_bytes=0&cid=780d511f9e22958f&ts=264&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"33hq95ca0hrme0cmrd4asf57k0\",\n    \"model\": \"deepseek-ai/deepseek-r1\",\n    \"version\": \"dp-fdc5a9bc5c51462eba57823afd51f64d\",\n    \"input\": {\n        \"prompt\": \"What is the speed of an unladen swallow?\"\n    },\n    \"logs\": \"\",\n    \"output\": null,\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"starting\",\n    \"created_at\": \"2025-02-01T20:51:38.628Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/33hq95ca0hrme0cmrd4asf57k0/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/33hq95ca0hrme0cmrd4asf57k0\",\n        \"stream\": \"https://stream-g.svc.ric1.c.replicate.net/v1/streams/5xmhld2vxlx65hqjlkwcvlunqfyjax7dexngnjz55gcciy5fi2da\"\n    },\n    \"stream\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "Chat (deepseek-ai/deepseek-r1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+              "protocol": "https",
+              "host": ["api", "replicate", "com"],
+              "path": ["v1", "predictions", ":prediction_id"],
+              "variable": [
+                {
+                  "key": "prediction_id",
+                  "value": "{{temp.id}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+                  "protocol": "https",
+                  "host": ["api", "replicate", "com"],
+                  "path": ["v1", "predictions", ":prediction_id"],
+                  "variable": [
+                    {
+                      "key": "prediction_id",
+                      "value": "{{temp.id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:52:52 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "59999"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=jeuMVMBUnxyt%2BiPdORZPWRVUbDDZKYlKOgyZ7EBMzpOwjTi6k%2FvyUkC6zsWj7HIW9%2FMKwrAEW%2BNS9Do607xyIYh51WUYFmotj%2F5z6iRESpPDl4%2BJR%2FIbP6iY2Qe3NnlfoJnK\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "90b4d3e09b2bf7b7-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=17314&min_rtt=13667&rtt_var=6920&sent=91&recv=83&lost=0&retrans=2&sent_bytes=13244&recv_bytes=1907&delivery_rate=426028&cwnd=218&unsent_bytes=0&cid=780d511f9e22958f&ts=73643&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"33hq95ca0hrme0cmrd4asf57k0\",\n    \"model\": \"deepseek-ai/deepseek-r1\",\n    \"version\": \"dp-fdc5a9bc5c51462eba57823afd51f64d\",\n    \"input\": {\n        \"prompt\": \"What is the speed of an unladen swallow?\"\n    },\n    \"logs\": \"Prompt: What is the speed of an unladen swallow?\\nInput token count: 10\\nOutput token count: 1904\\nTTFT: 0.63s\\nTokens per second: 33.25\\nTotal time: 57.26s\\n\",\n    \"output\": [\n        \"\",\n        \"<think>\\n\",\n        \"Okay,\",\n        \" so I\",\n        \" need to\",\n        \" figure out\",\n        \" the speed\",\n        \" of an\",\n        \" unladen\",\n        \" swallow.\",\n        \" Hmm\",\n        \", first\",\n        \", I\",\n        \" remember this\",\n        \" question from\",\n        \" Monty\",\n        \" Python and\",\n        \" the Holy\",\n        \" Grail\",\n        \", where\",\n        \" they joke\",\n        \" about whether\",\n        \" it's\",\n        \" an African\",\n        \" or European\",\n        \" swallow.\",\n        \" Maybe that\",\n        \"'s relevant\",\n        \"? But\",\n        \" the user\",\n        \" didn't\",\n        \" specify,\",\n        \" so I\",\n        \" should probably\",\n        \" consider both\",\n        \".\\n\\n\",\n        \"Alright,\",\n        \" let's\",\n        \" start by\",\n        \" breaking down\",\n        \" the question\",\n        \". The\",\n        \" key terms\",\n        \" here are\",\n        \" \\\"speed\",\n        \",\\\" \\\"\",\n        \"unl\",\n        \"aden,\\\"\",\n        \" and \\\"\",\n        \"swallow\",\n        \".\\\" Let\",\n        \"'s tackle\",\n        \" each one\",\n        \". \\n\\n\",\n        \"First,\",\n        \" \\\"un\",\n        \"laden\",\n        \"\\\" means\",\n        \" the swallow\",\n        \" isn't\",\n        \" carrying anything\",\n        \", right\",\n        \"? So\",\n        \" we're\",\n        \" talking about\",\n        \" its natural\",\n        \" flying speed\",\n        \" without any\",\n        \" extra weight\",\n        \". That\",\n        \" makes sense\",\n        \". \\n\\n\",\n        \"Next,\",\n        \" \\\"sw\",\n        \"allow.\\\"\",\n        \" There are\",\n        \" different species\",\n        \" of swall\",\n        \"ows.\",\n        \" The European\",\n        \" swallow and\",\n        \" the African\",\n        \" swallow are\",\n        \" the ones\",\n        \" mentioned in\",\n        \" the movie\",\n        \". I\",\n        \" should check\",\n        \" if there\",\n        \"'s a\",\n        \" difference in\",\n        \" their speeds\",\n        \". But\",\n        \" wait,\",\n        \" are these\",\n        \" actual species\",\n        \"? Let\",\n        \" me think\",\n        \". The\",\n        \" European swallow\",\n        \" is likely\",\n        \" the Barn\",\n        \" Swallow\",\n        \" (H\",\n        \"irundo\",\n        \" rustica\",\n        \"), and\",\n        \" the African\",\n        \" might refer\",\n        \" to the\",\n        \" African Sw\",\n        \"allow,\",\n        \" but I\",\n        \"'m not\",\n        \" sure if\",\n        \" that's\",\n        \" a specific\",\n        \" species.\",\n        \" Maybe the\",\n        \" White-r\",\n        \"umped Sw\",\n        \"allow or\",\n        \" another type\",\n        \". \\n\\n\",\n        \"Now,\",\n        \" about their\",\n        \" speeds.\",\n        \" Swall\",\n        \"ows are\",\n        \" known for\",\n        \" being agile\",\n        \" fliers\",\n        \", but\",\n        \" how fast\",\n        \" do they\",\n        \" actually go\",\n        \"? I\",\n        \" remember reading\",\n        \" somewhere that\",\n        \" birds like\",\n        \" swallows\",\n        \" can fly\",\n        \" around \",\n        \"11 meters\",\n        \" per second\",\n        \", but\",\n        \" I need\",\n        \" to verify\",\n        \" that.\",\n        \" Let me\",\n        \" recall some\",\n        \" numbers.\",\n        \" The cruising\",\n        \" speed of\",\n        \" a Barn\",\n        \" Swallow\",\n        \" is estimated\",\n        \" to be\",\n        \" around \",\n        \"11-\",\n        \"16 meters\",\n        \" per second\",\n        \", which\",\n        \" converts to\",\n        \" roughly \",\n        \"40-\",\n        \"60 kilometers\",\n        \" per hour\",\n        \" or \",\n        \"25-\",\n        \"35 miles\",\n        \" per hour\",\n        \". But\",\n        \" is that\",\n        \" accurate?\\n\\n\",\n        \"Wait,\",\n        \" another approach\",\n        \": there\",\n        \"'s a\",\n        \" study that\",\n        \" calculated the\",\n        \" airspeed\",\n        \" velocity of\",\n        \" a European\",\n        \" swallow.\",\n        \" I think\",\n        \" it was\",\n        \" done by\",\n        \" some students\",\n        \" or researchers\",\n        \" as a\",\n        \" joke but\",\n        \" using real\",\n        \" data.\",\n        \" They used\",\n        \" the formula\",\n        \" for flight\",\n        \" speed based\",\n        \" on wing\",\n        \"beat frequency\",\n        \" and other\",\n        \" factors.\",\n        \" Let me\",\n        \" try to\",\n        \" remember.\",\n        \" The formula\",\n        \" involves the\",\n        \" lift equation\",\n        \", right\",\n        \"? \\n\\n\",\n        \"The basic\",\n        \" idea is\",\n        \" that to\",\n        \" maintain flight\",\n        \", the\",\n        \" lift generated\",\n        \" by the\",\n        \" wings must\",\n        \" equal the\",\n        \" bird's\",\n        \" weight.\",\n        \" The lift\",\n        \" equation is\",\n        \" Lift =\",\n        \" 0\",\n        \".5\",\n        \" *\",\n        \" air density * velocity squared *\",\n        \" wing area\",\n        \" * coefficient\",\n        \" of lift\",\n        \". So\",\n        \" if we\",\n        \" rearrange that\",\n        \" to solve\",\n        \" for velocity\",\n        \", we\",\n        \" get velocity\",\n        \" = sqrt\",\n        \"( (\",\n        \"2 *\",\n        \" weight)\",\n        \" / (\",\n        \"air density\",\n        \" * wing\",\n        \" area *\",\n        \" coefficient of\",\n        \" lift)\",\n        \" ). \\n\\n\",\n        \"But to\",\n        \" do this\",\n        \" calculation,\",\n        \" I need\",\n        \" approximate values\",\n        \" for a\",\n        \" swallow's\",\n        \" weight,\",\n        \" wing area\",\n        \", and\",\n        \" coefficient of\",\n        \" lift.\",\n        \" Let's\",\n        \" see.\",\n        \" A European\",\n        \" swallow weighs\",\n        \" about \",\n        \"20 grams\",\n        \" on average\",\n        \", right\",\n        \"? So\",\n        \" 0\",\n        \".02\",\n        \" kg.\",\n        \" Air density\",\n        \" at sea\",\n        \" level is\",\n        \" roughly \",\n        \"1.\",\n        \"225 kg\",\n        \"/m³\",\n        \". Wing\",\n        \" area...\",\n        \" Hmm\",\n        \", the\",\n        \" wingspan\",\n        \" of a\",\n        \" Barn Sw\",\n        \"allow is\",\n        \" around \",\n        \"32-\",\n        \"34 cm\",\n        \", and\",\n        \" the wing\",\n        \" chord (\",\n        \"width)\",\n        \" might be\",\n        \" about \",\n        \"10 cm\",\n        \". So\",\n        \" the wing\",\n        \" area for\",\n        \" both wings\",\n        \" would be\",\n        \" approximately \",\n        \"2 *\",\n        \" (w\",\n        \"ingspan\",\n        \"/2\",\n        \") *\",\n        \" chord length\",\n        \". Wait\",\n        \", that\",\n        \"'s the\",\n        \" area for\",\n        \" each wing\",\n        \", so\",\n        \" total wing\",\n        \" area would\",\n        \" be wings\",\n        \"pan *\",\n        \" chord.\",\n        \" Let me\",\n        \" check\",\n        \" that.\",\n        \" \\n\\nIf\",\n        \" wingspan\",\n        \" is \",\n        \"0.\",\n        \"33 meters\",\n        \", and\",\n        \" chord is\",\n        \" 0\",\n        \".1\",\n        \" meters,\",\n        \" then wing\",\n        \" area is\",\n        \" 0\",\n        \".033\",\n        \" m\",\n        \"².\",\n        \" But I\",\n        \"'m not\",\n        \" sure if\",\n        \" that's\",\n        \" correct.\",\n        \" Maybe I\",\n        \" should look\",\n        \" up typical\",\n        \" values.\",\n        \" Alternatively,\",\n        \" I remember\",\n        \" that the\",\n        \" wing loading\",\n        \" (weight\",\n        \" divided by\",\n        \" wing area\",\n        \") for\",\n        \" swallows\",\n        \" is relatively\",\n        \" low,\",\n        \" which allows\",\n        \" for maneuver\",\n        \"able flight\",\n        \". Let\",\n        \"'s say\",\n        \" the wing\",\n        \" area is\",\n        \" around \",\n        \"0.\",\n        \"02 m\",\n        \"².\",\n        \" Then wing\",\n        \" loading would\",\n        \" be \",\n        \"0.\",\n        \"02 kg\",\n        \" / \",\n        \"0.\",\n        \"02 m\",\n        \"² =\",\n        \" 1\",\n        \" kg/m\",\n        \"².\",\n        \" But I\",\n        \"'m not\",\n        \" sure if\",\n        \" that's\",\n        \" accurate.\",\n        \" \\n\\nCoe\",\n        \"fficient of\",\n        \" lift for\",\n        \" a bird\",\n        \" in cruising\",\n        \" flight might\",\n        \" be around\",\n        \" 0\",\n        \".5\",\n        \" to \",\n        \"1.\",\n        \" Let's\",\n        \" assume \",\n        \"0.\",\n        \"8 for\",\n        \" estimation.\",\n        \" Plugging\",\n        \" into the\",\n        \" equation:\",\n        \" velocity =\",\n        \" sqrt(\",\n        \" (2\",\n        \" * \",\n        \"0.\",\n        \"02 kg\",\n        \" * \",\n        \"9.\",\n        \"81 m\",\n        \"/s²\",\n        \") /\",\n        \" (1\",\n        \".225\",\n        \" kg/m\",\n        \"³ *\",\n        \" 0\",\n        \".02\",\n        \" m²\",\n        \" * \",\n        \"0.\",\n        \"8)\",\n        \" ). Let\",\n        \"'s compute\",\n        \" that.\",\n        \" \\n\\nFirst\",\n        \", numerator\",\n        \": \",\n        \"2 *\",\n        \" 0\",\n        \".02\",\n        \" * \",\n        \"9.\",\n        \"81 =\",\n        \" 0\",\n        \".392\",\n        \"4.\",\n        \" Denominator:\",\n        \" 1\",\n        \".225\",\n        \" * \",\n        \"0.\",\n        \"02 *\",\n        \" 0\",\n        \".8\",\n        \" = \",\n        \"0.\",\n        \"0196\",\n        \". So\",\n        \" velocity squared\",\n        \" is \",\n        \"0.\",\n        \"3924\",\n        \" / \",\n        \"0.\",\n        \"0196\",\n        \" ≈ \",\n        \"20.\",\n        \"02.\",\n        \" Taking the\",\n        \" square root\",\n        \" gives about\",\n        \" 4\",\n        \".47\",\n        \" m/s\",\n        \". That\",\n        \" seems too\",\n        \" slow.\",\n        \" Wait,\",\n        \" that can\",\n        \"'t be\",\n        \" right.\",\n        \" Maybe my\",\n        \" wing area\",\n        \" is off\",\n        \". \\n\\n\",\n        \"Alternatively,\",\n        \" perhaps the\",\n        \" wing area\",\n        \" is smaller\",\n        \". If\",\n        \" the wing\",\n        \" area is\",\n        \" 0\",\n        \".01\",\n        \" m²\",\n        \", then\",\n        \" denominator becomes\",\n        \" 1\",\n        \".225\",\n        \" * \",\n        \"0.\",\n        \"01 *\",\n        \" \",\n        \"0.\",\n        \"8 =\",\n        \" 0\",\n        \".009\",\n        \"8.\",\n        \" Then velocity\",\n        \" squared is\",\n        \" 0\",\n        \".392\",\n        \"4 /\",\n        \" 0\",\n        \".009\",\n        \"8 ≈\",\n        \" 40\",\n        \".04\",\n        \", so\",\n        \" velocity ≈\",\n        \" 6\",\n        \".32\",\n        \" m/s\",\n        \". Still\",\n        \" around \",\n        \"6-\",\n        \"7 m\",\n        \"/s,\",\n        \" which is\",\n        \" about \",\n        \"22 km\",\n        \"/h or\",\n        \" 14\",\n        \" mph.\",\n        \" That still\",\n        \" feels low\",\n        \". I\",\n        \" think actual\",\n        \" measurements might\",\n        \" be higher\",\n        \". \\n\\n\",\n        \"Alternatively,\",\n        \" maybe the\",\n        \" coefficient of\",\n        \" lift is\",\n        \" lower.\",\n        \" If it\",\n        \"'s \",\n        \"0.\",\n        \"5,\",\n        \" then denominator\",\n        \" is \",\n        \"1.\",\n        \"225 *\",\n        \" 0\",\n        \".02\",\n        \" * \",\n        \"0.\",\n        \"5 =\",\n        \" 0\",\n        \".012\",\n        \"25.\",\n        \" Then velocity\",\n        \" squared is\",\n        \" 0\",\n        \".392\",\n        \"4 /\",\n        \" 0\",\n        \".012\",\n        \"25 ≈\",\n        \" 32\",\n        \".03\",\n        \", so\",\n        \" velocity ≈\",\n        \" 5\",\n        \".66\",\n        \" m/s\",\n        \". H\",\n        \"mm.\",\n        \" Maybe my\",\n        \" approach is\",\n        \" flawed.\",\n        \" \\n\\nAlternatively\",\n        \", perhaps\",\n        \" the cruising\",\n        \" speed is\",\n        \" different from\",\n        \" the minimum\",\n        \" speed required\",\n        \" for lift\",\n        \". Maybe\",\n        \" swallows\",\n        \" fly faster\",\n        \" than the\",\n        \" minimum required\",\n        \" speed.\",\n        \" Also,\",\n        \" this calculation\",\n        \" assumes steady\",\n        \", level\",\n        \" flight,\",\n        \" but swall\",\n        \"ows often\",\n        \" glide and\",\n        \" flap intermitt\",\n        \"ently.\",\n        \" \\n\\nAnother\",\n        \" way to\",\n        \" estimate speed\",\n        \" is by\",\n        \" using wing\",\n        \"beat frequency\",\n        \". Sw\",\n        \"allows\",\n        \" have a\",\n        \" wingbeat\",\n        \" rate of\",\n        \" around \",\n        \"5-\",\n        \"10 beats\",\n        \" per second\",\n        \". If\",\n        \" each wing\",\n        \"beat prop\",\n        \"els them\",\n        \" forward a\",\n        \" certain distance\",\n        \", then\",\n        \" speed is\",\n        \" wingbeat\",\n        \" frequency times\",\n        \" distance per\",\n        \" beat.\",\n        \" But how\",\n        \" much distance\",\n        \" per beat\",\n        \"? \\n\\n\",\n        \"If the\",\n        \" amplitude of\",\n        \" the wing\",\n        \"beat is\",\n        \", say\",\n        \", \",\n        \"0.\",\n        \"2 meters\",\n        \" (down\",\n        \" and up\",\n        \"), but\",\n        \" the forward\",\n        \" distance per\",\n        \" beat would\",\n        \" depend on\",\n        \" the angle\",\n        \" and efficiency\",\n        \". Maybe\",\n        \" they move\",\n        \" forward half\",\n        \" a meter\",\n        \" per wing\",\n        \"beat?\",\n        \" If the\",\n        \" wingbeat\",\n        \" frequency is\",\n        \" 5\",\n        \" Hz,\",\n        \" then \",\n        \"5 *\",\n        \" 0\",\n        \".5\",\n        \" = \",\n        \"2.\",\n        \"5 m\",\n        \"/s,\",\n        \" which is\",\n        \" still low\",\n        \". But\",\n        \" this is\",\n        \" very rough\",\n        \". \\n\\n\",\n        \"Alternatively,\",\n        \" maybe using\",\n        \" data from\",\n        \" real observations\",\n        \". I\",\n        \" found a\",\n        \" source that\",\n        \" says the\",\n        \" Barn Sw\",\n        \"allow's\",\n        \" cruising speed\",\n        \" is about\",\n        \" 11\",\n        \" m/s\",\n        \" (40\",\n        \" km/h\",\n        \", \",\n        \"25 mph\",\n        \"). Another\",\n        \" source mentions\",\n        \" that migratory\",\n        \" birds like\",\n        \" swallows\",\n        \" can fly\",\n        \" faster,\",\n        \" up to\",\n        \" 50\",\n        \"-65\",\n        \" km/h\",\n        \" when migrating\",\n        \". But\",\n        \" that's\",\n        \" with wind\",\n        \" assistance maybe\",\n        \".\",\n        \" \\n\\nAlso, the African swallow\",\n        \", if\",\n        \" it's\",\n        \" a larger\",\n        \" species,\",\n        \" might be\",\n        \" faster.\",\n        \" For example\",\n        \", the\",\n        \" White-r\",\n        \"umped Sw\",\n        \"allow might\",\n        \" have a\",\n        \" similar speed\",\n        \", but\",\n        \" I'm\",\n        \" not sure\",\n        \". The\",\n        \" movie joke\",\n        \" is that\",\n        \" the African\",\n        \" swallow is\",\n        \" non-m\",\n        \"igratory\",\n        \", so\",\n        \" maybe it\",\n        \"'s a\",\n        \" reference to\",\n        \" a heavier\",\n        \" bird that\",\n        \" could carry\",\n        \" a coconut\",\n        \", which\",\n        \" is obviously\",\n        \" a joke\",\n        \". \\n\\n\",\n        \"In reality\",\n        \", the\",\n        \" question is\",\n        \" a bit\",\n        \" of a\",\n        \" trick because\",\n        \" it's\",\n        \" from a\",\n        \" comedy film\",\n        \", but\",\n        \" if taken\",\n        \" seriously,\",\n        \" the answer\",\n        \" would involve\",\n        \" looking up\",\n        \" ornith\",\n        \"ological data\",\n        \". The\",\n        \" estimated speed\",\n        \" for a\",\n        \" European swallow\",\n        \" is around\",\n        \" 11\",\n        \" m/s\",\n        \" or \",\n        \"40 km\",\n        \"/h,\",\n        \" while an\",\n        \" African swallow\",\n        \" (if\",\n        \" considering a\",\n        \" similar species\",\n        \") might\",\n        \" be slightly\",\n        \" faster,\",\n        \" but there\",\n        \"'s no\",\n        \" definitive data\",\n        \" because the\",\n        \" African swallow\",\n        \" isn't\",\n        \" a specific\",\n        \" species.\",\n        \" \\n\\nSo\",\n        \", putting\",\n        \" it all\",\n        \" together,\",\n        \" the answer\",\n        \" would be\",\n        \" approximately \",\n        \"11 meters\",\n        \" per second\",\n        \", or\",\n        \" 40\",\n        \" kilometers per\",\n        \" hour (\",\n        \"25 miles\",\n        \" per hour\",\n        \"), but\",\n        \" noting that\",\n        \" it's\",\n        \" an estimate\",\n        \" and the\",\n        \" reference to\",\n        \" the movie\",\n        \".\\n</think>\",\n        \"\\n\\nThe\",\n        \" speed of\",\n        \" an unl\",\n        \"aden swallow\",\n        \", famously\",\n        \" referenced in\",\n        \" *Mont\",\n        \"y Python\",\n        \" and the\",\n        \" Holy Gra\",\n        \"il*,\",\n        \" depends on\",\n        \" whether it\",\n        \"'s a\",\n        \" European or\",\n        \" African swallow\",\n        \". While\",\n        \" the question\",\n        \" is partly\",\n        \" a humorous\",\n        \" setup,\",\n        \" here's\",\n        \" a scientific\",\n        \" breakdown:\\n\\n\",\n        \"1.\",\n        \" **European\",\n        \" Swallow\",\n        \" (Barn\",\n        \" Swallow\",\n        \", *\",\n        \"Hir\",\n        \"undo rust\",\n        \"ica*\",\n        \")**  \\n\",\n        \"   -\",\n        \" **Cru\",\n        \"ising Speed\",\n        \"**: ~\",\n        \"11 meters\",\n        \" per second\",\n        \" (40\",\n        \" km/h\",\n        \" or \",\n        \"25 mph\",\n        \").  \\n\",\n        \"   -\",\n        \" This estimate\",\n        \" is based\",\n        \" on aerodynamic\",\n        \" calculations and\",\n        \" observational studies\",\n        \", factoring\",\n        \" in wing\",\n        \"beat frequency\",\n        \", body\",\n        \" mass (~\",\n        \"20 grams\",\n        \"), and\",\n        \" wing morphology\",\n        \".\\n\\n2\",\n        \". **\",\n        \"African Sw\",\n        \"allow**\",\n        \"  \\n  \",\n        \" - No\",\n        \" specific species\",\n        \" is referenced\",\n        \" in the\",\n        \" film,\",\n        \" but if\",\n        \" assuming a\",\n        \" similar-sized\",\n        \" bird (\",\n        \"e.g\",\n        \"., the\",\n        \" African Saw\",\n        \"-wing),\",\n        \" speeds would\",\n        \" likely be\",\n        \" comparable.\",\n        \" Larger species\",\n        \" might reach\",\n        \" slightly higher\",\n        \" speeds.\\n\\n\",\n        \"**Key\",\n        \" Considerations**:\",\n        \"  \\n-\",\n        \" The joke\",\n        \" hinges on\",\n        \" the absurd\",\n        \"ity of\",\n        \" debating swallow\",\n        \" velocity to\",\n        \" avoid a\",\n        \" deadly bridge\",\n        \"keeper.\",\n        \"  \\n-\",\n        \" Real-world\",\n        \" estimates involve\",\n        \" approximations due\",\n        \" to variables\",\n        \" like flight\",\n        \" patterns (\",\n        \"gliding\",\n        \" vs.\",\n        \" flapping\",\n        \") and\",\n        \" environmental conditions\",\n        \".\\n\\n**\",\n        \"Final Answer\",\n        \"**:  \\n\",\n        \"An unl\",\n        \"aden European\",\n        \" swallow likely\",\n        \" flies at\",\n        \" **~\",\n        \"40 km\",\n        \"/h (\",\n        \"25 mph\",\n        \")**.\",\n        \" The African\",\n        \" swallow's\",\n        \" speed remains\",\n        \" speculative but\",\n        \" humorously\",\n        \" exaggerated in\",\n        \" the film\",\n        \".\",\n        \" 🐦\",\n        \"✨\",\n        \"\"\n    ],\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"succeeded\",\n    \"created_at\": \"2025-02-01T20:51:38.628Z\",\n    \"started_at\": \"2025-02-01T20:51:38.665918985Z\",\n    \"completed_at\": \"2025-02-01T20:52:35.933672483Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/33hq95ca0hrme0cmrd4asf57k0/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/33hq95ca0hrme0cmrd4asf57k0\",\n        \"stream\": \"https://stream-g.svc.ric1.c.replicate.net/v1/streams/5xmhld2vxlx65hqjlkwcvlunqfyjax7dexngnjz55gcciy5fi2da\"\n    },\n    \"metrics\": {\n        \"input_token_count\": 10,\n        \"output_token_count\": 1904,\n        \"predict_time\": 57.267753498,\n        \"time_to_first_token\": 0.000763961,\n        \"tokens_per_second\": 33.24777529592039\n    },\n    \"stream\": true\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chat",
+      "item": [
+        {
+          "name": "deepseek-ai/deepseek-r1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.id', jsonResponse.id)"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\t\"stream\": true,\r\n\t\"input\": {\r\n        \"prompt\": \"What is the speed of an unladen swallow?\"\r\n\t}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/models/deepseek-ai/deepseek-r1/predictions",
+              "host": ["{{baseUrl}}"],
+              "path": ["models", "deepseek-ai", "deepseek-r1", "predictions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n\t\"stream\": true,\r\n\t\"input\": {\r\n        \"prompt\": \"What is the speed of an unladen swallow?\"\r\n\t}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models/deepseek-ai/deepseek-r1/predictions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["models", "deepseek-ai", "deepseek-r1", "predictions"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:53:17 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "90b4d4804f78f7b7-LAX"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "599"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=kJGEq21CpDHvFdQ9hIWGQ4k8AoHAdQJgRYyRChTIZaPUUEb1GcisejqD40T3FgqqpSqsAKov0tqI262hX%2B5IguSrfmR37dGhiegm0UvwlAz5%2F0IekEqgkuknM0uFRN6xEAog\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=17314&min_rtt=13667&rtt_var=6920&sent=121&recv=109&lost=0&retrans=3&sent_bytes=19877&recv_bytes=2422&delivery_rate=426028&cwnd=218&unsent_bytes=0&cid=780d511f9e22958f&ts=99287&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"0x2k9n8ctnrme0cmrd59zdfk2g\",\n    \"model\": \"deepseek-ai/deepseek-r1\",\n    \"version\": \"dp-fdc5a9bc5c51462eba57823afd51f64d\",\n    \"input\": {\n        \"prompt\": \"What is the speed of an unladen swallow?\"\n    },\n    \"logs\": \"\",\n    \"output\": null,\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"starting\",\n    \"created_at\": \"2025-02-01T20:53:17.653Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/0x2k9n8ctnrme0cmrd59zdfk2g/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/0x2k9n8ctnrme0cmrd59zdfk2g\",\n        \"stream\": \"https://stream-g.svc.ric1.c.replicate.net/v1/streams/fs44tyigney3u4ei44fqrhts4fh2hdcsmp4q2hebdirkk45f27hq\"\n    },\n    \"stream\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "deepseek-ai/deepseek-r1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+              "protocol": "https",
+              "host": ["api", "replicate", "com"],
+              "path": ["v1", "predictions", ":prediction_id"],
+              "variable": [
+                {
+                  "key": "prediction_id",
+                  "value": "{{temp.id}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+                  "protocol": "https",
+                  "host": ["api", "replicate", "com"],
+                  "path": ["v1", "predictions", ":prediction_id"],
+                  "variable": [
+                    {
+                      "key": "prediction_id",
+                      "value": "{{temp.id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:54:28 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "59999"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=rWH6%2FLveHl44f74ULSvigm2rnJ5M0vz0ESo%2FMKimxRsm1tDSy85SwrUg6%2Bc8JtO09fI9%2BfGE%2F843QfQDDtVKHQiRjuq0V4W9UP6MrWno8LVR%2B1lpQB1stuiQW%2Bqyq7QJEMdN\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "90b4d63c0c65f7b7-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=17314&min_rtt=13667&rtt_var=6920&sent=199&recv=181&lost=0&retrans=5&sent_bytes=26371&recv_bytes=3134&delivery_rate=426028&cwnd=218&unsent_bytes=0&cid=780d511f9e22958f&ts=170210&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"0x2k9n8ctnrme0cmrd59zdfk2g\",\n    \"model\": \"deepseek-ai/deepseek-r1\",\n    \"version\": \"dp-fdc5a9bc5c51462eba57823afd51f64d\",\n    \"input\": {\n        \"prompt\": \"What is the speed of an unladen swallow?\"\n    },\n    \"logs\": \"Prompt: What is the speed of an unladen swallow?\\nInput token count: 10\\nOutput token count: 1145\\nTTFT: 0.70s\\nTokens per second: 34.33\\nTotal time: 33.36s\\n\",\n    \"output\": [\n        \"\",\n        \"<think>\\n\",\n        \"Okay, so\",\n        \" the user\",\n        \" is asking\",\n        \" about the speed\",\n        \" of an\",\n        \" unladen\",\n        \" swallow. H\",\n        \"mm,\",\n        \" I remember\",\n        \" this is\",\n        \" a reference from\",\n        \" Monty\",\n        \" Python and\",\n        \" the Holy\",\n        \" Grail\",\n        \". The\",\n        \" original question\",\n        \" in the movie\",\n        \" is about\",\n        \" whether a\",\n        \" swallow could\",\n        \" carry a\",\n        \" coconut,\",\n        \" which is\",\n        \" a funny\",\n        \" scene.\",\n        \" But here,\",\n        \" they're asking\",\n        \" about the\",\n        \" speed.\",\n        \" Let me think\",\n        \"... first\",\n        \", I need\",\n        \" to clarify\",\n        \" if they\",\n        \" mean an\",\n        \" African\",\n        \" or European swallow because\",\n        \" in the\",\n        \" movie, that\",\n        \"'s the\",\n        \" follow-up\",\n        \" question. The\",\n        \" user didn't\",\n        \" specify,\",\n        \" so maybe\",\n        \" I should\",\n        \" address both possibilities\",\n        \".\\n\\nAlright\",\n        \", let\",\n        \"'s start\",\n        \" by recalling\",\n        \" that there\",\n        \" are different\",\n        \" species of\",\n        \" swallows.\",\n        \" The European\",\n        \" swallow is\",\n        \" likely the Barn\",\n        \" Swallow\",\n        \" (H\",\n        \"irundo\",\n        \" rustica\",\n        \"), and\",\n        \" the African swallow\",\n        \" might refer\",\n        \" to a\",\n        \" larger species\",\n        \", maybe\",\n        \" the African River\",\n        \" Martin or\",\n        \" another type\",\n        \". Their\",\n        \" speeds could\",\n        \" vary based on\",\n        \" size and\",\n        \" migration habits\",\n        \". \\n\\n\",\n        \"I should check\",\n        \" typical flight\",\n        \" speeds for\",\n        \" these birds\",\n        \". I\",\n        \" remember that birds\",\n        \" have different\",\n        \" cruising speeds and\",\n        \" sprint speeds\",\n        \". For\",\n        \" example, the\",\n        \" Barn Swallow\",\n        \"'s speed\",\n        \" is often\",\n        \" cited around\",\n        \" 11\",\n        \" meters per\",\n        \" second,\",\n        \" which is\",\n        \" about \",\n        \"40 km\",\n        \"/h or\",\n        \" 25\",\n        \" mph.\",\n        \" But wait,\",\n        \" is that\",\n        \" accurate?\",\n        \" Let me\",\n        \" verify.\",\n        \" Some sources\",\n        \" say their\",\n        \" average speed\",\n        \" is around\",\n        \" 32\",\n        \"-40\",\n        \" km/h\",\n        \" (20\",\n        \"-25\",\n        \" mph)\",\n        \" during migration\",\n        \". However\",\n        \", when\",\n        \" they're\",\n        \" flying in\",\n        \" a\",\n        \" hurry or\",\n        \" hunting insects\",\n        \", they\",\n        \" might go\",\n        \" faster,\",\n        \" maybe up\",\n        \" to \",\n        \"50-\",\n        \"55 km\",\n        \"/h (\",\n        \"31-\",\n        \"34 mph\",\n        \"). \\n\\n\",\n        \"For the\",\n        \" African swallow\",\n        \", if\",\n        \" we consider\",\n        \" a larger\",\n        \" species,\",\n        \" maybe their\",\n        \" speed is a\",\n        \" bit\",\n        \" higher.\",\n        \" But I\",\n        \"'m not\",\n        \" sure if\",\n        \" there's\",\n        \" a specific\",\n        \" species referred\",\n        \" to here\",\n        \". The\",\n        \" movie doesn\",\n        \"'t specify\",\n        \", so\",\n        \" maybe it\",\n        \"'s a\",\n        \" fictional reference\",\n        \". Alternatively\",\n        \", the\",\n        \" European swallow\",\n        \"'s speed\",\n        \" is\",\n        \" more\",\n        \" documented.\",\n        \" \\n\\nAnother\",\n        \" angle:\",\n        \" airspeed\",\n        \" velocity versus\",\n        \" ground speed\",\n        \". The\",\n        \" original question\",\n        \" in the\",\n        \" movie mentions\",\n        \" airspeed\",\n        \" velocity,\",\n        \" which is\",\n        \" the speed\",\n        \" through the\",\n        \" air,\",\n        \" not accounting\",\n        \" for wind\",\n        \". So\",\n        \" if the\",\n        \" user is\",\n        \" referencing that\",\n        \", the\",\n        \" answer should\",\n        \" focus on\",\n        \" airspeed\",\n        \". \\n\\n\",\n        \"Wait,\",\n        \" the user\",\n        \" just said\",\n        \" \\\"speed\",\n        \",\\\" not\",\n        \" specifying.\",\n        \" But given\",\n        \" the Mont\",\n        \"y Python\",\n        \" context,\",\n        \" airspeed\",\n        \" velocity is\",\n        \" probably what\",\n        \"'s intended\",\n        \". So\",\n        \", the\",\n        \" European swallow\",\n        \"'s air\",\n        \"speed velocity\",\n        \" is estimated\",\n        \" around \",\n        \"24 mph\",\n        \" or \",\n        \"11 meters\",\n        \" per second\",\n        \". But\",\n        \" I should\",\n        \" check if\",\n        \" there are\",\n        \" any scientific\",\n        \" studies or\",\n        \" ornith\",\n        \"ological sources\",\n        \" that back\",\n        \" this up\",\n        \". \\n\\n\",\n        \"Looking up\",\n        \" some references\",\n        \"... The\",\n        \" British Trust\",\n        \" for Or\",\n        \"nithology\",\n        \" might have\",\n        \" data.\",\n        \" According to\",\n        \" some studies\",\n        \", migratory\",\n        \" birds like\",\n        \" swallows\",\n        \" can sustain\",\n        \" speeds around\",\n        \" 30\",\n        \"-40\",\n        \" km/h\",\n        \". However\",\n        \", these\",\n        \" are averages\",\n        \" over long\",\n        \" distances,\",\n        \" including gl\",\n        \"iding and\",\n        \" resting.\",\n        \" The actual\",\n        \" flapping\",\n        \" flight speed\",\n        \" might be\",\n        \" higher.\",\n        \" \\n\\nAlso\",\n        \", there\",\n        \"'s a\",\n        \" famous calculation\",\n        \" by someone\",\n        \" named Dr\",\n        \". Graham\",\n        \" Askew\",\n        \" from the\",\n        \" University of\",\n        \" Leeds,\",\n        \" who estimated\",\n        \" the air\",\n        \"speed velocity\",\n        \" of a\",\n        \" European swallow\",\n        \" to be\",\n        \" around \",\n        \"11 meters\",\n        \" per second\",\n        \". That\",\n        \"'s about\",\n        \" 24\",\n        \" mph or\",\n        \" 40\",\n        \" km/h\",\n        \". That\",\n        \" seems to\",\n        \" be the\",\n        \" commonly cited\",\n        \" figure in\",\n        \" popular culture\",\n        \". \\n\\n\",\n        \"But wait\",\n        \", another\",\n        \" source might\",\n        \" say that\",\n        \" swallows\",\n        \" can reach\",\n        \" higher speeds\",\n        \" when diving\",\n        \" or catching\",\n        \" prey.\",\n        \" For example\",\n        \", the\",\n        \" White-th\",\n        \"roated\",\n        \" Needlet\",\n        \"ail is\",\n        \" one of\",\n        \" the fastest\",\n        \" birds in\",\n        \" flapping\",\n        \" flight,\",\n        \" but that\",\n        \"'s a\",\n        \" different species\",\n        \". \\n\\n\",\n        \"So,\",\n        \" putting it\",\n        \" all together\",\n        \": if\",\n        \" the question\",\n        \" is about\",\n        \" the European\",\n        \" swallow,\",\n        \" the air\",\n        \"speed velocity\",\n        \" is approximately\",\n        \" 11\",\n        \" m/s\",\n        \", \",\n        \"24 mph\",\n        \", or \",\n        \"40 km/h\",\n        \". If it\",\n        \"'s the African\",\n        \" swallow, maybe\",\n        \" a bit faster\",\n        \", but there\",\n        \"'s less data\",\n        \". Since the\",\n        \" original joke is\",\n        \" about splitting hairs\",\n        \" between African and\",\n        \" European swallows\",\n        \", the answer\",\n        \" should probably mention\",\n        \" both possibilities and\",\n        \" the estimated speed\",\n        \" for the European\",\n        \" one, given\",\n        \" the available data\",\n        \". \\n\\nAlso\",\n        \", the user\",\n        \" might be expecting\",\n        \" a humorous answer\",\n        \" referencing the movie\",\n        \", but since\",\n        \" they asked for\",\n        \" the speed,\",\n        \" I should provide\",\n        \" a\",\n        \" factual\",\n        \" answer while\",\n        \" acknowledging the\",\n        \" Monty\",\n        \" Python reference\",\n        \". \\n\\n\",\n        \"So,\",\n        \" the final\",\n        \" answer would\",\n        \" state that\",\n        \" the airspeed\",\n        \" velocity of\",\n        \" an unladen\",\n        \" European swallow\",\n        \" is about\",\n        \" 11\",\n        \" meters per\",\n        \" second or \",\n        \"24 miles\",\n        \" per hour\",\n        \", and\",\n        \" note that\",\n        \" the African\",\n        \" swallow's\",\n        \" speed is\",\n        \" less documented but\",\n        \" might be\",\n        \" similar or\",\n        \" slightly higher\",\n        \". Also\",\n        \", mention\",\n        \" that this\",\n        \" is a\",\n        \" reference to Mont\",\n        \"y Python\",\n        \"'s classic question\",\n        \".\\n</think>\",\n        \"\\n\\nThe\",\n        \" question \\\"\",\n        \"What is the\",\n        \" speed of\",\n        \" an unl\",\n        \"aden swallow\",\n        \"?\\\" is\",\n        \" famously inspired by\",\n        \" *Monty\",\n        \" Python and\",\n        \" the Holy\",\n        \" Grail\",\n        \"*. To\",\n        \" answer it\",\n        \" seriously,\",\n        \" we must\",\n        \" distinguish between\",\n        \" the **European\",\n        \" swallow**\",\n        \" (likely the\",\n        \" Barn Sw\",\n        \"allow,\",\n        \" *Hir\",\n        \"undo rust\",\n        \"ica*) and\",\n        \" the **\",\n        \"African swallow\",\n        \"** (a\",\n        \" less-specific\",\n        \" reference,\",\n        \" possibly a larger\",\n        \" species like\",\n        \" the African\",\n        \" River Martin\",\n        \"). Here's\",\n        \" the breakdown\",\n        \":\\n\\n1.\",\n        \" **European Sw\",\n        \"allow**:\",\n        \"  \\n   -\",\n        \" Estimated **airs\",\n        \"peed velocity\",\n        \"** (speed\",\n        \" through still\",\n        \" air)\",\n        \" is **\",\n        \"~11\",\n        \" meters per second\",\n        \" (40\",\n        \" km/h\",\n        \" or \",\n        \"25 mph)**\",\n        \".  \\n  \",\n        \" - This\",\n        \" figure comes from\",\n        \" biomechanical studies\",\n        \" and accounts\",\n        \" for sustained\",\n        \" flight during\",\n        \" migration.  \\n\\n\",\n        \"2. **\",\n        \"African Sw\",\n        \"allow**:\",\n        \"  \\n  \",\n        \" - Less\",\n        \" documented,\",\n        \" but if larger\",\n        \", it\",\n        \" *might*\",\n        \" fly slightly\",\n        \" faster.\",\n        \" However, no\",\n        \" definitive data\",\n        \" exists, and\",\n        \" the movie’\",\n        \"s joke\",\n        \" hinges on\",\n        \" the absurdity\",\n        \" of debating such\",\n        \" specifics.  \\n\\n\",\n        \"**Key\",\n        \" Context**:\",\n        \"  \\n- The\",\n        \" Monty\",\n        \" Python scene\",\n        \" humorously\",\n        \" highlights medieval scholars\",\n        \"' tendency to\",\n        \" overanaly\",\n        \"ze trivialities\",\n        \".  \\n-\",\n        \" Real-world\",\n        \" swallow speeds vary\",\n        \" based on behavior\",\n        \" (e.g\",\n        \"., hunting\",\n        \" vs.\",\n        \" migrating)\",\n        \" and wind conditions\",\n        \".  \\n\\nSo\",\n        \", while\",\n        \" the European swallow\",\n        \"’s speed\",\n        \" is **\",\n        \"~24 mph\",\n        \" (40\",\n        \" km/h\",\n        \")\",\n        \"**,\",\n        \" the African swallow remains a\",\n        \" mystery—much\",\n        \" like the\",\n        \" coconut-l\",\n        \"aden logistics\",\n        \" debated in\",\n        \" the film\",\n        \".\",\n        \" 🐦\",\n        \"\"\n    ],\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"succeeded\",\n    \"created_at\": \"2025-02-01T20:53:17.653Z\",\n    \"started_at\": \"2025-02-01T20:53:17.659830901Z\",\n    \"completed_at\": \"2025-02-01T20:53:51.021160209Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/0x2k9n8ctnrme0cmrd59zdfk2g/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/0x2k9n8ctnrme0cmrd59zdfk2g\",\n        \"stream\": \"https://stream-g.svc.ric1.c.replicate.net/v1/streams/fs44tyigney3u4ei44fqrhts4fh2hdcsmp4q2hebdirkk45f27hq\"\n    },\n    \"metrics\": {\n        \"input_token_count\": 10,\n        \"output_token_count\": 1145,\n        \"predict_time\": 33.361329307,\n        \"time_to_first_token\": 0.001501831,\n        \"tokens_per_second\": 34.32271946921024\n    },\n    \"stream\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "ibm-granite/granite-3.2-8b-instruct",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.id', jsonResponse.id)"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\t\"stream\": true,\r\n\t\"input\": {\r\n        \"prompt\": \"What is the speed of an unladen swallow?\"\r\n\t}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/models/ibm-granite/granite-3.2-8b-instruct/predictions",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "models",
+                "ibm-granite",
+                "granite-3.2-8b-instruct",
+                "predictions"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n\t\"stream\": true,\r\n\t\"input\": {\r\n        \"prompt\": \"What is the speed of an unladen swallow?\"\r\n\t}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models/ibm-granite/granite-3.2-8b-instruct/predictions",
+                  "host": ["{{baseUrl}}"],
+                  "path": [
+                    "models",
+                    "ibm-granite",
+                    "granite-3.2-8b-instruct",
+                    "predictions"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Tue, 04 Mar 2025 04:39:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "583"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "91aeb1568a077b09-DEN"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 google"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "9"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=vARkaX792XaVGDuLP3TZX58UkSxspQXzfXx1gZOWZ7YvBOZVwOPheLt%2FvUaiXKEG7cbUTW1A%2B3BIA%2F1alLiycbBjsTzgnjAqsQ2YGN6stHf%2BqDNxF0lhq%2FfUzjCXV3LIBgCx\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "expect-ct",
+                  "value": "max-age=86400, enforce"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=49349&min_rtt=45985&rtt_var=14995&sent=100&recv=92&lost=0&retrans=3&sent_bytes=11878&recv_bytes=2618&delivery_rate=63498&cwnd=36&unsent_bytes=0&cid=8d1789d9a33134ee&ts=85429&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"mddpgr0jgdrma0cnbxtan913rg\",\n    \"model\": \"ibm-granite/granite-3.2-8b-instruct\",\n    \"version\": \"hidden\",\n    \"input\": {\n        \"prompt\": \"What is the speed of an unladen swallow?\"\n    },\n    \"logs\": \"\",\n    \"output\": null,\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"starting\",\n    \"created_at\": \"2025-03-04T04:39:57.315Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/mddpgr0jgdrma0cnbxtan913rg/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/mddpgr0jgdrma0cnbxtan913rg\",\n        \"stream\": \"https://stream-b.svc.ric1.c.replicate.net/v1/streams/dzd4rnax3wch4fikoe5n3l4agol3xjlcpiukwlbfyn663gc7edka\"\n    },\n    \"stream\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "ibm-granite/granite-3.2-8b-instruct",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+              "protocol": "https",
+              "host": ["api", "replicate", "com"],
+              "path": ["v1", "predictions", ":prediction_id"],
+              "variable": [
+                {
+                  "key": "prediction_id",
+                  "value": "{{temp.id}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+                  "protocol": "https",
+                  "host": ["api", "replicate", "com"],
+                  "path": ["v1", "predictions", ":prediction_id"],
+                  "variable": [
+                    {
+                      "key": "prediction_id",
+                      "value": "{{temp.id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Tue, 04 Mar 2025 04:40:13 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "59999"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "via",
+                  "value": "1.1 google"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=u7%2B8QBw6OTF2haCHBuNGdPw3scA6Nf%2BpI3qyi971%2FlGfFKY%2FIm9noft5AxL%2FKMx5d8R69iX9womPyj1YDNsElYcTuo75W0GQraHKCxqJMv5uXgYqzabgkSUX6TSKREreNT0v\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "expect-ct",
+                  "value": "max-age=86400, enforce"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "91aeb1baccc37b09-DEN"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=48785&min_rtt=44558&rtt_var=12375&sent=118&recv=109&lost=0&retrans=3&sent_bytes=13601&recv_bytes=2974&delivery_rate=65127&cwnd=36&unsent_bytes=0&cid=8d1789d9a33134ee&ts=101412&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"mddpgr0jgdrma0cnbxtan913rg\",\n    \"model\": \"ibm-granite/granite-3.2-8b-instruct\",\n    \"version\": \"hidden\",\n    \"input\": {\n        \"prompt\": \"What is the speed of an unladen swallow?\"\n    },\n    \"logs\": \"INFO:     ::1:34102 - \\\"POST /v1/chat/completions HTTP/1.1\\\" 200 OK\\nGeneration took 1.01sFormatted prompt: What is the speed of an unladen swallow?\",\n    \"output\": [\n        \"\",\n        \"The\",\n        \" phrase\",\n        \" \\\"\",\n        \"an\",\n        \" un\",\n        \"lad\",\n        \"en\",\n        \" sw\",\n        \"allow\",\n        \"\\\"\",\n        \" is\",\n        \" actually\",\n        \" a\",\n        \" reference\",\n        \" from\",\n        \" the\",\n        \" movie\",\n        \" \\\"\",\n        \"Mont\",\n        \"y\",\n        \" Python\",\n        \" and\",\n        \" the\",\n        \" H\",\n        \"oly\",\n        \" Gr\",\n        \"ail\",\n        \".\\\"\",\n        \" In\",\n        \" reality\",\n        \",\",\n        \" the\",\n        \" speed\",\n        \" of\",\n        \" a\",\n        \" European\",\n        \" Sw\",\n        \"allow\",\n        \" (\",\n        \"H\",\n        \"ir\",\n        \"undo\",\n        \" rust\",\n        \"ica\",\n        \")\",\n        \" can\",\n        \" vary\",\n        \",\",\n        \" but\",\n        \" it\",\n        \"'s\",\n        \" estimated\",\n        \" to\",\n        \" be\",\n        \" around\",\n        \" \",\n        \"1\",\n        \"1\",\n        \" meters\",\n        \" per\",\n        \" second\",\n        \",\",\n        \" or\",\n        \" about\",\n        \" \",\n        \"4\",\n        \"0\",\n        \" k\",\n        \"ilo\",\n        \"meters\",\n        \" per\",\n        \" hour\",\n        \" (\",\n        \"2\",\n        \"5\",\n        \" m\",\n        \"iles\",\n        \" per\",\n        \" hour\",\n        \")\",\n        \" during\",\n        \" level\",\n        \" flight\",\n        \".\",\n        \" However\",\n        \",\",\n        \" this\",\n        \" can\",\n        \" change\",\n        \" based\",\n        \" on\",\n        \" factors\",\n        \" like\",\n        \" wind\",\n        \" conditions\",\n        \",\",\n        \" the\",\n        \" bird\",\n        \"'s\",\n        \" health\",\n        \",\",\n        \" and\",\n        \" whether\",\n        \" it\",\n        \"'s\",\n        \" migr\",\n        \"ating\",\n        \" or\",\n        \" not\",\n        \".\",\n        \" For\",\n        \" A\",\n        \"fr\",\n        \"ican\",\n        \" Sw\",\n        \"allows\",\n        \",\",\n        \" the\",\n        \" data\",\n        \" is\",\n        \" less\",\n        \" clear\",\n        \" as\",\n        \" they\",\n        \"'ve\",\n        \" been\",\n        \" less\",\n        \" stud\",\n        \"ied\",\n        \".\",\n        \"\"\n    ],\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"succeeded\",\n    \"created_at\": \"2025-03-04T04:39:57.315Z\",\n    \"started_at\": \"2025-03-04T04:39:57.319092906Z\",\n    \"completed_at\": \"2025-03-04T04:39:58.336429464Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/mddpgr0jgdrma0cnbxtan913rg/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/mddpgr0jgdrma0cnbxtan913rg\",\n        \"stream\": \"https://stream-b.svc.ric1.c.replicate.net/v1/streams/dzd4rnax3wch4fikoe5n3l4agol3xjlcpiukwlbfyn663gc7edka\"\n    },\n    \"metrics\": {\n        \"batch_size\": 1.000362784095407,\n        \"input_token_count\": 11,\n        \"output_token_count\": 132,\n        \"predict_time\": 1.017336558,\n        \"predict_time_share\": 1.0161373615264893,\n        \"time_to_first_token\": 0.00694859,\n        \"tokens_per_second\": 130.64288588202982\n    },\n    \"stream\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "ibm-granite/granite-vision-3.2-2b",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.id', jsonResponse.id)"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"stream\": true,\r\n    \"input\": {\r\n        \"image\": \"https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg\",\r\n        \"prompt\": \"Describe this image\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/models/ibm-granite/granite-vision-3.2-2b/predictions",
+              "host": ["{{baseUrl}}"],
+              "path": ["models", "ibm-granite", "granite-vision-3.2-2b", "predictions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"stream\": true,\r\n    \"input\": {\r\n        \"image\": \"https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg\",\r\n        \"prompt\": \"Describe this image\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models/ibm-granite/granite-vision-3.2-2b/predictions",
+                  "host": ["{{baseUrl}}"],
+                  "path": [
+                    "models",
+                    "ibm-granite",
+                    "granite-vision-3.2-2b",
+                    "predictions"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Tue, 04 Mar 2025 04:43:29 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "639"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "91aeb685cdb0a916-DFW"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "Via",
+                  "value": "1.1 google"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "9"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=kW4utWfcHaU%2F5SSw0NDglJa5fIEKosHt6QfH2ou0ed3aliGo8wUVKWxH8IFIjioH2VlAM5wOD7YpAPJ67%2BsTuTcVjtB8cyeG24uGI0xJISL0tXmi5mU86B4bT3qTKPK5XXA2\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "expect-ct",
+                  "value": "max-age=86400, enforce"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=45606&min_rtt=43369&rtt_var=13526&sent=101&recv=96&lost=0&retrans=3&sent_bytes=11989&recv_bytes=3108&delivery_rate=67329&cwnd=38&unsent_bytes=0&cid=215657a8571818ae&ts=91236&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"webmn9tgr9rm80cnbxvv24m3xm\",\n    \"model\": \"ibm-granite/granite-vision-3.2-2b\",\n    \"version\": \"hidden\",\n    \"input\": {\n        \"image\": \"https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg\",\n        \"prompt\": \"Describe this image\"\n    },\n    \"logs\": \"\",\n    \"output\": null,\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"starting\",\n    \"created_at\": \"2025-03-04T04:43:29.858Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/webmn9tgr9rm80cnbxvv24m3xm/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/webmn9tgr9rm80cnbxvv24m3xm\",\n        \"stream\": \"https://stream-b.svc.ric1.c.replicate.net/v1/streams/xiev6ezpv7hvufcjilqzuj5fwl5ovqzs2outg7m7bcawt5pdgkmq\"\n    },\n    \"stream\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "ibm-granite/granite-vision-3.2-2b",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+              "protocol": "https",
+              "host": ["api", "replicate", "com"],
+              "path": ["v1", "predictions", ":prediction_id"],
+              "variable": [
+                {
+                  "key": "prediction_id",
+                  "value": "{{temp.id}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+                  "protocol": "https",
+                  "host": ["api", "replicate", "com"],
+                  "path": ["v1", "predictions", ":prediction_id"],
+                  "variable": [
+                    {
+                      "key": "prediction_id",
+                      "value": "{{temp.id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Tue, 04 Mar 2025 04:43:47 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "59999"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "via",
+                  "value": "1.1 google"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=W326DzN657JR7LATiJU8ti3xIE7kRGUFT%2FPjcyrBV1CbMdNkjN4iTIq%2BSZCXwL%2F6058kKEl43DzTvFrMBHL8ZWBcuaGuy5GhIXcJVVTbF8qDiDW1WN2hDC8ySdo7NqPgDfKk\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "expect-ct",
+                  "value": "max-age=86400, enforce"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "1; mode=block"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "91aeb6f78b48a916-DFW"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=51901&min_rtt=43369&rtt_var=22734&sent=120&recv=114&lost=0&retrans=3&sent_bytes=13762&recv_bytes=3464&delivery_rate=67329&cwnd=38&unsent_bytes=0&cid=215657a8571818ae&ts=109200&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"webmn9tgr9rm80cnbxvv24m3xm\",\n    \"model\": \"ibm-granite/granite-vision-3.2-2b\",\n    \"version\": \"hidden\",\n    \"input\": {\n        \"image\": \"https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg\",\n        \"prompt\": \"Describe this image\"\n    },\n    \"logs\": \"INFO:     127.0.0.1:59356 - \\\"POST /v1/chat/completions HTTP/1.1\\\" 200 OK\\nINFO 03-04 04:43:30 metrics.py:455] Avg prompt throughput: 1418.9 tokens/s, Avg generation throughput: 14.6 tokens/s, Running: 1 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.5%, CPU KV cache usage: 0.0%.\\nGeneration took 2.79sFormatted prompt: Describe this image\",\n    \"output\": [\n        \"\",\n        \"The\",\n        \" image\",\n        \" de\",\n        \"pict\",\n        \"s\",\n        \" a\",\n        \" detailed\",\n        \" view\",\n        \" of\",\n        \" the\",\n        \" Mo\",\n        \"on\",\n        \" from\",\n        \" a\",\n        \" perspective\",\n        \" that\",\n        \" highlight\",\n        \"s\",\n        \" its\",\n        \" surface\",\n        \" features\",\n        \".\",\n        \" The\",\n        \" Mo\",\n        \"on\",\n        \" is\",\n        \" shown\",\n        \" against\",\n        \" a\",\n        \" completely\",\n        \" black\",\n        \" background\",\n        \",\",\n        \" which\",\n        \" emp\",\n        \"has\",\n        \"izes\",\n        \" its\",\n        \" l\",\n        \"un\",\n        \"ar\",\n        \" surface\",\n        \" characteristics\",\n        \".\",\n        \" \\n\",\n        \"\\n\",\n        \"###\",\n        \" D\",\n        \"eta\",\n        \"iled\",\n        \" Description\",\n        \":\",\n        \"\\n\",\n        \"\\n\",\n        \"1\",\n        \".\",\n        \" **\",\n        \"Shape\",\n        \" and\",\n        \" Structure\",\n        \"**:\",\n        \"\\n  \",\n        \" -\",\n        \" The\",\n        \" Mo\",\n        \"on\",\n        \" is\",\n        \" round\",\n        \" in\",\n        \" shape\",\n        \",\",\n        \" a\",\n        \" common\",\n        \" characteristic\",\n        \" of\",\n        \" cele\",\n        \"st\",\n        \"ial\",\n        \" bodies\",\n        \" in\",\n        \" our\",\n        \" solar\",\n        \" system\",\n        \".\",\n        \"\\n  \",\n        \" -\",\n        \" The\",\n        \" surface\",\n        \" is\",\n        \" covered\",\n        \" in\",\n        \" a\",\n        \" variety\",\n        \" of\",\n        \" textures\",\n        \" and\",\n        \" patterns\",\n        \",\",\n        \" indic\",\n        \"ative\",\n        \" of\",\n        \" its\",\n        \" div\",\n        \"erse\",\n        \" geo\",\n        \"logical\",\n        \" history\",\n        \".\",\n        \"\\n\",\n        \"\\n\",\n        \"2\",\n        \".\",\n        \" **\",\n        \"L\",\n        \"un\",\n        \"ar\",\n        \" Surface\",\n        \" Features\",\n        \"**:\",\n        \"\\n  \",\n        \" -\",\n        \" **\",\n        \"Cr\",\n        \"aters\",\n        \"**:\",\n        \" The\",\n        \" Mo\",\n        \"on\",\n        \"'s\",\n        \" surface\",\n        \" is\",\n        \" marked\",\n        \" by\",\n        \" numero\",\n        \"us\",\n        \" cr\",\n        \"aters\",\n        \" of\",\n        \" varying\",\n        \" sizes\",\n        \".\",\n        \" These\",\n        \" cr\",\n        \"aters\",\n        \" are\",\n        \" formed\",\n        \" by\",\n        \" impact\",\n        \"s\",\n        \" from\",\n        \" aster\",\n        \"oids\",\n        \",\",\n        \" come\",\n        \"ts\",\n        \",\",\n        \" and\",\n        \" other\",\n        \" cele\",\n        \"st\",\n        \"ial\",\n        \" bodies\",\n        \".\",\n        \"\\n  \",\n        \" -\",\n        \" **\",\n        \"Mount\",\n        \"ains\",\n        \" and\",\n        \" Val\",\n        \"les\",\n        \"**:\",\n        \" There\",\n        \" are\",\n        \" visible\",\n        \" mount\",\n        \"ain\",\n        \" ranges\",\n        \" and\",\n        \" deep\",\n        \" val\",\n        \"le\",\n        \"ys\",\n        \" on\",\n        \" the\",\n        \" Mo\",\n        \"on\",\n        \",\",\n        \" such\",\n        \" as\",\n        \" the\",\n        \" A\",\n        \"pen\",\n        \"n\",\n        \"ine\",\n        \" Mount\",\n        \"ains\",\n        \" and\",\n        \" the\",\n        \" Se\",\n        \"a\",\n        \" of\",\n        \" Tran\",\n        \"qu\",\n        \"ility\",\n        \".\",\n        \" These\",\n        \" geo\",\n        \"logical\",\n        \" features\",\n        \" suggest\",\n        \" a\",\n        \" history\",\n        \" of\",\n        \" t\",\n        \"ect\",\n        \"onic\",\n        \" activity\",\n        \" and\",\n        \" vol\",\n        \"can\",\n        \"ic\",\n        \" activity\",\n        \".\",\n        \"\\n  \",\n        \" -\",\n        \" **\",\n        \"High\",\n        \"lands\",\n        \" and\",\n        \" Pl\",\n        \"ains\",\n        \"**:\",\n        \" The\",\n        \" high\",\n        \"lands\",\n        \" of\",\n        \" the\",\n        \" Mo\",\n        \"on\",\n        \" are\",\n        \" character\",\n        \"ized\",\n        \" by\",\n        \" r\",\n        \"ug\",\n        \"ged\",\n        \" terrain\",\n        \",\",\n        \" while\",\n        \" the\",\n        \" pl\",\n        \"ains\",\n        \" are\",\n        \" relatively\",\n        \" flat\",\n        \".\",\n        \"\\n  \",\n        \" -\",\n        \" **\",\n        \"Dark\",\n        \" Sp\",\n        \"ots\",\n        \"**:\",\n        \" Some\",\n        \" of\",\n        \" the\",\n        \" cr\",\n        \"aters\",\n        \" are\",\n        \" filled\",\n        \" with\",\n        \" dark\",\n        \" material\",\n        \",\",\n        \" possibly\",\n        \" indicating\",\n        \" the\",\n        \" presence\",\n        \" of\",\n        \" bas\",\n        \"alt\",\n        \"ic\",\n        \" ro\",\n        \"cks\",\n        \" or\",\n        \" vol\",\n        \"can\",\n        \"ic\",\n        \" as\",\n        \"h\",\n        \".\",\n        \"\\n\",\n        \"\\n\",\n        \"3\",\n        \".\",\n        \" **\",\n        \"L\",\n        \"un\",\n        \"ar\",\n        \" Mar\",\n        \"ia\",\n        \"**:\",\n        \"\\n  \",\n        \" -\",\n        \" **\",\n        \"Central\",\n        \" Pe\",\n        \"ak\",\n        \"**:\",\n        \" The\",\n        \" central\",\n        \" peak\",\n        \" of\",\n        \" the\",\n        \" Mo\",\n        \"on\",\n        \",\",\n        \" known\",\n        \" as\",\n        \" the\",\n        \" A\",\n        \"pen\",\n        \"n\",\n        \"ine\",\n        \" Mount\",\n        \"ains\",\n        \",\",\n        \" stands\",\n        \" out\",\n        \" prom\",\n        \"in\",\n        \"ently\",\n        \".\",\n        \" This\",\n        \" mount\",\n        \"ain\",\n        \" range\",\n        \" is\",\n        \" one\",\n        \" of\",\n        \" the\",\n        \" most\",\n        \" prom\",\n        \"inent\",\n        \" features\",\n        \" on\",\n        \" the\",\n        \" Mo\",\n        \"on\",\n        \".\",\n        \"\\n  \",\n        \" -\",\n        \" **\",\n        \"Dark\",\n        \"er\",\n        \" Are\",\n        \"as\",\n        \"**:\",\n        \" Some\",\n        \" areas\",\n        \" on\",\n        \" the\",\n        \" Mo\",\n        \"on\",\n        \" appear\",\n        \" dark\",\n        \"er\",\n        \" than\",\n        \" others\",\n        \",\",\n        \" possibly\",\n        \" due\",\n        \" to\",\n        \" differences\",\n        \" in\",\n        \" the\",\n        \" composition\",\n        \" of\",\n        \" the\",\n        \" l\",\n        \"un\",\n        \"ar\",\n        \" surface\",\n        \".\",\n        \"\\n\",\n        \"\\n\",\n        \"4\",\n        \".\",\n        \" **\",\n        \"Lighting\",\n        \" and\",\n        \" Shadow\",\n        \"s\",\n        \"**:\",\n        \"\\n  \",\n        \" -\",\n        \" The\",\n        \" light\",\n        \"ing\",\n        \" in\",\n        \" the\",\n        \" image\",\n        \" appears\",\n        \" to\",\n        \" be\",\n        \" natural\",\n        \",\",\n        \" coming\",\n        \" from\",\n        \" the\",\n        \" Sun\",\n        \",\",\n        \" which\",\n        \" is\",\n        \" not\",\n        \" visible\",\n        \" in\",\n        \" the\",\n        \" image\",\n        \".\",\n        \"\\n  \",\n        \" -\",\n        \" Shadow\",\n        \"s\",\n        \" are\",\n        \" cast\",\n        \" on\",\n        \" the\",\n        \" Mo\",\n        \"on\",\n        \"'s\",\n        \" surface\",\n        \",\",\n        \" reveal\",\n        \"ing\",\n        \" the\",\n        \" to\",\n        \"pography\",\n        \" and\",\n        \" cont\",\n        \"ours\",\n        \" of\",\n        \" the\",\n        \" landscape\",\n        \".\",\n        \"\\n\",\n        \"\\n\",\n        \"5\",\n        \".\",\n        \" **\",\n        \"Scale\",\n        \"**:\",\n        \"\\n  \",\n        \" -\",\n        \" The\",\n        \" Mo\",\n        \"on\",\n        \"'s\",\n        \" size\",\n        \" relative\",\n        \" to\",\n        \" the\",\n        \" image\",\n        \" frame\",\n        \" indicates\",\n        \" that\",\n        \" it\",\n        \" is\",\n        \" a\",\n        \" large\",\n        \" cele\",\n        \"st\",\n        \"ial\",\n        \" body\",\n        \".\",\n        \" It\",\n        \" appears\",\n        \" to\",\n        \" be\",\n        \" about\",\n        \" one\",\n        \"-\",\n        \"six\",\n        \"th\",\n        \" the\",\n        \" diameter\",\n        \" of\",\n        \" Earth\",\n        \".\",\n        \"\\n\",\n        \"\\n\",\n        \"###\",\n        \" Analysis\",\n        \":\",\n        \"\\n\",\n        \"\\n\",\n        \"-\",\n        \" **\",\n        \"Geo\",\n        \"logical\",\n        \" Activity\",\n        \"**:\",\n        \" The\",\n        \" presence\",\n        \" of\",\n        \" cr\",\n        \"aters\",\n        \" and\",\n        \" mount\",\n        \"ains\",\n        \" suggests\"\n    ],\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"succeeded\",\n    \"created_at\": \"2025-03-04T04:43:29.858Z\",\n    \"started_at\": \"2025-03-04T04:43:29.87496793Z\",\n    \"completed_at\": \"2025-03-04T04:43:33.071073016Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/webmn9tgr9rm80cnbxvv24m3xm/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/webmn9tgr9rm80cnbxvv24m3xm\",\n        \"stream\": \"https://stream-b.svc.ric1.c.replicate.net/v1/streams/xiev6ezpv7hvufcjilqzuj5fwl5ovqzs2outg7m7bcawt5pdgkmq\"\n    },\n    \"metrics\": {\n        \"batch_size\": 2.2906315319385655,\n        \"input_token_count\": 4,\n        \"output_token_count\": 513,\n        \"predict_time\": 3.196105082,\n        \"predict_time_share\": 1.3946022987365723,\n        \"time_to_first_token\": 0.481498809,\n        \"tokens_per_second\": 188.97768162639179\n    },\n    \"stream\": true\n}"
+            }
+          ]
+        },
+        {
+          "name": "meta/meta-llama-3.1-405b-instruct",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.id', jsonResponse.id)"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"input\": {\r\n        \"top_p\": 0.9,\r\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\r\n        \"max_tokens\": 512,\r\n        \"min_tokens\": 0,\r\n        \"temperature\": 0.6,\r\n        \"prompt_template\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\r\n        \"presence_penalty\": 1.15,\r\n        \"frequency_penalty\": 0.2\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/models/meta/meta-llama-3.1-405b-instruct/predictions",
+              "host": ["{{baseUrl}}"],
+              "path": ["models", "meta", "meta-llama-3.1-405b-instruct", "predictions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"input\": {\r\n        \"top_p\": 0.9,\r\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\r\n        \"max_tokens\": 512,\r\n        \"min_tokens\": 0,\r\n        \"temperature\": 0.6,\r\n        \"prompt_template\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\r\n        \"presence_penalty\": 1.15,\r\n        \"frequency_penalty\": 0.2\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models/meta/meta-llama-3.1-405b-instruct/predictions",
+                  "host": ["{{baseUrl}}"],
+                  "path": [
+                    "models",
+                    "meta",
+                    "meta-llama-3.1-405b-instruct",
+                    "predictions"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:54:50 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "90b4d6c3dae0f7b7-LAX"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "599"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=v1YFvNu9Yg6dDe3HW8LOotzTx%2BHgq57GkLe3WYLqD0BpgS86l4ibrb5ArhzavuO6RjdJCYYxY21TMfgerg0mRRVvMd8WnkTNyYUSlVeZDE27b9uknym7Y6h4lRC%2Ft1ub8GtH\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=17314&min_rtt=13667&rtt_var=6920&sent=225&recv=203&lost=0&retrans=6&sent_bytes=30864&recv_bytes=4204&delivery_rate=426028&cwnd=218&unsent_bytes=0&cid=780d511f9e22958f&ts=191963&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"18cs5gkpzsrj20cmrd5rgf4gdw\",\n    \"model\": \"meta/meta-llama-3.1-405b-instruct\",\n    \"version\": \"dp-15774013d14946f29410db2d360a1a6b\",\n    \"input\": {\n        \"frequency_penalty\": 0.2,\n        \"max_tokens\": 512,\n        \"min_tokens\": 0,\n        \"presence_penalty\": 1.15,\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\n        \"prompt_template\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\n        \"temperature\": 0.6,\n        \"top_p\": 0.9\n    },\n    \"logs\": \"\",\n    \"output\": null,\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"starting\",\n    \"created_at\": \"2025-02-01T20:54:50.366Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/18cs5gkpzsrj20cmrd5rgf4gdw/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/18cs5gkpzsrj20cmrd5rgf4gdw\",\n        \"stream\": \"https://stream-g.svc.rno2.c.replicate.net/v1/streams/lfsxezi4yt5m2z6spihrisvqhh4oaigixmmvvfpmcax33qixvuxa\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "meta/meta-llama-3.1-405b-instruct",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+              "protocol": "https",
+              "host": ["api", "replicate", "com"],
+              "path": ["v1", "predictions", ":prediction_id"],
+              "variable": [
+                {
+                  "key": "prediction_id",
+                  "value": "{{temp.id}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+                  "protocol": "https",
+                  "host": ["api", "replicate", "com"],
+                  "path": ["v1", "predictions", ":prediction_id"],
+                  "variable": [
+                    {
+                      "key": "prediction_id",
+                      "value": "{{temp.id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:55:50 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "59999"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=wPaTBKOOvY9m9IZwiOPWjPDXzxfdxOjhBcYPoFHxsI1JuBz1uCLJRhT0%2FlvhR2s%2FmujhKSyOWm%2Fzr7ue4ksF57eqTm00Um%2BFXU7Hfq2v5XiN0cK255VHCsoFFvPKhDQpaCyb\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "90b4d83bc977f7d7-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=16310&min_rtt=15832&rtt_var=6893&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2817&recv_bytes=680&delivery_rate=148547&cwnd=145&unsent_bytes=0&cid=f5081ce407adfefd&ts=165&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"18cs5gkpzsrj20cmrd5rgf4gdw\",\n    \"model\": \"meta/meta-llama-3.1-405b-instruct\",\n    \"version\": \"dp-15774013d14946f29410db2d360a1a6b\",\n    \"input\": {\n        \"frequency_penalty\": 0.2,\n        \"max_tokens\": 512,\n        \"min_tokens\": 0,\n        \"presence_penalty\": 1.15,\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\n        \"prompt_template\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\n        \"temperature\": 0.6,\n        \"top_p\": 0.9\n    },\n    \"logs\": \"INFO 02-01 20:54:50 async_llm_engine.py:173] Added request 5fa3a1a3959a4eb081506cf7260294a6.\\nINFO 02-01 20:54:50 metrics.py:406] Avg prompt throughput: 3.1 tokens/s, Avg generation throughput: 1.8 tokens/s, Running: 1 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.1%, CPU KV cache usage: 0.0%.\\nINFO 02-01 20:54:55 metrics.py:406] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 19.3 tokens/s, Running: 1 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.2%, CPU KV cache usage: 0.0%.\\nGeneration took 1738442608.03sFormatted prompt: <|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\nWork through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\n    \"output\": [\n        \"Let\",\n        \"'s\",\n        \" work\",\n        \" through\",\n        \" this\",\n        \" problem\",\n        \" step\",\n        \" by\",\n        \" step\",\n        \".\\n\\n\",\n        \"**\",\n        \"Step\",\n        \" \",\n        \"1\",\n        \":\",\n        \" Identify\",\n        \" the\",\n        \" initial\",\n        \" number\",\n        \" of\",\n        \" ll\",\n        \"amas\",\n        \" Sarah\",\n        \" has\",\n        \".\",\n        \"**\\n\",\n        \"Sarah\",\n        \" starts\",\n        \" with\",\n        \" \",\n        \"7\",\n        \" ll\",\n        \"amas\",\n        \".\\n\\n\",\n        \"**\",\n        \"Step\",\n        \" \",\n        \"2\",\n        \":\",\n        \" Determine\",\n        \" how\",\n        \" many\",\n        \" new\",\n        \" ll\",\n        \"amas\",\n        \" Sarah\",\n        \" receives\",\n        \" from\",\n        \" her\",\n        \" friend\",\n        \".\",\n        \"**\\n\",\n        \"Her\",\n        \" friend\",\n        \" gives\",\n        \" her\",\n        \" \",\n        \"3\",\n        \" trucks\",\n        \" of\",\n        \" ll\",\n        \"amas\",\n        \",\",\n        \" and\",\n        \" each\",\n        \" truck\",\n        \" has\",\n        \" \",\n        \"5\",\n        \" ll\",\n        \"amas\",\n        \".\",\n        \" To\",\n        \" find\",\n        \" the\",\n        \" total\",\n        \" number\",\n        \" of\",\n        \" new\",\n        \" ll\",\n        \"amas\",\n        \",\",\n        \" we\",\n        \" multiply\",\n        \" the\",\n        \" number\",\n        \" of\",\n        \" trucks\",\n        \" by\",\n        \" the\",\n        \" number\",\n        \" of\",\n        \" ll\",\n        \"amas\",\n        \" per\",\n        \" truck\",\n        \":\\n\\n\",\n        \"3\",\n        \" trucks\",\n        \" x\",\n        \" \",\n        \"5\",\n        \" ll\",\n        \"amas\",\n        \"/tr\",\n        \"uck\",\n        \" =\",\n        \" \",\n        \"15\",\n        \" ll\",\n        \"amas\",\n        \"\\n\\n\",\n        \"So\",\n        \",\",\n        \" Sarah\",\n        \" receives\",\n        \" \",\n        \"15\",\n        \" new\",\n        \" ll\",\n        \"amas\",\n        \".\\n\\n\",\n        \"**\",\n        \"Step\",\n        \" \",\n        \"3\",\n        \":\",\n        \" Add\",\n        \" the\",\n        \" new\",\n        \" ll\",\n        \"amas\",\n        \" to\",\n        \" the\",\n        \" initial\",\n        \" number\",\n        \" of\",\n        \" ll\",\n        \"amas\",\n        \".\",\n        \"**\\n\",\n        \"To\",\n        \" find\",\n        \" the\",\n        \" total\",\n        \" number\",\n        \" of\",\n        \" ll\",\n        \"amas\",\n        \" Sarah\",\n        \" has\",\n        \" now\",\n        \",\",\n        \" we\",\n        \" add\",\n        \" the\",\n        \" initial\",\n        \" number\",\n        \" (\",\n        \"7\",\n        \")\",\n        \" to\",\n        \" the\",\n        \" new\",\n        \" number\",\n        \" (\",\n        \"15\",\n        \"):\\n\\n\",\n        \"7\",\n        \" +\",\n        \" \",\n        \"15\",\n        \" =\",\n        \" \",\n        \"22\",\n        \"\\n\\n\",\n        \"**\",\n        \"Answer\",\n        \":**\",\n        \" Sarah\",\n        \" now\",\n        \" has\",\n        \" a\",\n        \" total\",\n        \" of\",\n        \" \",\n        \"22\",\n        \" ll\",\n        \"amas\",\n        \"!\",\n        \"\"\n    ],\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"succeeded\",\n    \"created_at\": \"2025-02-01T20:54:50.366Z\",\n    \"started_at\": \"2025-02-01T20:54:50.370382256Z\",\n    \"completed_at\": \"2025-02-01T20:55:01.032780729Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/18cs5gkpzsrj20cmrd5rgf4gdw/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/18cs5gkpzsrj20cmrd5rgf4gdw\",\n        \"stream\": \"https://stream-g.svc.rno2.c.replicate.net/v1/streams/lfsxezi4yt5m2z6spihrisvqhh4oaigixmmvvfpmcax33qixvuxa\"\n    },\n    \"metrics\": {\n        \"batch_size\": 61.249313094138685,\n        \"input_token_count\": 54,\n        \"output_token_count\": 191,\n        \"predict_time\": 10.662398483,\n        \"predict_time_share\": 0.17405287441534065,\n        \"time_to_first_token\": 0.002307282,\n        \"tokens_per_second\": 17.91729511489383\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "meta/meta-llama-3-70b-instruct",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.id', jsonResponse.id)"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"input\": {\r\n        \"top_p\": 0.9,\r\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\r\n        \"max_tokens\": 512,\r\n        \"min_tokens\": 0,\r\n        \"temperature\": 0.6,\r\n        \"prompt_template\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\r\n        \"presence_penalty\": 1.15,\r\n        \"frequency_penalty\": 0.2\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/models/meta/meta-llama-3-70b-instruct/predictions",
+              "host": ["{{baseUrl}}"],
+              "path": ["models", "meta", "meta-llama-3-70b-instruct", "predictions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"input\": {\r\n        \"top_p\": 0.9,\r\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\r\n        \"max_tokens\": 512,\r\n        \"min_tokens\": 0,\r\n        \"temperature\": 0.6,\r\n        \"prompt_template\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\r\n        \"presence_penalty\": 1.15,\r\n        \"frequency_penalty\": 0.2\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models/meta/meta-llama-3-70b-instruct/predictions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["models", "meta", "meta-llama-3-70b-instruct", "predictions"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:56:07 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "90b4d8a3ae1ef7d7-LAX"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "599"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=eG7jnjuqXQz0fTEpFX5Yg5ZsFdM7RwEl57wfskfct2H80Z5oTytLtiIciGZq8US26M6RaKvGFqCqSAvG6X81qiV2yJlAAS%2F4jd7E1K1Fudre3iGs6FVMVjwPAhjMq5kB8BBC\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=16190&min_rtt=15207&rtt_var=5408&sent=24&recv=22&lost=0&retrans=0&sent_bytes=5690&recv_bytes=1747&delivery_rate=380332&cwnd=149&unsent_bytes=0&cid=f5081ce407adfefd&ts=16834&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"0vaxzkx2wsrj00cmrd6bj3063r\",\n    \"model\": \"meta/meta-llama-3-70b-instruct\",\n    \"version\": \"dp-58e1ea025b4e4513b16e57585d10e083\",\n    \"input\": {\n        \"frequency_penalty\": 0.2,\n        \"max_tokens\": 512,\n        \"min_tokens\": 0,\n        \"presence_penalty\": 1.15,\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\n        \"prompt_template\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\n        \"temperature\": 0.6,\n        \"top_p\": 0.9\n    },\n    \"logs\": \"\",\n    \"output\": null,\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"starting\",\n    \"created_at\": \"2025-02-01T20:56:07.142Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/0vaxzkx2wsrj00cmrd6bj3063r/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/0vaxzkx2wsrj00cmrd6bj3063r\",\n        \"stream\": \"https://stream-g.svc.rno2.c.replicate.net/v1/streams/s3kc6ql4dzxhfknuk23bnj2l6irdtw3eelzc6zjy53b4u7rlwbvq\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "meta/meta-llama-3-70b-instruct",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+              "protocol": "https",
+              "host": ["api", "replicate", "com"],
+              "path": ["v1", "predictions", ":prediction_id"],
+              "variable": [
+                {
+                  "key": "prediction_id",
+                  "value": "{{temp.id}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+                  "protocol": "https",
+                  "host": ["api", "replicate", "com"],
+                  "path": ["v1", "predictions", ":prediction_id"],
+                  "variable": [
+                    {
+                      "key": "prediction_id",
+                      "value": "{{temp.id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:56:34 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "59999"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=RZIpHRlKtF69rEgvoj4bCyiNZjJO6HNPYzyhQdTEWzxYw8WGCaTsLLVlks2Z99JdxjTlBcAKz%2B%2Bsb3kCYfk6z%2Fh8lRfF6w2OMPbO635Wd2VXuxQ%2Fh2t2CGXme7qgqCa7MBth\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "90b4d94d9e71f7d7-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=16190&min_rtt=15207&rtt_var=5408&sent=54&recv=50&lost=0&retrans=1&sent_bytes=8619&recv_bytes=2103&delivery_rate=380332&cwnd=149&unsent_bytes=0&cid=f5081ce407adfefd&ts=43968&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"0vaxzkx2wsrj00cmrd6bj3063r\",\n    \"model\": \"meta/meta-llama-3-70b-instruct\",\n    \"version\": \"dp-58e1ea025b4e4513b16e57585d10e083\",\n    \"input\": {\n        \"frequency_penalty\": 0.2,\n        \"max_tokens\": 512,\n        \"min_tokens\": 0,\n        \"presence_penalty\": 1.15,\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\n        \"prompt_template\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\n        \"temperature\": 0.6,\n        \"top_p\": 0.9\n    },\n    \"logs\": \"Random seed used: `10674`\\nNote: Random seed will not impact output if greedy decoding is used.\\nFormatted prompt: `<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\nWork through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n`Random seed used: `10674`\\nNote: Random seed will not impact output if greedy decoding is used.\\nFormatted prompt: `<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\nWork through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n`\",\n    \"output\": [\n        \"Let\",\n        \"'s\",\n        \" break\",\n        \" this\",\n        \" problem\",\n        \" down\",\n        \" step\",\n        \" by\",\n        \" step\",\n        \".\\n\\n\",\n        \"Step\",\n        \" \",\n        \"1\",\n        \":\",\n        \" Sarah\",\n        \" already\",\n        \" has\",\n        \" \",\n        \"7\",\n        \" ll\",\n        \"amas\",\n        \".\\n\\n\",\n        \"Step\",\n        \" \",\n        \"2\",\n        \":\",\n        \" Her\",\n        \" friend\",\n        \" gives\",\n        \" her\",\n        \" \",\n        \"3\",\n        \" trucks\",\n        \" of\",\n        \" ll\",\n        \"amas\",\n        \".\",\n        \" We\",\n        \" need\",\n        \" to\",\n        \" find\",\n        \" out\",\n        \" how\",\n        \" many\",\n        \" ll\",\n        \"amas\",\n        \" are\",\n        \" in\",\n        \" these\",\n        \" \",\n        \"3\",\n        \" trucks\",\n        \".\",\n        \" Since\",\n        \" each\",\n        \" truck\",\n        \" has\",\n        \" \",\n        \"5\",\n        \" ll\",\n        \"amas\",\n        \",\",\n        \" we\",\n        \" can\",\n        \" multiply\",\n        \" the\",\n        \" number\",\n        \" of\",\n        \" trucks\",\n        \" by\",\n        \" the\",\n        \" number\",\n        \" of\",\n        \" ll\",\n        \"amas\",\n        \" per\",\n        \" truck\",\n        \":\\n\\n\",\n        \"3\",\n        \" trucks\",\n        \" x\",\n        \" \",\n        \"5\",\n        \" ll\",\n        \"amas\",\n        \"/tr\",\n        \"uck\",\n        \" =\",\n        \" \",\n        \"3\",\n        \" x\",\n        \" \",\n        \"5\",\n        \" =\",\n        \" \",\n        \"15\",\n        \" ll\",\n        \"amas\",\n        \"\\n\\n\",\n        \"So\",\n        \",\",\n        \" the\",\n        \" \",\n        \"3\",\n        \" trucks\",\n        \" of\",\n        \" ll\",\n        \"amas\",\n        \" contain\",\n        \" a\",\n        \" total\",\n        \" of\",\n        \" \",\n        \"15\",\n        \" ll\",\n        \"amas\",\n        \".\\n\\n\",\n        \"Step\",\n        \" \",\n        \"3\",\n        \":\",\n        \" Now\",\n        \",\",\n        \" we\",\n        \" need\",\n        \" to\",\n        \" add\",\n        \" the\",\n        \" \",\n        \"15\",\n        \" new\",\n        \" ll\",\n        \"amas\",\n        \" to\",\n        \" the\",\n        \" \",\n        \"7\",\n        \" ll\",\n        \"amas\",\n        \" Sarah\",\n        \" already\",\n        \" had\",\n        \":\\n\\n\",\n        \"7\",\n        \" ll\",\n        \"amas\",\n        \" (\",\n        \"Sarah\",\n        \" already\",\n        \" had\",\n        \")\",\n        \" +\",\n        \" \",\n        \"15\",\n        \" ll\",\n        \"amas\",\n        \" (\",\n        \"from\",\n        \" the\",\n        \" \",\n        \"3\",\n        \" trucks\",\n        \")\",\n        \" =\",\n        \" \",\n        \"7\",\n        \" +\",\n        \" \",\n        \"15\",\n        \" =\",\n        \" \",\n        \"22\",\n        \" ll\",\n        \"amas\",\n        \"\\n\\n\",\n        \"Therefore\",\n        \",\",\n        \" Sarah\",\n        \" has\",\n        \" a\",\n        \" total\",\n        \" of\",\n        \" \",\n        \"22\",\n        \" ll\",\n        \"amas\",\n        \".\"\n    ],\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"succeeded\",\n    \"created_at\": \"2025-02-01T20:56:07.142Z\",\n    \"started_at\": \"2025-02-01T20:56:07.143024644Z\",\n    \"completed_at\": \"2025-02-01T20:56:10.805571251Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/0vaxzkx2wsrj00cmrd6bj3063r/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/0vaxzkx2wsrj00cmrd6bj3063r\",\n        \"stream\": \"https://stream-g.svc.rno2.c.replicate.net/v1/streams/s3kc6ql4dzxhfknuk23bnj2l6irdtw3eelzc6zjy53b4u7rlwbvq\"\n    },\n    \"metrics\": {\n        \"batch_size\": 11.00153369730608,\n        \"input_token_count\": 68,\n        \"output_token_count\": 188,\n        \"predict_time\": 3.66254659,\n        \"predict_time_share\": 0.332822322845459,\n        \"time_to_first_token\": 0.066752658,\n        \"tokens_per_second\": 52.28330754077261\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "meta/meta-llama-3-8b-instruct",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.id', jsonResponse.id)"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"input\": {\r\n        \"top_p\": 0.9,\r\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\r\n        \"max_tokens\": 512,\r\n        \"min_tokens\": 0,\r\n        \"temperature\": 0.6,\r\n        \"prompt_template\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\r\n        \"presence_penalty\": 1.15,\r\n        \"frequency_penalty\": 0.2\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/models/meta/meta-llama-3-8b-instruct/predictions",
+              "host": ["{{baseUrl}}"],
+              "path": ["models", "meta", "meta-llama-3-8b-instruct", "predictions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"input\": {\r\n        \"top_p\": 0.9,\r\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\r\n        \"max_tokens\": 512,\r\n        \"min_tokens\": 0,\r\n        \"temperature\": 0.6,\r\n        \"prompt_template\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\r\n        \"presence_penalty\": 1.15,\r\n        \"frequency_penalty\": 0.2\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models/meta/meta-llama-3-8b-instruct/predictions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["models", "meta", "meta-llama-3-8b-instruct", "predictions"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:56:49 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "90b4d9abfd4bf7d7-LAX"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "599"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=u9Wls6UtxgdmnQMMOsLz7s%2B1BBivggETH5luxpOARnC7DEP3Cx5qfAc9nZR8ySiGCV6ibszOKYuwbn7wK9TKu4AnpAioNcJTF1291L9e0CW0ELRpYhdNddj2x8WR1SUuY2hW\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=16190&min_rtt=15207&rtt_var=5408&sent=73&recv=66&lost=0&retrans=2&sent_bytes=10902&recv_bytes=3169&delivery_rate=380332&cwnd=149&unsent_bytes=0&cid=f5081ce407adfefd&ts=59064&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"tzbkv027tsrj00cmrd6v2fwww0\",\n    \"model\": \"meta/meta-llama-3-8b-instruct\",\n    \"version\": \"dp-a557b7387b4940df25b23f779dc534c4\",\n    \"input\": {\n        \"frequency_penalty\": 0.2,\n        \"max_tokens\": 512,\n        \"min_tokens\": 0,\n        \"presence_penalty\": 1.15,\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\n        \"prompt_template\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\n        \"temperature\": 0.6,\n        \"top_p\": 0.9\n    },\n    \"logs\": \"\",\n    \"output\": null,\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"starting\",\n    \"created_at\": \"2025-02-01T20:56:49.366Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/tzbkv027tsrj00cmrd6v2fwww0/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/tzbkv027tsrj00cmrd6v2fwww0\",\n        \"stream\": \"https://stream-g.svc.rno2.c.replicate.net/v1/streams/ggebsjcfopeg5nbmsk2vx3tqa4xqoetccaqsqfdry4kmfjwwuuha\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "meta/meta-llama-3-8b-instruct",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+              "protocol": "https",
+              "host": ["api", "replicate", "com"],
+              "path": ["v1", "predictions", ":prediction_id"],
+              "variable": [
+                {
+                  "key": "prediction_id",
+                  "value": "{{temp.id}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+                  "protocol": "https",
+                  "host": ["api", "replicate", "com"],
+                  "path": ["v1", "predictions", ":prediction_id"],
+                  "variable": [
+                    {
+                      "key": "prediction_id",
+                      "value": "{{temp.id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:56:58 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "59999"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=YjtKSLYmrjDEiv0ehjCRETX5joCCm4b%2FlzY15nZ9xNBcuWjqHpSpvpvujw5%2B2OUMjra8x4oMvsaeXf0kqtqfHzCS9na1oMebInaK4xRANUw7NQc%2BNO4b0nms7qaK8pcf7QJX\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "90b4d9e66f86f7d7-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=15851&min_rtt=13444&rtt_var=4736&sent=85&recv=77&lost=0&retrans=2&sent_bytes=13062&recv_bytes=3525&delivery_rate=380332&cwnd=149&unsent_bytes=0&cid=f5081ce407adfefd&ts=68357&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"tzbkv027tsrj00cmrd6v2fwww0\",\n    \"model\": \"meta/meta-llama-3-8b-instruct\",\n    \"version\": \"dp-a557b7387b4940df25b23f779dc534c4\",\n    \"input\": {\n        \"frequency_penalty\": 0.2,\n        \"max_tokens\": 512,\n        \"min_tokens\": 0,\n        \"presence_penalty\": 1.15,\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\n        \"prompt_template\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n\",\n        \"temperature\": 0.6,\n        \"top_p\": 0.9\n    },\n    \"logs\": \"Random seed used: `25731`\\nNote: Random seed will not impact output if greedy decoding is used.\\nFormatted prompt: `<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\nWork through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n`Random seed used: `25731`\\nNote: Random seed will not impact output if greedy decoding is used.\\nFormatted prompt: `<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\n\\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\\n\\nWork through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\\n`\",\n    \"output\": [\n        \"I\",\n        \"'d\",\n        \" be\",\n        \" happy\",\n        \" to\",\n        \" help\",\n        \" you\",\n        \" work\",\n        \" through\",\n        \" this\",\n        \" problem\",\n        \" step\",\n        \" by\",\n        \" step\",\n        \".\\n\\n\",\n        \"Step\",\n        \" \",\n        \"1\",\n        \":\",\n        \" Sarah\",\n        \" already\",\n        \" has\",\n        \" \",\n        \"7\",\n        \" ll\",\n        \"amas\",\n        \".\\n\\n\",\n        \"Step\",\n        \" \",\n        \"2\",\n        \":\",\n        \" Her\",\n        \" friend\",\n        \" gives\",\n        \" her\",\n        \" \",\n        \"3\",\n        \" more\",\n        \" trucks\",\n        \" of\",\n        \" ll\",\n        \"amas\",\n        \".\",\n        \" Each\",\n        \" truck\",\n        \" has\",\n        \" \",\n        \"5\",\n        \" ll\",\n        \"amas\",\n        \",\",\n        \" so\",\n        \" the\",\n        \" total\",\n        \" number\",\n        \" of\",\n        \" ll\",\n        \"amas\",\n        \" in\",\n        \" the\",\n        \" trucks\",\n        \" is\",\n        \":\\n\\n\",\n        \"3\",\n        \" trucks\",\n        \" x\",\n        \" \",\n        \"5\",\n        \" ll\",\n        \"amas\",\n        \"/tr\",\n        \"uck\",\n        \" =\",\n        \" \",\n        \"15\",\n        \" ll\",\n        \"amas\",\n        \"\\n\\n\",\n        \"Step\",\n        \" \",\n        \"3\",\n        \":\",\n        \" Add\",\n        \" the\",\n        \" number\",\n        \" of\",\n        \" ll\",\n        \"amas\",\n        \" Sarah\",\n        \" already\",\n        \" has\",\n        \" to\",\n        \" the\",\n        \" number\",\n        \" of\",\n        \" ll\",\n        \"amas\",\n        \" in\",\n        \" the\",\n        \" trucks\",\n        \":\\n\\n\",\n        \"7\",\n        \" ll\",\n        \"amas\",\n        \" (\",\n        \"Sarah\",\n        \" already\",\n        \" had\",\n        \")\",\n        \" +\",\n        \" \",\n        \"15\",\n        \" ll\",\n        \"amas\",\n        \" (\",\n        \"from\",\n        \" the\",\n        \" trucks\",\n        \")\",\n        \" =\",\n        \" \",\n        \"22\",\n        \" ll\",\n        \"amas\",\n        \"\\n\\n\",\n        \"Therefore\",\n        \",\",\n        \" Sarah\",\n        \" now\",\n        \" has\",\n        \" a\",\n        \" total\",\n        \" of\",\n        \" \",\n        \"22\",\n        \" ll\",\n        \"amas\",\n        \".\"\n    ],\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"succeeded\",\n    \"created_at\": \"2025-02-01T20:56:49.366Z\",\n    \"started_at\": \"2025-02-01T20:56:49.370947669Z\",\n    \"completed_at\": \"2025-02-01T20:56:51.155855562Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/tzbkv027tsrj00cmrd6v2fwww0/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/tzbkv027tsrj00cmrd6v2fwww0\",\n        \"stream\": \"https://stream-g.svc.rno2.c.replicate.net/v1/streams/ggebsjcfopeg5nbmsk2vx3tqa4xqoetccaqsqfdry4kmfjwwuuha\"\n    },\n    \"metrics\": {\n        \"batch_size\": 3.0126180463956644,\n        \"input_token_count\": 67,\n        \"output_token_count\": 139,\n        \"predict_time\": 1.784907892,\n        \"predict_time_share\": 0.5921417758664355,\n        \"time_to_first_token\": 0.040460223,\n        \"tokens_per_second\": 79.68138137367077\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "mistralai/mistral-7b-v0.1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.id', jsonResponse.id)"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"input\": {\r\n        \"top_p\": 0.9,\r\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\r\n        \"max_tokens\": 512,\r\n        \"min_tokens\": 0,\r\n        \"temperature\": 0.6,\r\n        \"prompt_template\": \"{prompt}\",\r\n        \"presence_penalty\": 1.15,\r\n        \"frequency_penalty\": 0.2\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/models/mistralai/mistral-7b-v0.1/predictions",
+              "host": ["{{baseUrl}}"],
+              "path": ["models", "mistralai", "mistral-7b-v0.1", "predictions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"input\": {\r\n        \"top_p\": 0.9,\r\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\r\n        \"max_tokens\": 512,\r\n        \"min_tokens\": 0,\r\n        \"temperature\": 0.6,\r\n        \"prompt_template\": \"{prompt}\",\r\n        \"presence_penalty\": 1.15,\r\n        \"frequency_penalty\": 0.2\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models/mistralai/mistral-7b-v0.1/predictions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["models", "mistralai", "mistral-7b-v0.1", "predictions"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:57:11 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "90b4da376c96f7d7-LAX"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "599"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=WHmfJV%2B7NI6MZfj%2FvwnhZSnYqDVclVZcysWfbP8zZ8mgUfMm8GFv%2F06BwQsIwZGc6EIJuUufhpw%2F40CkQdG9Tvwnhu984B3%2BeAunpg1hLYcbZDn6aGKpQzDZpmyke%2BlCZX6s\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=15601&min_rtt=13444&rtt_var=4051&sent=101&recv=91&lost=0&retrans=2&sent_bytes=15191&recv_bytes=4384&delivery_rate=380332&cwnd=149&unsent_bytes=0&cid=f5081ce407adfefd&ts=81368&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"m6jqc8myysrj00cmrd6vkkj8m4\",\n    \"model\": \"mistralai/mistral-7b-v0.1\",\n    \"version\": \"dp-4bffbbdb66105bcd9aee2acb5e72869f\",\n    \"input\": {\n        \"frequency_penalty\": 0.2,\n        \"max_tokens\": 512,\n        \"min_tokens\": 0,\n        \"presence_penalty\": 1.15,\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\n        \"prompt_template\": \"{prompt}\",\n        \"temperature\": 0.6,\n        \"top_p\": 0.9\n    },\n    \"logs\": \"\",\n    \"output\": null,\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"starting\",\n    \"created_at\": \"2025-02-01T20:57:11.67Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/m6jqc8myysrj00cmrd6vkkj8m4/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/m6jqc8myysrj00cmrd6vkkj8m4\",\n        \"stream\": \"https://stream-g.svc.rno2.c.replicate.net/v1/streams/3vl6godeba2kgkhcs4j3bbhbkjj3mv4tdaxodkzdknja4c4scm7q\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "mistralai/mistral-7b-v0.1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+              "protocol": "https",
+              "host": ["api", "replicate", "com"],
+              "path": ["v1", "predictions", ":prediction_id"],
+              "variable": [
+                {
+                  "key": "prediction_id",
+                  "value": "{{temp.id}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+                  "protocol": "https",
+                  "host": ["api", "replicate", "com"],
+                  "path": ["v1", "predictions", ":prediction_id"],
+                  "variable": [
+                    {
+                      "key": "prediction_id",
+                      "value": "{{temp.id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 21:00:45 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "59999"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=m3zagkcu8bZn6qrHJBQrATBBzf12vgXiwrJbuxqzuIYztCQLmf5gmCwctxM9%2F65EjydWaVCiyKm%2F36HoNjuUt8lvLUGIbSRiCdLdLF0DC0myAQjXzazSD8Y7ElyIKKyuPmjZ\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "90b4df6eeebd534f-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=19361&min_rtt=16306&rtt_var=8297&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2818&recv_bytes=680&delivery_rate=179075&cwnd=220&unsent_bytes=0&cid=3b89eee1c08bce95&ts=121&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"m6jqc8myysrj00cmrd6vkkj8m4\",\n    \"model\": \"mistralai/mistral-7b-v0.1\",\n    \"version\": \"dp-4bffbbdb66105bcd9aee2acb5e72869f\",\n    \"input\": {\n        \"frequency_penalty\": 0.2,\n        \"max_tokens\": 512,\n        \"min_tokens\": 0,\n        \"presence_penalty\": 1.15,\n        \"prompt\": \"Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?\",\n        \"prompt_template\": \"{prompt}\",\n        \"temperature\": 0.6,\n        \"top_p\": 0.9\n    },\n    \"logs\": \"Random seed used: `27779`\\nNote: Random seed will not impact output if greedy decoding is used.\\nFormatted prompt: `Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?`Random seed used: `27779`\\nNote: Random seed will not impact output if greedy decoding is used.\\nFormatted prompt: `Work through this problem step by step:\\n\\nQ: Sarah has 7 llamas. Her friend gives her 3 more trucks of llamas. Each truck has 5 llamas. How many llamas does Sarah have in total?`\",\n    \"output\": [\n        \"\\n\",\n        \"\\n\",\n        \"A\",\n        \":\",\n        \" Let\",\n        \"’\",\n        \"s\",\n        \" break\",\n        \" down\",\n        \" the\",\n        \" problem\",\n        \" into\",\n        \" smaller\",\n        \" parts\",\n        \".\",\n        \" First\",\n        \",\",\n        \" Sarah\",\n        \" has\",\n        \" \",\n        \"7\",\n        \" llam\",\n        \"as\",\n        \".\",\n        \" Then\",\n        \",\",\n        \" her\",\n        \" friend\",\n        \" gives\",\n        \" her\",\n        \" \",\n        \"3\",\n        \" trucks\",\n        \" of\",\n        \" llam\",\n        \"as\",\n        \".\",\n        \" Each\",\n        \" truck\",\n        \" has\",\n        \" \",\n        \"5\",\n        \" llam\",\n        \"as\",\n        \".\",\n        \" So\",\n        \",\",\n        \" Sarah\",\n        \" now\",\n        \" has\",\n        \" \",\n        \"7\",\n        \" llam\",\n        \"as\",\n        \" plus\",\n        \" \",\n        \"3\",\n        \" trucks\",\n        \" of\",\n        \" llam\",\n        \"as\",\n        \".\",\n        \" But\",\n        \" how\",\n        \" many\",\n        \" llam\",\n        \"as\",\n        \" are\",\n        \" in\",\n        \" each\",\n        \" truck\",\n        \"?\",\n        \"\\n\",\n        \"\\n\",\n        \"To\",\n        \" find\",\n        \" out\",\n        \",\",\n        \" we\",\n        \" can\",\n        \" use\",\n        \" the\",\n        \" multi\",\n        \"plication\",\n        \" fact\",\n        \" \",\n        \"5\",\n        \" x\",\n        \" \",\n        \"3\",\n        \" =\",\n        \" \",\n        \"1\",\n        \"5\",\n        \".\",\n        \" This\",\n        \" means\",\n        \" that\",\n        \" there\",\n        \" are\",\n        \" \",\n        \"1\",\n        \"5\",\n        \" llam\",\n        \"as\",\n        \" in\",\n        \" each\",\n        \" truck\",\n        \".\",\n        \" So\",\n        \",\",\n        \" Sarah\",\n        \" now\",\n        \" has\",\n        \" \",\n        \"7\",\n        \" llam\",\n        \"as\",\n        \" plus\",\n        \" \",\n        \"3\",\n        \" trucks\",\n        \" of\",\n        \" llam\",\n        \"as\",\n        \",\",\n        \" which\",\n        \" equals\",\n        \" \",\n        \"7\",\n        \" llam\",\n        \"as\",\n        \" plus\",\n        \" \",\n        \"1\",\n        \"5\",\n        \" llam\",\n        \"as\",\n        \",\",\n        \" which\",\n        \" equals\",\n        \" \",\n        \"2\",\n        \"2\",\n        \" llam\",\n        \"as\",\n        \" in\",\n        \" total\",\n        \".\",\n        \"\\n\",\n        \"\\n\",\n        \"##\",\n        \" Con\",\n        \"clusion\",\n        \"\\n\",\n        \"\\n\",\n        \"In\",\n        \" conclusion\",\n        \",\",\n        \" multi\",\n        \"plication\",\n        \" is\",\n        \" a\",\n        \" useful\",\n        \" tool\",\n        \" for\",\n        \" solving\",\n        \" problems\",\n        \" and\",\n        \" making\",\n        \" connections\",\n        \" between\",\n        \" numbers\",\n        \".\",\n        \" By\",\n        \" understanding\",\n        \" the\",\n        \" concept\",\n        \" of\",\n        \" multi\",\n        \"plication\",\n        \",\",\n        \" you\",\n        \" can\",\n        \" solve\",\n        \" a\",\n        \" variety\",\n        \" of\",\n        \" real\",\n        \"-\",\n        \"world\",\n        \" problems\",\n        \" and\",\n        \" make\",\n        \" connections\",\n        \" between\",\n        \" different\",\n        \" numbers\",\n        \".\",\n        \" With\",\n        \" practice\",\n        \" and\",\n        \" patience\",\n        \",\",\n        \" you\",\n        \" can\",\n        \" become\",\n        \" prof\",\n        \"icient\",\n        \" in\",\n        \" multi\",\n        \"plication\",\n        \" and\",\n        \" use\",\n        \" it\",\n        \" to\",\n        \" your\",\n        \" advantage\",\n        \" in\",\n        \" both\",\n        \" school\",\n        \" and\",\n        \" everyday\",\n        \" life\",\n        \".\"\n    ],\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"succeeded\",\n    \"created_at\": \"2025-02-01T20:57:11.67Z\",\n    \"started_at\": \"2025-02-01T20:59:20.71414214Z\",\n    \"completed_at\": \"2025-02-01T20:59:23.809812377Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/m6jqc8myysrj00cmrd6vkkj8m4/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/m6jqc8myysrj00cmrd6vkkj8m4\",\n        \"stream\": \"https://stream-g.svc.rno2.c.replicate.net/v1/streams/3vl6godeba2kgkhcs4j3bbhbkjj3mv4tdaxodkzdknja4c4scm7q\"\n    },\n    \"metrics\": {\n        \"batch_size\": 1.0001656241670838,\n        \"input_token_count\": 50,\n        \"output_token_count\": 226,\n        \"predict_time\": 3.095670321,\n        \"predict_time_share\": 3.093205690383911,\n        \"time_to_first_token\": 0.563090149,\n        \"tokens_per_second\": 89.23705653966559\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "item": [
+        {
+          "name": "black-forest-labs/flux-schnell",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\t\"input\": {\r\n        \"prompt\": \"black forest gateau cake spelling out the words \\\"FLUX SCHNELL\\\", tasty, food photography, dynamic shot\"\r\n\t}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/models/black-forest-labs/flux-schnell/predictions",
+              "host": ["{{baseUrl}}"],
+              "path": ["models", "black-forest-labs", "flux-schnell", "predictions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n\t\"input\": {\r\n        \"prompt\": \"black forest gateau cake spelling out the words \\\"FLUX SCHNELL\\\", tasty, food photography, dynamic shot\"\r\n\t}\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/models/black-forest-labs/flux-schnell/predictions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["models", "black-forest-labs", "flux-schnell", "predictions"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:09:01 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Ray",
+                  "value": "90b493a79b0e7c4d-LAX"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "599"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=YiSJ8z64%2BCbPkozC37GfE0GSB96Do%2BB4PCeIu0ooXkCG13h%2BszghGvwKcJhLlopMfiqhsfX1NQPbeFLrVUsDkFIGhTsD61zKY6TGPvh3L92mVIlefjzSC3vVcibLDcHmp%2FHL\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=14323&min_rtt=14323&rtt_var=7161&sent=5&recv=5&lost=0&retrans=1&sent_bytes=4176&recv_bytes=891&delivery_rate=16889&cwnd=223&unsent_bytes=0&cid=6e68b71ec4547146&ts=424&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"3m4pjkc5e9rma0cmrcgvvhxkm8\",\n    \"model\": \"black-forest-labs/flux-schnell\",\n    \"version\": \"dp-4d0bcc010b3049749a251855f12800be\",\n    \"input\": {\n        \"prompt\": \"black forest gateau cake spelling out the words \\\"FLUX SCHNELL\\\", tasty, food photography, dynamic shot\"\n    },\n    \"logs\": \"\",\n    \"output\": null,\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"starting\",\n    \"created_at\": \"2025-02-01T20:09:01.554Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/3m4pjkc5e9rma0cmrcgvvhxkm8/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/3m4pjkc5e9rma0cmrcgvvhxkm8\",\n        \"stream\": \"https://stream.replicate.com/v1/files/bsvm-3zjzfpqtpc66ac552k757gbdimoathqpi37fooplspzr3yxvkomq\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "black-forest-labs/flux-schnell",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+              "protocol": "https",
+              "host": ["api", "replicate", "com"],
+              "path": ["v1", "predictions", ":prediction_id"],
+              "variable": [
+                {
+                  "key": "prediction_id",
+                  "value": "3m4pjkc5e9rma0cmrcgvvhxkm8"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.replicate.com/v1/predictions/:prediction_id",
+                  "protocol": "https",
+                  "host": ["api", "replicate", "com"],
+                  "path": ["v1", "predictions", ":prediction_id"],
+                  "variable": [
+                    {
+                      "key": "prediction_id",
+                      "value": "3m4pjkc5e9rma0cmrcgvvhxkm8"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Feb 2025 20:09:44 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "ratelimit-remaining",
+                  "value": "59999"
+                },
+                {
+                  "key": "ratelimit-reset",
+                  "value": "1"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=Ic6CFkB75FgBCYxtxPsCLokdKuUQBbZu06fKuhFLdi1hGKUSQYZeSCysjFkBWRhE3hQVkXs1yu3HnwJq2go1XHL6UAbImRxYGTomsBM%2BmPnf3fAlh7SY%2FYwK8nQ8iikWAwk8\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "90b494b5ec9d7c4d-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=14525&min_rtt=14323&rtt_var=5776&sent=52&recv=49&lost=0&retrans=1&sent_bytes=6285&recv_bytes=1247&delivery_rate=366259&cwnd=227&unsent_bytes=0&cid=6e68b71ec4547146&ts=43642&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"3m4pjkc5e9rma0cmrcgvvhxkm8\",\n    \"model\": \"black-forest-labs/flux-schnell\",\n    \"version\": \"dp-4d0bcc010b3049749a251855f12800be\",\n    \"input\": {\n        \"prompt\": \"black forest gateau cake spelling out the words \\\"FLUX SCHNELL\\\", tasty, food photography, dynamic shot\"\n    },\n    \"logs\": \"Using seed: 63963\\nrunning quantized prediction\\nUsing seed: 63963\\n  0%|          | 0/4 [00:00<?, ?it/s]\\n 50%|█████     | 2/4 [00:00<00:00, 19.19it/s]\\n100%|██████████| 4/4 [00:00<00:00, 13.76it/s]\\n100%|██████████| 4/4 [00:00<00:00, 14.36it/s]\\nTotal safe images: 1 out of 1\\n\",\n    \"output\": [\n        \"https://replicate.delivery/xezq/AlDnTyf1HIRNTyVE32Hvrjyvrr2HOwvheOrfFSffDvPzrYYhC/out-0.webp\"\n    ],\n    \"data_removed\": false,\n    \"error\": null,\n    \"status\": \"succeeded\",\n    \"created_at\": \"2025-02-01T20:09:01.554Z\",\n    \"started_at\": \"2025-02-01T20:09:01.56390099Z\",\n    \"completed_at\": \"2025-02-01T20:09:02.128944061Z\",\n    \"urls\": {\n        \"cancel\": \"https://api.replicate.com/v1/predictions/3m4pjkc5e9rma0cmrcgvvhxkm8/cancel\",\n        \"get\": \"https://api.replicate.com/v1/predictions/3m4pjkc5e9rma0cmrcgvvhxkm8\",\n        \"stream\": \"https://stream.replicate.com/v1/files/bsvm-3zjzfpqtpc66ac552k757gbdimoathqpi37fooplspzr3yxvkomq\"\n    },\n    \"metrics\": {\n        \"image_count\": 1,\n        \"predict_time\": 0.56504307\n    }\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{apiKey}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.replicate.com/v1"
+    },
+    {
+      "key": "apiKey",
+      "value": ""
+    },
+    {
+      "key": "temp.id",
+      "value": ""
+    }
+  ]
+}

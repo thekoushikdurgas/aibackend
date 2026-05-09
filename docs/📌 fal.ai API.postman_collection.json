@@ -1,0 +1,1661 @@
+{
+  "info": {
+    "_postman_id": "7de52107-238e-487a-af63-a1f90e737bae",
+    "name": "📌 fal.ai API",
+    "description": "### About\n\n\"The generative media platform for developers.\"\n\n### Prerequisites\n\n- Postman Account\n    \n- fal.ai Account: [https://fal.ai/dashboard](https://fal.ai/dashboard)\n    \n\n### Usage\n\n1. Create a fork\n    \n2. Update collection variables\n    \n3. Send requests\n    \n\n### Documentation\n\n- API: [https://fal.ai/dashboard](https://fal.ai/dashboard)\n    \n- Models: [https://fal.ai/models](https://fal.ai/models)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20572666",
+    "_collection_link": "https://www.postman.com/ai-engineer/generative-ai-apis/collection/wwefudz/fal-ai-api?action=share&source=collection_link&creator=20572666"
+  },
+  "item": [
+    {
+      "name": "Generate Image",
+      "item": [
+        {
+          "name": "flux-pro/v1.1-ultra",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.status_url', jsonResponse.status_url)\r",
+                  "pm.collectionVariables.set('temp.response_url', jsonResponse.response_url)\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"prompt\": \"Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:model_id",
+              "host": ["{{baseUrl}}"],
+              "path": [":model_id"],
+              "variable": [
+                {
+                  "key": "model_id",
+                  "value": "flux-pro/v1.1-ultra"
+                }
+              ]
+            },
+            "description": "Create a text completion with the specified model from AI Studio using the chat format. You need to provide the list of messages, where each message is a dictionary with two keys: `role`, which is one of `system` / `user` / `assistant` , and `message` , which is a string - the content of the message."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"prompt\": \"Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth. The word \\\"FLUX\\\" is painted over it in big, white brush strokes with visible texture.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:model_id",
+                  "host": ["{{baseUrl}}"],
+                  "path": [":model_id"],
+                  "variable": [
+                    {
+                      "key": "model_id",
+                      "value": "flux-pro/v1.1-ultra"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 16 Feb 2025 18:45:31 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "445"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Robots-Tag",
+                  "value": "noindex"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"IN_QUEUE\",\n    \"request_id\": \"88b0192d-3088-444a-9577-bbc9bf1990ee\",\n    \"response_url\": \"https://queue.fal.run/fal-ai/flux-pro/requests/88b0192d-3088-444a-9577-bbc9bf1990ee\",\n    \"status_url\": \"https://queue.fal.run/fal-ai/flux-pro/requests/88b0192d-3088-444a-9577-bbc9bf1990ee/status\",\n    \"cancel_url\": \"https://queue.fal.run/fal-ai/flux-pro/requests/88b0192d-3088-444a-9577-bbc9bf1990ee/cancel\",\n    \"logs\": null,\n    \"metrics\": {},\n    \"queue_position\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "flux-pro/kontext",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.status_url', jsonResponse.status_url)\r",
+                  "pm.collectionVariables.set('temp.response_url', jsonResponse.response_url)\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"prompt\": \"Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:model_id",
+              "host": ["{{baseUrl}}"],
+              "path": [":model_id"],
+              "variable": [
+                {
+                  "key": "model_id",
+                  "value": "flux-pro/kontext"
+                }
+              ]
+            },
+            "description": "Create a text completion with the specified model from AI Studio using the chat format. You need to provide the list of messages, where each message is a dictionary with two keys: `role`, which is one of `system` / `user` / `assistant` , and `message` , which is a string - the content of the message."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"prompt\": \"Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:model_id",
+                  "host": ["{{baseUrl}}"],
+                  "path": [":model_id"],
+                  "variable": [
+                    {
+                      "key": "model_id",
+                      "value": "flux-pro/kontext"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 16 Jun 2025 01:01:25 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "445"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Robots-Tag",
+                  "value": "noindex"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"IN_QUEUE\",\n    \"request_id\": \"9d401e26-04af-4f11-aa84-64425a5cce2e\",\n    \"response_url\": \"https://queue.fal.run/fal-ai/flux-pro/requests/9d401e26-04af-4f11-aa84-64425a5cce2e\",\n    \"status_url\": \"https://queue.fal.run/fal-ai/flux-pro/requests/9d401e26-04af-4f11-aa84-64425a5cce2e/status\",\n    \"cancel_url\": \"https://queue.fal.run/fal-ai/flux-pro/requests/9d401e26-04af-4f11-aa84-64425a5cce2e/cancel\",\n    \"logs\": null,\n    \"metrics\": {},\n    \"queue_position\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "imagen4/preview/fast",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.status_url', jsonResponse.status_url)\r",
+                  "pm.collectionVariables.set('temp.response_url', jsonResponse.response_url)\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"prompt\": \"Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:model_id",
+              "host": ["{{baseUrl}}"],
+              "path": [":model_id"],
+              "variable": [
+                {
+                  "key": "model_id",
+                  "value": "imagen4/preview/fast"
+                }
+              ]
+            },
+            "description": "Create a text completion with the specified model from AI Studio using the chat format. You need to provide the list of messages, where each message is a dictionary with two keys: `role`, which is one of `system` / `user` / `assistant` , and `message` , which is a string - the content of the message."
+          },
+          "response": []
+        },
+        {
+          "name": "imagen4/preview/ultra",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.status_url', jsonResponse.status_url)\r",
+                  "pm.collectionVariables.set('temp.response_url', jsonResponse.response_url)\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"prompt\": \"Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:model_id",
+              "host": ["{{baseUrl}}"],
+              "path": [":model_id"],
+              "variable": [
+                {
+                  "key": "model_id",
+                  "value": "imagen4/preview/ultra"
+                }
+              ]
+            },
+            "description": "Create a text completion with the specified model from AI Studio using the chat format. You need to provide the list of messages, where each message is a dictionary with two keys: `role`, which is one of `system` / `user` / `assistant` , and `message` , which is a string - the content of the message."
+          },
+          "response": []
+        },
+        {
+          "name": "imagen4/preview",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.status_url', jsonResponse.status_url)\r",
+                  "pm.collectionVariables.set('temp.response_url', jsonResponse.response_url)\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"prompt\": \"Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:model_id",
+              "host": ["{{baseUrl}}"],
+              "path": [":model_id"],
+              "variable": [
+                {
+                  "key": "model_id",
+                  "value": "imagen4/preview"
+                }
+              ]
+            },
+            "description": "Create a text completion with the specified model from AI Studio using the chat format. You need to provide the list of messages, where each message is a dictionary with two keys: `role`, which is one of `system` / `user` / `assistant` , and `message` , which is a string - the content of the message."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"prompt\": \"Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth. The word \\\"FLUX\\\" is painted over it in big, white brush strokes with visible texture.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:model_id",
+                  "host": ["{{baseUrl}}"],
+                  "path": [":model_id"],
+                  "variable": [
+                    {
+                      "key": "model_id",
+                      "value": "imagen4/preview"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 16 Jun 2025 00:58:07 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "442"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Robots-Tag",
+                  "value": "noindex"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"IN_QUEUE\",\n    \"request_id\": \"2462ba5a-07d8-4c27-89de-8b0282520116\",\n    \"response_url\": \"https://queue.fal.run/fal-ai/imagen4/requests/2462ba5a-07d8-4c27-89de-8b0282520116\",\n    \"status_url\": \"https://queue.fal.run/fal-ai/imagen4/requests/2462ba5a-07d8-4c27-89de-8b0282520116/status\",\n    \"cancel_url\": \"https://queue.fal.run/fal-ai/imagen4/requests/2462ba5a-07d8-4c27-89de-8b0282520116/cancel\",\n    \"logs\": null,\n    \"metrics\": {},\n    \"queue_position\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "veo3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.status_url', jsonResponse.status_url)\r",
+                  "pm.collectionVariables.set('temp.response_url', jsonResponse.response_url)\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"prompt\": \"Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:model_id",
+              "host": ["{{baseUrl}}"],
+              "path": [":model_id"],
+              "variable": [
+                {
+                  "key": "model_id",
+                  "value": "veo3"
+                }
+              ]
+            },
+            "description": "Create a text completion with the specified model from AI Studio using the chat format. You need to provide the list of messages, where each message is a dictionary with two keys: `role`, which is one of `system` / `user` / `assistant` , and `message` , which is a string - the content of the message."
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"prompt\": \"Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/:model_id",
+                  "host": ["{{baseUrl}}"],
+                  "path": [":model_id"],
+                  "variable": [
+                    {
+                      "key": "model_id",
+                      "value": "veo3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 16 Jun 2025 01:02:06 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "433"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                },
+                {
+                  "key": "X-Robots-Tag",
+                  "value": "noindex"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"IN_QUEUE\",\n    \"request_id\": \"db20e4e3-2ae5-4ef8-8d68-8b67aeb563a7\",\n    \"response_url\": \"https://queue.fal.run/fal-ai/veo3/requests/db20e4e3-2ae5-4ef8-8d68-8b67aeb563a7\",\n    \"status_url\": \"https://queue.fal.run/fal-ai/veo3/requests/db20e4e3-2ae5-4ef8-8d68-8b67aeb563a7/status\",\n    \"cancel_url\": \"https://queue.fal.run/fal-ai/veo3/requests/db20e4e3-2ae5-4ef8-8d68-8b67aeb563a7/cancel\",\n    \"logs\": null,\n    \"metrics\": {},\n    \"queue_position\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "veo3/fast",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.status_url', jsonResponse.status_url)\r",
+                  "pm.collectionVariables.set('temp.response_url', jsonResponse.response_url)\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [""],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"prompt\": \"Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:model_id",
+              "host": ["{{baseUrl}}"],
+              "path": [":model_id"],
+              "variable": [
+                {
+                  "key": "model_id",
+                  "value": "veo3/fast"
+                }
+              ]
+            },
+            "description": "Create a text completion with the specified model from AI Studio using the chat format. You need to provide the list of messages, where each message is a dictionary with two keys: `role`, which is one of `system` / `user` / `assistant` , and `message` , which is a string - the content of the message."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Generate Audio",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const jsonResponse = pm.response.json();\r",
+              "pm.collectionVariables.set('temp.status_url', jsonResponse.status_url)\r",
+              "pm.collectionVariables.set('temp.response_url', jsonResponse.response_url)\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n     \"lyrics\": \"[verse]\\nStaring at the sunset, colors paint the sky\\nThoughts of you keep swirling, can't deny\\nI know I let you down, I made mistakes\\nBut I'm here to mend the heart I didn't break\\n\\n[chorus]\\nEvery road you take, I'll be one step behind\\nEvery dream you chase, I'm reaching for the light\\nYou can't fight this feeling now\\nI won't back down\\nYou know you can't deny it now\\nI won't back down\\n\",\n     \"genres\": \"inspiring female uplifting pop airy vocal electronic bright vocal vocal\"\n   }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/:model_id",
+          "host": ["{{baseUrl}}"],
+          "path": [":model_id"],
+          "variable": [
+            {
+              "key": "model_id",
+              "value": "yue"
+            }
+          ]
+        },
+        "description": "Create a text completion with the specified model from AI Studio using the chat format. You need to provide the list of messages, where each message is a dictionary with two keys: `role`, which is one of `system` / `user` / `assistant` , and `message` , which is a string - the content of the message."
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n     \"lyrics\": \"[verse]\\nStaring at the sunset, colors paint the sky\\nThoughts of you keep swirling, can't deny\\nI know I let you down, I made mistakes\\nBut I'm here to mend the heart I didn't break\\n\\n[chorus]\\nEvery road you take, I'll be one step behind\\nEvery dream you chase, I'm reaching for the light\\nYou can't fight this feeling now\\nI won't back down\\nYou know you can't deny it now\\nI won't back down\\n\",\n     \"genres\": \"inspiring female uplifting pop airy vocal electronic bright vocal vocal\"\n   }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:model_id",
+              "host": ["{{baseUrl}}"],
+              "path": [":model_id"],
+              "variable": [
+                {
+                  "key": "model_id",
+                  "value": "yue"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 16 Feb 2025 18:50:52 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "430"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"IN_QUEUE\",\n    \"request_id\": \"352cde3e-730d-4b7f-95a5-d84b949eada3\",\n    \"response_url\": \"https://queue.fal.run/fal-ai/yue/requests/352cde3e-730d-4b7f-95a5-d84b949eada3\",\n    \"status_url\": \"https://queue.fal.run/fal-ai/yue/requests/352cde3e-730d-4b7f-95a5-d84b949eada3/status\",\n    \"cancel_url\": \"https://queue.fal.run/fal-ai/yue/requests/352cde3e-730d-4b7f-95a5-d84b949eada3/cancel\",\n    \"logs\": null,\n    \"metrics\": {},\n    \"queue_position\": 0\n}"
+        }
+      ]
+    },
+    {
+      "name": "Generate Video - txt to vid",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const jsonResponse = pm.response.json();\r",
+              "pm.collectionVariables.set('temp.status_url', jsonResponse.status_url)\r",
+              "pm.collectionVariables.set('temp.response_url', jsonResponse.response_url)\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"prompt\": \"A herd of wild horses galloping across a dusty desert plain under a blazing midday sun, their manes flying in the wind; filmed in a wide tracking shot with dynamic motion, warm natural lighting, and an epic.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/:model_id",
+          "host": ["{{baseUrl}}"],
+          "path": [":model_id"],
+          "variable": [
+            {
+              "key": "model_id",
+              "value": "veo2"
+            }
+          ]
+        },
+        "description": "Create a text completion with the specified model from AI Studio using the chat format. You need to provide the list of messages, where each message is a dictionary with two keys: `role`, which is one of `system` / `user` / `assistant` , and `message` , which is a string - the content of the message."
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"prompt\": \"A herd of wild horses galloping across a dusty desert plain under a blazing midday sun, their manes flying in the wind; filmed in a wide tracking shot with dynamic motion, warm natural lighting, and an epic.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:model_id",
+              "host": ["{{baseUrl}}"],
+              "path": [":model_id"],
+              "variable": [
+                {
+                  "key": "model_id",
+                  "value": "veo2"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Tue, 04 Mar 2025 05:50:49 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "433"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"IN_QUEUE\",\n    \"request_id\": \"a84a5b89-ba8b-48b8-ad9d-2ac63ff41857\",\n    \"response_url\": \"https://queue.fal.run/fal-ai/veo2/requests/a84a5b89-ba8b-48b8-ad9d-2ac63ff41857\",\n    \"status_url\": \"https://queue.fal.run/fal-ai/veo2/requests/a84a5b89-ba8b-48b8-ad9d-2ac63ff41857/status\",\n    \"cancel_url\": \"https://queue.fal.run/fal-ai/veo2/requests/a84a5b89-ba8b-48b8-ad9d-2ac63ff41857/cancel\",\n    \"logs\": null,\n    \"metrics\": {},\n    \"queue_position\": 0\n}"
+        }
+      ]
+    },
+    {
+      "name": "Generate Video - img to vid",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const jsonResponse = pm.response.json();\r",
+              "pm.collectionVariables.set('temp.status_url', jsonResponse.status_url)\r",
+              "pm.collectionVariables.set('temp.response_url', jsonResponse.response_url)\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n\t\"prompt\": \"A lego chef cooking eggs\",\n\t\"image_url\": \"https://fal.media/files/elephant/6fq8JDSjb1osE_c3J_F2H.png\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/:model_id",
+          "host": ["{{baseUrl}}"],
+          "path": [":model_id"],
+          "variable": [
+            {
+              "key": "model_id",
+              "value": "veo2"
+            }
+          ]
+        },
+        "description": "Create a text completion with the specified model from AI Studio using the chat format. You need to provide the list of messages, where each message is a dictionary with two keys: `role`, which is one of `system` / `user` / `assistant` , and `message` , which is a string - the content of the message."
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"prompt\": \"A lego chef cooking eggs\",\n\t\"image_url\": \"https://fal.media/files/elephant/6fq8JDSjb1osE_c3J_F2H.png\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/:model_id",
+              "host": ["{{baseUrl}}"],
+              "path": [":model_id"],
+              "variable": [
+                {
+                  "key": "model_id",
+                  "value": "veo2"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 16 Mar 2025 16:49:47 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "433"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"IN_QUEUE\",\n    \"request_id\": \"3f73bf5a-39c7-4d60-af8b-492005e8b593\",\n    \"response_url\": \"https://queue.fal.run/fal-ai/veo2/requests/3f73bf5a-39c7-4d60-af8b-492005e8b593\",\n    \"status_url\": \"https://queue.fal.run/fal-ai/veo2/requests/3f73bf5a-39c7-4d60-af8b-492005e8b593/status\",\n    \"cancel_url\": \"https://queue.fal.run/fal-ai/veo2/requests/3f73bf5a-39c7-4d60-af8b-492005e8b593/cancel\",\n    \"logs\": null,\n    \"metrics\": {},\n    \"queue_position\": 0\n}"
+        }
+      ]
+    },
+    {
+      "name": "Status",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{temp.status_url}}",
+          "host": ["{{temp.status_url}}"]
+        },
+        "description": "Create a text completion with the specified model from AI Studio using the chat format. You need to provide the list of messages, where each message is a dictionary with two keys: `role`, which is one of `system` / `user` / `assistant` , and `message` , which is a string - the content of the message."
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{temp.status_url}}",
+              "host": ["{{temp.status_url}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 16 Feb 2025 18:45:55 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "461"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"COMPLETED\",\n    \"request_id\": \"88b0192d-3088-444a-9577-bbc9bf1990ee\",\n    \"response_url\": \"https://queue.fal.run/fal-ai/flux-pro/requests/88b0192d-3088-444a-9577-bbc9bf1990ee\",\n    \"status_url\": \"https://queue.fal.run/fal-ai/flux-pro/requests/88b0192d-3088-444a-9577-bbc9bf1990ee/status\",\n    \"cancel_url\": \"https://queue.fal.run/fal-ai/flux-pro/requests/88b0192d-3088-444a-9577-bbc9bf1990ee/cancel\",\n    \"logs\": null,\n    \"metrics\": {\n        \"inference_time\": 10.190171003341675\n    }\n}"
+        },
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{temp.status_url}}",
+              "host": ["{{temp.status_url}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 16 Feb 2025 19:08:23 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "445"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"COMPLETED\",\n    \"request_id\": \"352cde3e-730d-4b7f-95a5-d84b949eada3\",\n    \"response_url\": \"https://queue.fal.run/fal-ai/yue/requests/352cde3e-730d-4b7f-95a5-d84b949eada3\",\n    \"status_url\": \"https://queue.fal.run/fal-ai/yue/requests/352cde3e-730d-4b7f-95a5-d84b949eada3/status\",\n    \"cancel_url\": \"https://queue.fal.run/fal-ai/yue/requests/352cde3e-730d-4b7f-95a5-d84b949eada3/cancel\",\n    \"logs\": null,\n    \"metrics\": {\n        \"inference_time\": 888.0538909435272\n    }\n}"
+        },
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{temp.status_url}}",
+              "host": ["{{temp.status_url}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 16 Feb 2025 19:15:42 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "491"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"COMPLETED\",\n    \"request_id\": \"86ecb53e-47b1-433d-89cb-a76b73c2ca58\",\n    \"response_url\": \"https://queue.fal.run/fal-ai/luma-dream-machine/requests/86ecb53e-47b1-433d-89cb-a76b73c2ca58\",\n    \"status_url\": \"https://queue.fal.run/fal-ai/luma-dream-machine/requests/86ecb53e-47b1-433d-89cb-a76b73c2ca58/status\",\n    \"cancel_url\": \"https://queue.fal.run/fal-ai/luma-dream-machine/requests/86ecb53e-47b1-433d-89cb-a76b73c2ca58/cancel\",\n    \"logs\": null,\n    \"metrics\": {\n        \"inference_time\": 53.015228033065796\n    }\n}"
+        },
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{temp.status_url}}",
+              "host": ["{{temp.status_url}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Tue, 04 Mar 2025 05:54:50 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "449"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"COMPLETED\",\n    \"request_id\": \"a84a5b89-ba8b-48b8-ad9d-2ac63ff41857\",\n    \"response_url\": \"https://queue.fal.run/fal-ai/veo2/requests/a84a5b89-ba8b-48b8-ad9d-2ac63ff41857\",\n    \"status_url\": \"https://queue.fal.run/fal-ai/veo2/requests/a84a5b89-ba8b-48b8-ad9d-2ac63ff41857/status\",\n    \"cancel_url\": \"https://queue.fal.run/fal-ai/veo2/requests/a84a5b89-ba8b-48b8-ad9d-2ac63ff41857/cancel\",\n    \"logs\": null,\n    \"metrics\": {\n        \"inference_time\": 146.36465501785278\n    }\n}"
+        },
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{temp.status_url}}",
+              "host": ["{{temp.status_url}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 16 Mar 2025 16:50:27 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "448"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"COMPLETED\",\n    \"request_id\": \"3f73bf5a-39c7-4d60-af8b-492005e8b593\",\n    \"response_url\": \"https://queue.fal.run/fal-ai/veo2/requests/3f73bf5a-39c7-4d60-af8b-492005e8b593\",\n    \"status_url\": \"https://queue.fal.run/fal-ai/veo2/requests/3f73bf5a-39c7-4d60-af8b-492005e8b593/status\",\n    \"cancel_url\": \"https://queue.fal.run/fal-ai/veo2/requests/3f73bf5a-39c7-4d60-af8b-492005e8b593/cancel\",\n    \"logs\": null,\n    \"metrics\": {\n        \"inference_time\": 33.06066703796387\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Response",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{temp.response_url}}",
+          "host": ["{{temp.response_url}}"]
+        },
+        "description": "Create a text completion with the specified model from AI Studio using the chat format. You need to provide the list of messages, where each message is a dictionary with two keys: `role`, which is one of `system` / `user` / `assistant` , and `message` , which is a string - the content of the message."
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{temp.response_url}}",
+              "host": ["{{temp.response_url}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 16 Feb 2025 18:46:05 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "509"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-fal-billable-units",
+              "value": "1"
+            },
+            {
+              "key": "X-Fal-Served-From",
+              "value": "c6fe46ae-689c-46fb-81aa-94110979aaea"
+            },
+            {
+              "key": "x-fal-request-id",
+              "value": "88b0192d-3088-444a-9577-bbc9bf1990ee"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"images\": [\n        {\n            \"url\": \"https://fal.media/files/kangaroo/Vh7rdjx6MZRHeKAnmDlHA_31e3c445b55543c791e7ad177c8ad2c5.jpg\",\n            \"width\": 2752,\n            \"height\": 1536,\n            \"content_type\": \"image/jpeg\"\n        }\n    ],\n    \"timings\": {},\n    \"seed\": 1270524606,\n    \"has_nsfw_concepts\": [\n        false\n    ],\n    \"prompt\": \"Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth. The word \\\"FLUX\\\" is painted over it in big, white brush strokes with visible texture.\"\n}"
+        },
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{temp.response_url}}",
+              "host": ["{{temp.response_url}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 16 Feb 2025 19:09:13 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "170"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-fal-billable-units",
+              "value": "55"
+            },
+            {
+              "key": "X-Fal-Served-From",
+              "value": "9d570395-8849-4ca0-89b2-b16a5713cd3c"
+            },
+            {
+              "key": "x-fal-request-id",
+              "value": "352cde3e-730d-4b7f-95a5-d84b949eada3"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"audio\": {\n        \"url\": \"https://v3.fal.media/files/lion/s2j38aISgFGvsvmi0IYMz_output.mp3\",\n        \"content_type\": \"application/octet-stream\",\n        \"file_name\": \"output.mp3\",\n        \"file_size\": 442845\n    }\n}"
+        },
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{temp.response_url}}",
+              "host": ["{{temp.response_url}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 16 Feb 2025 19:15:56 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "157"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-fal-billable-units",
+              "value": "1"
+            },
+            {
+              "key": "X-Fal-Served-From",
+              "value": "fc36215a-d092-4100-a560-3760023a9d56"
+            },
+            {
+              "key": "x-fal-request-id",
+              "value": "86ecb53e-47b1-433d-89cb-a76b73c2ca58"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"video\": {\n        \"url\": \"https://v3.fal.media/files/panda/vLWqXNPp3k7GwhJM6lblj_output.mp4\",\n        \"content_type\": \"video/mp4\",\n        \"file_name\": \"output.mp4\",\n        \"file_size\": 1917648\n    }\n}"
+        },
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{temp.response_url}}",
+              "host": ["{{temp.response_url}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Tue, 04 Mar 2025 05:55:08 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "157"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-fal-billable-units",
+              "value": "10"
+            },
+            {
+              "key": "X-Fal-Served-From",
+              "value": "a3689f75-20ec-469f-a117-074a06ca15df"
+            },
+            {
+              "key": "x-fal-request-id",
+              "value": "a84a5b89-ba8b-48b8-ad9d-2ac63ff41857"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"video\": {\n        \"url\": \"https://v3.fal.media/files/panda/12jgnbPomNSTvPVoxmuWW_output.mp4\",\n        \"content_type\": \"video/mp4\",\n        \"file_name\": \"output.mp4\",\n        \"file_size\": 3057246\n    }\n}"
+        },
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{temp.response_url}}",
+              "host": ["{{temp.response_url}}"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 16 Mar 2025 16:50:34 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "156"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-fal-billable-units",
+              "value": "10"
+            },
+            {
+              "key": "X-Fal-Served-From",
+              "value": "a6456f44-1f09-4984-b5f8-143b2e332867"
+            },
+            {
+              "key": "x-fal-request-id",
+              "value": "3f73bf5a-39c7-4d60-af8b-492005e8b593"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000; includeSubDomains"
+            },
+            {
+              "key": "X-Robots-Tag",
+              "value": "noindex"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"video\": {\n        \"url\": \"https://v3.fal.media/files/koala/KiMpGUdih4dbk1FI9FjRy_output.mp4\",\n        \"content_type\": \"video/mp4\",\n        \"file_name\": \"output.mp4\",\n        \"file_size\": 603345\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "value",
+        "value": "Key {{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "key",
+        "value": "Authorization",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://queue.fal.run/fal-ai"
+    },
+    {
+      "key": "apiKey",
+      "value": ""
+    },
+    {
+      "key": "temp.status_url",
+      "value": ""
+    },
+    {
+      "key": "temp.response_url",
+      "value": ""
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+include:
+  - path: docker-compose.supabase.yml
+
+services:
+  # Development backend with hot reload
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    ports:
+      - '8000:8000'
+    env_file:
+      - ../.env
+      - ./supabase/supabase.env
+    environment:
+      - ENVIRONMENT=development
+      - DATABASE_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
+      - POSTGRESQL_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
+      - SUPABASE_URL=http://kong:8000
+      - SUPABASE_ANON_KEY=${ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SERVICE_ROLE_KEY}
+      - SUPABASE_JWT_SECRET=${JWT_SECRET}
+    volumes:
+      - ../app:/app/app:cached
+      - backend_data:/app/data
+      - ../config/config.json:/app/config/config.json:ro
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      chromadb:
+        condition: service_started
+      kong:
+        condition: service_healthy
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_dev_data:/data
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  chromadb:
+    image: chromadb/chroma:latest
+    ports:
+      - '8001:8000'
+    volumes:
+      - chroma_dev_data:/chroma/chroma
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma/chroma
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - '11434:11434'
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+
+networks:
+  durgasai_network:
+    driver: bridge
+
+volumes:
+  backend_data:
+  redis_dev_data:
+  chroma_dev_data:
+  ollama_data:

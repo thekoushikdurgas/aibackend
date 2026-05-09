@@ -1,0 +1,1188 @@
+{
+  "info": {
+    "_postman_id": "6da4d34d-dd01-423e-8b1e-588b52cf362a",
+    "name": "📌 Perplexity AI API",
+    "description": "### About\n\n\"Perplexity AI unlocks the power of knowledge with information discovery and sharing.\"\n\n### Prerequisites\n\n- Postman Account\n    \n- Perplexity AI Account: [https://www.perplexity.ai/](https://www.perplexity.ai/)\n    \n\n### Usage\n\n1. Create a fork\n    \n2. Update collection variables\n    \n3. Send requests\n    \n\n### Documentation\n\n- API: [https://docs.perplexity.ai/reference](https://docs.perplexity.ai/reference)\n    \n- Models: [https://docs.perplexity.ai/getting-started/models](https://docs.perplexity.ai/getting-started/models)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20572666",
+    "_collection_link": "https://www.postman.com/ai-engineer/generative-ai-apis/collection/lrm4umz/perplexity-ai-api?action=share&source=collection_link&creator=20572666"
+  },
+  "item": [
+    {
+      "name": "🚀 Get Started",
+      "item": [
+        {
+          "name": "Chat (sonar-reasoning)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"sonar-reasoning\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"sonar-reasoning\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Wed, 29 Jan 2025 01:28:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "__cf_bm=ihiVQMAsKZO7duTzfXxYJHPjLvClSe.GH8MF.BlpI7Y-1738114137-1.0.1.1-.blLZOz4liLQ11oV24JKcq41IgRtw1XbjfD43PhPmQZ_MeODvY8ne8rxbCk65TJg.eLY9P.C39Zs4ru3OQYmeQ; path=/; expires=Wed, 29-Jan-25 01:58:57 GMT; domain=.perplexity.ai; HttpOnly; Secure; SameSite=None"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000; includeSubDomains; preload"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "909572949a0f08e6-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"8e70e54c-588e-4b64-8624-c447bff563ae\",\n    \"model\": \"sonar-reasoning\",\n    \"created\": 1738114137,\n    \"usage\": {\n        \"prompt_tokens\": 23,\n        \"completion_tokens\": 385,\n        \"total_tokens\": 408\n    },\n    \"citations\": [\n        \"https://blog.metservice.com/Washing_Weather\",\n        \"https://www.consumer.org.nz/articles/the-best-way-to-dry-laundry-in-winter\",\n        \"https://www.manggear.com/blogs/stories/how-to-care-for-your-sun-shirts-washing-drying\",\n        \"https://www.fisherpaykel.com/download/user-guide/Laundry/Dry/Dryers/DH9060P-428210C-heat-pump-clothes-dryer-user-guide.pdf\",\n        \"https://www.bogleheads.org/forum/viewtopic.php?t=121931\"\n    ],\n    \"object\": \"chat.completion\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"finish_reason\": \"stop\",\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"<think>\\nOkay, so the user is asking about drying shirts in the sun. They mentioned that one shirt takes an hour, and they're wondering how long three shirts would take. Hmm, at first glance, it might seem like more shirts would take longer, but I remember from the search results that drying time isn't just about the number of clothes. \\n\\nLooking at the first search result, it explains that drying depends on factors like humidity, wind, and sun exposure. So, if the shirts are spread out properly, each one gets enough airflow and sunlight. The second result talks about line drying in winter and mentions that on a breezy day, even if it's overcast, clothes can dry faster than a calm, sunny day. That makes me think that as long as there's enough space, adding more shirts doesn't necessarily add time.\\n\\nThe third result is about caring for sun shirts and recommends line drying them in the shade to prevent fading, but it doesn't directly address drying time. The fourth result is a user guide for a dryer, which isn't relevant here. The fifth search result is a forum discussion where people share their experiences with line drying. One person mentions that towels dry quickly in the sun, which supports the idea that multiple items don't necessarily take longer if conditions are good.\\n\\nPutting it all together, the key factors are how the shirts are arranged and the environmental conditions. If the user hangs the three shirts in a spot with good airflow and sunlight, each shirt can dry in about an hour, just like one shirt. So, the drying time stays the same as long as they're not overcrowded.\\n</think>\\n\\nDrying time for clothes hung in the sun depends on factors like humidity, wind, and exposure to sunlight. If one shirt takes 1 hour to dry, three shirts, when properly spaced to allow airflow and sunlight, will also take about 1 hour to dry.\"\n            },\n            \"delta\": {\n                \"role\": \"assistant\",\n                \"content\": \"\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chat",
+      "item": [
+        {
+          "name": "sonar-reasoning-pro (powered by DeepSeek)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"sonar-reasoning-pro\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 1000,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"sonar-reasoning-pro\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Fri, 14 Feb 2025 05:56:30 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "__cf_bm=iYn5xZI2UAj4tCa7MnlFDrkXONKCeREIrJBXRNykfnM-1739512590-1.0.1.1-56FIKaT1XdcFT67Dko6Bh6n0aSYJa76vV_xofTCR5VeSZRoK4GvvSs1tj6BOHcYwoSuYFkrWDUS9DEkluUa5TQ; path=/; expires=Fri, 14-Feb-25 06:26:30 GMT; domain=.perplexity.ai; HttpOnly; Secure; SameSite=None"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000; includeSubDomains; preload"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "911ad06e19487bfe-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"ee7cf96b-5d71-41f7-911c-604c55afc845\",\n    \"model\": \"sonar-reasoning-pro\",\n    \"created\": 1739512590,\n    \"usage\": {\n        \"prompt_tokens\": 23,\n        \"completion_tokens\": 677,\n        \"total_tokens\": 700,\n        \"citation_tokens\": 5636,\n        \"num_search_queries\": 1\n    },\n    \"citations\": [\n        \"https://www.manggear.com/blogs/stories/how-to-care-for-your-sun-shirts-washing-drying\",\n        \"https://www.whirlpool.com/blog/washers-and-dryers/how-choose-laundry-cycles.html\",\n        \"https://www.bogleheads.org/forum/viewtopic.php?t=121931\",\n        \"https://www.mumsnet.com/talk/housekeeping/4676067-washing-taking-ages-to-dry-outside\",\n        \"https://polder.com/blogs/blog/sanitizing-clothes-using-the-sun\",\n        \"https://forums.anandtech.com/threads/how-long-does-it-take-to-dry-laundry-hung-in-a-normal-room.190762/\",\n        \"https://blog.calida.com/en-WO/blog/how-to-dry-clothes-fast/\",\n        \"https://permies.com/t/63186/permaculture-home-care-cleaning/drying-clothes-smell-mildew-washing\",\n        \"https://hubpages.com/health/forum/77784/dry-by-sunlight-or-dryer-machine\",\n        \"https://www.postman.com/ai-engineer/generative-ai-large-language-model-apis/documentation/k68agqe/ollama-api-localhost\"\n    ],\n    \"object\": \"chat.completion\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"finish_reason\": \"stop\",\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"<think>\\nOkay, let's tackle this question. The user is asking, if drying one shirt in the sun takes 1 hour, how long does it take to dry three shirts? At first glance, it seems like a straightforward math problem—maybe just multiplying by three. But wait, drying clothes in the sun isn't like tasks where each item adds time. Let me think about how drying actually works.\\n\\nFrom the search results, I remember that when clothes are hung outside, factors like sunlight, wind, and humidity affect drying time. For example, result [3] mentions that even heavy towels can dry in 1-2 hours in direct summer sun. Also, result [7] says that in good weather, clothes might only take a few hours outside. But if multiple shirts are hung with enough space, they might all dry simultaneously. \\n\\nWait, the key here is whether the shirts are dried in parallel or series. If you hang all three shirts at the same time in the sun with enough space (so they aren't overlapping), each shirt is exposed to the same sunlight and air flow. So theoretically, all three would dry in the same 1 hour as one shirt. But maybe there's a catch. \\n\\nLooking at result [5], it mentions that clothes must dry completely in direct sunlight to kill bacteria, and flipping items helps. If you have more shirts, you need to ensure each has enough exposure. But as long as they're spread out, the time shouldn't increase. \\n\\nHowever, result [10] from Postman's API documentation has a different take. It says if one shirt takes an hour, three take three hours. But that seems counterintuitive because drying is not a sequential task unless you're limited by space or airflow. The answer in [10] might be assuming a linear relationship without considering real-world factors like simultaneous drying.\\n\\nBut according to real-world practices (results [3], [5], [7]), when clothes are hung properly with adequate spacing and good conditions, multiple items can dry in the same time as one. So unless overcrowded, three shirts should take about 1 hour if dried together under the same conditions. \\n\\nTherefore, the correct answer depends on whether the drying setup allows all shirts to receive sufficient sunlight and airflow simultaneously. If yes, then 1 hour. If not (e.g., limited space causing slower drying), it might take longer. But based on typical scenarios where you can spread them out, the answer is 1 hour.\\n</think>\\n\\nDrying three shirts in the sun under **identical conditions** (adequate spacing and direct sunlight) would take approximately **1 hour**, the same as drying one shirt[3][5][7]. This assumes proper airflow and no overcrowding, allowing simultaneous drying. However, if shirts are overlapping or conditions worsen (e.g., reduced sunlight/humidity), drying time may increase[4][8]. \\n\\nKey factors:  \\n- **Parallel drying**: Multiple items dry at the same rate when exposed equally to sunlight and airflow[3][7].  \\n- **Space management**: Overlapping garments or poor ventilation can slow evaporation[4][8].  \\n- **Environmental conditions**: Direct sunlight and low humidity optimize drying speed[5][7].  \\n\\nFor best results, use a drying rack to maximize exposure and rotate items if needed[5].\"\n            },\n            \"delta\": {\n                \"role\": \"assistant\",\n                \"content\": \"\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "sonar-reasoning (powered by DeepSeek)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"sonar-reasoning\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 1000,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"sonar-reasoning\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Wed, 29 Jan 2025 01:28:57 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "__cf_bm=ihiVQMAsKZO7duTzfXxYJHPjLvClSe.GH8MF.BlpI7Y-1738114137-1.0.1.1-.blLZOz4liLQ11oV24JKcq41IgRtw1XbjfD43PhPmQZ_MeODvY8ne8rxbCk65TJg.eLY9P.C39Zs4ru3OQYmeQ; path=/; expires=Wed, 29-Jan-25 01:58:57 GMT; domain=.perplexity.ai; HttpOnly; Secure; SameSite=None"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000; includeSubDomains; preload"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "909572949a0f08e6-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"8e70e54c-588e-4b64-8624-c447bff563ae\",\n    \"model\": \"sonar-reasoning\",\n    \"created\": 1738114137,\n    \"usage\": {\n        \"prompt_tokens\": 23,\n        \"completion_tokens\": 385,\n        \"total_tokens\": 408\n    },\n    \"citations\": [\n        \"https://blog.metservice.com/Washing_Weather\",\n        \"https://www.consumer.org.nz/articles/the-best-way-to-dry-laundry-in-winter\",\n        \"https://www.manggear.com/blogs/stories/how-to-care-for-your-sun-shirts-washing-drying\",\n        \"https://www.fisherpaykel.com/download/user-guide/Laundry/Dry/Dryers/DH9060P-428210C-heat-pump-clothes-dryer-user-guide.pdf\",\n        \"https://www.bogleheads.org/forum/viewtopic.php?t=121931\"\n    ],\n    \"object\": \"chat.completion\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"finish_reason\": \"stop\",\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"<think>\\nOkay, so the user is asking about drying shirts in the sun. They mentioned that one shirt takes an hour, and they're wondering how long three shirts would take. Hmm, at first glance, it might seem like more shirts would take longer, but I remember from the search results that drying time isn't just about the number of clothes. \\n\\nLooking at the first search result, it explains that drying depends on factors like humidity, wind, and sun exposure. So, if the shirts are spread out properly, each one gets enough airflow and sunlight. The second result talks about line drying in winter and mentions that on a breezy day, even if it's overcast, clothes can dry faster than a calm, sunny day. That makes me think that as long as there's enough space, adding more shirts doesn't necessarily add time.\\n\\nThe third result is about caring for sun shirts and recommends line drying them in the shade to prevent fading, but it doesn't directly address drying time. The fourth result is a user guide for a dryer, which isn't relevant here. The fifth search result is a forum discussion where people share their experiences with line drying. One person mentions that towels dry quickly in the sun, which supports the idea that multiple items don't necessarily take longer if conditions are good.\\n\\nPutting it all together, the key factors are how the shirts are arranged and the environmental conditions. If the user hangs the three shirts in a spot with good airflow and sunlight, each shirt can dry in about an hour, just like one shirt. So, the drying time stays the same as long as they're not overcrowded.\\n</think>\\n\\nDrying time for clothes hung in the sun depends on factors like humidity, wind, and exposure to sunlight. If one shirt takes 1 hour to dry, three shirts, when properly spaced to allow airflow and sunlight, will also take about 1 hour to dry.\"\n            },\n            \"delta\": {\n                \"role\": \"assistant\",\n                \"content\": \"\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "sonar-pro",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"sonar-pro\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 1000,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"sonar-pro\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Thu, 23 Jan 2025 01:47:45 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000; includeSubDomains; preload"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "90641df55b417cbc-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"7cc535aa-c0eb-423c-a9be-9861ddb5c534\",\n    \"model\": \"sonar-pro\",\n    \"created\": 1737596865,\n    \"usage\": {\n        \"prompt_tokens\": 23,\n        \"completion_tokens\": 249,\n        \"total_tokens\": 272,\n        \"citation_tokens\": 4976,\n        \"num_search_queries\": 1\n    },\n    \"citations\": [\n        \"https://www.manggear.com/blogs/stories/how-to-care-for-your-sun-shirts-washing-drying\",\n        \"https://speedqueen.com/scoop-blog/laundry-room/tips/how-to-dry-your-clothes-fast-without-a-dryer-mostly-fast/\",\n        \"https://www.planetfriendlyliving.co.uk/post/top-tips-for-drying-clothes-outside\",\n        \"https://permies.com/t/63186/permaculture-home-care-cleaning/drying-clothes-smell-mildew-washing\",\n        \"https://www.bogleheads.org/forum/viewtopic.php?t=121931\",\n        \"https://www.mumsnet.com/talk/housekeeping/4676067-washing-taking-ages-to-dry-outside\",\n        \"https://polder.com/blogs/blog/sanitizing-clothes-using-the-sun\",\n        \"https://forums.anandtech.com/threads/how-long-does-it-take-to-dry-laundry-hung-in-a-normal-room.190762/\",\n        \"https://blog.calida.com/en-WO/blog/how-to-dry-clothes-fast/\",\n        \"https://hubpages.com/health/forum/77784/dry-by-sunlight-or-dryer-machine\"\n    ],\n    \"object\": \"chat.completion\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"finish_reason\": \"stop\",\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"If one shirt takes 1 hour to dry in the sun, 3 shirts would also take approximately 1 hour to dry, assuming there is adequate space to spread them out without overlapping[5][9]. \\n\\nThe drying time for clothes in the sun depends more on factors like temperature, humidity, and air circulation rather than the number of items, as long as they are not crowded together. When hung properly with space between items to allow airflow, multiple garments can dry simultaneously in about the same time as a single item[9].\\n\\nTo ensure the shirts dry efficiently:\\n\\n1. Hang them with space between each shirt to allow air circulation[9].\\n2. Place them in direct sunlight for maximum drying effectiveness[7].\\n3. If possible, hang them early in the day to give them maximum drying time[3].\\n4. Ensure the shirts are fully spread out, with sleeves unrolled and buttons undone[3].\\n\\nBy following these tips, you should be able to dry 3 shirts in approximately the same 1-hour timeframe as a single shirt, assuming similar weather conditions and proper hanging techniques.\"\n            },\n            \"delta\": {\n                \"role\": \"assistant\",\n                \"content\": \"\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "sonar",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"sonar\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 1000,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"sonar\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Thu, 23 Jan 2025 01:47:03 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "__cf_bm=Y35vRPqZRKifxgq3zzUlxwzldui7rWycVJaLZFWGg_8-1737596823-1.0.1.1-gXR3Uj7adhlVKYWJtCfqsWDsyA96Qu_PK2UDEv8nSHvCsfA_po7Otmg5wUVWRHTZDMdxyaW_2dGj3fOgRydUQQ; path=/; expires=Thu, 23-Jan-25 02:17:03 GMT; domain=.perplexity.ai; HttpOnly; Secure; SameSite=None"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000; includeSubDomains; preload"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "90641ceb8deb7cbc-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"6438c552-2978-4fa8-b389-c7d0467cbe47\",\n    \"model\": \"sonar\",\n    \"created\": 1737596823,\n    \"usage\": {\n        \"prompt_tokens\": 23,\n        \"completion_tokens\": 219,\n        \"total_tokens\": 242\n    },\n    \"citations\": [\n        \"https://blog.metservice.com/Washing_Weather\",\n        \"https://www.fisherpaykel.com/download/user-guide/Laundry/Dry/Dryers/DH9060P-428210C-heat-pump-clothes-dryer-user-guide.pdf\",\n        \"https://www.manggear.com/blogs/stories/how-to-care-for-your-sun-shirts-washing-drying\",\n        \"https://speedqueen.com/scoop-blog/laundry-room/tips/how-to-dry-your-clothes-fast-without-a-dryer-mostly-fast/\",\n        \"https://www.planetfriendlyliving.co.uk/post/top-tips-for-drying-clothes-outside\"\n    ],\n    \"object\": \"chat.completion\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"finish_reason\": \"stop\",\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"When drying clothes in the sun, the drying time is primarily influenced by factors such as **temperature**, **humidity**, **wind speed**, and **sunlight exposure**. However, the number of shirts does not directly affect the drying time per shirt, assuming they are all exposed to the same conditions and are not overlapping or shading each other.\\n\\nIf one shirt takes 1 hour to dry under specific conditions, three shirts, if hung properly to maximize exposure to sun and wind, would also take approximately 1 hour to dry each. This is because each shirt is drying independently, and the drying process is not significantly affected by the presence of other shirts, as long as they are not crowded or overlapping.\\n\\nTo ensure efficient drying, make sure the shirts are:\\n- **Exposed to direct sunlight** for as long as possible.\\n- **Not overlapping** to maximize surface area exposed to the sun and wind.\\n- **Hung in a breezy location** to enhance evaporation.\\n\\nThus, under the same conditions, three shirts would take about 1 hour to dry each, assuming they are properly arranged.\"\n            },\n            \"delta\": {\n                \"role\": \"assistant\",\n                \"content\": \"\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "llama-3.1-sonar-small-128k-online [Deprecated]",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"llama-3.1-sonar-small-128k-online\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 1000,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"llama-3.1-sonar-small-128k-online\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 09 Nov 2024 15:25:54 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "8dfed15ace3c0fcd-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"4c00a18d-2cda-4ef2-825a-168d9279b649\",\n    \"model\": \"llama-3.1-sonar-small-128k-online\",\n    \"created\": 1731165954,\n    \"usage\": {\n        \"prompt_tokens\": 7,\n        \"completion_tokens\": 388,\n        \"total_tokens\": 395\n    },\n    \"citations\": [\n        \"https://iankoniak.com/what-is-the-meaning-of-life/\",\n        \"https://philosophynow.org/issues/147/Why_Youre_Probably_Wrong_About_The_Meaning_of_Life\",\n        \"https://greatergood.berkeley.edu/article/item/three_ways_to_see_meaning_in_your_life\",\n        \"https://en.wikipedia.org/wiki/Meaning_of_life\",\n        \"https://intentionalinsights.org/what-is-the-meaning-of-life-for-you/\"\n    ],\n    \"object\": \"chat.completion\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"finish_reason\": \"stop\",\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"The meaning of life is a deeply personal and complex question that has been explored by philosophers, psychologists, and theologians across various cultures and historical periods. There is no single definitive answer, and different perspectives offer diverse insights:\\n\\n1. **Pursuing Full Potential**:\\n   - According to Ian Koniak, the meaning of life is to pursue your full potential and become the best you are capable of becoming in all areas of life. This philosophy emphasizes the joy in the journey and the continuous pursuit of excellence[1].\\n\\n2. **Philosophical Perspectives**:\\n   - Many contemporary philosophers argue that human lives can indeed be meaningful, but not necessarily in the ways commonly assumed. They suggest that meaning can be found in personal experiences, relationships, creativity, and personal excellence, among other factors[2].\\n\\n3. **Research on Meaning**:\\n   - Researchers define meaning in life as incorporating three themes: the belief that your life and contributions matter to others and yourself, the feeling that your life makes sense, and the feeling that you are actively pursuing fulfilling goals. These themes are often referred to as coherence, purpose, and significance[3].\\n\\n4. **Subjective Experience**:\\n   - The search for meaning is deeply subjective. Each person must formulate their own answer to the question \\\"What is the meaning of life for you?\\\" This personal approach can lead to a sense of agency and choice, enhancing overall well-being and life satisfaction[5].\\n\\n5. **Philosophical and Theological Contemplation**:\\n   - The question of life's meaning has been explored through philosophical and theological contemplation of existence, social ties, consciousness, and happiness. Various criteria, including objective norms and subjective feelings, are proposed to determine what constitutes meaningful life[4].\\n\\nIn summary, the meaning of life is a multifaceted concept that varies from person to person, encompassing personal growth, meaningful experiences, and a sense of purpose.\"\n            },\n            \"delta\": {\n                \"role\": \"assistant\",\n                \"content\": \"\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "llama-3.1-sonar-large-128k-online [Deprecated]",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"llama-3.1-sonar-large-128k-online\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 1000,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"llama-3.1-sonar-large-128k-online\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 09 Nov 2024 15:27:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "8dfed2ced8710fcd-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"c4380a26-03e7-4743-a51e-8ec89dfe77f8\",\n    \"model\": \"llama-3.1-sonar-large-128k-online\",\n    \"created\": 1731166020,\n    \"usage\": {\n        \"prompt_tokens\": 7,\n        \"completion_tokens\": 568,\n        \"total_tokens\": 575\n    },\n    \"citations\": [\n        \"https://greatergood.berkeley.edu/article/item/three_ways_to_see_meaning_in_your_life\",\n        \"https://en.wikipedia.org/wiki/Meaning_of_life\",\n        \"https://philosophynow.org/issues/147/Why_Youre_Probably_Wrong_About_The_Meaning_of_Life\",\n        \"https://positivepsychology.com/meaning-of-life-positive-psychology/\",\n        \"https://iankoniak.com/what-is-the-meaning-of-life/\"\n    ],\n    \"object\": \"chat.completion\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"finish_reason\": \"stop\",\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"The question of the meaning of life is complex and has been explored from various philosophical, psychological, and personal perspectives. Here are some key points that summarize the diverse views on this topic:\\n\\n## Interrelated Facets of Meaning\\nResearchers often define meaning in life through three interrelated facets:\\n- **Significance**: The belief that your life and contributions matter to others and yourself[1][2][4].\\n- **Coherence**: The feeling that your life makes sense and has a logical order[1][2].\\n- **Purpose**: The orientation toward fulfilling goals and pursuing meaningful activities[1][2][4].\\n\\n## Subjective and Objective Aspects\\nMeaning in life can be both subjective and objective. Subjectively, it is a personal feeling or judgment about the significance and purpose of one's life. Objectively, some philosophers argue that there are concrete criteria for what constitutes a meaningful life, such as aligning with certain normative standards or pursuing worthwhile goals[2].\\n\\n## Sources of Meaning\\nMeaning can be derived from various sources, including:\\n- **Relationships**: Loving and caring relationships with others[3].\\n- **Work and Activities**: Engaging in meaningful work, hobbies, or other activities that provide a sense of purpose and fulfillment[1][3][4].\\n- **Spiritual and Religious Beliefs**: Finding meaning through spiritual or religious practices and beliefs[1].\\n- **Personal Growth**: Pursuing one's full potential and striving to become the best version of oneself in all areas of life[5].\\n\\n## Everyday Meaning\\nContrary to the idea that meaning is something rare or profound, research suggests that meaning is often found in the everyday aspects of life. It can be detected in the regularities and routines that give life its sense of coherence and purpose[1].\\n\\n## Philosophical Perspectives\\nPhilosophers have different views on the meaning of life. Some argue that meaning is not something external but rather something we create or find within our own lives. This perspective distinguishes between the meaning of life in general and the meaning within individual lives[3].\\n\\n## Personal Responsibility\\nMany theories emphasize personal responsibility in creating and maintaining meaning. According to Viktor Frankl, each person is responsible for answering for their own life and finding meaning through their actions and choices[4].\\n\\n## Diverse Answers\\nUltimately, there is no single definitive answer to the question of the meaning of life. Different people and cultures propose various answers, ranging from pursuing happiness, giving and receiving love, finding passion, or living out a purpose that is greater than oneself[2][3][5].\\n\\nIn summary, the meaning of life is a multifaceted concept that can be understood through personal significance, coherence, and purpose, and it can be found in various aspects of life, including relationships, work, personal growth, and everyday experiences.\"\n            },\n            \"delta\": {\n                \"role\": \"assistant\",\n                \"content\": \"\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "llama-3.1-sonar-huge-128k-online [Deprecated]",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"llama-3.1-sonar-huge-128k-online\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 1000,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"llama-3.1-sonar-huge-128k-online\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 09 Nov 2024 15:28:03 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "8dfed3fc1de90fcd-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"05038c3b-d9aa-4a9c-bfc5-c011b1435a33\",\n    \"model\": \"llama-3.1-sonar-huge-128k-online\",\n    \"created\": 1731166083,\n    \"usage\": {\n        \"prompt_tokens\": 7,\n        \"completion_tokens\": 524,\n        \"total_tokens\": 531\n    },\n    \"citations\": [\n        \"https://www.tandfonline.com/doi/full/10.1080/17439760.2015.1137623\",\n        \"https://en.wikipedia.org/wiki/Meaning_of_life\",\n        \"https://philosophynow.org/issues/147/Why_Youre_Probably_Wrong_About_The_Meaning_of_Life\",\n        \"https://iankoniak.com/what-is-the-meaning-of-life/\",\n        \"https://greatergood.berkeley.edu/article/item/three_ways_to_see_meaning_in_your_life\"\n    ],\n    \"object\": \"chat.completion\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"finish_reason\": \"stop\",\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"The meaning of life is a complex and multifaceted concept that has been explored by philosophers, psychologists, and theologians for centuries. There is no single, definitive answer, but several key themes and perspectives have emerged:\\n\\n1. **Three Dimensions of Meaning**:\\n   - **Coherence**: This refers to the sense that one's life makes sense and is comprehensible. It involves understanding one's place in the world and feeling that life's events are interconnected and meaningful[1][5].\\n   - **Purpose**: This involves having core goals, aims, and direction in life. It is about pursuing fulfilling goals and feeling that one's life has a clear direction[1][5].\\n   - **Significance**: This dimension is about the inherent value and worth of one's life. It involves feeling that one's life matters and has a positive impact on others and oneself[1][5].\\n\\n2. **Subjective and Objective Perspectives**:\\n   - **Subjective**: Many researchers view meaning in life as a subjective feeling or judgment. It is about what gives an individual's life worth and significance from their own perspective[2][3].\\n   - **Objective**: Some philosophers argue that there are also objective, concrete criteria for what constitutes meaning in life. These criteria can include moral goodness, personal excellence, and the pursuit of valuable goals[2][3].\\n\\n3. **Individual and Universal Meanings**:\\n   - **Individual Meaning**: This perspective focuses on the meaning that individuals find or create in their own lives. It is about personal fulfillment, happiness, and the pursuit of one's full potential[3][4].\\n   - **Universal Meaning**: This perspective seeks to understand the broader, philosophical meaning of life. It involves questions about the purpose of existence, the nature of the universe, and the human condition[2][3].\\n\\n4. **Practical Approaches**:\\n   - **Cultivating Meaning**: Research suggests that meaning can be cultivated through simple practices such as detecting the meaning that is already present in one's life, pursuing fulfilling goals, and appreciating the regularities and routines of life[5].\\n   - **Everyday Experiences**: Meaning can be found in everyday experiences, such as loving relationships, personal achievements, and the appreciation of beauty and knowledge[3][5].\\n\\nIn summary, the meaning of life is a multifaceted concept that encompasses various dimensions and perspectives. It involves both subjective and objective elements, and can be found in both individual and universal contexts. Cultivating meaning in life can be achieved through practical approaches that focus on coherence, purpose, and significance.\"\n            },\n            \"delta\": {\n                \"role\": \"assistant\",\n                \"content\": \"\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "llama-3.1-sonar-small-128k-chat [Deprecated]",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"llama-3.1-sonar-small-128k-chat\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 1000,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"llama-3.1-sonar-small-128k-chat\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 09 Nov 2024 15:28:33 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "8dfed5445f910fcd-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"d18f11a5-2448-4e75-86d7-2988d80dcfda\",\n    \"model\": \"llama-3.1-sonar-small-128k-chat\",\n    \"created\": 1731166113,\n    \"usage\": {\n        \"prompt_tokens\": 17,\n        \"completion_tokens\": 401,\n        \"total_tokens\": 418\n    },\n    \"object\": \"chat.completion\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"finish_reason\": \"stop\",\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"The question of the meaning of life is one of the most profound and enduring philosophical inquiries. It has been debated by thinkers, theologians, scientists, and everyday people for centuries. There is no single definitive answer that satisfies everyone, as perspectives on this question vary widely depending on cultural, religious, scientific, and personal beliefs.\\n\\nHere are some common themes and approaches:\\n\\n1. **Religious Perspectives**: Many religions offer their own answers to the question of life's meaning. For example:\\n   - **Christianity**: The purpose of life is to love God and serve others.\\n   - **Buddhism**: The goal is to achieve enlightenment and end suffering.\\n   - **Islam**: The purpose is to submit to Allah's will and live a righteous life.\\n\\n2. **Philosophical Perspectives**:\\n   - **Existentialism**: Life has no inherent meaning; it is up to each individual to create their own purpose.\\n   - **Stoicism**: The goal is to live in accordance with nature and reason.\\n   - **Hedonism**: The aim is to maximize pleasure and minimize pain.\\n\\n3. **Scientific Perspectives**:\\n   - Some argue that life's meaning can be found in understanding the universe through science.\\n   - Others suggest that our existence serves as part of a larger evolutionary process.\\n\\n4. **Humanistic Perspectives**:\\n   - Many people find meaning in relationships, personal growth, contributing to society, or pursuing passions.\\n\\n5. **Existentialist Views**:\\n    - Jean-Paul Sartre famously said, \\\"Man is condemned to be free; because once thrown into the world, he is forced to choose.\\\"\\n\\n6. **Personal Reflections**:\\n    - Ultimately, many people find their own unique sense of purpose through introspection and self-discovery.\\n\\nIn summary, while there may not be one universally accepted answer to what gives life its meaning, exploring these various perspectives can help individuals find their own path towards understanding and fulfilling their existence.\\n\"\n            },\n            \"delta\": {\n                \"role\": \"assistant\",\n                \"content\": \"\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "llama-3.1-sonar-large-128k-chat [Deprecated]",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"llama-3.1-sonar-large-128k-chat\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 1000,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"llama-3.1-sonar-large-128k-chat\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 09 Nov 2024 15:28:46 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "8dfed559ddd60fcd-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"5471ddf0-49f4-4058-8ddd-5d69c8d5d9d1\",\n    \"model\": \"llama-3.1-sonar-large-128k-chat\",\n    \"created\": 1731166126,\n    \"usage\": {\n        \"prompt_tokens\": 17,\n        \"completion_tokens\": 481,\n        \"total_tokens\": 498\n    },\n    \"object\": \"chat.completion\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"finish_reason\": \"stop\",\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"The question of the meaning of life is one of the most profound and enduring inquiries in human history, and it has been explored by philosophers, theologians, scientists, and countless individuals across various cultures and time periods. Here are some perspectives on this complex issue:\\n\\n### Philosophical Perspectives\\n- **Existentialism**: This school of thought, represented by philosophers like Jean-Paul Sartre and Martin Heidegger, suggests that life has no inherent meaning. Instead, individuals must create their own meaning through their choices and actions.\\n- **Stoicism**: Stoic philosophers such as Epictetus and Seneca argue that the meaning of life lies in living in accordance with reason and virtue, accepting what is outside one's control with equanimity.\\n- **Hedonism**: This perspective posits that the meaning of life is to seek happiness or pleasure. However, different forms of hedonism (e.g., Epicureanism) may emphasize different types of pleasures.\\n\\n### Religious and Spiritual Perspectives\\n- Many religions provide their own answers to the meaning of life. For example:\\n  - **Christianity**: Often seen as fulfilling God's will or achieving salvation through faith in Jesus Christ.\\n  - **Buddhism**: The meaning can be found in achieving enlightenment (Nirvana) by following the Eightfold Path.\\n  - **Islam**: Living a righteous life according to the teachings of the Quran and Hadith to attain paradise.\\n\\n### Scientific Perspectives\\n- From a biological standpoint, the meaning of life could be seen as survival and reproduction—continuing one's genetic lineage.\\n- Some scientists argue that there may not be an objective \\\"meaning\\\" to life beyond these biological imperatives.\\n\\n### Personal Perspectives\\n- Many people find meaning in relationships—family, friends, community—and in contributing positively to society.\\n- Others find it in personal achievements, creative pursuits, or spiritual practices.\\n\\n### Psychological Perspectives\\n- Psychologists like Viktor Frankl suggest that meaning can be derived from three main sources: work (doing something significant), love (caring for others), and suffering (finding ways to endure hardship).\\n\\nIn summary, there is no single definitive answer to what constitutes the meaning of life. It varies widely depending on individual beliefs, cultural contexts, philosophical frameworks, and personal experiences. Ultimately, each person may need to explore these different perspectives to find what gives their own life meaning.\"\n            },\n            \"delta\": {\n                \"role\": \"assistant\",\n                \"content\": \"\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "llama-3.1-8b-instruct [Deprecated]",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"llama-3.1-8b-instruct\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 1000,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"llama-3.1-8b-instruct\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 09 Nov 2024 15:32:02 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "8dfeda55ed8ccb91-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"2d864638-651f-410d-abca-d7e935254b2a\",\n    \"model\": \"llama-3.1-8b-instruct\",\n    \"created\": 1731166322,\n    \"usage\": {\n        \"prompt_tokens\": 17,\n        \"completion_tokens\": 517,\n        \"total_tokens\": 534\n    },\n    \"object\": \"chat.completion\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"finish_reason\": \"stop\",\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"The question of the meaning of life is one of the most profound and enduring questions in human history. It has been debated by philosophers, theologians, scientists, and thinkers across various cultures and centuries. There is no one definitive answer, and the meaning of life can vary greatly from person to person, depending on their beliefs, values, and experiences. Here are some perspectives on the meaning of life:\\n\\n1. **Religious and Spiritual Perspectives**: Many religions and spiritual traditions offer their own answers to the meaning of life. For example, in Christianity, the meaning of life is often seen as serving God and achieving eternal salvation. In Buddhism, the meaning of life is to attain enlightenment and end the cycle of suffering. In Hinduism, the meaning of life is to achieve moksha, or liberation from the cycle of birth and death.\\n\\n2. **Philosophical Perspectives**: Philosophers have offered a wide range of answers to the question of the meaning of life. Existentialists, like Jean-Paul Sartre and Martin Heidegger, argue that life has no inherent meaning, and it is up to each individual to create their own purpose. Stoics, like Epictetus and Seneca, believe that the meaning of life is to live in accordance with reason and virtue. Utilitarians, like John Stuart Mill, argue that the meaning of life is to maximize happiness and reduce suffering.\\n\\n3. **Scientific Perspectives**: From a scientific perspective, the meaning of life can be seen as a product of evolution. According to this view, life has no inherent meaning, but rather, it is a result of the survival and reproduction of genes. However, some scientists, like Carl Sagan, have argued that the meaning of life can be found in the pursuit of knowledge and the exploration of the universe.\\n\\n4. **Personal Perspectives**: Many people find the meaning of life in personal relationships, such as family and friends. Others find meaning in their work, hobbies, or creative pursuits. Some people find meaning in helping others, whether through volunteering, charity work, or simply being a good neighbor.\\n\\n5. **Existential Perspectives**: Existentialists argue that life has no inherent meaning, and it is up to each individual to create their own purpose. This perspective emphasizes individual freedom and choice, and the responsibility that comes with it.\\n\\nUltimately, the meaning of life is a deeply personal and subjective question that each individual must answer for themselves. It may involve a combination of religious, philosophical, scientific, and personal perspectives, or it may be something entirely unique and individual.\"\n            },\n            \"delta\": {\n                \"role\": \"assistant\",\n                \"content\": \"\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "llama-3.1-70b-instruct [Deprecated]",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"llama-3.1-70b-instruct\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 1000,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"llama-3.1-70b-instruct\",\r\n    \"messages\": [\r\n        {\r\n            \"content\": \"What is the meaning of life?\",\r\n            \"role\": \"user\"\r\n        }\r\n    ],\r\n    \"max_tokens\": 0,\r\n    \"temperature\": 0.2,\r\n    \"top_p\": 0.9,\r\n    \"top_k\": 0,\r\n    \"stream\": false,\r\n    \"presence_penalty\": 0,\r\n    \"frequency_penalty\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 09 Nov 2024 15:32:26 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "CF-Cache-Status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "8dfedad43e4ccb91-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"41c66867-2ad1-44d9-95da-934f858f375e\",\n    \"model\": \"llama-3.1-70b-instruct\",\n    \"created\": 1731166346,\n    \"usage\": {\n        \"prompt_tokens\": 17,\n        \"completion_tokens\": 367,\n        \"total_tokens\": 384\n    },\n    \"object\": \"chat.completion\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"finish_reason\": \"stop\",\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"The question of the meaning of life is one of the most profound and elusive questions humanity has ever pondered. It touches upon various disciplines, including philosophy, religion, spirituality, and science, each offering different perspectives.\\n\\n1. **Philosophical Perspectives**: Philosophers have debated the meaning of life for centuries. Existentialists, like Jean-Paul Sartre, suggest that life has no inherent meaning, and it's up to each individual to create their own purpose. Meanwhile, philosophers like Aristotle believed that the meaning of life is found in fulfilling one's potential and living a life of virtue.\\n\\n2. **Religious and Spiritual Perspectives**: Most religions provide their own answers to the meaning of life. For example, in Christianity, the meaning of life is often seen as serving God and preparing for eternal life. In Buddhism, it might be understood as achieving enlightenment and escaping the cycle of rebirth. Hinduism suggests the pursuit of dharma (duty), artha (wealth), kama (pleasure), and moksha (liberation).\\n\\n3. **Scientific Perspectives**: From a purely biological standpoint, the meaning of life could be seen as the perpetuation of genes and the survival of species. However, many scientists and thinkers argue that human consciousness and the complexity of human societies introduce aspects that cannot be reduced to mere biological imperatives.\\n\\n4. **Personal Perspectives**: On a personal level, the meaning of life varies greatly from one individual to another. It could be about finding happiness, pursuing passions, building relationships, contributing to society, or a combination of these and other factors.\\n\\nIn essence, the meaning of life is a deeply personal question that may have as many answers as there are people pondering it. It's a question that invites exploration, reflection, and often, a journey of self-discovery.\"\n            },\n            \"delta\": {\n                \"role\": \"assistant\",\n                \"content\": \"\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Search",
+      "item": [
+        {
+          "name": "Search",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"query\": [\r\n        \"What is Comet Browser?\",\r\n        \"Perplexity AI\",\r\n        \"Perplexity Changelog\"\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/search",
+              "host": ["{{baseUrl}}"],
+              "path": ["search"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"query\": [\r\n        \"What is Comet Browser?\",\r\n        \"Perplexity AI\",\r\n        \"Perplexity Changelog\"\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/search",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["search"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 12 Oct 2025 15:53:13 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000; includeSubDomains; preload"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "98d7c4cdeebcd7a8-LAX"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"results\": [\n        {\n            \"title\": \"Introducing Comet: Browse at the speed of thought\",\n            \"url\": \"https://www.perplexity.ai/hub/blog/introducing-comet\",\n            \"snippet\": \"# Today we are launching Comet.\\n\\nComet is a web browser built for today’s internet. In the last 30 years, the internet has evolved from something we simply “browse” or “search.” The internet is where we live, work, and connect.\\n\\nIt’s also where we ask questions.\\n\\nCurious minds have questions everywhere, and they find answers on every page, in every idea, through every task. Yet we've been trapped in long lines of tabs and hyperlinks, disjointed experiences that interrupt our natural flow of thought.\\n\\nIn other words, the internet has become humanity's extended mind while our tools for using it remain primitive. Our interface for the web should be as fluid and responsive as human thought itself.\\n\\nWe built Comet to let the internet do what it has been begging to do: to amplify our intelligence.\\n\\n### From Navigation To Cognition\\n\\nComet powers a shift from browsing to thinking.\\n\\nTabs that piled up waiting for your return now join one intelligent interface that understands how your mind works. Context-switching between dozens of applications, sites, and interfaces has stolen the focus and flow that bring joy to our work and fuel our curiosity.\\n\\nThe Comet assistant removes friction with every thought, actively conducting entire browsing sessions while you focus on what matters. Ask Comet which other sites have the same bike but ship it faster. Ask Comet to compare what you’re reading to something you already read.\\n\\nComet allows you to ask questions anywhere they occur to you, whether you want to understand a complex concept, find hidden connections, create new possibilities, or solve problems that have been puzzling you.... ### From Answers To Action\\n\\nComet transforms entire browsing sessions into single, seamless interactions, collapsing complex workflows into fluid conversations.\\n\\nAsk Comet to book a meeting or send an email, based on something you saw. Ask Comet to buy something you forgot. Ask Comet to brief you for your day.\\n\\nWith Comet, you don't search for information—you think out loud, and Comet executes complete workflows while keeping perfect context. Research becomes conversation. Analysis becomes natural. Annoying tasks evaporate. The internet becomes an extension of your mind.\\n\\n### From Believability To Accuracy\\n\\nIn the DNA of Comet is Perplexity’s obsession with accurate and trustworthy answers. Answers are the foundation of curiosity for one reason: more knowledge gives us better questions.\\n\\nEvery day, trillions of dollars of decisions are made online, and the quality of those decisions depends on the reliability of the information behind them. Ask Comet to compare insurance plans. Ask Comet to help you understand a technology enough to decide whether to invest.\\n\\nAccurate answers are the foundation of decision-making. This will compound in importance with agentic AI, when assistants make decisions for us, faster and more often. Comet is like a second brain, helping with the best possible decisions in every situation.... ### From Consumption To Curiosity\\n\\nPerplexity’s mission is to serve the world’s curiosity.\\n\\nComet transforms any webpage into a portal of curiosity. Highlight any text to get instant explanations. Explore tangential ideas without losing your original context. Ask specialized questions or broad ones—Comet understands that genuine curiosity doesn't follow predetermined paths.\\n\\nAsk Comet what you’re missing. Ask Comet for counterpoints. Ask Comet where you should explore.\\n\\nCuriosity is personal. This allows your own curiosity to become the context for a reliable, proactive, and personalized assistant.\\n\\nComet learns how you think, in order to think better with you.\\n\\n### From Here To What's Next\\n\\nBeginning today, Comet is available to Perplexity Max subscribers.\\n\\nInvite-only access will roll out slowly to our waitlist over the summer. New users will also receive a limited number of invites to share.\\n\\nIn the meantime, you can join the waitlist here.\\n\\nIt’ll be worth the wait, because Comet is just getting started.\\n\\nWith our own roadmap, and with every new advancement in AI, we will continue to launch new features and functionality for Comet, improve experiences based on your feedback, and focus relentlessly–as we always have–on building accurate and trustworthy AI that fuels human curiosity. The future belongs to the people who never stop asking questions.\\n\\nWe're curious to see what you'll ask of Comet.\\n\\nShare this article\",\n            \"date\": \"2025-10-10\",\n            \"last_updated\": \"2025-10-12\"\n        },\n        {\n            \"title\": \"Browse at the speed of thought\",\n            \"url\": \"https://www.perplexity.ai/comet/\",\n            \"snippet\": \"# BroCometPerplexityStudio Freight\\n\\n*w*se at the speed of tho *u*ght\\n\\nC\\n\\n*o*met\\n\\n**The Web Should Work For You**\\n\\nWe believe curiosity is a superpower. It’s the spark that propels humanity forward. Yet, the web—our greatest source of information—was never designed to nurture curiosity; instead we’ve been asked to “browse” it through a one-way lens. That’s why we made Comet.\\n\\nComet gives curious minds a thought partner for every aspect of online life. Comet moves every tab or task into a simple space for asking more of the world. With Comet, the web becomes a tool of curiosity, helping you connect ideas, move faster, and turn wonder into momentum.\\n\\nComet is for anyone curious enough to ask what else is possible.\\n\\n**Simplify Everything and Solve Anything**\\n\\nComet reimagines the browser from the ground up. It actively helps you ask, understand, and remember what you see. It connects the dots at lightning speed and assists with distracting tasks that steal your focus. Comet learns how you think, collaborates in your research, and keeps your digital life organized—so you’re never lost in tabs or forget what inspired you. Quickly understand any page you see, in any language, any time. Stay focused on your work without tab or task switching. Wherever your curiosity leads, Comet empowers you to go further, faster.\\n\\n**Designed For Curiosity, Built For Answers **\\n\\nComet transforms every browsing session into a personalized, intelligent experience. Start a project, follow a new idea, or revisit an old one—and Comet adapts in real time, surfacing what you need before you even know you need it. With privacy as a foundation and usability as a promise, Comet is built to make every interaction smoother, smarter, and custom-fit to how you think and work. The more you use it, the more indispensable it becomes.... ## O01\\n\\n*u*r core values\\n\\nPersonal\\n\\nComet learns how you think, collaborates in your research, and keeps your digital life organized–so you’re never lost in tabs or forget what inspired you.02\\n\\nPowerful\\n\\nComet makes Perplexity available on every site you visit. Quickly understand anything you see, in any language, or from any perspective. Ask the assistant to summarize, shop, schedule, or send. The more you use it, the more indispensable it becomes.03\\n\\nProductive\\n\\nStay focused and keep your flow without switching tasks or tabs. Save hours every week by analyzing your inbox, preparing for meetings, automating notes, and more. Wherever your curiosity leads, Comet takes you further, faster.\\n\\nS\\n\\n*u*n\\n\\nThe Source\\n\\n**Creator, destroyer, center of everything.**\\n\\nIn every mythology, the Sun is divine. It’s the eye of Ra, the chariot of Apollo, the life-giver and the fire to fear. Scientifically, it’s a middle-aged star—a massive sphere of hydrogen fusing into helium, releasing energy that feeds every living thing on Earth. Its gravity holds the solar system together. Its light powers the weather, the oceans, and the cells in our bodies.\\n\\n**🪞Fact:** The Sun makes up 99.8% of the mass in our solar system. It’s so big you could fit over 1 million Earths inside it.\",\n            \"date\": \"2025-02-12\",\n            \"last_updated\": \"2025-07-19\"\n        },\n        {\n            \"title\": \"Comet Browser Review 2025: Features, Pricing, Pros & Cons\",\n            \"url\": \"https://efficient.app/apps/comet\",\n            \"snippet\": \"This is one of our top picks in the category so we recommend it over others\\n\\n*(you're on the right page)*, read below to learn why we love and recommend it! ⤵\\n\\nThis is one of the better tools in its category, see below if this tool is right for you! ⤵\\n\\nComet Browser is the first truly agentic browser to release, meaning that you can not only talk to the baked in Assistant (Perplexity), but you can have it interact with your tabs, emails, calendar, and even navigate the web for you (as if an assistant took over your screen).\\n\\nWhile it's still in beta and invite only (and still rough around the edges), it has been quite impressive given our short time with it. I only just hope that they add more power-user tab management features, like better tab management, sidebar tabs, and more.\\n\\nI think Comet Browser is the first browser that shows you a peek into the future of what browsing will look like. Sometimes you'll navigate, other times you'll tell it what you want, and it'll navigate for you. It's a more collaborative individual experience. Super interesting.\\n\\nWe believe there are better options available in this category, read below to learn what they do well, and what they could do better. ⤵... A browser for agentic search by Perplexity.\\n\\nComet Browser is an AI-native browser created by the team over at Perplexity, who has been shaking up the search space. If you're using AI search, you're likely using either ChatGPT or Perplexity. So it only makes sense that Perplexity is moving into the browser space (where all your work takes place).\\n\\nThe main differentiator with Comet is that their Comet Assistant is at the core, which gives us a taste of what's coming with the coined term \\\"Agentic Browsing\\\". All that really means is that the assistant not only searches with more context and interacts with your tabs, but\\n\\n*it actually clicks around the web for you*.\\n\\nIf you’re the kind of person who jumped on Perplexity before it blew up, you’re the target market. Comet will likely appeal to:\\n\\nBasically, early adopters, who are fine with a product being rough around the edges, but power-user features that not many people have seen before.\\n\\nComet's built-in assistant is what sets it apart from all the best browsers we've covered. It handles the new table-stakes well, with Perplexity at the core, so all the usual search and research functionality is handled.\\n\\nIt can also interact with open tabs, allowing you to essentially target your search and research to a more specific dataset to what you're looking into. But Dia can do this as well, so it's not particularly standout in a browser.... But what does set it apart is Comet gives us the first actual glance at what this coveted \\\"Agentic Browsing\\\" experience actually is, in a non-technical, actually user-friendly way.\\n\\nWhat does this mean? Well it can connect into your calendar and email to tell you about important emails (cool, like Google Assistant, right?), but most impressively it can even navigate the web\\n\\n**for you**.\\n\\nI'm saying that you can ask it to do things, and it will actually navigate around the page your on, open new pages when needed, and take action as if it's a human you're asking to do something for you.\\n\\nIf you've ever used ChatGPT's voice mode, imagine that, but being able to dive into a conversation with the website you're on, tabs you have open, and the wider internet. Searching for deals, what the main points are of a YouTube video, or want it to book a reservation for you? All of that is possible with the assistant on the sidebar:\\n\\nWhile this is super promising, it can't yet seem to take action on the page that I'm on just yet. While they've shown some demos of this in action on X, it's not quite functional to that degree yet.\\n\\nThat said, being able to talk to a page is away more enjoyable experience than reading it. Heck, you might be chatting with this review right now for all I know. It feels like the future.... What's an assistant (and now browser) without connection to your email and calendar? If you want it to book a flight for you, doesn't it need to know what your availability is?\\n\\nThat's where it asks you for full read/write access to your Gmail and Google Calendar, and you can ask the browser questions about your email, upcoming events, and more.\\n\\nThis one feels like Chrome should have had this for ages, but with Google's upcoming Gemini integration with Chrome, we're likely to see something similar.\\n\\nThe team has said it'll be similar to the freemium model of Perplexity:\\n\\n**Is Comet Browser worth it?** It's still too early to say, but they are definitely shaking up the space, and giving Dia by the Browser Company a run for their money.\\n\\nIt's the first time we've ever seen a way to explore the web and browse (keyboard and voice), to this degree. It feels like the first true AI browser that we've seen.\\n\\nWith all of that said... There are rumors that OpenAI is working on an AI browser as well, so it feels like Comet vs OpenAI vs Dia is going to be what everyone is paying attention to over the coming months. The competition is great for the end-user (you, and us), so we're quite excited. I wouldn't want to be in their shoes though, it sounds incredibly stressful.... Yes, Comet Browser by Perplexity is still in waitlist only (for which you can skip the line by signing up for their \\\"Max\\\" tier. That said, you can register for the Comet Browser waitlist, and they are adding in new people every day.\\n\\nComet Browser was created by Perplexity, an AI search engine that has been taking on Google, ChatGPT, and others.\\n\\nWe've tracked and verified the above companies are using this software in their team's stack.\",\n            \"date\": \"2025-09-24\",\n            \"last_updated\": \"2025-10-03\"\n        },\n        {\n            \"title\": \"Comet Browser: The Revolutionary AI-Powered ...\",\n            \"url\": \"https://dev.to/s_chathuranga_j/comet-browser-the-revolutionary-ai-powered-browser-that-actually-does-your-work-n6d\",\n            \"snippet\": \"# Comet Browser: The Revolutionary AI-Powered Browser That Actually Does Your Work\\n\\n#ai #webdev #productivity #automation\\n\\nRemember when browsers were just glorified document viewers? You'd click links, fill forms manually, and navigate through websites one laborious step at a time. Well, those days just became ancient history with Comet Browser and trust me, once you experience what this thing can do, going back to Chrome feels like using a stone tablet.\\n\\nI recently put Comet through its paces with some real-world scenarios, and the results left me genuinely stunned. We're not talking about incremental improvements here; this is a fundamental reimagining of what a browser can be.\\n\\n## What Makes Comet Different\\n\\nComet is an AI-powered browser that acts as a personal assistant and thinking partner, featuring the Comet Assistant that can automate routine tasks, summarize emails and calendar events, manage tabs, and navigate web pages on behalf of users. But that description barely scratches the surface of what this browser actually accomplishes.\\n\\nComet Browser is the first truly agentic browser, meaning you can not only talk to the built-in Assistant (powered by Perplexity), but you can have it interact with your tabs, emails, calendar, and even navigate the web for you as if an assistant took over your screen.\\n\\nThe key word here is \\\"agentic.\\\" What separates Comet from traditional browsers is its \\\"agentic\\\" architecture instead of acting only when prompted, the Comet Assistant can proactively understand page content, follow your browsing history, and offer to complete multi-step tasks across tabs.... ## The Magic in Action: Real-World Testing\\n\\nLet me paint you a picture of just how mind-blowing this technology is. I decided to test Comet with a practical e-commerce scenario that anyone who's done online shopping can relate to.\\n\\n### Scenario 1: Text-Based Automation\\n\\nFor my first test, I simply typed out a scenario: \\\"Log into saucedemo.com and sort the items by price.\\\" That's it. No step-by-step instructions, no detailed navigation commands just a plain English description of what I wanted to accomplish.\\n\\nWhat happened next felt like magic. Comet Browser took over completely, navigating to the website, finding the login elements, entering the credentials, locating the sorting options, and organizing the products by price, all without any input from me. Every click, every form field, every navigation decision was handled autonomously.\\n\\nWatch as Comet Browser transforms a simple text instruction into a fully automated browsing session, handling every interaction seamlessly from login to product sorting.\\n\\n### Scenario 2: Voice-Powered Web Automation\\n\\nThe second test pushed the boundaries even further. Instead of typing, I used Comet's voice feature to verbally describe the same scenario. The browser didn't just understand my speech, it comprehended the intent, processed the multi-step workflow, and executed everything flawlessly.\\n\\nSpeaking to your browser and watching it perform complex tasks feels like something straight out of a sci-fi movie, except it's happening right now on your desktop.\\n\\nExperience the future of web browsing as voice commands translate directly into sophisticated web interactions, eliminating the need for manual clicking and typing.\\n\\n**Note**: I even generated the banner image for this article using Comet Assistent. I wrote the article, then opened the Assistant on the side and asked to create a banner image for this article. It just went through the article and generated this banner image!... ## Why This Represents a Paradigm Shift\\n\\nLaunched in July 2025, Comet represents Perplexity AI's attempt to fundamentally change how users interact with the web. Rather than relying on tabs, bookmarks, or search bars, users can now simply ask questions, issue commands, or request tasks, all within a conversational interface.\\n\\nThis isn't just a browser with AI features bolted on it's a complete reconceptualization of web interaction. Here's why it's such a massive leap forward:\\n\\n### From Manual to Conversational\\n\\nTraditional browsers require you to think like a computer: click here, type there, navigate through menus, remember URLs. Comet lets you think like a human. You describe what you want to accomplish, and it figures out how to do it.\\n\\n### Context-Aware Intelligence\\n\\nAt its core is the Comet Assistant, a contextual AI that can read and interact with whatever is on your screen. This isn't a chatbot living in a search bar. The assistant understands not just what you're asking, but the context of what you're currently doing, where you are on the web, and what logical next steps make sense.\\n\\n### Multi-Step Task Automation\\n\\nMost AI assistants can answer questions or provide information. Comet actually performs work. It can handle complex, multi-step workflows that typically require dozens of manual interactions, reducing them to simple natural language requests.... ## The Technical Innovation Behind the Magic\\n\\nWhat makes Comet possible is a convergence of several breakthrough technologies:\\n\\n**Agentic AI Architecture**: Unlike traditional AI that waits for prompts, Comet's system proactively analyzes web pages, understands their structure, and can interact with any element it encounters.\\n\\n**Natural Language Processing**: The browser doesn't just recognize words, it understands intent, context, and can translate conversational requests into precise web actions.\\n\\n**Computer Vision Integration**: Comet can \\\"see\\\" web pages the way humans do, identifying buttons, forms, links, and interactive elements regardless of how they're coded or styled.\\n\\n**Voice Recognition and Processing**: The voice interface isn't just speech-to-text — it's speech-to-action, bypassing the need for any manual interaction entirely.\\n\\n## Implications for the Future\\n\\nWe're witnessing the birth of what might be called \\\"invisible computing\\\" technology so intuitive that the interface disappears entirely. When you can accomplish complex web tasks through simple conversation, the traditional barriers between human intention and digital execution start to dissolve.\\n\\nThink about the implications:\\n\\n- **Accessibility**: Complex web tasks become available to users regardless of their technical proficiency\\n- **Productivity**: Time spent on routine web interactions drops dramatically\\n- **User Experience**: The cognitive load of remembering how to navigate different websites vanishes\\n- **Automation**: Personal web workflows can be as simple as having a conversation... ## A Word of Caution!\\n\\nIt's worth noting that recent security audits by Brave and Guardio have revealed vulnerabilities in the AI-powered Comet browser, reminding us that cutting-edge technology often comes with growing pains. As with any powerful tool, users should stay informed about security updates and best practices.\\n\\n## The Bottom Line\\n\\nAfter experiencing Comet Browser firsthand, I can confidently say we're looking at a genuine inflection point in web technology. This isn't just a better browser, it's a fundamentally different way of interacting with the internet.\\n\\nComet is Perplexity's new AI-powered Chromium browser that automates tasks from booking reservations to managing emails, making browsing productive. But even that description undersells what you actually experience when using it.\\n\\nThe web has always been about information and interaction. Comet makes both effortless. When you can simply speak or type what you want to accomplish and watch it happen automatically, you realize how much friction we've been accepting in our daily digital lives.\\n\\nWe're still in the early days of agentic browsing, but the foundation is solid and the potential is staggering. If you get a chance to try Comet Browser, take it. You'll never look at web browsing the same way again.\\n\\nThe future of the internet isn't just about faster connections or better websites, it's about browsers smart enough to be true partners in getting things done. And that future is available to try right now.... ## Top comments (1)\\n\\nSome comments may only be visible to logged-in visitors. Sign in to view all comments.\",\n            \"date\": \"2025-08-27\",\n            \"last_updated\": \"2025-10-12\"\n        },\n        {\n            \"title\": \"Perplexity's AI-Native Browser Comet is HERE\",\n            \"url\": \"https://www.youtube.com/watch?v=ri_bFrDp44M\",\n            \"snippet\": \"{ts:0} I got early access to Comet, the new AI first browser by Perplexity. And by the\\n{ts:5} time you're watching this video, you should be able to download it. But I want to give you my first impressions of\\n{ts:10} it since I've been testing it. And most of all, I see a glimpse into the future in which web browsing is completely\\n{ts:17} different. It is me tasking an agent to go browse the web on my behalf. I am not interacting with websites directly. And\\n{ts:25} to me, that's not such a bad vision. I actually kind of look forward to that. And as I show it to you, you'll kind of\\n{ts:31} get that sense as well. And producer Alex called this vibe browsing. So if you like that term, you can thank him.\\n{ts:37} And if you don't like that term, you can blame him in the comments. And by the way, if you want an up-to-date list of\\n{ts:42} all of the best AI tools, check out our AI tool library from my team at Forward Future. I'll drop a link to it down... {ts:49} below. All right, so this is Comet. It is what Perplexity is describing as an AI first browser. And so the first thing\\n{ts:57} to know is it is a fork of Google Chrome. So the second I opened it up, it asked me to import all my settings from\\n{ts:64} my Google Chrome browser, which is my daily driver, and it just worked. All of the websites and the different apps that\\n{ts:69} I use were already authenticated, so I didn't need to relog into everything. All of my bookmarks were already there.\\n{ts:75} My extensions just worked. And so it was instant to set up. There was really no setup to it. And the first thing I\\n{ts:82} noticed before I even got into any of the AI features was it is lightning fast, surprisingly fast, especially cuz\\n{ts:88} it's a fork of Chrome and it feels much faster than Chrome. Just the speed at which web pages load. But of course,\\n{ts:95} it's all about AI. And if you go to their getting started page, you can see a lot of the different use cases that\\n{ts:101} they show off. Now, a lot of you are probably thinking the same thing I was, which is why was a browser necessary... {ts:107} rather than just going to Perplexity directly? Or why did they need to build a browser use agent into my browser\\n{ts:115} versus doing it like most other browser use agents which spin up a cloud-based environment to run in? And I was\\n{ts:121} confused for a little while as to why that's valuable, why actually doing it locally in my browser was valuable. And\\n{ts:127} then I figured it out. And I'm going to get to that in a moment. So, first let's look at some of the use cases that they\\n{ts:132} show off on the website. Then I'm going to show you some of the things I did with Comet and then I'm going to give\\n{ts:136} you my overall thoughts. So, first, you know, they had to go with the very generic test, which is put together a\\n{ts:142} grocery cart for me with a certain recipe in mind. So, put together a grocery cart on Instacart for me from\\n{ts:148} Walmart. Go ahead and it should be butter chicken. So, you could see this launches multiple agents running in\\n{ts:155} parallel that are doing browsing on your behalf in your browser. Now, you don... {ts:217} and of course they're going to make that the native option and so on. So, one, Perplexity probably wanted to derisk\\n{ts:224} themselves from building on top of somebody else's platform, but again, why locally? And then it hit me. Whenever\\n{ts:232} I've used a browser use agent that needed to spin up a cloud environment, you have to authenticate into it. And\\n{ts:238} it's very frustrating. That was a huge point of friction for me using any of the browser use agents in the cloud. But\\n{ts:244} when you do it locally, not only does it have access to everything you've already authenticated into, but it also has the\\n{ts:250} context of whatever you're asking in that moment. So if I'm doing something on a website and I want an agent to help\\n{ts:256} me finish what I'm doing rather than having to start over in a cloud-based environment, I can simply ask Comet to\\n{ts:264} take over from where I already am. And that's super useful. And so, of course, because it's Perplexity's browser,\\n{ts:270} Perplexity is everywhere. Anytime that you type in a search in the URL bar, it is a Perplexity search, not default... 's likely doing is looking through the transcripts and the description. The\\n{ts:336} only model I know that can watch video, especially video of this length, it's nearly an hour, is Gemini. And it\\n{ts:342} definitely takes longer than just a second or two to actually generate the response. And so those are the main\\n{ts:349} differences between your traditional Google Chrome and Perplexity's Comet. You get everything is native Perplexity\\n{ts:355} plus you get this assistant. And let me pause for a second and say if you're into automating things with artificial\\n{ts:362} intelligence, you should check out the sponsor of today's video, Lindy. Lindy is a dead simple way to build and deploy\\n{ts:369} agents. It's kind of like if Chat GPT and Zapier had a baby. And Lindy just released agent swarms, which is the\\n{ts:376} ability for Lindy agents to loop through large amounts of content and perform the same action repeatedly in parallel.\\n{ts:383} Instead of having your AI do everything sequentially, Lindy will do things in parallel at a much faster speed. And the\\n{ts:389} best part is you don... {ts:682} text as you can see right there and posted it. So, here it is. My comet agent posted this. But you see something\\n{ts:689} created with comet assistant. I did not ask it to put that in. And I don't know why it did. And that wasn't the first\\n{ts:696} time. It didn't just put exactly what I said in the tweet. It added that little bit at the end. Kind of like when you\\n{ts:703} send an email from superhuman and it has the little sent with superhuman, which of course I'm sure there's a way to\\n{ts:708} disable, but I didn't do it. And I would have expected it to at least give me the option to not have that. And as I\\n{ts:714} mentioned, as you're browsing, you can have Comet actually do things on your behalf in the browser. So this is again\\n{ts:721} a slightly different experience, but let me show you that. So I'm on Twitter right now, and you can see right here,\\n{ts:727} this is the context. It has the context of this tab cuz that's what I'm looking at. So I can say click into the trending... m on that page, and it relinquished control of the browser back to me. All right. So, what does this all mean? I\\n{ts:811} see a hint of the future in which rather than browsing websites directly and interacting with websites directly, I am\\n{ts:818} interacting with my agent, which is interacting with the website. I'm going to be able to do so much more in\\n{ts:824} parallel. I can kick off multiple agents. I can have scheduled agents and they can all run at the same time and\\n{ts:830} just get so much more done. I don't want to go through the process of booking a flight. I just want it all done for me\\n{ts:836} and then at the last moment, let me just approve it. I don't want to put together groceries. I don't want to do a lot of\\n{ts:841} things that I do on the internet every day and I want an agent to do that for me. And this also may help with the AI\\n{ts:847} slop issue because as AI becomes more and more popular, we're going to get so much noise as compared to signal. And\\n{ts:854} the only way to filter through it is going to be with an agent acting on my behalf. So, I see the hint of the vision\\n{ts:860} that they're going for. I think it's really cool. I'm going to keep testing it. There are definitely some things\\n{ts:865} that it's failing at and hopefully those get better, but we'll see. Let me know what you think. You should be able to\\n{ts:870} download it right now. I'll drop a link down below. If you enjoyed this video, please consider giving a like and\\n{ts:875} subscribe.\",\n            \"date\": \"2025-07-09\",\n            \"last_updated\": \"2025-08-29\"\n        },\n        {\n            \"title\": \"What Is Comet and Why Everyone's Talking About It\",\n            \"url\": \"https://apidog.com/blog/what-is-comet/\",\n            \"snippet\": \"The web browser landscape stands at a critical juncture. While traditional browsers like Chrome and Firefox have dominated the market for years, a new player emerges with ambitious goals to reshape how we interact with the internet. Perplexity AI has launched an AI-powered web browser called Comet, marking a significant shift toward intelligent, context-aware browsing experiences.\\n\\n**Download Apidog for free**to streamline your API testing workflow and ensure your AI integrations work seamlessly across different platforms, just as Comet integrates AI capabilities into web browsing.\\n\\n## Understanding Comet's Core Architecture\\n\\nComet operates on the Chromium framework, providing users with familiar browsing fundamentals while introducing revolutionary AI capabilities. Perplexity AI Comet is an advanced, AI-powered web browser built on the Chromium framework, engineered to integrate artificial intelligence at the core of the browsing experience.\\n\\nThe browser's architecture distinguishes itself through native AI integration rather than superficial add-ons. This approach ensures that artificial intelligence becomes an integral part of every browsing session, transforming passive consumption into active assistance. The technical foundation leverages Perplexity's proven search infrastructure, which has already demonstrated significant market traction.... ## Technical Features and Capabilities\\n\\n### AI-Powered Search Integration\\n\\nComet uses Perplexity as the default search engine, delivering AI-generated answers instead of traditional search results. This integration fundamentally changes how users access information online. Rather than scrolling through multiple search results, users receive contextually relevant answers directly within the browser interface.\\n\\nThe search mechanism processes natural language queries and returns synthesized responses. This technical approach eliminates the need for users to visit multiple websites to gather comprehensive information about specific topics. The AI engine analyzes content across various sources and presents unified answers, significantly reducing research time.\\n\\n### Contextual AI Assistant\\n\\nA built-in assistant in the sidebar offers contextual support, summarizing content, answering questions, and explaining what's on the page. This assistant represents a significant technical advancement in browser functionality. The AI system analyzes page content in real-time and provides relevant assistance without requiring manual activation.\\n\\nThe contextual awareness extends beyond simple text analysis. It features an integrated AI assistant designed to understand on-page context, automate complex workflows, and provide instant answers without leaving the page. This capability enables users to maintain focus on their current tasks while receiving intelligent assistance.\\n\\n### Workflow Automation Capabilities\\n\\nUsers can also access Comet Assistant, a new AI agent from Perplexity that lives in the web browser and aims to automate routine tasks. Perplexity says the assistant can summarize emails and calendar events, manage tabs, and navigate web pages on behalf of users.\\n\\nThe automation features extend beyond basic task completion. Agentic search in Comet Browser allows for autonomous task execution, streamlining user workflows. This technical capability enables the browser to understand user intentions and execute complex multi-step processes automatically.\\n\\nFor instance, users can request the browser to research specific topics, compare options, and even initiate actions based on findings. Imagine typing \\\"Find hotels in Paris under $200, compare user reviews, and book the best one for me\\\". Instead of displaying a list of websites, Comet could automate the entire process using AI.... ## Agentic Search Technology\\n\\nThe concept of agentic search represents a paradigm shift in information retrieval. Traditional search engines return lists of potentially relevant links, requiring users to manually evaluate and extract information. Comet's agentic approach enables the browser to act autonomously on behalf of users.\\n\\nThis technology involves several technical components working together. The AI system must understand user intent, formulate appropriate queries, analyze results from multiple sources, and present synthesized information. Furthermore, the system can execute actions based on the gathered information, transforming passive search into active assistance.\\n\\nThe technical implementation requires sophisticated natural language processing capabilities, web scraping and analysis tools, and decision-making algorithms. These components work together to create a browsing experience where the browser becomes an intelligent partner rather than a passive tool.\\n\\n## Intelligent Workflow Management\\n\\nA core expectation fueling excitement for Comet is \\\"intelligent workflow automation,\\\" where the AI-powered browser learns user habits and preferences over time. This adaptive system represents a significant technical achievement in browser development.\\n\\nThe learning mechanism analyzes user behavior patterns, frequently visited sites, common task sequences, and preferred information formats. Over time, the browser develops increasingly accurate predictions about user needs and can proactively offer assistance.\\n\\nThe workflow management system can organize tabs based on project contexts, suggest relevant resources during research sessions, and automate repetitive tasks. This adaptive system could automate routine tasks, customize workflows such as project-based tab grouping and create personalized browsing experiences.... ## Market Positioning and Competition\\n\\nComet enters a competitive landscape where established players like Google Chrome dominate market share. However, the browser's AI-first approach provides a differentiated value proposition. This launch positions Perplexity in the emerging \\\"browser wars\\\" against Google's AI-infused Chrome and other new entrants.\\n\\nThe competitive advantage lies in Comet's native AI integration rather than bolt-on features. While other browsers are adding AI capabilities to existing frameworks, Comet was designed from the ground up with AI at its core. This fundamental difference enables more sophisticated and seamless AI interactions.\\n\\nSrinivas recently said that Perplexity saw 780 million queries in May 2025, and that the company's search products are seeing more than 20% growth month-over-month. This growth trajectory provides Comet with a solid foundation of AI search technology and user trust.\\n\\n## Pricing and Availability\\n\\nThe browser is currently available through a max subscription model. Perplexity has launched Comet, an AI web browser that uses Perplexity as its default search engine. The pricing structure reflects the advanced AI capabilities and the computational resources required to provide intelligent assistance.\\n\\nThe subscription model enables Perplexity to offer sophisticated AI features without compromising user privacy through advertising. Users pay for the advanced capabilities, ensuring that the browser's AI system works in their best interests rather than serving advertiser goals.... ## Technical Architecture and Performance\\n\\nComet's technical architecture balances local processing with cloud-based AI capabilities. Critical functions like page rendering and basic navigation occur locally, while AI-intensive tasks leverage Perplexity's cloud infrastructure. This hybrid approach ensures responsive performance while providing access to powerful AI capabilities.\\n\\nThe browser maintains compatibility with existing web standards while introducing AI-enhanced features. Users can access familiar web content while benefiting from intelligent assistance and automation. The technical implementation ensures that traditional browsing functionality remains intact while AI features enhance the overall experience.\\n\\n## Privacy and Security Considerations\\n\\nAI-powered browsing raises important privacy and security questions. Comet must process user queries, analyze browsing patterns, and access page content to provide intelligent assistance. The browser's privacy model determines how this sensitive information is handled and protected.\\n\\nThe technical implementation must balance functionality with privacy protection. Users need assurance that their browsing data, search queries, and personal information remain secure while enabling the AI system to provide valuable assistance. This balance requires sophisticated technical safeguards and transparent privacy policies.\\n\\n## Developer Integration Opportunities\\n\\nFor developers, Comet presents opportunities to create AI-enhanced web applications. The browser's native AI capabilities can complement web applications, providing users with intelligent assistance while interacting with developer-created content.\\n\\nThe technical architecture may eventually support developer APIs, enabling web applications to leverage Comet's AI capabilities directly. This integration could create new categories of AI-enhanced web applications that provide users with unprecedented levels of intelligent assistance.... ## Impact on Web Development\\n\\nComet's AI-first approach may influence how developers design and build web applications. Traditional web development focuses on presenting information and enabling user actions. AI-enhanced browsing suggests a future where web applications actively assist users in achieving their goals.\\n\\nThis shift requires developers to consider how AI systems will interact with their applications. Web applications may need to provide structured data, clear action pathways, and AI-friendly interfaces to work effectively with intelligent browsers like Comet.\\n\\n## Conclusion\\n\\nComet represents a significant advancement in web browsing technology. By integrating AI capabilities at the core of the browsing experience, Perplexity has created a tool that transforms passive web consumption into active intelligent assistance. The browser's agentic search capabilities, contextual AI assistant, and workflow automation features demonstrate the potential for AI to revolutionize how we interact with the internet.\\n\\nFor developers, businesses, and power users, Comet offers a glimpse into the future of web interaction. The browser's success may accelerate the adoption of AI-enhanced browsing and inspire continued innovation in this space. As the technology matures, we can expect even more sophisticated AI capabilities that further transform the web browsing experience.\",\n            \"date\": \"2025-07-10\",\n            \"last_updated\": \"2025-10-12\"\n        },\n        {\n            \"title\": \"Perplexity Comet AI Browser 101: Complete Guide with 100 ...\",\n            \"url\": \"https://sidsaladi.substack.com/p/perplexity-comet-ai-browser-101-complete\",\n            \"snippet\": \"**Your complete playbook for automating 10+ hours of busywork every week with the web’s first truly intelligent browser**\\n\\n## “I closed my last Chrome tab 6 weeks ago.”\\n\\nThat’s what a product manager told me yesterday. Not because Chrome broke. Because something better finally exists.\\n\\nLet me tell you a truth most people haven’t realized yet:\\n\\n**We’ve been trained to accept terrible browsing experiences because browsers were built for advertisers, not knowledge workers.**\\n\\nYou deserve better than 47 open tabs, endless copy-pasting, and losing 2 hours a day to “research” that feels like digital whack-a-mole.\\n\\nThe Product Channel By Sid Saladi is a reader-supported publication. To receive new posts and support my work, consider becoming a free or paid subscriber.\\n\\n## Why Your Current Browser Is Sabotaging Your Productivity 🎯\\n\\nHere’s what your typical “productive” browsing session actually looks like:\\n\\nYou search something → scan 10 blue links → click the first one (probably an ad) → realize it’s not what you need → open 5 more tabs “for later” → copy info into a doc → switch to another tab → repeat 47 times → close everything in frustration → promise yourself you’ll organize tomorrow.\\n\\n**The dirty secret**: Chrome makes $280 billion annually keeping you clicking. Your chaos is their business model.\\n\\nBut here’s what changed:\\n\\n**Perplexity’s Comet browser just flipped the script.**\\n\\nInstead of a passive window to the web, you get an AI agent that sees what you see, understands what you need, and executes complete workflows while you focus on actual thinking work.... ## What Comet Actually Is (And Why It Changes Everything)\\n\\nAfter 6 weeks of daily use, here’s my take:\\n\\n**Comet isn’t Chrome with AI features bolted on. It’s the first browser designed from the ground up for how we actually work in 2025.**\\n\\n### The fundamental difference:\\n\\n**Traditional browsers**: You navigate → They display → You do all the work\\n\\n**Comet**: You think out loud → It executes → Work happens automatically\\n\\nBuilt on Chromium (so it feels familiar), Comet integrates Perplexity’s AI at the deepest level. It doesn’t just answer questions—it completes entire tasks across multiple websites without you touching the mouse.\\n\\nThink of it like this: Chrome is a car you drive manually. Comet is a driver who already knows where you’re going.\\n\\n## The Real Problem Nobody Talks About 🔍\\n\\nWe’re all information addicts disguised as knowledge workers.\\n\\nI used to spend 45 minutes every morning “staying informed”—Twitter, Reddit, 4 news sites, my inbox. Classic doom-scrolling with a productivity costume.\\n\\nThe result? Fragmented focus, anxiety from information overload, and maybe 2 actually useful insights I couldn’t even remember by lunch.\\n\\n**Sound familiar?**\\n\\nThe internet isn’t designed for focus. It’s designed for engagement. And our browsers enable the addiction by making us do everything manually—giving us the illusion of control while we drown in tabs.... ## How Comet Becomes Your Intelligent Co-Pilot 🚀\\n\\nHere’s where it gets wild. Comet’s Assistant isn’t just another chatbot. It’s an\\n\\n**agentic AI** that can:\\n\\n**See your entire browsing context**\\n\\nUnderstands every open tab simultaneously\\n\\nRemembers your conversation history\\n\\nKnows the structure of every page you visit\\n\\n**Take autonomous action**\\n\\nNavigates websites on your behalf\\n\\nFills out forms and clicks buttons\\n\\nCompletes multi-step workflows across different sites\\n\\n**Maintain perfect memory**\\n\\nLinks information across tabs\\n\\nReferences previous searches\\n\\nBuilds on past conversations\\n\\n## The Onboarding: Brilliant But Flawed\\n\\n**The good news**: Setting up Comet takes literally one click. It imports everything from Chrome—bookmarks, passwords, extensions, history. Zero friction. You’re up and running in 30 seconds.\\n\\n**The frustrating part**: It only imports **one Chrome profile**.\\n\\nIf you’re like most power users and juggle 2-3 profiles (personal email, work email, side projects), you’ll manually set up the rest. For those of us managing multiple Gmail accounts and work identities, this hurts.\\n\\n**The annoying thing**: Comet constantly asks you to make it your default browser. The notifications never stop. Ever. It’s like that friend who won’t stop asking if you’ve watched their favorite show.\\n\\nBut once you get past setup? That’s when the magic happens.... ## The 3 Core Capabilities That Replace 10 Chrome Extensions ⚡\\n\\n### 1.\\n\\n**Conversational Search That Actually Understands You**\\n\\nForget “10 blue links.” Every search in Comet:\\n\\nReturns AI-synthesized answers with inline citations\\n\\nPulls from real-time web data (not outdated SEO spam)\\n\\nLets you ask follow-ups like a real conversation\\n\\nShows sources so you can verify everything\\n\\n**Example**: Instead of searching “best project management tools 2025” and clicking through 15 listicles, I asked: “Compare Notion, Asana, and Linear for a 10-person product team—focus on API access and mobile apps.”\\n\\nGot a comparison table in 20 seconds. With pricing. And Reddit user sentiment. And cited sources for every claim.\\n\\n### 2.\\n\\n**Multi-Tab Intelligence That Eliminates Context Switching**\\n\\nThe @tab reference system is a game-changer.\\n\\nType @productpage in your query to reference any open tab directly. No switching windows. No copy-pasting.\\n\\n### 3.\\n\\n**Voice Mode for Hands-Free Everything**\\n\\nHit Shift + Alt + V and talk to your browser.\\n\\nNot just for search—for\\n\\n**complete workflows**:\\n\\n“Summarize this article while I make coffee”\\n\\n“Find my last email from Sarah and draft a follow-up”\\n\\n“Check my calendar and find a 30-minute slot tomorrow”\\n\\nOne reviewer described using it while assembling furniture—asking Comet to summarize YouTube tutorial steps without stopping the build.\\n\\n**The key**: Voice mode maintains context. You can have a real conversation, refine requests, and get exactly what you need without touching the keyboard.... ## My Daily Automation Workflow 🎯\\n\\nHere are the tasks I’ve completely automated with Comet:\\n\\n**Morning Routine (saves 30 min)**\\n\\nI simply say: “Good morning. What do I need to know today?”\\n\\nComet instantly provides:\\n\\nCalendar summary with meeting details and attendee information\\n\\nPriority emails that need attention\\n\\nKey industry news relevant to AI and product management\\n\\nImportant tasks to complete before my first meeting\\n\\n**Email Management (saves 45 min/day)**\\n\\nInstead of manually sorting through dozens of emails, I use commands like:\\n\\n“Show me emails needing responses today, grouped by urgency”\\n\\n“Draft a polite decline for this meeting”\\n\\n“Find the contract John sent last week”\\n\\n**Research Sessions (saves 2+ hours)**\\n\\nThe old way meant juggling 30 tabs and losing track of information.\\n\\nNow I just say: “Research competitor pricing for Notion, Asana, Linear” and “Compare features in a table” - Comet handles everything else automatically.\\n\\n**Shopping (saves 45 min/week)**\\n\\nI ask: “Find best price for AirPods Pro 2 across major retailers”\\n\\nComet returns a complete comparison with shipping and tax calculations, and can even add the cheapest option to my cart with my approval.\\n\\n**Content Creation (saves 3+ hours/week)**\\n\\nWith prompts like: “Research AI in healthcare trends, extract 10 examples, 5 expert quotes, key stats—organize by subtopic”\\n\\nI get a fully researched brief with citations that’s ready to transform into content for LinkedIn or articles.\\n\\n**Real Use Cases: 40 Prompts You Can Copy Today** 💡... **100 Essential Comet Browser Shortcuts (Real User Examples - Deduplicated)** 🚀 **Daily Productivity & Workflow (15)** **/launch**- Open all your daily workspace tabs at once—email, calendar, Slack, project tools **/daily-brief**- Morning briefing: calendar summary, priority emails, top industry news, urgent tasks **/meeting-prep**- Review calendar, summarize meetings, research attendees’ backgrounds and recent work **/end-of-day**- Summarize accomplishments, flag urgent items for tomorrow **/context-switch**- Close all current tabs, open specific project workspace **/focus-time**- Block next 2 hours on calendar, close distracting tabs, enter deep work mode **/calendar-digest**- Daily summary of meetings, to-dos, and important prep work needed **/priority-tasks**- Analyze open tabs and emails, identify top 3 tasks to tackle today **/weekly-review**- Summarize this week’s meetings, emails, key decisions made **/deadline-check**- Review calendar and emails for upcoming deadlines this week **/workspace-setup**- Launch morning routine: specific tabs, tools, and windows **/quick-math**- Calculate complex equations without opening calculator **/todo-review**- Review task manager notes, suggest next-best priorities **/auto-login**- Log into all your favorite work apps or websites at once **/project-status**- Check updates in project management tools, summarize progress **Tab & Browser Management (10)** **/tab-cleanup**- Close duplicate tabs, group related ones by project/topic automatically **/tab-organize**- Sort open tabs by topic, create logical collections **/close-old**- Close all tabs older than today or inactive for 3+ days **/merge-tabs**- Combine all open tabs into one window, group by topic/project **/tab-bookmark**- Bookmark all current research tabs into specific folder **/tab-share**- Create shareable list of research tabs with descriptions\",\n            \"date\": \"2025-10-05\",\n            \"last_updated\": \"2025-10-10\"\n        },\n        {\n            \"title\": \"10 Comet Browser Features That Make Chrome & Edge Look ANCIENT\",\n            \"url\": \"https://www.youtube.com/watch?v=BfC_Lk3NVSs\",\n            \"snippet\": \"##### Sep 01, 2025 (0:16:56)\\nAfter testing Comet Browser for weeks, I discovered features so advanced that traditional browsers simply can't compete. From AI-powered search integration to lightning-fast performance, this isn't just another browser - it's the future of web browsing.\\n\\nTop 10 Tags\\n0:00 - Introduction\\n1:05 - Automatic Adding of Items in Cart while Shopping\\n3:11 - Curating Purchase of item \\n4:54 - Get Tabs Summary\\n6:01 - AI powered Tab Grouping\\n7:27 - Shortcuts for AI Assistant \\n9:55 - Search YT video for specific element\\n11:59 - Tasks\\n12:53 - Page Summarization\\n14:04 - Video Summarization\\n15:22 - Widgets\\n\\n🤖 https://www.udemy.com/course/genai-multi-agent-software-testing/?couponCode=LEARNING_AI_NOW\\n\\n🤖Test AI & LLM App with DeepEval, RAGAs & more using Ollama\\nhttps://www.udemy.com/course/ai-testing-deepeval-ragas-ollama/?couponCode=LEARNING_AI_NOW\\n\\n🤖Build & Test AI Agents, ChatBot, RAG with Ollama & Local LLM\\nhttps://www.udemy.com/course/build-ai-agent-chatbot-rag-langchain-local-llm/?couponCode=LEARNING_AI_NOW... {ts:0} Hi guys, welcome back and today in this be talking about comet browser of\\n{ts:3} perplexity. If you have never heard about comet browser before, this browser is an aenetic browser which has support\\n{ts:11} of all the AI sauce in one single place. So basically this browser sets apart from other browsers like Chrome browser\\n{ts:19} or Edge browser or maybe uh Safari browser that you have worked like me. And I'm going to talk about the top 10\\n{ts:25} use cases of this comet browser and using the power of AI while you use it in everyday life. So this particular\\n{ts:31} browser as you can see over here is not something that you can get it right away. You need to have the invitation to\\n{ts:38} gain access or you need to have an max plan of perplexity to get the access of this particular browser. And I did not\\n{ts:45} had this access all these time and my friend from Australia his name is Raja he sent me the the the invitation to\\n{ts:52} gain access to this particular comment browser and I'm using this particular browser for past couple of days and I... {ts:59} feel this particular browser is quite awesome and powerful and I'm going to talk about all these features one by one\\n{ts:64} in this particular video. So the first feature that I'm going to talk about today is going to be this one. As you\\n{ts:68} can see this is one of the website which is popular in New Zealand. It's called Ulw. So this particular website I used\\n{ts:74} to shop for my groceries and things. So what I'm going to do right now is I'm going to ask the comet browser over here\\n{ts:81} saying can you help me buy tomatoes like four liters of milk uh like low calorie cheese uh bread and chicken and minies\\n{ts:91} and chips and all of them and check out using my email address login like this. And the moment I do it, you can see that\\n{ts:99} now the comet browser is going to use the power of asenetic AI and then it is going to start performing the login\\n{ts:105} operation for me. So as you can see over here now it has found the page the the login page and it is trying to login and\\n{ts:113} it tried to type the the email and you can see that it has now entered this particular email for me. And now you can... {ts:174} do the payment operation because that is not something that you're going to give it to the AI agent to do it. So that is\\n{ts:179} something that you can restrict and see that now the entire process is super automated for you and you just have to\\n{ts:185} do the payment alone to just see if the items that you're looking for is really added over there or not. That is one way\\n{ts:190} of you doing it. And the next feature that I really like about in this comet browser is let's say if I wanted to\\n{ts:195} build a gaming PC and I want to pick up all the best PC gaming parts like processors, uh GPU, RAMs and things. So\\n{ts:204} I'm just going to put all of them together like one single question uh on this particular website. And now the AI\\n{ts:211} assistant is going to go and start searching for all the elements like all the components for me for the computer\\n{ts:219} like for example the CPU uh the uh the RAM the internal SSD cards or maybe SSDs and then see the GPU selected directly\\n{ts:230} the RTX 5070 for me and then it... {ts:289} AI. So this is the second most important feature that I really think that it is quite awesome. And the third feature\\n{ts:295} that I really wanted to show you today is what if there are multiple tabs over here and you really wanted to get a\\n{ts:300} summary of what is really opened in this particular uh tab. So let's say I'm going to say get the summary of all my\\n{ts:309} uh tabs uh opened. So if I just going to go and hit enter it, what it's going to do is now it's going to go and the the\\n{ts:315} comet is going to go and query all the open tab and then it's going to get you the list of all of the items that is uh\\n{ts:322} listed over here on my on my tabs list over there which is quite amazing. See all of these things is now available and\\n{ts:330} then I can even search my histories if I wanted to or even if I get some of the details which is missed in my history or\\n{ts:337} something that I opened like couple of days before I can also ask those questions and the assistant which is\\n{ts:343} available as a part of the common browser is going to go and help me to get those information. So this is quite... {ts:439} pretty much like the normal way of you using the browser so this is another way of you to group the tab this is another\\n{ts:444} feature that I really like about the comet browser and the fifth feature that I want to talk about is uh evaluate the\\n{ts:452} uh evaluate the offer so you can also see that you can just put like this like slash and you can see that evaluate this\\n{ts:458} deal trending on social teach me comment or prepare next meeting right so all of these are like a shortcuts that you can\\n{ts:466} create. You can also create your own shortcuts. It's pretty much like a prompt to be honest. So if you go and\\n{ts:470} click any of the uh prompt like shortcuts, you see that this is what is basically like a shortcut which has been\\n{ts:476} added. This is the entire prompt that is part of this particular shortcut. So you can create your own custom shortcuts and\\n{ts:481} then you can evaluate uh the deal like how this particular shortcut is doing. Similarly, you can create your own\\n{ts:486} shortcut to do summarize this particular page, summarize this particular video or summarize this particular uh article... {ts:922} awesome. And the last feature which I want to talk about is going to be the feature which sets apart from other\\n{ts:928} browser is the the widget feature in the comment browser. You see that this comet browser has got so many widgets for us\\n{ts:934} over here. And you can also do edit this particular widgets and you can see there are so many widgets over here pretty\\n{ts:939} much like how the MacBook Pros always have for the uh the widget in the uh in the homepage. The same thing you can do\\n{ts:946} it over here as well. And you can also interact with all these widget and you can get those information. For example,\\n{ts:951} you can go and click this time. You can get the time information and you can also click any of the uh things over\\n{ts:958} there. Let's say the share market uh details. You can get the live share details over here. This is also quite\\n{ts:963} intuitive. You can see that it's all going to be in one single place and you can keep tracking and the animations are\\n{ts:969} pretty good. Uh comparatively, this is really a whole stock market ticket to be honest. If I\",\n            \"date\": \"2025-09-01\",\n            \"last_updated\": \"2025-09-01\"\n        },\n        {\n            \"title\": \"Comet: The AI browser gets personal\",\n            \"url\": \"https://www.ibm.com/think/news/comet-perplexity-take-agentic-browser\",\n            \"snippet\": \"This article was featured in the Think newsletter. Get it in your inbox.\\nWith last week's launch of Comet, its new web browser, AI company Perplexity is tackling a new challenge: reinventing how everyday users interact with the web. Just one week in, demand for Comet is already strong, according to Perplexity CEO Aravind Srinivas.\\nCurrently available to Perplexity Max subscribers, Comet will be rolled out by invitation only over the next few weeks, with priority given to those on a growing waitlist. 'Comet [invite] demand gives me the early Gmail launch vibes,' wrote Srinivas on LinkedIn. 'What an incredible product it was and Comet is still not in the same [league] but feels special to have Perplexity build something people really want.'\\nThis week, Perplexity invited IBM Think to test out the browser firsthand. I set out with two questions in mind: just how well can Comet deliver what I ask of it, and does it really have the potential to disrupt how we engage with the internet today?\\nA browser made for AI search\\nFirst, what is Comet? At first glance, it looks like the child of a traditional browser and Perplexity's landing page. Users can type in web addresses, though, after years of using Google Chrome's tab bar, it can feel oddly disorienting not to rely on it for links and navigation. If you're one of Perplexity's 22 million active users, the prompt box at the center of the screen will feel instantly familiar.... Type in a query, and you'll see Comet search, think and execute the request, along with offering follow-up actions or related questions. Much like OpenAI's Operator or deep research features, this interactivity gives users more control, said Chris Hay, a Distinguished Engineer at IBM, in an interview with IBM Think.\\nSo, what can Comet do for us that its browser predecessors can't? According to Perplexity, Comet can execute complete workflows, while keeping user context in mind.\\nWe tested Comet on several day-to-day tasks after linking it to Gmail, Google Calendar and our favorite websites. Pulling up emails directly from the browser was easy; you simply ask it to do so. I asked Comet to surface emails for an upcoming trip, which it did … sometimes.\\nComet can execute tasks like finding and booking a restaurant. It can even send an email using Gmail—which it did, to my husband, and I was charmed to discover that there was no way of telling that it had not been written or drafted by me. Giving the browser broad instructions like 'find a restaurant and book it' and watching it act on my behalf was equally impressive. Whether it was checking items on Amazon, making reservations or even navigating France's notoriously tricky train booking system, when Comet got it right, it truly felt like the beginning of a new era in search.... 'The browser is going to be good in the typical scenarios, but they will have trained it for those. Booking a flight, a restaurant—that's the typical example you get all of the time,' said Hay, noting that Comet might behave differently for different tasks.\\nComet doesn't always get it right: at one point, I tried to prompt the browser to book a table for a friend of mine and myself, and it ended up emailing a different contact.\\nThe new landing pages\\nBecause it's built on AI, Comet also reinforces behaviors that we have already seen with AI search. Since the AI search engines tend to summarize information rather than direct users to external sites, people are more likely to stay on the same page—in what some call 'zero-click' search. And sure enough, recent reports show that click-through rates are lower with AI-powered search tools.\\nWith Perplexity's Comet, you can also 'chat' with the content of a landing page, asking the browser questions about what's displayed. It will even translate content automatically if it's in a different language from the one you've been using. While useful, these features raise questions around monetization and advertising.\\n'It changes SEO forever,' said Hay. 'We are used to SEO being search, keywords, hitting a landing page. Now we're moving into this world of AI SEO. How is that landing page even relevant now? Is there a landing page that is designed for Comet browsing?'... Of course, Perplexity isn't the only tech company attempting to build a browser truly designed for AI—and, dare we say, to challenge Google's Chrome or Apple's Safari. The Browser Company recently launched its agentic browser Dia, and Opera Neon is promising to assist its users and take action on their behalf. Reuters reported that OpenAI is developing its own browser as well, with plans to integrate the company's own AI products, such as its agent, Operator.\\nBut will that be enough to sway users who have been using Chrome and Safari for years? Google and Apple still own nearly 85% of global browser traffic. 'We are ingrained in going to Google: type, hit 'search,' click,' said Hay. 'I wonder if people will download the browser in the first place.' It remains to be seen whether the appeal of agentic AI will be strong enough to break the habit.\",\n            \"date\": \"2025-07-18\",\n            \"last_updated\": \"2025-07-18\"\n        },\n        {\n            \"title\": \"Perplexity launches Comet, an AI-powered web browser\",\n            \"url\": \"https://techcrunch.com/2025/07/09/perplexity-launches-comet-an-ai-powered-web-browser/\",\n            \"snippet\": \"Perplexity on Wednesday launched its first AI-powered web browser, called Comet, marking the startup’s latest effort to challenge Google Search as the primary avenue people use to find information online.\\n\\nAt launch, Comet will be available first to subscribers of Perplexity’s $200-per-month Max plan, as well as a small group of invitees that signed up to a waitlist.\\n\\nComet’s headline feature is Perplexity’s AI search engine, which is pre-installed and set as the default, putting the company’s core product — AI generated summaries of search results — front and center.\\n\\nUsers can also access Comet Assistant, a new AI agent from Perplexity that lives in the web browser and aims to automate routine tasks. Perplexity says the assistant can summarize emails and calendar events, manage tabs, and navigate web pages on behalf of users. Users can access Comet Assistant by opening a sidecar on any web page, which lets the AI agent see what’s on the web page and answer questions about it.\\n\\nPerplexity has released several products and initiatives in recent months, but none feel quite as consequential as Comet. The company’s CEO, Aravind Srinivas, has significantly hyped Comet’s launch in particular, perhaps because he sees it as vital in Perplexity’s battle against Google.\\n\\nWith Comet, Perplexity is aiming to reach users directly without having to go through Google Chrome, the most popular browser currently. While AI-powered browsers present uncharted territory for many users, Google itself seems convinced this is the direction browsers are headed: The Search giant has deployed several AI integrations into Chrome in recent months, not to mention AI mode, an AI search product with a striking resemblance to Perplexity.\\n\\nSrinivas said in March that his goal with Comet was to “develop an operating system with which you can do almost everything,” enabling Perplexity’s AI to help users across apps and websites. Becoming the default browser for users can translate to “infinite retention,” Srinivas said in June, which would ostensibly lead to more requests on Perplexity.... ### Join 10k+ tech and VC leaders for growth and connections at Disrupt 2025\\n\\n#### Netflix, Box, a16z, ElevenLabs, Wayve, Hugging Face, Elad Gil, Vinod Khosla — just some of the 250+ heavy hitters leading 200+ sessions designed to deliver the insights that fuel startup growth and sharpen your edge. Don’t miss the 20th anniversary of TechCrunch, and a chance to learn from the top voices in tech.\\n\\n**Grab your ticket before doors open to save up to $444.**\\n\\n### Join 10k+ tech and VC leaders for growth and connections at Disrupt 2025\\n\\n#### Netflix, Box, a16z, ElevenLabs, Wayve, Hugging Face, Elad Gil, Vinod Khosla — just some of the 250+ heavy hitters leading 200+ sessions designed to deliver the insights that fuel startup growth and sharpen your edge. Don’t miss a chance to learn from the top voices in tech.\\n\\n**Grab your ticket before doors open to save up to $444.**\\n\\nThat said, Comet is entering a crowded arena. While Google Chrome and Apple’s Safari hold most of the market, The Browser Company launched an AI-powered browser, Dia, in June that seems to offer many of the same features as Comet. OpenAI has also reportedly considered launching its own browser to compete with Google, and has even hired some key members from the original Google Chrome team in the last year.\\n\\nComet could get an initial leg up in the browser wars if a meaningful chunk of Perplexity users sign up for the product. Srinivas recently said that Perplexity saw 780 million queries in May 2025, and that the company’s search products are seeing more than 20% growth month-over-month.\\n\\nTaking on Google Search is no small task, but Perplexity seems to have the right idea by launching a browser of its own. But the startup’s team may find it even harder to convince users to switch browsers than weaning them off Google Search.... ## Hands on with Comet\\n\\nThe most unique aspect of this browser seems to be Comet Assistant. During our testing, we found Comet’s AI agent to be surprisingly helpful for simple tasks, but it quickly falls apart when given more complex requests. Using Comet Assistant to its fullest potential also requires you to hand over an uncomfortable level of access to Perplexity.\\n\\nMy favorite way to use Comet Assistant, so far, is loading it in the sidecar while I’m browsing the web. Perplexity’s on-browser AI agent can automatically see what I’m looking at, so I can simply ask it questions without needing to open a new window or copy and paste text or links. It’s right there, and it always has the context for what I’m looking at.\\n\\nComet Assistant was able to answer questions about posts on social media, YouTube videos, and even sentences I just wrote in a Google Doc. I imagine this will streamline workflows for millions of people that are sending screenshots, files, and links to ChatGPT all day.\\n\\nNext, I tried getting Comet Assistant to look through my Google Calendar. But before I could do so, I had to give Perplexity significant access to my Google Account — a lot of access. Just look at how long this list is.... I have to say, giving Perplexity permission to view my screen, send emails, look at my contacts, and add events to my Calendar made me a little uneasy. But it seems AI agents need this kind of access to be useful.\\n\\nNevertheless, Comet Assistant did a reasonably good job looking through my Calendar. It notified me about some upcoming events, and offered me some advice on when to leave my home, and how to navigate public transit, to get to those events.\\n\\nThe assistant was also able to summarize emails I received that morning from noteworthy senders — in my case, important startups and tech companies with upcoming news. I’ve found that AI agents have a very difficult time parsing through what’s important in an email inbox, but Comet Assistant fared pretty well.\\n\\nBut Comet Assistant fails at more complicated tasks. For example, I tried asking it to help me find a long-term parking spot at San Francisco’s airport for an upcoming trip, specifically places with good reviews that cost less than $15 a day.\\n\\nThe assistant offered up several options that seemed to fit the criteria, so I asked it to book me a spot at one of the locations for the dates I’d be away. The agent navigated the parking lot’s website for me, entered in dates, and even some of my information, then asked me to review what it did and check out.... Turns out, Comet Assistant hallucinated and entered completely wrong dates, later telling me that the dates I wanted were booked, but still wanted to have me complete the check-out anyways. I had to tell the AI agent that the dates were non-negotiable, and asked it to find another location. It ran into the same problem again.\\n\\nAI agents that mess up key details like this are not new. My experience with OpenAI’s agent, Operator, and Perplexity’s previous shopping agent yielded similar results. Clearly, hallucinations stand in the way of these products becoming real tools. Until AI companies can solve them, AI agents will still be a novelty for complex tasks.\\n\\nNevertheless, Comet does seem to offer some new capabilities that may just give Perplexity a leg up over the competition in the modern browser wars.\",\n            \"date\": \"2025-07-09\",\n            \"last_updated\": \"2025-10-12\"\n        }\n    ],\n    \"id\": \"a7c5dce6-b24f-418b-aeb7-bc423dd76de9\",\n    \"server_time\": null\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{apiKey}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.perplexity.ai"
+    },
+    {
+      "key": "apiKey",
+      "value": ""
+    }
+  ]
+}

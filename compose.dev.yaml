@@ -1,0 +1,6 @@
+# Development stack (hot reload, Redis, ChromaDB, Ollama)
+# Usage: ./scripts/docker-up.sh dev  OR  scripts\docker-up.bat dev
+#   or: docker compose --env-file .env --env-file docker/supabase/supabase.env -f compose.dev.yaml up --build
+
+include:
+  - path: docker/docker-compose.dev.yml

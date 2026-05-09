@@ -1,0 +1,12 @@
+{
+  "name": "ai-backend",
+  "private": true,
+  "description": "DurgasAI FastAPI backend. Prettier formats Markdown, JSON, YAML, and other non-Python assets; Python uses Black.",
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "prettier": "3.5.3"
+  }
+}

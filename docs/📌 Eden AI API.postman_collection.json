@@ -1,0 +1,147 @@
+{
+  "info": {
+    "_postman_id": "33bc9009-0d5d-45d4-b3b4-9c2c6e78a266",
+    "name": "📌 Eden AI API",
+    "description": "### About\n\n\"The full stack AI platform for developers.\"\n\nSupports parallel requests to multiple providers. Model providers include OpenAI, Amazon, Anthropic, Google, Mistral, and xAI.\n\n### Prerequisites\n\n- Postman Account\n    \n- Eden AI Account: [https://app.edenai.run/](https://app.edenai.run/)\n    \n\n### Usage\n\n1. Create a fork\n    \n2. Update collection variables\n    \n3. Send requests\n    \n\n### Documentation\n\n- API: [https://docs.edenai.co/docs/quickstart-ai-apis](https://docs.edenai.co/docs/quickstart-ai-apis)\n    \n- Models: [https://app.edenai.run/bricks/catalog](https://app.edenai.run/bricks/catalog)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20572666",
+    "_collection_link": "https://www.postman.com/ai-engineer/generative-ai-apis/collection/fi7nvh1/eden-ai-api?action=share&source=collection_link&creator=20572666"
+  },
+  "item": [
+    {
+      "name": "Chat (Multiple Providers)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"providers\": [\r\n        \"amazon/amazon.nova-pro-v1:0\",\r\n        \"anthropic/claude-3-opus-latest\",\r\n        \"google/gemini-1.5-pro\",\r\n        \"xai/grok-2\",\r\n        \"mistral/pixtral-large-latest\",\r\n        \"openai/o1\"\r\n    ],\r\n    \"text\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/text/chat",
+          "host": ["{{baseUrl}}"],
+          "path": ["text", "chat"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"providers\": [\r\n        \"amazon/amazon.nova-pro-v1:0\",\r\n        \"anthropic/claude-3-opus-latest\",\r\n        \"google/gemini-1.5-pro\",\r\n        \"xai/grok-2\",\r\n        \"mistral/pixtral-large-latest\",\r\n        \"openai/o1\"\r\n    ],\r\n    \"text\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/text/chat",
+              "host": ["{{baseUrl}}"],
+              "path": ["text", "chat"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Sun, 23 Feb 2025 15:54:38 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "7929"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "server",
+              "value": "granian"
+            },
+            {
+              "key": "vary",
+              "value": "Accept, origin"
+            },
+            {
+              "key": "allow",
+              "value": "POST, OPTIONS"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "referrer-policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "cross-origin-opener-policy",
+              "value": "same-origin"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"xai/grok-2\": {\n        \"generated_text\": \"If you dry one shirt in the sun and it takes 1 hour, the time it takes to dry 3 shirts would depend on whether you're drying them sequentially or simultaneously.\\n\\n- **Sequentially:** If you dry the shirts one after the other, it would take 3 hours (1 hour per shirt).\\n- **Simultaneously:** If you lay out all three shirts at the same time, it would still take 1 hour, assuming they all get enough sun exposure.\\n\\nCould you clarify how you plan to dry the shirts?\",\n        \"message\": [\n            {\n                \"role\": \"user\",\n                \"message\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\n                \"tools\": null,\n                \"tool_calls\": null\n            },\n            {\n                \"role\": \"assistant\",\n                \"message\": \"If you dry one shirt in the sun and it takes 1 hour, the time it takes to dry 3 shirts would depend on whether you're drying them sequentially or simultaneously.\\n\\n- **Sequentially:** If you dry the shirts one after the other, it would take 3 hours (1 hour per shirt).\\n- **Simultaneously:** If you lay out all three shirts at the same time, it would still take 1 hour, assuming they all get enough sun exposure.\\n\\nCould you clarify how you plan to dry the shirts?\",\n                \"tools\": null,\n                \"tool_calls\": []\n            }\n        ],\n        \"status\": \"success\",\n        \"usage\": {\n            \"completion_tokens\": 108,\n            \"prompt_tokens\": 29,\n            \"total_tokens\": 137,\n            \"completion_tokens_details\": null,\n            \"prompt_tokens_details\": {\n                \"audio_tokens\": 0,\n                \"cached_tokens\": 0\n            }\n        },\n        \"cost\": 0.00137\n    },\n    \"mistral/pixtral-large-latest\": {\n        \"generated_text\": \"Drying shirts in the sun typically happens in parallel, not sequentially. This means that if you have space to lay out all three shirts at the same time, they will all dry simultaneously. Therefore, it will still take approximately 1 hour to dry three shirts, assuming there is enough sunlight and space to lay them out together.\",\n        \"message\": [\n            {\n                \"role\": \"user\",\n                \"message\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\n                \"tools\": null,\n                \"tool_calls\": null\n            },\n            {\n                \"role\": \"assistant\",\n                \"message\": \"Drying shirts in the sun typically happens in parallel, not sequentially. This means that if you have space to lay out all three shirts at the same time, they will all dry simultaneously. Therefore, it will still take approximately 1 hour to dry three shirts, assuming there is enough sunlight and space to lay them out together.\",\n                \"tools\": null,\n                \"tool_calls\": []\n            }\n        ],\n        \"status\": \"success\",\n        \"usage\": {\n            \"completion_tokens\": 70,\n            \"prompt_tokens\": 27,\n            \"total_tokens\": 97,\n            \"completion_tokens_details\": null,\n            \"prompt_tokens_details\": null\n        },\n        \"cost\": 0.000582\n    },\n    \"amazon/amazon.nova-pro-v1:0\": {\n        \"generated_text\": \"Drying clothes in the sun is a parallel process, meaning that the time it takes to dry multiple items does not increase linearly with the number of items if they all have equal access to sunlight and air circulation.\\n\\nIf one shirt takes 1 hour to dry in the sun, then drying three shirts simultaneously will also take 1 hour, assuming there is enough space for all three shirts to dry evenly and they are exposed to the same amount of sunlight and air circulation. \\n\\nIn summary, drying 3 shirts in the sun will take 1 hour if they are dried at the same time and under the same conditions.\",\n        \"message\": [\n            {\n                \"role\": \"user\",\n                \"message\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\n                \"tools\": null,\n                \"tool_calls\": null\n            },\n            {\n                \"role\": \"assistant\",\n                \"message\": \"Drying clothes in the sun is a parallel process, meaning that the time it takes to dry multiple items does not increase linearly with the number of items if they all have equal access to sunlight and air circulation.\\n\\nIf one shirt takes 1 hour to dry in the sun, then drying three shirts simultaneously will also take 1 hour, assuming there is enough space for all three shirts to dry evenly and they are exposed to the same amount of sunlight and air circulation. \\n\\nIn summary, drying 3 shirts in the sun will take 1 hour if they are dried at the same time and under the same conditions.\",\n                \"tools\": null,\n                \"tool_calls\": []\n            }\n        ],\n        \"status\": \"success\",\n        \"usage\": {\n            \"completion_tokens\": 122,\n            \"prompt_tokens\": 23,\n            \"total_tokens\": 145,\n            \"completion_tokens_details\": null,\n            \"prompt_tokens_details\": null\n        },\n        \"cost\": 0.000464\n    },\n    \"google/gemini-1.5-pro\": {\n        \"generated_text\": \"Assuming there's enough space and sunlight for all three shirts to dry unimpeded, they'll also take approximately **1 hour** to dry.\\n\",\n        \"message\": [\n            {\n                \"role\": \"user\",\n                \"message\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\n                \"tools\": null,\n                \"tool_calls\": null\n            },\n            {\n                \"role\": \"assistant\",\n                \"message\": \"Assuming there's enough space and sunlight for all three shirts to dry unimpeded, they'll also take approximately **1 hour** to dry.\\n\",\n                \"tools\": null,\n                \"tool_calls\": []\n            }\n        ],\n        \"status\": \"success\",\n        \"usage\": {\n            \"completion_tokens\": 32,\n            \"prompt_tokens\": 23,\n            \"total_tokens\": 55,\n            \"completion_tokens_details\": null,\n            \"prompt_tokens_details\": null\n        },\n        \"cost\": 0.00055\n    },\n    \"anthropic/claude-3-opus-latest\": {\n        \"generated_text\": \"In this problem, we need to determine how long it will take to dry 3 shirts in the sun, given that it takes 1 hour to dry a single shirt.\\n\\nGiven:\\n- It takes 1 hour to dry one shirt in the sun.\\n\\nAssuming that the drying time is directly proportional to the number of shirts and that the shirts are dried simultaneously, we can calculate the time needed to dry 3 shirts as follows:\\n\\nIf the shirts are dried one after another:\\nTime to dry 3 shirts = 1 hour × 3\\nTime to dry 3 shirts = 3 hours\\n\\nHowever, if the shirts are dried simultaneously:\\nTime to dry 3 shirts = 1 hour\\n\\nTherefore, if you dry the 3 shirts simultaneously in the sun, it will take 1 hour, the same amount of time as drying a single shirt.\",\n        \"message\": [\n            {\n                \"role\": \"user\",\n                \"message\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\n                \"tools\": null,\n                \"tool_calls\": null\n            },\n            {\n                \"role\": \"assistant\",\n                \"message\": \"In this problem, we need to determine how long it will take to dry 3 shirts in the sun, given that it takes 1 hour to dry a single shirt.\\n\\nGiven:\\n- It takes 1 hour to dry one shirt in the sun.\\n\\nAssuming that the drying time is directly proportional to the number of shirts and that the shirts are dried simultaneously, we can calculate the time needed to dry 3 shirts as follows:\\n\\nIf the shirts are dried one after another:\\nTime to dry 3 shirts = 1 hour × 3\\nTime to dry 3 shirts = 3 hours\\n\\nHowever, if the shirts are dried simultaneously:\\nTime to dry 3 shirts = 1 hour\\n\\nTherefore, if you dry the 3 shirts simultaneously in the sun, it will take 1 hour, the same amount of time as drying a single shirt.\",\n                \"tools\": null,\n                \"tool_calls\": []\n            }\n        ],\n        \"status\": \"success\",\n        \"usage\": {\n            \"completion_tokens\": 197,\n            \"prompt_tokens\": 32,\n            \"total_tokens\": 229,\n            \"completion_tokens_details\": null,\n            \"prompt_tokens_details\": {\n                \"audio_tokens\": null,\n                \"cached_tokens\": 0\n            },\n            \"cache_creation_input_tokens\": 0,\n            \"cache_read_input_tokens\": 0\n        },\n        \"cost\": 0.017175\n    },\n    \"openai/o1\": {\n        \"generated_text\": \"Assuming you can spread all three shirts out in the sun simultaneously, they will all dry in the same hour it takes to dry just one. In other words, the sun “works” in parallel, drying multiple shirts at once rather than one after another. Therefore, three shirts will still take about one hour to dry under those conditions.\",\n        \"message\": [\n            {\n                \"role\": \"user\",\n                \"message\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\",\n                \"tools\": null,\n                \"tool_calls\": null\n            },\n            {\n                \"role\": \"assistant\",\n                \"message\": \"Assuming you can spread all three shirts out in the sun simultaneously, they will all dry in the same hour it takes to dry just one. In other words, the sun “works” in parallel, drying multiple shirts at once rather than one after another. Therefore, three shirts will still take about one hour to dry under those conditions.\",\n                \"tools\": null,\n                \"tool_calls\": []\n            }\n        ],\n        \"status\": \"success\",\n        \"usage\": {\n            \"completion_tokens\": 672,\n            \"prompt_tokens\": 29,\n            \"total_tokens\": 701,\n            \"completion_tokens_details\": {\n                \"accepted_prediction_tokens\": 0,\n                \"audio_tokens\": 0,\n                \"reasoning_tokens\": 576,\n                \"rejected_prediction_tokens\": 0\n            },\n            \"prompt_tokens_details\": {\n                \"audio_tokens\": 0,\n                \"cached_tokens\": 0\n            }\n        },\n        \"cost\": 0.04206\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{apiKey}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.edenai.run/v2"
+    },
+    {
+      "key": "apiKey",
+      "value": ""
+    }
+  ]
+}

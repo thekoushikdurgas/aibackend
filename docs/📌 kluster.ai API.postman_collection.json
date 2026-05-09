@@ -1,0 +1,2123 @@
+{
+  "info": {
+    "_postman_id": "7ea376ee-a461-4cd5-80da-7faba1d4fda2",
+    "name": "📌 kluster.ai API",
+    "description": "### About\n\n\"kluster.ai is an AI cloud platform offering serverless inference and fine-tuning with higher rate limits, predictable performance, and cost savings of up to 50%.\"\n\n### Prerequisites\n\n- Postman Account\n    \n- kluster.ai Account: [https://platform.kluster.ai/](https://platform.kluster.ai/)\n    \n\n### Usage\n\n1. Create a fork\n    \n2. Update collection variables\n    \n3. Send requests\n    \n\n### Documentation\n\n- API: [https://docs.kluster.ai/api-reference/](https://docs.kluster.ai/api-reference/)\n    \n- Models: [https://platform.kluster.ai/models](https://platform.kluster.ai/models)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20572666",
+    "_collection_link": "https://www.postman.com/ai-engineer/generative-ai-apis/collection/pl97tun/kluster-ai-api?action=share&source=collection_link&creator=20572666"
+  },
+  "item": [
+    {
+      "name": "🚀 Get Started",
+      "item": [
+        {
+          "name": "Real-time (deepseek-ai/DeepSeek-R1)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"deepseek-ai/DeepSeek-R1\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"deepseek-ai/DeepSeek-R1\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 31 Mar 2025 04:13:28 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=7F9gUznxwLMSkGIMHTtwi7EtfNIrU71A2SmRqwAUfE03Iq1CAyRAeB0Q3PHSWEWiZ76iUgzp5NliX%2F76x1kNcAiHr7PWb7n3LJjCN0ceO566x9LgA23I1XjlUwmcrNaf\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "928d033ca99352bf-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=14194&min_rtt=13911&rtt_var=5783&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2808&recv_bytes=925&delivery_rate=180503&cwnd=203&unsent_bytes=0&cid=0f5ca253cdeee1ae&ts=18277&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"02d1f8cf6de24eea893c65e2752789d3\",\n    \"object\": \"chat.completion\",\n    \"created\": 1743394408,\n    \"model\": \"deepseek-ai/DeepSeek-R1\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"<think>\\nOkay, so the question is: If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take? Hmm, at first glance, this seems straightforward, but maybe there's a trick here. Let me think.\\n\\nAssuming that drying shirts in the sun is a process that can happen simultaneously. If I have a clothesline or a drying rack, I can hang multiple shirts at the same time. So if one shirt takes 1 hour, then hanging three shirts at the same time would still just take 1 hour because they're all drying together. The sun's heat and airflow would affect all of them equally, right?\\n\\nBut wait, maybe the person asking the question is thinking in terms of doing them one after another? Like, hanging one shirt, waiting for it to dry, then hanging the next. In that case, it would take 3 hours total. But that seems inefficient. Typically, when people dry clothes, they hang them all up at once. So unless there's some constraint, like limited space, but the question doesn't mention that.\\n\\nSo I need to consider both possibilities. If they can dry all three shirts at the same time, the time remains 1 hour. If they have to dry them sequentially, it would be 3 hours. Since the question doesn't specify any limitations on space or drying area, the logical answer would be 1 hour. But why does the question ask then? Maybe to test if the responder assumes parallel vs. sequential processing.\\n\\nAlternatively, maybe there's another factor. For example, if drying three shirts together blocks some airflow, making each take longer. But that's probably overcomplicating it. The simplest answer is that if you can dry them all at once, it's 1 hour. If not, 3 hours. But given standard assumptions, the answer should be 1 hour.\\n</think>\\n\\nIf you can dry all three shirts simultaneously (e.g., hanging them side by side), they will all dry in **1 hour** under the same conditions. The drying time doesn't inherently increase with more shirts unless space or airflow limitations force sequential drying. Since the problem doesn't mention constraints, the answer assumes parallel drying. \\n\\n**Answer:** 1 hour.\",\n                \"tool_calls\": null\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\",\n            \"matched_stop\": 1\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 26,\n        \"total_tokens\": 489,\n        \"completion_tokens\": 463,\n        \"prompt_tokens_details\": null\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Real-time",
+      "item": [
+        {
+          "name": "deepseek-ai/DeepSeek-R1-0528",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"deepseek-ai/DeepSeek-R1-0528\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"deepseek-ai/DeepSeek-R1-0528\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sat, 31 May 2025 03:40:18 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "30"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "29"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "948371c25f731014-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"chatcmpl-98be46c4-9463-4a65-a071-8993082fed19\",\n    \"object\": \"chat.completion\",\n    \"created\": 1748662769,\n    \"model\": \"deepseek-ai/DeepSeek-R1-0528\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"reasoning_content\": null,\n                \"content\": \"<think>\\nThe problem states: \\\"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\\\" It seems straightforward, but I think there might be a trick here. Drying clothes in the sun isn't like doing work where more items take more time; it's about exposure to sunlight.\\n\\nIf I have one shirt drying, it takes one hour. If I add more shirts, as long as they're all in the sun, they should all dry at the same time, right? Because the sun is shining on all of them simultaneously. So, three shirts should also take one hour to dry if they're all put out at the same time.\\n\\nBut let me think if there's any reason why it might take longer. For example, if the shirts are overlapping or something, but the problem doesn't say that. It just says \\\"dry one shirt\\\" and then \\\"dry three shirts.\\\" I think we're to assume that they are dried separately, each getting full sun exposure.\\n\\nPerhaps it's about the drying area or something. But again, not specified. I think the simplest answer is that it still takes one hour.\\n\\nBut that seems too easy, and I recall that sometimes in these puzzles, people think about it as a rate thing. Like, if drying one shirt takes one hour, then the drying rate is one shirt per hour. So for three shirts, it would take three hours. But that doesn't make sense because the sun can dry multiple shirts at once.\\n\\nFor instance, if you have a hairdryer, it dries one shirt in an hour, but if you try to dry three shirts with one hairdryer, it might take longer because you're sharing the heat. But with the sun, it's not like that; the sun is abundant.\\n\\nThe sun is a parallel processor for drying clothes. Each shirt dries independently in the sun.\\n\\nSo, putting three shirts out at the same time, they should all be dry after one hour.\\n\\nBut let me see if there's another angle. Maybe the question is about the time from start to finish when you have multiple shirts, but since they start and end together, it's still one hour.\\n\\nPerhaps if you hang them one after another, but the problem doesn't say that. It says \\\"how long do 3 shirts take?\\\" implying they are dried together.\\n\\nI think I'm overcomplicating it. Probably, the answer is one hour.\\n\\nBut let me check online or think if there's a standard trick. I remember a similar problem with candles or something.\\n\\nFor example, if one candle burns for one hour, how long do three candles burn? But that's different; each candle burns for one hour regardless of how many you light.\\n\\nSimilarly, for drying shirts.\\n\\nAnother thought: in terms of evaporation, if you have many clothes, the humidity might increase, slowing down drying, but that's probably not considered here. The problem is simple, so I should keep it simple.\\n\\nPerhaps it's about the person hanging them. If it takes time to hang each shirt, but the drying time starts after they are hung, I think.\\n\\nThe problem says \\\"it takes 1 hour\\\" for drying, not including hanging time, I assume.\\n\\nSo, drying time alone should be the same.\\n\\nI think I should go with one hour.\\n\\nBut let me see the way the question is phrased: \\\"How long do 3 shirts take?\\\"\\n\\nIt could be interpreted as the total time required to dry three shirts sequentially, but that would be three hours if you dry one after another.\\n\\nBut that seems less likely because if you dry them sequentially, each takes one hour, so for three shirts, it would take three hours total time, but the drying time per shirt is still one hour, and the shirts are not drying simultaneously.\\n\\nThe question says \\\"how long do 3 shirts take?\\\" which might mean the time to complete drying for all three when started together.\\n\\nIn common language, if you put three shirts out to dry, how long until they are all dry? One hour.\\n\\nIf you have a batch of three, it takes one hour for the batch.\\n\\nI think sequential drying isn't implied.\\n\\nTo be thorough, let's consider both cases.\\n\\nCase 1: Parallel drying. All shirts hung at the same time, all dry after one hour.\\n\\nCase 2: Sequential drying. Hang first shirt, it dries in one hour, then hang second, dries in another hour, and so on. So for three shirts, it would take three hours from start to finish, but each shirt still dries in one hour.\\n\\nThe question is \\\"how long do 3 shirts take?\\\" which is ambiguous. It could mean the total time from start to having all dry, or the drying time per shirt.\\n\\nBut for the per shirt time, it's still one hour each, but the total time for all depends on how you do it.\\n\\nI think in context, since it's comparing to one shirt taking one hour, it's about the time for the process with multiple items.\\n\\nPerhaps it's a trick question to see if you think it's linear.\\n\\nI recall a similar puzzle: if it takes one minute to saw a board into two pieces, how long to saw into three pieces? Answer: two minutes, because you make two cuts.\\n\\nBut that's different; that's about the number of operations.\\n\\nHere, drying shirts isn't like that; it's not an operation per shirt.\\n\\nDrying is a state change over time with external factor.\\n\\nI think for drying, it's parallel.\\n\\nLet me see if I can find a definitive answer.\\n\\nAnother idea: in terms of energy, the sun provides energy to evaporate water. Each shirt requires a certain amount of energy to dry. If the sun's power is constant, then multiple shirts would take longer if the power is shared, but with the sun, the power isn't limited by us; it's abundant. The drying rate per shirt is the same regardless of how many are out, as long as each gets sunlight.\\n\\nFor example, in reality, if you have a large area, you can dry many clothes in the same time as one, as long as they don't shade each other.\\n\\nSo, I think for this problem, it should be one hour.\\n\\nBut let's see what the expected answer might be. Sometimes these are used to illustrate parallel vs serial processing.\\n\\nIn computing, if one task takes one hour, three tasks in parallel take one hour, three in serial take three hours.\\n\\nSo for drying shirts, it should be parallel.\\n\\nI think I should go with one hour.\\n\\nBut the problem is from a source that might expect the linear answer.\\n\\nThe user didn't specify, but it's a common type.\\n\\nPerhaps it's about the total drying time required, but that doesn't make sense.\\n\\nI think I'm spending too much time. I'll go with one hour.\\n</think>\\nDrying shirts in the sun is a parallel process, meaning that multiple shirts can dry simultaneously as long as each receives adequate sunlight. Since the drying time for one shirt is 1 hour, hanging three shirts at the same time allows them all to dry in the same 1-hour period, provided they are all exposed to the sun without overlapping or shading each other.\\n\\nThe key point is that the sun's drying effect is not shared or divided among the shirts; each shirt dries independently. Therefore, the time required for three shirts to dry is the same as for one shirt: 1 hour.\\n\\nThis assumes that the shirts are hung simultaneously and that conditions (such as sunlight intensity and humidity) remain constant. If the shirts were dried sequentially (one after another), it would take 3 hours in total, but the question implies simultaneous drying, as is typical for such scenarios.\",\n                \"tool_calls\": []\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\",\n            \"stop_reason\": null\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 26,\n        \"total_tokens\": 1617,\n        \"completion_tokens\": 1591,\n        \"prompt_tokens_details\": null\n    },\n    \"prompt_logprobs\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "deepseek-ai/DeepSeek-R1",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"deepseek-ai/DeepSeek-R1\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"deepseek-ai/DeepSeek-R1\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 31 Mar 2025 04:13:28 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=7F9gUznxwLMSkGIMHTtwi7EtfNIrU71A2SmRqwAUfE03Iq1CAyRAeB0Q3PHSWEWiZ76iUgzp5NliX%2F76x1kNcAiHr7PWb7n3LJjCN0ceO566x9LgA23I1XjlUwmcrNaf\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "928d033ca99352bf-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=14194&min_rtt=13911&rtt_var=5783&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2808&recv_bytes=925&delivery_rate=180503&cwnd=203&unsent_bytes=0&cid=0f5ca253cdeee1ae&ts=18277&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"02d1f8cf6de24eea893c65e2752789d3\",\n    \"object\": \"chat.completion\",\n    \"created\": 1743394408,\n    \"model\": \"deepseek-ai/DeepSeek-R1\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"<think>\\nOkay, so the question is: If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take? Hmm, at first glance, this seems straightforward, but maybe there's a trick here. Let me think.\\n\\nAssuming that drying shirts in the sun is a process that can happen simultaneously. If I have a clothesline or a drying rack, I can hang multiple shirts at the same time. So if one shirt takes 1 hour, then hanging three shirts at the same time would still just take 1 hour because they're all drying together. The sun's heat and airflow would affect all of them equally, right?\\n\\nBut wait, maybe the person asking the question is thinking in terms of doing them one after another? Like, hanging one shirt, waiting for it to dry, then hanging the next. In that case, it would take 3 hours total. But that seems inefficient. Typically, when people dry clothes, they hang them all up at once. So unless there's some constraint, like limited space, but the question doesn't mention that.\\n\\nSo I need to consider both possibilities. If they can dry all three shirts at the same time, the time remains 1 hour. If they have to dry them sequentially, it would be 3 hours. Since the question doesn't specify any limitations on space or drying area, the logical answer would be 1 hour. But why does the question ask then? Maybe to test if the responder assumes parallel vs. sequential processing.\\n\\nAlternatively, maybe there's another factor. For example, if drying three shirts together blocks some airflow, making each take longer. But that's probably overcomplicating it. The simplest answer is that if you can dry them all at once, it's 1 hour. If not, 3 hours. But given standard assumptions, the answer should be 1 hour.\\n</think>\\n\\nIf you can dry all three shirts simultaneously (e.g., hanging them side by side), they will all dry in **1 hour** under the same conditions. The drying time doesn't inherently increase with more shirts unless space or airflow limitations force sequential drying. Since the problem doesn't mention constraints, the answer assumes parallel drying. \\n\\n**Answer:** 1 hour.\",\n                \"tool_calls\": null\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\",\n            \"matched_stop\": 1\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 26,\n        \"total_tokens\": 489,\n        \"completion_tokens\": 463,\n        \"prompt_tokens_details\": null\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "deepseek-ai/DeepSeek-V3",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"deepseek-ai/DeepSeek-V3\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"deepseek-ai/DeepSeek-V3\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 31 Mar 2025 04:15:16 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=wFnRC%2BKD28Tn5%2Bi1fYwcNYw77Jc%2FPUhG%2FNjqlfZDcj851PmEik7W8NX9DUksEMjxpRBiNwoNPk%2Fwbw2e8dNXts%2FeQCuoqYE0vc8UNN68KHxu3GYuG1v63h0658zbYl0D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "928d063e69bacb8d-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=14085&min_rtt=13905&rtt_var=5575&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2808&recv_bytes=925&delivery_rate=190228&cwnd=170&unsent_bytes=0&cid=a2d1b757ea12a5ee&ts=2657&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"5c2ea621486e4c669e0f25c087a270c2\",\n    \"object\": \"chat.completion\",\n    \"created\": 1743394516,\n    \"model\": \"deepseek-ai/DeepSeek-V3\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"If drying one shirt in the sun takes 1 hour, drying three shirts will also take 1 hour—assuming all the shirts are exposed to the sun simultaneously and have enough space to dry properly. The drying time doesn't increase with more shirts as long as they can all receive adequate sunlight and air flow at the same time.\",\n                \"tool_calls\": null\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\",\n            \"matched_stop\": 1\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 26,\n        \"total_tokens\": 93,\n        \"completion_tokens\": 67,\n        \"prompt_tokens_details\": null\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "deepseek-ai/DeepSeek-V3-0324",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"deepseek-ai/DeepSeek-V3-0324\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"deepseek-ai/DeepSeek-V3-0324\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 31 Mar 2025 04:24:06 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=94xV4k%2BbsH3DLroZiMoZ4MMcTUEpHBcDvjaW89lFTC%2Bf5sIg0YscJoZ554d7e0G9mE4jfJjXB9QGw7byrOzSYH%2FRcOCnaND568EJo4MC1vnbhwOhKfRSfx82RkN8PZdz\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "928d132bbe36acc8-PDX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=36035&min_rtt=35965&rtt_var=13628&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2807&recv_bytes=930&delivery_rate=79932&cwnd=252&unsent_bytes=0&cid=b519df0b4ac3e6b9&ts=3819&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"1fd3fa56d6444a69ae040f8b3ad91ecf\",\n    \"object\": \"chat.completion\",\n    \"created\": 1743395046,\n    \"model\": \"deepseek-ai/DeepSeek-V3-0324\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"Drying shirts in the sun is typically not affected by the number of shirts, assuming they are all exposed to the sunlight similarly (e.g., spread out on a clothesline without overlapping). \\n\\nThus, if one shirt takes 1 hour to dry, then 3 shirts will also take **1 hour** to dry simultaneously, as long as they are all adequately exposed to the sun and air. \\n\\nThe key factor is the drying conditions (sunlight, airflow, humidity), not the quantity of shirts (assuming they don't overlap). \\n\\n**Answer:** 1 hour.\",\n                \"tool_calls\": null\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\",\n            \"matched_stop\": 1\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 26,\n        \"total_tokens\": 143,\n        \"completion_tokens\": 117,\n        \"prompt_tokens_details\": null\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "google/gemma-3-27b-it",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"google/gemma-3-27b-it\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"google/gemma-3-27b-it\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 31 Mar 2025 04:20:59 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=rpwiSiKAldqCO4iGHAJ%2FVPR9kFuGS8N1io16VpM3rzm9v%2B3ee7aO22g09SaeHXaAXKG0%2Fzt5SbCb643nvbktaKIscIDfnolgWLXFGm2Y%2BlwxzbnAa2MnPOks3X3PbPnx\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "928d0ea5fe6b2ee7-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=13675&min_rtt=11497&rtt_var=5867&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2808&recv_bytes=923&delivery_rate=253979&cwnd=180&unsent_bytes=0&cid=50efb23ae3998edf&ts=1621&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"chatcmpl-bae87047-9e85-48d5-b8c2-272c5e6ee303\",\n    \"object\": \"chat.completion\",\n    \"created\": 1743394858,\n    \"model\": \"google/gemma-3-27b-it\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"reasoning_content\": null,\n                \"content\": \"If you have enough space to hang all the shirts so they each get direct sunlight, they will still take **1 hour** to dry. \\n\\nThe drying time depends on the sun and the individual shirt, not how many shirts there are!\\n\",\n                \"tool_calls\": []\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\",\n            \"stop_reason\": 106\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 32,\n        \"total_tokens\": 83,\n        \"completion_tokens\": 51,\n        \"prompt_tokens_details\": null\n    },\n    \"prompt_logprobs\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "klusterai/Meta-Llama-3.1-8B-Instruct-Turbo",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"klusterai/Meta-Llama-3.1-8B-Instruct-Turbo\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"klusterai/Meta-Llama-3.1-8B-Instruct-Turbo\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 31 Mar 2025 04:05:12 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=vr4xoJuaPTu9VnPzcPFDWwvt3Tx2xSgXOaZNF4mn7gYM%2FlEmqBpcoHZ0CmXibbXAqyZcS0yOrMv3M6MUHpc%2BxPXOKHyBlLej9iaMBTTB9l4ax2hJSVCg43CO0t%2BPTmsZ\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "928cf7680cfe7d5c-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=14084&min_rtt=13916&rtt_var=5339&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2806&recv_bytes=944&delivery_rate=209830&cwnd=207&unsent_bytes=0&cid=74279d24b4137975&ts=6966&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"chatcmpl-98d8c04b-33c4-4340-a5a2-c5320ae7e0c7\",\n    \"object\": \"chat.completion\",\n    \"created\": 1743393906,\n    \"model\": \"klusterai/Meta-Llama-3.1-8B-Instruct-Turbo\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"Since it takes 1 hour to dry 1 shirt, you multiply the time it takes for 1 shirt by the number of shirts you're drying. \\n\\n1 shirt takes 1 hour \\n2 shirts would take 1 hour * 2 = 2 hours \\n3 shirts would take 1 hour * 3 = 3 hours\\n\\nSo, it would take 3 hours to dry 3 shirts.\",\n                \"tool_calls\": []\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\",\n            \"stop_reason\": null\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 58,\n        \"total_tokens\": 142,\n        \"completion_tokens\": 84,\n        \"prompt_tokens_details\": null\n    },\n    \"prompt_logprobs\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "klusterai/Meta-Llama-3.1-405B-Instruct-Turbo",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"klusterai/Meta-Llama-3.1-405B-Instruct-Turbo\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"klusterai/Meta-Llama-3.1-405B-Instruct-Turbo\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 31 Mar 2025 04:26:37 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=JPH9%2BKNx%2Bpc4iDBYkm6F91dyABdQoat91R5x%2Fwx1uemzmwoWfjcXhKm0SZku4sbovvAaZ7CQ4skxSDitmRe7ColCj%2FLyEVH5L3cqvtS6k9%2BEtky1vMyP9gifWrd9HppI\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "928d16e16ab617f2-SJC"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=20252&min_rtt=20033&rtt_var=7951&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2807&recv_bytes=946&delivery_rate=134012&cwnd=252&unsent_bytes=0&cid=0be7aa349aad1517&ts=2855&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"chatcmpl-ef871e11-6fbf-42bd-a0da-e4836596b56a\",\n    \"object\": \"chat.completion\",\n    \"created\": 1743395195,\n    \"model\": \"klusterai/Meta-Llama-3.1-405B-Instruct-Turbo\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"If it takes 1 hour to dry one shirt in the sun, it would still take 1 hour to dry three shirts, assuming the shirts are exposed to the same amount of sunlight. This is because the drying process is not sequential but simultaneous.\",\n                \"tool_calls\": []\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\",\n            \"stop_reason\": null\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 58,\n        \"total_tokens\": 109,\n        \"completion_tokens\": 51,\n        \"prompt_tokens_details\": null\n    },\n    \"prompt_logprobs\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "klusterai/Meta-Llama-3.3-70B-Instruct-Turbo",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"klusterai/Meta-Llama-3.3-70B-Instruct-Turbo\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"klusterai/Meta-Llama-3.3-70B-Instruct-Turbo\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 31 Mar 2025 04:29:28 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=I3bgVArHSWmRwXPI%2B4FvjJzeZjN55z1hDnjKYigyrLHOHrSPO1IWO8E4E1zvjhyFBc9T8WnAWDjMxZ8ZyJvpHWGGfqiDa%2FLpCAk1d%2BSSQxXOKorYuyA0Y0pqKRGlVz0Q\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "928d1a8e484ef206-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=14670&min_rtt=14220&rtt_var=6232&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2806&recv_bytes=945&delivery_rate=163851&cwnd=182&unsent_bytes=0&cid=7eaf54930a3a71b4&ts=22760&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"chatcmpl-6860cab9-6ae4-4a33-9cda-bd44e687addc\",\n    \"object\": \"chat.completion\",\n    \"created\": 1743395346,\n    \"model\": \"klusterai/Meta-Llama-3.3-70B-Instruct-Turbo\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"The time it takes to dry a shirt in the sun depends on various factors such as the intensity of the sun, temperature, and humidity. However, assuming the same conditions, drying 3 shirts will likely take the same amount of time as drying 1 shirt, which is 1 hour.\\n\\nThe reason is that the shirts are dried simultaneously, not sequentially. So, all 3 shirts will be exposed to the sun at the same time, and they will dry in the same 1 hour it takes for 1 shirt to dry.\",\n                \"tool_calls\": []\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\",\n            \"stop_reason\": null\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 58,\n        \"total_tokens\": 167,\n        \"completion_tokens\": 109,\n        \"prompt_tokens_details\": null\n    },\n    \"prompt_logprobs\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"meta-llama/Llama-4-Scout-17B-16E-Instruct\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"meta-llama/Llama-4-Scout-17B-16E-Instruct\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 06 Apr 2025 23:16:41 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=xYhBFAA5qk62HnmEKknJm5NA1ca%2FmvCjgQG%2FXruKofLoBJMqqxmDxyf%2FLWjwdiVi%2Fr8q4NntRgT7S%2BtgYWeJn2SNMG7lI3MygsMv45asWvSXPUcx72hrCnRxdLYyeCHd\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "92c4fe869ea32f77-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=32180&min_rtt=13759&rtt_var=30980&sent=84&recv=83&lost=0&retrans=0&sent_bytes=6983&recv_bytes=2817&delivery_rate=263086&cwnd=233&unsent_bytes=0&cid=a6434c7e32e56d09&ts=77151&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"chatcmpl-95625d39-5c1e-432d-a740-0b086aa4d198\",\n    \"object\": \"chat.completion\",\n    \"created\": 1743981400,\n    \"model\": \"meta-llama/Llama-4-Scout-17B-16E-Instruct\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"reasoning_content\": null,\n                \"content\": \"The answer is still 1 hour!\\n\\nThe reason is that all 3 shirts can be dried at the same time in the sun, so the drying time doesn't increase with the number of shirts. As long as they all fit in the sun at the same time, they'll all dry in the same 1 hour.\",\n                \"tool_calls\": []\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\",\n            \"stop_reason\": null\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 33,\n        \"total_tokens\": 97,\n        \"completion_tokens\": 64,\n        \"prompt_tokens_details\": null\n    },\n    \"prompt_logprobs\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 06 Apr 2025 23:15:25 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=BklrYOhbL2p8ThnIoCpIyw2k324UW2syxvuGFPiC%2Bz8QioNdWrInzehuqKtX9m5b1gs0K2C00X7qmhGpPsm8qqpe391HZC0V5q2b2dPMewKb4%2BGuSinPhA2yhLAiAzJO\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "92c4fcaaca142f77-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=14058&min_rtt=13759&rtt_var=5758&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2807&recv_bytes=951&delivery_rate=180748&cwnd=227&unsent_bytes=0&cid=a6434c7e32e56d09&ts=1258&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"chatcmpl-1b3e4090-0335-40ea-aec1-c2c229b81781\",\n    \"object\": \"chat.completion\",\n    \"created\": 1743981324,\n    \"model\": \"meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"reasoning_content\": null,\n                \"content\": \"The answer is... still 1 hour! Assuming you're drying them all at the same time, the time it takes to dry doesn't depend on the number of shirts. So, 3 shirts will take the same amount of time to dry as 1 shirt, which is 1 hour.\\n\\nDid I get it right?\",\n                \"tool_calls\": []\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\",\n            \"stop_reason\": null\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 33,\n        \"total_tokens\": 98,\n        \"completion_tokens\": 65,\n        \"prompt_tokens_details\": null\n    },\n    \"prompt_logprobs\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Qwen/Qwen2.5-VL-7B-Instruct",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"Qwen/Qwen2.5-VL-7B-Instruct\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"Qwen/Qwen2.5-VL-7B-Instruct\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 31 Mar 2025 04:17:23 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=APU%2B4KTryVDHxGPBcV1hERDFmMixxkRr83YPtJvpN0BZU%2FU5Bu5x2x6B98MgtqJwMUs3XgVB7i%2F%2B2uRwJp0WZouy4zF9%2FSVcZQLiMn0tqpp8oonmkhBtf2SZNRc4g47B\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "928d091e795369b2-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=14755&min_rtt=14100&rtt_var=6597&sent=4&recv=5&lost=0&retrans=0&sent_bytes=2806&recv_bytes=929&delivery_rate=150982&cwnd=167&unsent_bytes=0&cid=cde635732e6c35a4&ts=11623&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"chatcmpl-b8598cd7-582f-4407-9d70-8a47e145c014\",\n    \"object\": \"chat.completion\",\n    \"created\": 1743394631,\n    \"model\": \"Qwen/Qwen2.5-VL-7B-Instruct\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"reasoning_content\": null,\n                \"content\": \"If you dry one shirt in the sun and it takes 1 hour, then drying three shirts at the same time under the same conditions would also take approximately 1 hour. Assuming that the drying process is not affected by the number of shirts (as long as they don't overlap or block each other's access to sunlight), the drying time remains the same because the drying process is primarily dependent on the amount of surface area exposed to the sun and the rate at which the water evaporates, which is typically the same regardless of the number of shirts, the drying time for three shirts would still be about 1 hour. The drying time is generally determined by the evaporation rate of the water, which is not significantly impacted by the number of shirts as long as there is enough space for air circulation around each shirt.\\n\\nHowever, if the shirts are overlapping or if the sun's rays are not sufficient to dry all shirts simultaneously due to shading or limited space, the drying time might increase slightly. But if you have enough space and the sun's rays can reach all shirts equally, the drying time should remain the same. \\n\\nSo, if you have enough space and the sun's rays can reach all shirts, the drying time for three shirts would still be about 1 hour. If the shirts are spread out properly and the sun's rays can reach all of them, the drying time would be the same as drying one shirt. If the shirts are overlapping or if the sun's rays are blocked, the drying time could potentially be longer than 1 hour depending on how much of the shirts are exposed to the sun, the drying time would still be around 1 hour. If the shirts are overlapping or if the sun's rays are not reaching all parts of the shirts, the drying time might be slightly longer, but it would still be close to 1 hour. If the shirts are spread out and the sun's rays can reach all shirts effectively, the drying time would be roughly the same as drying one shirt. If the shirts are overlapping or if the sun's rays are not reaching all shirts evenly, the drying time might be slightly longer, but it would still be close to 1 hour. If you're concerned about efficiency, you might need to rotate them occasionally to ensure even drying across all shirts, but the primary factor here is the evaporation rate, which is the same for all shirts.\",\n                \"tool_calls\": []\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\",\n            \"stop_reason\": null\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 42,\n        \"total_tokens\": 524,\n        \"completion_tokens\": 482,\n        \"prompt_tokens_details\": null\n    },\n    \"prompt_logprobs\": null\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Asynchronous",
+      "item": [
+        {
+          "name": "deepseek-ai/DeepSeek-R1",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"deepseek-ai/DeepSeek-R1\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"metadata\": {\r\n        \"@kluster.ai\": {\r\n            \"callback_url\": \"https://my-webhook-receiver/callback\",\r\n            \"async\": true,\r\n            \"completion_window\": \"24h\"\r\n        }\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"model\": \"deepseek-ai/DeepSeek-R1\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"metadata\": {\r\n        \"@kluster.ai\": {\r\n            \"callback_url\": \"https://my-webhook-receiver/callback\",\r\n            \"async\": true,\r\n            \"completion_window\": \"24h\"\r\n        }\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/chat/completions",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["chat", "completions"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 06 Apr 2025 23:12:43 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "*"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=26PnERdaQTRiZvypuik9uCPJPZc8b8Ezt4bfDgBGA48HZ6Q8VwY7XZ3QGr%2FQ2zw6MMgxMeOIFPrBxibEM1oOQWE0%2FRzBSaz73KvNvlWNr4KIlz5ix1zpZ4reBrYvdLyA\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "92c4f8c029865331-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=14114&min_rtt=13323&rtt_var=5561&sent=5&recv=5&lost=0&retrans=0&sent_bytes=2806&recv_bytes=1126&delivery_rate=219169&cwnd=216&unsent_bytes=0&cid=7e01958fe2316ccf&ts=412&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"67ea12c3c29d21059af6b08b_1743981163901\",\n    \"object\": \"chat.completion\",\n    \"created\": 1743981163,\n    \"model\": \"deepseek-ai/DeepSeek-R1\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"Your request has been queued for adaptive inference. Check your batch jobs for results.\"\n            },\n            \"finish_reason\": \"stop\"\n        }\n    ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Batch",
+      "item": [
+        {
+          "name": "Files",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.file_id', jsonResponse.id)\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "postman-cloud:///1f0133be-cd2e-4dd0-8532-bfaaa954db9f"
+                },
+                {
+                  "key": "purpose",
+                  "value": "batch",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/files",
+              "host": ["{{baseUrl}}"],
+              "path": ["files"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": "postman-cloud:///1f0133be-cd2e-4dd0-8532-bfaaa954db9f"
+                    },
+                    {
+                      "key": "purpose",
+                      "value": "batch",
+                      "type": "text"
+                    }
+                  ],
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/files",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["files"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 06 Apr 2025 23:10:05 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1000"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "999"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=r67kz2S4If8NCgWjlt2DZ325TcNR1lSvOMtuid1HrpvaqlJFixRz0FGd1gv9nXw3yXxBcgQvqU2sUwCW1xe%2FigawALPXV%2B1OyaISqWWyTPCOih5gkC7QwCKimIhXGA9C\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "92c4f4e11ba57d89-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=18301&min_rtt=17824&rtt_var=7025&sent=5&recv=5&lost=0&retrans=0&sent_bytes=2807&recv_bytes=2216&delivery_rate=163824&cwnd=232&unsent_bytes=0&cid=a2bb8fd3f0c7acbe&ts=531&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"67f309cd16894af7d15491a1\",\n    \"object\": \"file\",\n    \"created_at\": 1743981005,\n    \"filename\": \"67ea12c3c29d21059af6b08b/3d676e44-0e4c-4935-a18b-1b45ff3d820b-c011a68a-1809-405a-9a66-524b1573b803\",\n    \"purpose\": \"batch\",\n    \"bytes\": 1104\n}"
+            }
+          ]
+        },
+        {
+          "name": "Batches",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonResponse = pm.response.json();\r",
+                  "pm.collectionVariables.set('temp.request_id', jsonResponse.id)\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\t\"input_file_id\": \"{{temp.file_id}}\",\r\n\t\"endpoint\": \"/v1/chat/completions\",\r\n\t\"completion_window\": \"24h\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/batches",
+              "host": ["{{baseUrl}}"],
+              "path": ["batches"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n\t\"input_file_id\": \"{{temp.file_id}}\",\r\n\t\"endpoint\": \"/v1/chat/completions\",\r\n\t\"completion_window\": \"24h\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/batches",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["batches"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 06 Apr 2025 23:10:42 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "0"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "10"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=p0NSUBL3OjEcS01AInSEu91gcql5E5ZrqFxvJDgCTJUqYxiU1AF73hth9upOaJixfqfgLQKpnCz7eLE4B1KRCdVHlAkyB8l%2Fk0PhUQeER9ZUpMeZbaYuHurSkwNuXG97\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "92c4f5c95c367d89-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=18301&min_rtt=17824&rtt_var=7025&sent=45&recv=42&lost=0&retrans=1&sent_bytes=4407&recv_bytes=2706&delivery_rate=163824&cwnd=236&unsent_bytes=0&cid=a2bb8fd3f0c7acbe&ts=37415&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"67f309f2600d6b5ce2618745\",\n    \"object\": \"batch\",\n    \"endpoint\": \"/v1/chat/completions\",\n    \"input_file_id\": \"67f309cd16894af7d15491a1\",\n    \"completion_window\": \"24h\",\n    \"status\": \"pre_schedule\",\n    \"created_at\": 1743981042,\n    \"expires_at\": 1744067442,\n    \"request_counts\": {\n        \"total\": 0,\n        \"completed\": 0,\n        \"failed\": 0\n    },\n    \"errors\": [],\n    \"in_progress_at\": null,\n    \"finalizing_at\": null,\n    \"completed_at\": null,\n    \"failed_at\": null,\n    \"metadata\": {}\n}"
+            }
+          ]
+        },
+        {
+          "name": "Batches",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/batches/:request_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["batches", ":request_id"],
+              "variable": [
+                {
+                  "key": "request_id",
+                  "value": "{{temp.request_id}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/batches/:request_id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["batches", ":request_id"],
+                  "variable": [
+                    {
+                      "key": "request_id",
+                      "value": "{{temp.request_id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Sun, 06 Apr 2025 23:11:02 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "1000"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "984"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "3"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Report-To",
+                  "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=1ocMJo9DLYEYOPdPkthi5KwQbxb57oTLr3VCbjjKyVCfwgdmye6YifEddczwbMQgJaGsVK4xJe%2FBTyxaKw0mql63nitKpIfdZf96SRxRkmS%2FLNlRRNX4HBq7cvkJ%2F6cY\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "NEL",
+                  "value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "92c4f649cb227d89-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "server-timing",
+                  "value": "cfL4;desc=\"?proto=TCP&rtt=18301&min_rtt=17824&rtt_var=7025&sent=68&recv=63&lost=0&retrans=2&sent_bytes=5674&recv_bytes=3049&delivery_rate=163824&cwnd=236&unsent_bytes=0&cid=a2bb8fd3f0c7acbe&ts=57872&x=0\""
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"67f309f2600d6b5ce2618745\",\n    \"object\": \"batch\",\n    \"endpoint\": \"/v1/chat/completions\",\n    \"input_file_id\": \"67f309cd16894af7d15491a1\",\n    \"completion_window\": \"24h\",\n    \"status\": \"completed\",\n    \"created_at\": 1743981042,\n    \"expires_at\": 1744067442,\n    \"request_counts\": {\n        \"total\": 3,\n        \"completed\": 3,\n        \"failed\": 0\n    },\n    \"errors\": [],\n    \"output_file_id\": \"67f309f497652407b86b5654\",\n    \"in_progress_at\": 1743981042,\n    \"finalizing_at\": 1743981044,\n    \"completed_at\": 1743981044,\n    \"failed_at\": null,\n    \"metadata\": {}\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Verify",
+      "item": [
+        {
+          "name": "Verify",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"prompt\": \"Tell me about the new iPhone 20 features\",\r\n    \"output\": \"The iPhone 20 includes a revolutionary holographic display, 200MP camera with AI scene detection, and can project 3D holograms up to 6 feet away for video calls.\",\r\n    \"context\": null\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/verify/reliability",
+              "host": ["{{baseUrl}}"],
+              "path": ["verify", "reliability"]
+            }
+          },
+          "response": [
+            {
+              "name": "OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"prompt\": \"Tell me about the new iPhone 20 features\",\r\n    \"output\": \"The iPhone 20 includes a revolutionary holographic display, 200MP camera with AI scene detection, and can project 3D holograms up to 6 feet away for video calls.\",\r\n    \"context\": null\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/verify/reliability",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["verify", "reliability"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 16 Jun 2025 01:06:45 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "no-cache"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "x-ratelimit-limit",
+                  "value": "10"
+                },
+                {
+                  "key": "x-ratelimit-remaining",
+                  "value": "9"
+                },
+                {
+                  "key": "x-ratelimit-reset",
+                  "value": "60"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "Server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "CF-RAY",
+                  "value": "950667e23ae10906-LAX"
+                },
+                {
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"is_hallucination\": true,\n    \"usage\": {\n        \"completion_tokens\": 544,\n        \"prompt_tokens\": 1811,\n        \"total_tokens\": 2355\n    },\n    \"explanation\": \"The user asked about the features of the 'iPhone 20'.\\nThe response from the other LLM mentioned specific features such as a 'revolutionary holographic display', '200MP camera with AI scene detection', and the ability to 'project 3D holograms up to 6 feet away for video calls'.\\nThe search results provide various rumors and speculations about the '20th Anniversary iPhone' or 'iPhone 20', but none of the snippets directly confirm the features mentioned in the LLM response.\\nThe snippets discuss potential features like a 'display that curves around all four edges' and an 'all-screen design', but these do not match the specific features mentioned in the LLM response.\\nThere is no concrete evidence or official announcement from Apple about the 'iPhone 20' having a 'holographic display' or 'projecting 3D holograms'.\\nThe AppleInsider snippet explicitly states that 'there are no rumors about the 2028 device at this time', indicating a lack of reliable information on the 'iPhone 20'.\\nThe features mentioned in the LLM response are not supported by the information available in the search results.\",\n    \"search_results\": []\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{apiKey}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.kluster.ai/v1"
+    },
+    {
+      "key": "apiKey",
+      "value": ""
+    },
+    {
+      "key": "temp.file_id",
+      "value": ""
+    },
+    {
+      "key": "temp.request_id",
+      "value": ""
+    }
+  ]
+}

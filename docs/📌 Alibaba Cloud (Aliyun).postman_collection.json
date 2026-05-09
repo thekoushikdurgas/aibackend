@@ -1,0 +1,2775 @@
+{
+  "info": {
+    "_postman_id": "d677eeaf-c888-49f3-85d3-b67fa5f9051a",
+    "name": "📌 Alibaba Cloud (Aliyun)",
+    "description": "### About Alibaba Cloud (Aliyun)\n\n\"Alibaba Cloud is one of the world's largest cloud computing companies, providing scalable, secure, and reliable cloud computing services globally to accelerate digitalization empowered by comprehensive cloud products and solutions.\"\n\n### Prerequisites\n\n- Postman Account\n    \n- Alibaba Cloud Account: [https://account.alibabacloud.com/](https://account.alibabacloud.com/)\n    \n\n### Usage\n\n1. Create a fork\n    \n2. Update collection variables\n    \n3. Send requests\n    \n\n### Documentation\n\n- API: [https://modelstudio.console.alibabacloud.com/](https://modelstudio.console.alibabacloud.com/)\n    \n- Models: [https://modelstudio.console.alibabacloud.com/](https://modelstudio.console.alibabacloud.com/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20572666",
+    "_collection_link": "https://www.postman.com/ai-engineer/generative-ai-apis/collection/6a4fdtf/alibaba-cloud-aliyun?action=share&source=collection_link&creator=20572666"
+  },
+  "item": [
+    {
+      "name": "qwen-max",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen-max\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen-max\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "1341f8e2-5df2-9f4c-b38c-ce06cd4e75c7"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "4902"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754102187283"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754102192186"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "4902"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 02:36:31 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"This is a classic question that involves understanding whether the process is dependent on the number of items or not.\\n\\nDrying shirts in the sun is typically a **parallel process**. This means that drying one shirt or multiple shirts simultaneously does not increase the time required, as long as all the shirts can be exposed to the same drying conditions (e.g., you have enough space to hang all the shirts in the sun at once).\\n\\n### Analysis:\\n- If you dry **one shirt**, it takes **1 hour**.\\n- If you dry **three shirts** at the same time, and there are no constraints like limited space or reduced airflow, they will still take **1 hour** because they are drying simultaneously.\\n\\n### Final Answer:\\n$$\\n\\\\boxed{1 \\\\text{ hour}}\\n$$\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 31,\n        \"completion_tokens\": 158,\n        \"total_tokens\": 189,\n        \"prompt_tokens_details\": {\n            \"cached_tokens\": 0\n        }\n    },\n    \"created\": 1754102192,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen-max\",\n    \"id\": \"chatcmpl-1341f8e2-5df2-9f4c-b38c-ce06cd4e75c7\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen-plus",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen-plus\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen-plus\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "46e59fbf-78ce-9160-9bf1-935fbafa7f86"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "4474"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754103527083"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754103531558"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "4474"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 02:58:51 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"If you dry **three shirts** in the sun **at the same time**, they will still take **1 hour** to dry — just like drying one shirt. \\n\\nAssuming they are all exposed to the same conditions (sunlight, airflow, etc.), the number of shirts doesn't affect the drying time **if they're dried simultaneously**.\\n\\nSo:\\n\\n- **1 shirt** → **1 hour**\\n- **3 shirts** (dried together) → **1 hour**\\n\\nUnless you're drying them **one after another**, which would take **3 hours**, but that’s not typical unless space or method limits you.\\n\\n**Answer: 1 hour** (if dried at the same time).\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 35,\n        \"completion_tokens\": 141,\n        \"total_tokens\": 176,\n        \"prompt_tokens_details\": {\n            \"cached_tokens\": 0\n        }\n    },\n    \"created\": 1754103532,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen-plus\",\n    \"id\": \"chatcmpl-46e59fbf-78ce-9160-9bf1-935fbafa7f86\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen-mt-plus",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen-mt-plus\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"translation_options\": {\r\n        \"source_lang\": \"English\",\r\n        \"target_lang\": \"Chinese\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen-mt-plus\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"translation_options\": {\r\n        \"source_lang\": \"English\",\r\n        \"target_lang\": \"Chinese\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "a8ad0761-198b-9615-aac3-00818d09ec31"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "622"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754103680673"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754103681296"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "622"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 03:01:21 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"如果我在太阳下晒一件衬衫需要1小时，那么晒3件衬衫需要多长时间？\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 44,\n        \"completion_tokens\": 20,\n        \"total_tokens\": 64\n    },\n    \"created\": 1754103681,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen-mt-plus\",\n    \"id\": \"chatcmpl-a8ad0761-198b-9615-aac3-00818d09ec31\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen-mt-turbo",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen-mt-turbo\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"translation_options\": {\r\n        \"source_lang\": \"English\",\r\n        \"target_lang\": \"Chinese\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen-mt-turbo\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"translation_options\": {\r\n        \"source_lang\": \"English\",\r\n        \"target_lang\": \"Chinese\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "be69179f-b319-9b12-ae11-083d3a091c18"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "460"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754103735005"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754103735465"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "459"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 03:02:15 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"如果我晒一件衬衫需要1小时，那么3件衬衫需要多长时间？\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 44,\n        \"completion_tokens\": 17,\n        \"total_tokens\": 61\n    },\n    \"created\": 1754103735,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen-mt-turbo\",\n    \"id\": \"chatcmpl-be69179f-b319-9b12-ae11-083d3a091c18\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-next-80b-a3b-thinking",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-next-80b-a3b-thinking\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-next-80b-a3b-thinking\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "f973809f-df00-9ae7-8945-1a1ce53f8aa2"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "5120"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1760294689246"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1760294694367"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "5120"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sun, 12 Oct 2025 18:44:54 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"The time it takes to dry **3 shirts in the sun is still 1 hour**, assuming they are all hung out together in the same conditions (e.g., on a clothesline with enough space between them, no shading, and consistent sunlight exposure). \\n\\n### Why?\\n- Drying time depends on **environmental factors** (sunlight, humidity, airflow), not the number of shirts.  \\n- Each shirt dries **independently** when exposed to the same conditions. If one shirt takes 1 hour to dry alone, three shirts hung side by side in the sun will all dry in **1 hour** because they’re drying simultaneously.  \\n\\n### Common Misconception:\\n- If you dried them **one after another** (e.g., drying shirt 1, then shirt 2, then shirt 3), it would take 3 hours. But the question doesn’t specify sequential drying—so the default assumption is **simultaneous drying**.  \\n\\n**Answer: 1 hour.** 🌞\",\n                \"reasoning_content\": \"Okay, the user is asking how long it takes to dry three shirts in the sun if one shirt takes one hour. Hmm, this seems like a common riddle-type question. Let me think.\\n\\nFirst, I need to consider the scenario. If you're drying shirts in the sun, the drying time usually depends on factors like sunlight intensity, humidity, wind, and how the shirts are arranged. But the key point here is whether the shirts are dried simultaneously or sequentially.\\n\\nIf you have one shirt, it takes one hour. Now, if you have three shirts, and you hang them all at the same time in the same sunny spot, assuming there's enough space and the sun is hitting them all equally, they should all dry in about the same one hour. Because the sun's drying effect isn't dependent on the number of shirts; it's about the environmental conditions. Each shirt dries independently as long as they're exposed to the same conditions.\\n\\nBut wait, maybe the user is thinking that drying multiple shirts would take longer because they're all competing for the sun. But in reality, unless the shirts are stacked on top of each other or blocking each other's exposure, the drying time shouldn't change. For example, if you hang them on a clothesline with space between them, each gets direct sunlight, so all dry in the same time.\\n\\nI should check if there's any trick here. Sometimes people might think it's three hours, but that would only be if you're drying them one after another. But the question doesn't specify that. It just says \\\"dry one shirt\\\" takes one hour, then asks for three shirts. The standard answer for such riddles is that it still takes one hour because they're dried simultaneously.\\n\\nLet me think about real-world scenarios. If you hang three shirts on a line in the sun, they all dry together in the same time it takes one to dry. Unless the clothesline is too crowded, but the question doesn't mention that. So assuming optimal conditions, the time should be the same.\\n\\nThe user might be testing logical reasoning. Maybe they expect the answer to be three hours, but that's a common misconception. The correct answer is one hour because the drying process is parallel, not sequential.\\n\\nI should also consider if there's any hidden factor. Like, if the sun's intensity is fixed, but with more shirts, the heat is distributed? But no, sunlight isn't consumed like that; each shirt absorbs sunlight independently. So the drying rate per shirt isn't reduced by having more shirts, as long as they're not shaded.\\n\\nSo the answer should be one hour. But to be thorough, I should mention that if the shirts are piled up or blocking each other, it might take longer, but the standard assumption is that they're hung properly. Since the question doesn't specify any issues, the answer is one hour.\\n\\nYeah, that makes sense. So the response should clarify that it's simultaneous drying, so same time.\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 31,\n        \"completion_tokens\": 816,\n        \"total_tokens\": 847,\n        \"completion_tokens_details\": {\n            \"reasoning_tokens\": 603\n        }\n    },\n    \"created\": 1760294694,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-next-80b-a3b-thinking\",\n    \"id\": \"chatcmpl-f973809f-df00-9ae7-8945-1a1ce53f8aa2\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-next-80b-a3b-instruct",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-next-80b-a3b-instruct\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-next-80b-a3b-instruct\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "bc1d7622-4066-95a1-bf1d-9e5ee78df171"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "1513"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1760294708748"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1760294710262"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "1513"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sun, 12 Oct 2025 18:45:10 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"If you dry **one shirt in the sun** and it takes **1 hour**, then drying **three shirts** in the sun **at the same time** (e.g., all hung on a clothesline together) still takes **1 hour**.\\n\\n### Why?\\nDrying in the sun depends on **environmental conditions** — sunlight, air flow, humidity, temperature — not on the number of shirts, as long as they’re all exposed similarly. Each shirt dries independently, and if they’re all drying simultaneously under the same conditions, they’ll all be dry in the same amount of time.\\n\\n> ✅ So, **3 shirts take 1 hour** — if dried together.\\n\\n### Exception:\\nIf you could only dry **one shirt at a time** (e.g., you have only one clothespin and must dry them one after another), then it would take 3 hours. But that’s not the usual or practical assumption.\\n\\n### Answer: **1 hour** 🌞\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 31,\n        \"completion_tokens\": 201,\n        \"total_tokens\": 232\n    },\n    \"created\": 1760294710,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-next-80b-a3b-instruct\",\n    \"id\": \"chatcmpl-bc1d7622-4066-95a1-bf1d-9e5ee78df171\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-235b-a22b-thinking-2507",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-235b-a22b-thinking-2507\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-235b-a22b-thinking-2507\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "ea17bce8-eb1b-900c-84ba-833517acb74b"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "9369"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1760294725456"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1760294734826"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "9368"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sun, 12 Oct 2025 18:45:34 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"That's a classic trick question! **The answer is still 1 hour** (assuming you hang all the shirts out to dry at the same time in the sun).\\n\\nHere's why:\\n\\n1.  **Drying happens simultaneously, not sequentially:** When you hang multiple shirts out in the sun, the sun and wind work on **all of them at the same time**. The drying process isn't like washing shirts one after another in a single machine.\\n2.  **The limiting factor is the environment:** The time it takes for a shirt to dry depends on the sun's intensity, wind, humidity, and how the shirt is hung (e.g., not bunched up). As long as the shirts have enough space for air to circulate around each one (so they aren't piled on top of each other blocking the sun/wind), adding more shirts **doesn't slow down the drying process for any individual shirt**.\\n3.  **Analogy:** Think of boiling eggs. If it takes 10 minutes to boil one egg in a pot of water, it also takes about 10 minutes to boil three eggs *in the same pot of boiling water*. The heat (like the sun) affects all the items at once.\\n\\n**The key assumption:** The shirts are hung out **properly spaced** so they all get equal exposure to sun and wind. If you crammed all 3 shirts tightly together into a soggy ball, blocking the sun and airflow, it *would* take longer. But the question implies normal drying conditions (\\\"in the sun\\\"), so we assume they are hung correctly.\\n\\n**Therefore: Drying 3 shirts takes the same time as drying 1 shirt – 1 hour.** 😎\",\n                \"reasoning_content\": \"Okay, the user is asking: If drying one shirt in the sun takes 1 hour, how long would it take to dry 3 shirts? Hmm, this seems like a classic trick question. Let me think carefully.\\n\\nFirst, I need to consider how drying works in reality. When you hang clothes out to dry, the sun and wind affect each shirt independently, right? So if you hang multiple shirts at the same time, they all dry simultaneously. The drying time isn't additive per shirt—it's about the environmental conditions. \\n\\nI recall similar puzzles, like \\\"if it takes 5 minutes to boil one egg, how long for three eggs?\\\" The answer is still 5 minutes because you boil them together. Same principle here. The user might be testing if I fall for the trap of multiplying 1 hour by 3. \\n\\nWait, but is there any scenario where drying multiple shirts takes longer? Maybe if they're crammed together so tightly that airflow is blocked? But the question doesn't mention that—it just says \\\"dry in the sun,\\\" implying normal hanging conditions. So the safe assumption is they're spread out properly. \\n\\nThe user's phrasing is simple, so they're probably expecting the straightforward answer. No need to overcomplicate it. They might be a kid or someone testing logical reasoning. Deeper need? Could be checking if I understand parallel vs. sequential processes, or just wanting a quick brain teaser. \\n\\nI should emphasize the \\\"all at once\\\" part in my answer to make it clear why it's not 3 hours. And maybe add that caveat about overcrowding just in case, but stress it's not the default scenario. Keep it friendly—no need to sound lecture-y about it. \\n\\n...Yep, 1 hour is the answer. Time to explain why gently.\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 31,\n        \"completion_tokens\": 724,\n        \"total_tokens\": 755,\n        \"completion_tokens_details\": {\n            \"reasoning_tokens\": 367\n        }\n    },\n    \"created\": 1760294735,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-235b-a22b-thinking-2507\",\n    \"id\": \"chatcmpl-ea17bce8-eb1b-900c-84ba-833517acb74b\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-235b-a22b-instruct-2507",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-235b-a22b-instruct-2507\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-235b-a22b-instruct-2507\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "d9ded7d1-b164-91ba-8fb1-91258c28390a"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "1451"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1760294750094"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1760294751546"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "1451"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sun, 12 Oct 2025 18:45:51 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"If you dry **three shirts** in the sun **at the same time**, it still takes **1 hour** — assuming they are all exposed to the sun equally and there's enough space for them to dry simultaneously.\\n\\nSo, the answer is: **1 hour**.\\n\\nBecause drying time doesn't add up per shirt when they're dried together.\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 31,\n        \"completion_tokens\": 70,\n        \"total_tokens\": 101\n    },\n    \"created\": 1760294752,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-235b-a22b-instruct-2507\",\n    \"id\": \"chatcmpl-d9ded7d1-b164-91ba-8fb1-91258c28390a\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-30b-a3b-thinking-2507",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-30b-a3b-thinking-2507\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-30b-a3b-thinking-2507\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "3fe7ac77-ffbe-96d4-aa62-3bf93d4cee37"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "7655"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1760294764442"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1760294772097"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "7654"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sun, 12 Oct 2025 18:46:12 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"The answer is **1 hour**. Here's why:\\n\\n- Drying clothes in the sun depends on **sunlight exposure, air circulation, and humidity**, not the number of shirts.  \\n- If all 3 shirts are hung **separately** (e.g., on a line or rack with space between them), each shirt dries independently at the same rate.  \\n- **One shirt takes 1 hour** → **Three shirts also take 1 hour** (since they dry simultaneously, not sequentially).  \\n\\n### Why people get confused:\\n- If you *stack* shirts or hang them too close together (blocking sunlight), drying might slow down. But the question assumes **normal drying conditions** (e.g., all shirts exposed to sun equally).  \\n- This is a classic logic puzzle testing whether you overcomplicate it (e.g., \\\"3 shirts × 1 hour = 3 hours\\\"). **The time doesn't add up**—it’s about *parallel* drying, not *sequential*.\\n\\n> 💡 **Example**:  \\n> Hang Shirt 1, Shirt 2, and Shirt 3 on the same line. After 1 hour, all are dry. No extra time is needed.\\n\\n**Answer: 1 hour** (under normal conditions).\",\n                \"reasoning_content\": \"Okay, the user is asking a simple question: if drying one shirt in the sun takes 1 hour, how long does it take to dry three shirts? Hmm, this seems like a trick question or maybe a test of logical reasoning. Let me think.\\n\\nFirst, I need to consider the actual drying process. When clothes dry, it's about evaporation of water from the fabric, which depends on factors like sunlight, wind, humidity, and the surface area exposed. But the key here is whether multiple shirts affect the drying time. \\n\\nIf the shirts are dried separately—like hanging them all in the same spot without overlapping—each shirt would dry independently. So three shirts would still take about 1 hour each, meaning the total time would be 1 hour, not 3 hours. That makes sense because the sun's intensity and the drying conditions for each shirt are the same. \\n\\nWait, but what if the user is thinking of a washing machine or something? No, the question specifies \\\"in the sun,\\\" so it's natural drying. Also, the user might be confusing this with something like cooking multiple items in an oven, where time might increase if they're stacked. But for sun drying, it's not like that. \\n\\nI should also consider if there's any practical limitation. For example, if all three shirts are hung on the same line and they're too close, maybe one blocks the sun for another. But the question doesn't say that—it just asks about the time, so I'll assume ideal conditions where each shirt gets equal exposure. \\n\\nThe user might be a kid or someone testing basic logic. The answer is probably meant to be a trick to see if they overcomplicate it. Like, people might say \\\"3 hours\\\" instinctively, but that's wrong. \\n\\nLet me double-check: if you hang two shirts side by side, do they dry slower? Not really—each dries at the same rate. Same for three. So the drying time per shirt doesn't change. \\n\\nAlso, the question says \\\"dry one shirt\\\" takes 1 hour, so for three, it's still 1 hour. The total \\\"shirt-hours\\\" would be 3, but the time elapsed is 1 hour. \\n\\nI think I've got it. The answer should be 1 hour. I'll make sure to explain it clearly to avoid confusion. \\n\\nWait, is there any cultural context? Like, in some places, people might believe more clothes take longer, but scientifically, it's not true. So I'll stick to the logical answer. \\n\\nFinal thought: This is a common riddle to catch people who don't think it through. The user might be preparing for a test or just curious. Either way, the answer is 1 hour.\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 31,\n        \"completion_tokens\": 830,\n        \"total_tokens\": 861,\n        \"completion_tokens_details\": {\n            \"reasoning_tokens\": 565\n        }\n    },\n    \"created\": 1760294772,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-30b-a3b-thinking-2507\",\n    \"id\": \"chatcmpl-3fe7ac77-ffbe-96d4-aa62-3bf93d4cee37\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-30b-a3b-instruct-2507",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-30b-a3b-instruct-2507\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-30b-a3b-instruct-2507\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "7b95be63-63e9-97e9-bc73-fca86f0f1325"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "1158"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1760294791150"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1760294792308"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "1158"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sun, 12 Oct 2025 18:46:32 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"If you dry **one shirt** in the sun, it takes **1 hour**, then drying **3 shirts** at the same time (assuming they're all exposed to the sun and not blocking each other) will still take **1 hour**.\\n\\nThe drying time doesn't increase with more shirts if they're all drying simultaneously in the same conditions.\\n\\n✅ So, **3 shirts take 1 hour** to dry — just like one shirt.\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 31,\n        \"completion_tokens\": 89,\n        \"total_tokens\": 120\n    },\n    \"created\": 1760294792,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-30b-a3b-instruct-2507\",\n    \"id\": \"chatcmpl-7b95be63-63e9-97e9-bc73-fca86f0f1325\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-tts-flash",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-tts-flash\",\r\n    \"input\": {\r\n        \"text\": \"Let me recommend a T-shirt to everyone. This one is really super good-looking. The color is very elegant, and it's also a great item for matching. You can buy it without hesitation. It's really very good-looking and forgiving for all body types. No matter what your body shape is, it will look great on you. I recommend you place an order.\",\r\n        \"voice\": \"Cherry\",\r\n        \"language_type\": \"Chinese\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl2}}/services/aigc/multimodal-generation/generation",
+          "host": ["{{baseUrl2}}"],
+          "path": ["services", "aigc", "multimodal-generation", "generation"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-tts-flash\",\r\n    \"input\": {\r\n        \"text\": \"Let me recommend a T-shirt to everyone. This one is really super good-looking. The color is very elegant, and it's also a great item for matching. You can buy it without hesitation. It's really very good-looking and forgiving for all body types. No matter what your body shape is, it will look great on you. I recommend you place an order.\",\r\n        \"voice\": \"Cherry\",\r\n        \"language_type\": \"Chinese\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dashscope-intl.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation",
+              "protocol": "https",
+              "host": ["dashscope-intl", "aliyuncs", "com"],
+              "path": [
+                "api",
+                "v1",
+                "services",
+                "aigc",
+                "multimodal-generation",
+                "generation"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-request-id",
+              "value": "47be58e2-fc85-9594-8534-d727d45380b9"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "x-dashscope-finished",
+              "value": "true"
+            },
+            {
+              "key": "x-dashscope-timeout",
+              "value": "298"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "6596"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1760295842335"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1760295848931"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "6589"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sun, 12 Oct 2025 19:04:08 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"output\": {\n        \"audio\": {\n            \"data\": \"\",\n            \"expires_at\": 1760382248,\n            \"id\": \"audio_47be58e2-fc85-9594-8534-d727d45380b9\",\n            \"url\": \"http://dashscope-result-sgp.oss-ap-southeast-1.aliyuncs.com/1d/2e/20251013/534f63ee/31dade8a-ac7d-44b3-ad53-624f4cbd7149.wav?Expires=1760382248&OSSAccessKeyId=LTAI5tRcsWJEymQaTsKbKqGf&Signature=qT8vupuP7%2BIFJoCw%2FeI4o8p9XWA%3D\"\n        },\n        \"finish_reason\": \"stop\"\n    },\n    \"usage\": {\n        \"characters\": 339\n    },\n    \"request_id\": \"47be58e2-fc85-9594-8534-d727d45380b9\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-max-preview",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-max-preview\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-max-preview\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "a793e94f-c630-9ec6-8e83-99e3225ec545"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "2607"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1760287836938"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1760287839546"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "2607"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sun, 12 Oct 2025 16:50:39 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"If you dry **one shirt in the sun**, and it takes **1 hour**, then drying **3 shirts** will also take **1 hour** — **assuming you dry them all at the same time** under the same sun.\\n\\nDrying clothes in the sun is not a sequential task (like washing them one after another). It’s a **parallel process**: as long as you have enough space and sunlight, multiple shirts can dry simultaneously.\\n\\n✅ So, **3 shirts take 1 hour** — if dried together.\\n\\n---\\n\\n*Note: If you could only dry one shirt at a time (e.g., limited space or resources), then it would take 3 hours. But the question doesn’t suggest that constraint, so the reasonable assumption is parallel drying.*\\n\\n**Answer: 1 hour** 🌞👕👕👕\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 31,\n        \"completion_tokens\": 166,\n        \"total_tokens\": 197\n    },\n    \"created\": 1760287840,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-max-preview\",\n    \"id\": \"chatcmpl-a793e94f-c630-9ec6-8e83-99e3225ec545\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-omni-flash",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-omni-flash\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-omni-flash\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "fa5f8c5d-0486-96ac-b204-66c3177f661c"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "1246"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1760294175799"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1760294177046"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "1245"
+            },
+            {
+              "key": "set-cookie",
+              "value": "acw_tc=fa5f8c5d-0486-96ac-b204-66c3177f661c17ca429e875ac39041981526684a2a2b;path=/;HttpOnly;Max-Age=1800"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sun, 12 Oct 2025 18:36:16 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"If you dry **one shirt** in the sun in **1 hour**, then drying **3 shirts** at the same time (assuming they are all exposed to the sun simultaneously and have enough space to dry properly) will still take **1 hour**.\\n\\nThe drying time doesn't increase with the number of shirts if they are all drying **at the same time** in the same conditions.\\n\\n✅ So, **3 shirts take 1 hour**.\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 31,\n        \"completion_tokens\": 90,\n        \"total_tokens\": 121,\n        \"prompt_tokens_details\": {\n            \"text_tokens\": 31\n        },\n        \"completion_tokens_details\": {\n            \"text_tokens\": 90\n        }\n    },\n    \"created\": 1760294177,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-omni-flash\",\n    \"id\": \"chatcmpl-fa5f8c5d-0486-96ac-b204-66c3177f661c\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-vl-plus",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-vl-plus\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-vl-plus\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "6200b9c3-2672-91c0-b7bd-edbe976ff9ab"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "3314"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1760288143601"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1760288146915"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "3313"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sun, 12 Oct 2025 16:55:46 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"If you dry **one shirt** in the sun and it takes **1 hour**, then drying **three shirts** at the same time — assuming they’re all laid out in the sun simultaneously — also takes **1 hour**.\\n\\n### Why?\\nBecause drying in the sun is not a sequential process like washing dishes or cooking one item after another. If all three shirts are exposed to the same sunlight at the same time, they’ll dry together in the same amount of time as one shirt.\\n\\n> 🌞 **Answer: 1 hour**\\n\\n*(Unless you hang them one after another, which would be silly — and then it’d take 3 hours. But that’s not how people normally dry laundry!)*\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 31,\n        \"completion_tokens\": 144,\n        \"total_tokens\": 175,\n        \"prompt_tokens_details\": {\n            \"text_tokens\": 31\n        },\n        \"completion_tokens_details\": {\n            \"text_tokens\": 144\n        }\n    },\n    \"created\": 1760288147,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-vl-plus\",\n    \"id\": \"chatcmpl-6200b9c3-2672-91c0-b7bd-edbe976ff9ab\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-30b-a3b-instruct-2507",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-30b-a3b-instruct-2507\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-30b-a3b-instruct-2507\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "8c4edb56-8488-92b1-933b-a4ffe229c046"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "1409"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754103534565"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754103535974"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "1408"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 02:58:55 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"If you dry **one shirt** in the sun and it takes **1 hour**, then drying **3 shirts** at the same time (assuming they are all exposed to sunlight and airflow properly) will still take **1 hour**.\\n\\nThe drying time doesn't increase with more shirts if they're dried simultaneously — as long as there's enough space and sun for all of them. So:\\n\\n✅ **Answer: 1 hour**\\n\\n> 📝 Note: This assumes the shirts are dried together in the same conditions (e.g., on a clothesline in direct sunlight), not stacked or blocking each other.\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 31,\n        \"completion_tokens\": 122,\n        \"total_tokens\": 153\n    },\n    \"created\": 1754103536,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-30b-a3b-instruct-2507\",\n    \"id\": \"chatcmpl-8c4edb56-8488-92b1-933b-a4ffe229c046\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-30b-a3b-thinking-2507",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-30b-a3b-thinking-2507\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-30b-a3b-thinking-2507\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "0d03b857-15cb-9ce9-88a9-87b23f22d354"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "7631"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754103537435"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754103545066"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "7630"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 02:59:04 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"That's a classic trick question! **The answer is still approximately 1 hour**, assuming the shirts are dried *separately* (e.g., hung on a line or rack with space between them) and not overlapping or blocking each other. Here's why:\\n\\n### Key Reason:\\n- **Drying time depends on exposure to sun/wind, not the number of items**, as long as the drying conditions (sunlight, airflow, humidity) remain the same for all shirts.\\n- If you hang 3 shirts *side by side* with no overlap, they all dry at the same rate. The sun and air can reach each shirt equally, so they finish drying together in ~1 hour.\\n\\n### Why It's *Not* 3 Hours:\\n- This is a common misconception (like thinking \\\"3 workers take 1/3 the time\\\" for a task). But **drying isn't a \\\"task\\\" that scales linearly**—it's a physical process driven by environmental factors, not human effort.\\n- If the shirts *were* piled on top of each other (blocking sunlight/airflow), they might take longer—but the question implies normal drying conditions.\\n\\n### Real-World Note:\\nIn practice, drying 3 shirts *might* take **just slightly longer than 1 hour** (e.g., 1 hour 10 minutes) if they’re crowded together. But if hung properly (as most people do), **1 hour is the expected time**. \\n\\n> 💡 **Example**: If you hang 1 shirt on a clothesline, it dries in 1 hour. Hang 3 shirts *spaced out* on the same line, and they’ll all dry in ~1 hour. If you hang them *on top of each other* (like a pile), it could take 2+ hours—but that’s not how you’d actually dry clothes!\\n\\nSo, **the answer is 1 hour**. 😊  \\n*(This question is often used to test if you overcomplicate simple logic!)*\",\n                \"reasoning_content\": \"Okay, the user is asking about drying time for shirts in the sun. They say one shirt takes 1 hour, so how long for three shirts? Hmm, this seems like a simple question, but I need to be careful not to overcomplicate it.\\n\\nFirst, I should consider the physics here. Drying clothes in the sun depends on factors like sunlight intensity, air circulation, humidity, and the surface area exposed. But the user is probably expecting a straightforward answer based on the given info, not a scientific lecture.\\n\\nThe key point is whether the drying time scales linearly with the number of shirts. If the shirts are drying separately in the same space, the sun's energy and airflow would be shared. So drying three shirts shouldn't take three times longer—more like the same time if they're spread out properly. \\n\\nWait, but what if they're stacked or overlapping? The question doesn't specify, so I should assume ideal conditions where each shirt gets equal exposure. In real life, people often hang multiple shirts on a line, and they dry at roughly the same rate as one. \\n\\nI recall that in laundry advice, drying multiple items simultaneously doesn't usually multiply the time—unless they're crowded together. Since the user didn't mention crowding, I'll go with the standard assumption. \\n\\nAlso, the user might be testing if I'll fall for the trap of saying \\\"3 hours\\\" like a math problem. That's a common trick question. I should clarify why it's not linear. \\n\\nThe user's tone seems casual—maybe they're just curious or heard this riddle before. No need for heavy science; a clear, friendly explanation will do. \\n\\nSo the answer is: still about 1 hour, as long as they're not blocking each other. I'll add a note about real-world factors too, just to be thorough. \\n\\n...And make sure to sound helpful, not condescending. They might feel silly if they expected \\\"3 hours\\\" and it's wrong—so I'll phrase it gently.\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 31,\n        \"completion_tokens\": 835,\n        \"total_tokens\": 866\n    },\n    \"created\": 1754103545,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-30b-a3b-thinking-2507\",\n    \"id\": \"chatcmpl-0d03b857-15cb-9ce9-88a9-87b23f22d354\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-30b-a3b",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-30b-a3b\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"enable_thinking\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-30b-a3b\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"enable_thinking\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "81e4fa9c-be8c-9887-986b-6b0cb5d8ba4e"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "952"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754103800793"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754103801745"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "951"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 03:03:21 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"If you dry **one shirt in the sun**, it takes **1 hour**, then **drying 3 shirts** would still take **1 hour**, assuming they are all dried **at the same time** in the sun.\\n\\nSo, the answer is: **1 hour**.\",\n                \"reasoning_content\": \"\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 35,\n        \"completion_tokens\": 57,\n        \"total_tokens\": 92\n    },\n    \"created\": 1754103802,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-30b-a3b\",\n    \"id\": \"chatcmpl-81e4fa9c-be8c-9887-986b-6b0cb5d8ba4e\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-14b",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-14b\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"enable_thinking\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-14b\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"enable_thinking\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "75b9ac34-6e73-9e75-b5a7-5cd0509a248a"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "1535"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754103825747"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754103827283"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "1535"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 03:03:46 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"If one shirt takes **1 hour** to dry in the sun, then **3 shirts** will also take **1 hour** to dry — **assuming they are all drying at the same time** under the same conditions (same sunlight, same wind, etc.).\\n\\nThis is because the drying time doesn't depend on the number of shirts, as long as they're all exposed to the same drying environment.\\n\\n### Answer: **1 hour**.\",\n                \"reasoning_content\": \"\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 35,\n        \"completion_tokens\": 89,\n        \"total_tokens\": 124\n    },\n    \"created\": 1754103827,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-14b\",\n    \"id\": \"chatcmpl-75b9ac34-6e73-9e75-b5a7-5cd0509a248a\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-8b",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-8b\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"enable_thinking\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-8b\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"enable_thinking\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "d610048e-0408-9f21-8ede-d28a555fb227"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "791"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754103843557"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754103844348"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "790"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 03:04:04 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"If drying **one shirt** in the sun takes **1 hour**, then drying **3 shirts** at the same time would also take **1 hour**, assuming they all dry at the same rate and you have enough space for them to dry simultaneously.\\n\\nSo, the answer is: **1 hour**.\",\n                \"reasoning_content\": \"\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 35,\n        \"completion_tokens\": 61,\n        \"total_tokens\": 96\n    },\n    \"created\": 1754103844,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-8b\",\n    \"id\": \"chatcmpl-d610048e-0408-9f21-8ede-d28a555fb227\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-4b",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-4b\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"enable_thinking\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-4b\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"enable_thinking\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "639c79aa-1dea-9578-86c3-f0a9d867bfe2"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "1488"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754103861437"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754103862926"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "1488"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 03:04:22 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"If you dry **one shirt in the sun**, it takes **1 hour**.\\n\\nNow, if you have **3 shirts**, and you can dry them **all at the same time** in the sun (i.e., all three shirts are exposed to the sun simultaneously), then they will still take **1 hour** to dry.\\n\\nSo, the answer is: **1 hour**.\\n\\nThis assumes that the drying process is **parallel** — meaning all shirts can be dried at the same time in the sun. If you had to dry them one after another, it would take 3 hours, but that's not the usual interpretation of this type of question.\",\n                \"reasoning_content\": \"\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 35,\n        \"completion_tokens\": 133,\n        \"total_tokens\": 168\n    },\n    \"created\": 1754103863,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-4b\",\n    \"id\": \"chatcmpl-639c79aa-1dea-9578-86c3-f0a9d867bfe2\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-1.7b",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-1.7b\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"enable_thinking\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-1.7b\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"enable_thinking\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "d18ba1a9-7ce7-96f1-96ac-17c5f55e5124"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "2581"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754103878085"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754103880667"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "2580"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 03:04:40 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"This is a classic riddle, and the answer depends on how you interpret the question.\\n\\n### Let's break it down:\\n\\n- **If I dry one shirt in the sun, it takes 1 hour.**\\n- **How long do 3 shirts take?**\\n\\n#### Interpretation 1: **Time per shirt is independent of the number of shirts.**\\n- If you dry **one shirt** in the sun, it takes **1 hour**.\\n- Then, if you dry **three shirts**, each taking **1 hour**, the total time would still be **1 hour**.\\n\\n#### Interpretation 2: **You can only dry one shirt at a time.**\\n- If you have **three shirts**, and you can only dry **one at a time**, then:\\n  - First shirt: 1 hour\\n  - Second shirt: 1 hour (total: 2 hours)\\n  - Third shirt: 1 hour (total: 3 hours)\\n\\n#### Interpretation 3: **The sun dries all shirts at the same time.**\\n- If the sun dries **all shirts simultaneously**, then drying **three shirts** would still take **1 hour**.\\n\\n### Final Answer:\\n\\n**It depends on the interpretation.**\\n\\n- If you can dry **one shirt at a time**, it takes **3 hours**.\\n- If you can dry **all shirts at the same time**, it still takes **1 hour**.\\n\\nBut since the question is a riddle, the intended answer is often:\\n\\n> **1 hour** (because the sun dries all shirts at once).\\n\\n---\\n\\n### ✅ Final Answer: **1 hour**\",\n                \"reasoning_content\": \"\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 35,\n        \"completion_tokens\": 335,\n        \"total_tokens\": 370\n    },\n    \"created\": 1754103881,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-1.7b\",\n    \"id\": \"chatcmpl-d18ba1a9-7ce7-96f1-96ac-17c5f55e5124\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-0.6b",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-0.6b\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"enable_thinking\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-0.6b\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"\r\n        }\r\n    ],\r\n    \"enable_thinking\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "1585ef35-68e5-9035-948f-2382190d2ffb"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "701"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754103897975"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754103898677"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "701"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 03:04:58 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"If one shirt takes 1 hour to dry in the sun, then:\\n\\n- **3 shirts** would take **3 hours**.\\n\\nSo, the answer is: **3 hours**.\",\n                \"reasoning_content\": \"\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 35,\n        \"completion_tokens\": 38,\n        \"total_tokens\": 73\n    },\n    \"created\": 1754103899,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-0.6b\",\n    \"id\": \"chatcmpl-1585ef35-68e5-9035-948f-2382190d2ffb\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen-vl-max",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen-vl-max\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": [\r\n                {\r\n                    \"type\": \"image_url\",\r\n                    \"image_url\": {\r\n                        \"url\": \"https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20241022/emyrja/dog_and_girl.jpeg\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"text\",\r\n                    \"text\": \"Describe the image.\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen-vl-max\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": [\r\n                {\r\n                    \"type\": \"image_url\",\r\n                    \"image_url\": {\r\n                        \"url\": \"https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20241022/emyrja/dog_and_girl.jpeg\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"text\",\r\n                    \"text\": \"Describe the image.\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "9a1b753d-1338-9dc4-be98-e88f56bdd414"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "2787"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754104288981"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754104291769"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "2787"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 03:11:31 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"The image depicts a heartwarming scene on a sandy beach during what appears to be either sunrise or sunset, given the soft, warm lighting. A woman is sitting on the sand, wearing a plaid shirt and dark pants. She is smiling and interacting with a light-colored dog, possibly a Labrador Retriever. The dog is sitting upright and extending its paw towards the woman, as if they are playing a game of \\\"paw on top\\\" or giving a high-five. The dog is wearing a colorful harness. In the background, the ocean is visible with gentle waves, and the sky is clear, contributing to the serene and joyful atmosphere of the scene. The overall mood is one of companionship and happiness.\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 1261,\n        \"completion_tokens\": 146,\n        \"total_tokens\": 1407\n    },\n    \"created\": 1754104292,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen-vl-max\",\n    \"id\": \"chatcmpl-9a1b753d-1338-9dc4-be98-e88f56bdd414\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen-vl-plus",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen-vl-plus\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": [\r\n                {\r\n                    \"type\": \"image_url\",\r\n                    \"image_url\": {\r\n                        \"url\": \"https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20241022/emyrja/dog_and_girl.jpeg\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"text\",\r\n                    \"text\": \"Describe the image.\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen-vl-plus\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": [\r\n                {\r\n                    \"type\": \"image_url\",\r\n                    \"image_url\": {\r\n                        \"url\": \"https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20241022/emyrja/dog_and_girl.jpeg\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"text\",\r\n                    \"text\": \"Describe the image.\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "35314598-796b-9f5e-a830-a5486458489b"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "2521"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754104375886"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754104378408"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "2521"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 03:12:58 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"The image depicts a serene beach scene during what appears to be either sunrise or sunset, as indicated by the warm, golden light illuminating the sky and casting long shadows on the sand. A woman is sitting on the sandy beach, smiling warmly at a light-colored dog, likely a Labrador Retriever, which is wearing a colorful harness. The dog is sitting upright and extending its paw towards the woman, who is also extending her hand in a gesture of interaction, possibly giving the dog a high-five. The ocean is visible in the background with gentle waves lapping at the shore. The overall atmosphere of the image is peaceful and joyful, capturing a moment of connection between the woman and her pet in a beautiful natural setting.\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 1261,\n        \"completion_tokens\": 146,\n        \"total_tokens\": 1407\n    },\n    \"created\": 1754104378,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen-vl-plus\",\n    \"id\": \"chatcmpl-35314598-796b-9f5e-a830-a5486458489b\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen-vl-ocr",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen-vl-ocr\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": [\r\n                {\r\n                    \"type\": \"image_url\",\r\n                    \"image_url\": {\r\n                        \"url\": \"https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20241022/emyrja/dog_and_girl.jpeg\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"text\",\r\n                    \"text\": \"Describe the image.\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen-vl-ocr\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": [\r\n                {\r\n                    \"type\": \"image_url\",\r\n                    \"image_url\": {\r\n                        \"url\": \"https://help-static-aliyun-doc.aliyuncs.com/file-manage-files/zh-CN/20241022/emyrja/dog_and_girl.jpeg\"\r\n                    }\r\n                },\r\n                {\r\n                    \"type\": \"text\",\r\n                    \"text\": \"Describe the image.\"\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "20d8c617-6619-9555-817b-9f39fcdd8dc4"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "4155"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754104399206"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754104403361"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "4155"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 03:13:23 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"The image depicts a sunny beach scene where a person and a dog are interacting. The person is sitting on the sand, wearing a plaid shirt and dark pants, and appears to be smiling. The dog, which looks like a Labrador Retriever, is sitting on the sand and is giving the person a high-five with its paw. The background shows the ocean with waves crashing onto the shore, and the sky is clear and bright. The overall atmosphere of the image is cheerful and relaxed.\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 3591,\n        \"completion_tokens\": 100,\n        \"total_tokens\": 3691\n    },\n    \"created\": 1754104403,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen-vl-ocr\",\n    \"id\": \"chatcmpl-20d8c617-6619-9555-817b-9f39fcdd8dc4\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-coder-plus",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-coder-plus\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"Write a Python REST API for post-quantum cryptography.\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-coder-plus\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"Write a Python REST API for post-quantum cryptography.\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "c826547a-6ee6-916b-9a82-f42afa5f3d46"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "69387"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754101201548"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754101270936"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "69387"
+            },
+            {
+              "key": "set-cookie",
+              "value": "acw_tc=c826547a-6ee6-916b-9a82-f42afa5f3d466511e7e8c31b3f82232b570ebaabee14;path=/;HttpOnly;Max-Age=1800"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 02:21:10 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"I'll create a comprehensive Python REST API for post-quantum cryptography using Flask and the pqcrypto library. This API will support key generation, encryption/decryption, and digital signatures with post-quantum algorithms.\\n\\n```python\\nfrom flask import Flask, request, jsonify\\nimport base64\\nimport json\\nimport secrets\\nfrom datetime import datetime\\nfrom typing import Dict, Any, Optional\\n\\n# Import post-quantum cryptography libraries\\n# Note: You'll need to install: pip install pqcrypto flask\\ntry:\\n    from pqcrypto.sign import dilithium2\\n    from pqcrypto.encrypt import kyber512\\n    from pqcrypto.kem import kyber512 as kyber_kem\\n    PQ_CRYPTO_AVAILABLE = True\\nexcept ImportError:\\n    PQ_CRYPTO_AVAILABLE = False\\n    print(\\\"Warning: Post-quantum cryptography libraries not available\\\")\\n\\napp = Flask(__name__)\\n\\n# In-memory storage for keys (in production, use a secure database)\\nkey_storage = {}\\nsession_storage = {}\\n\\nclass PQCryptoService:\\n    \\\"\\\"\\\"Post-Quantum Cryptography Service\\\"\\\"\\\"\\n    \\n    @staticmethod\\n    def generate_dilithium_keys() -> Dict[str, str]:\\n        \\\"\\\"\\\"Generate Dilithium signature key pair\\\"\\\"\\\"\\n        if not PQ_CRYPTO_AVAILABLE:\\n            raise Exception(\\\"Post-quantum cryptography not available\\\")\\n        \\n        try:\\n            private_key = dilithium2.generate_private_key()\\n            public_key = dilithium2.generate_public_key(private_key)\\n            \\n            return {\\n                'private_key': base64.b64encode(private_key).decode('utf-8'),\\n                'public_key': base64.b64encode(public_key).decode('utf-8')\\n            }\\n        except Exception as e:\\n            raise Exception(f\\\"Failed to generate Dilithium keys: {str(e)}\\\")\\n    \\n    @staticmethod\\n    def generate_kyber_keys() -> Dict[str, str]:\\n        \\\"\\\"\\\"Generate Kyber encryption key pair\\\"\\\"\\\"\\n        if not PQ_CRYPTO_AVAILABLE:\\n            raise Exception(\\\"Post-quantum cryptography not available\\\")\\n        \\n        try:\\n            private_key = kyber512.generate_private_key()\\n            public_key = kyber512.generate_public_key(private_key)\\n            \\n            return {\\n                'private_key': base64.b64encode(private_key).decode('utf-8'),\\n                'public_key': base64.b64encode(public_key).decode('utf-8')\\n            }\\n        except Exception as e:\\n            raise Exception(f\\\"Failed to generate Kyber keys: {str(e)}\\\")\\n    \\n    @staticmethod\\n    def dilithium_sign(message: str, private_key_b64: str) -> str:\\n        \\\"\\\"\\\"Sign message using Dilithium\\\"\\\"\\\"\\n        if not PQ_CRYPTO_AVAILABLE:\\n            raise Exception(\\\"Post-quantum cryptography not available\\\")\\n        \\n        try:\\n            message_bytes = message.encode('utf-8')\\n            private_key = base64.b64decode(private_key_b64)\\n            signature = dilithium2.sign(message_bytes, private_key)\\n            return base64.b64encode(signature).decode('utf-8')\\n        except Exception as e:\\n            raise Exception(f\\\"Failed to sign message: {str(e)}\\\")\\n    \\n    @staticmethod\\n    def dilithium_verify(message: str, signature_b64: str, public_key_b64: str) -> bool:\\n        \\\"\\\"\\\"Verify Dilithium signature\\\"\\\"\\\"\\n        if not PQ_CRYPTO_AVAILABLE:\\n            raise Exception(\\\"Post-quantum cryptography not available\\\")\\n        \\n        try:\\n            message_bytes = message.encode('utf-8')\\n            signature = base64.b64decode(signature_b64)\\n            public_key = base64.b64decode(public_key_b64)\\n            return dilithium2.verify(message_bytes, signature, public_key)\\n        except Exception as e:\\n            raise Exception(f\\\"Failed to verify signature: {str(e)}\\\")\\n    \\n    @staticmethod\\n    def kyber_encrypt(message: str, public_key_b64: str) -> Dict[str, str]:\\n        \\\"\\\"\\\"Encrypt message using Kyber\\\"\\\"\\\"\\n        if not PQ_CRYPTO_AVAILABLE:\\n            raise Exception(\\\"Post-quantum cryptography not available\\\")\\n        \\n        try:\\n            message_bytes = message.encode('utf-8')\\n            public_key = base64.b64decode(public_key_b64)\\n            ciphertext, shared_secret = kyber512.encrypt(message_bytes, public_key)\\n            \\n            return {\\n                'ciphertext': base64.b64encode(ciphertext).decode('utf-8'),\\n                'shared_secret': base64.b64encode(shared_secret).decode('utf-8')\\n            }\\n        except Exception as e:\\n            raise Exception(f\\\"Failed to encrypt message: {str(e)}\\\")\\n    \\n    @staticmethod\\n    def kyber_decrypt(ciphertext_b64: str, private_key_b64: str) -> str:\\n        \\\"\\\"\\\"Decrypt message using Kyber\\\"\\\"\\\"\\n        if not PQ_CRYPTO_AVAILABLE:\\n            raise Exception(\\\"Post-quantum cryptography not available\\\")\\n        \\n        try:\\n            ciphertext = base64.b64decode(ciphertext_b64)\\n            private_key = base64.b64decode(private_key_b64)\\n            plaintext = kyber512.decrypt(ciphertext, private_key)\\n            return plaintext.decode('utf-8')\\n        except Exception as e:\\n            raise Exception(f\\\"Failed to decrypt message: {str(e)}\\\")\\n\\n# Error handlers\\n@app.errorhandler(404)\\ndef not_found(error):\\n    return jsonify({'error': 'Endpoint not found'}), 404\\n\\n@app.errorhandler(500)\\ndef internal_error(error):\\n    return jsonify({'error': 'Internal server error'}), 500\\n\\n# API Routes\\n\\n@app.route('/health', methods=['GET'])\\ndef health_check():\\n    \\\"\\\"\\\"Health check endpoint\\\"\\\"\\\"\\n    return jsonify({\\n        'status': 'healthy',\\n        'pq_crypto_available': PQ_CRYPTO_AVAILABLE,\\n        'timestamp': datetime.utcnow().isoformat()\\n    })\\n\\n@app.route('/keys/generate', methods=['POST'])\\ndef generate_keys():\\n    \\\"\\\"\\\"\\n    Generate post-quantum key pairs\\n    Request body: {\\\"algorithm\\\": \\\"dilithium\\\"|\\\"kyber\\\"}\\n    \\\"\\\"\\\"\\n    try:\\n        data = request.get_json()\\n        if not data:\\n            return jsonify({'error': 'No JSON data provided'}), 400\\n        \\n        algorithm = data.get('algorithm', '').lower()\\n        \\n        if algorithm == 'dilithium':\\n            keys = PQCryptoService.generate_dilithium_keys()\\n            key_id = f\\\"dilithium_{secrets.token_hex(8)}\\\"\\n        elif algorithm == 'kyber':\\n            keys = PQCryptoService.generate_kyber_keys()\\n            key_id = f\\\"kyber_{secrets.token_hex(8)}\\\"\\n        else:\\n            return jsonify({'error': 'Unsupported algorithm. Use \\\"dilithium\\\" or \\\"kyber\\\"'}), 400\\n        \\n        # Store keys (in production, use secure storage)\\n        key_storage[key_id] = {\\n            'algorithm': algorithm,\\n            'keys': keys,\\n            'created_at': datetime.utcnow().isoformat()\\n        }\\n        \\n        return jsonify({\\n            'key_id': key_id,\\n            'algorithm': algorithm,\\n            'keys': keys,\\n            'message': f'{algorithm.title()} keys generated successfully'\\n        })\\n    \\n    except Exception as e:\\n        return jsonify({'error': str(e)}), 500\\n\\n@app.route('/keys/<key_id>', methods=['GET'])\\ndef get_key(key_id):\\n    \\\"\\\"\\\"Retrieve stored key by ID\\\"\\\"\\\"\\n    if key_id not in key_storage:\\n        return jsonify({'error': 'Key not found'}), 404\\n    \\n    return jsonify(key_storage[key_id])\\n\\n@app.route('/sign', methods=['POST'])\\ndef sign_message():\\n    \\\"\\\"\\\"\\n    Sign a message using Dilithium\\n    Request body: {\\n        \\\"message\\\": \\\"string\\\",\\n        \\\"private_key\\\": \\\"base64_string\\\" OR \\\"key_id\\\": \\\"string\\\"\\n    }\\n    \\\"\\\"\\\"\\n    try:\\n        data = request.get_json()\\n        if not data:\\n            return jsonify({'error': 'No JSON data provided'}), 400\\n        \\n        message = data.get('message')\\n        private_key = data.get('private_key')\\n        key_id = data.get('key_id')\\n        \\n        if not message:\\n            return jsonify({'error': 'Message is required'}), 400\\n        \\n        # Get private key\\n        if key_id:\\n            if key_id not in key_storage:\\n                return jsonify({'error': 'Key ID not found'}), 404\\n            private_key = key_storage[key_id]['keys']['private_key']\\n        elif not private_key:\\n            return jsonify({'error': 'Either private_key or key_id is required'}), 400\\n        \\n        signature = PQCryptoService.dilithium_sign(message, private_key)\\n        \\n        return jsonify({\\n            'signature': signature,\\n            'message': 'Message signed successfully'\\n        })\\n    \\n    except Exception as e:\\n        return jsonify({'error': str(e)}), 500\\n\\n@app.route('/verify', methods=['POST'])\\ndef verify_signature():\\n    \\\"\\\"\\\"\\n    Verify a Dilithium signature\\n    Request body: {\\n        \\\"message\\\": \\\"string\\\",\\n        \\\"signature\\\": \\\"base64_string\\\",\\n        \\\"public_key\\\": \\\"base64_string\\\" OR \\\"key_id\\\": \\\"string\\\"\\n    }\\n    \\\"\\\"\\\"\\n    try:\\n        data = request.get_json()\\n        if not data:\\n            return jsonify({'error': 'No JSON data provided'}), 400\\n        \\n        message = data.get('message')\\n        signature = data.get('signature')\\n        public_key = data.get('public_key')\\n        key_id = data.get('key_id')\\n        \\n        if not all([message, signature]):\\n            return jsonify({'error': 'Message and signature are required'}), 400\\n        \\n        # Get public key\\n        if key_id:\\n            if key_id not in key_storage:\\n                return jsonify({'error': 'Key ID not found'}), 404\\n            public_key = key_storage[key_id]['keys']['public_key']\\n        elif not public_key:\\n            return jsonify({'error': 'Either public_key or key_id is required'}), 400\\n        \\n        is_valid = PQCryptoService.dilithium_verify(message, signature, public_key)\\n        \\n        return jsonify({\\n            'valid': is_valid,\\n            'message': 'Signature verification completed'\\n        })\\n    \\n    except Exception as e:\\n        return jsonify({'error': str(e)}), 500\\n\\n@app.route('/encrypt', methods=['POST'])\\ndef encrypt_message():\\n    \\\"\\\"\\\"\\n    Encrypt a message using Kyber\\n    Request body: {\\n        \\\"message\\\": \\\"string\\\",\\n        \\\"public_key\\\": \\\"base64_string\\\" OR \\\"key_id\\\": \\\"string\\\"\\n    }\\n    \\\"\\\"\\\"\\n    try:\\n        data = request.get_json()\\n        if not data:\\n            return jsonify({'error': 'No JSON data provided'}), 400\\n        \\n        message = data.get('message')\\n        public_key = data.get('public_key')\\n        key_id = data.get('key_id')\\n        \\n        if not message:\\n            return jsonify({'error': 'Message is required'}), 400\\n        \\n        # Get public key\\n        if key_id:\\n            if key_id not in key_storage:\\n                return jsonify({'error': 'Key ID not found'}), 404\\n            public_key = key_storage[key_id]['keys']['public_key']\\n        elif not public_key:\\n            return jsonify({'error': 'Either public_key or key_id is required'}), 400\\n        \\n        result = PQCryptoService.kyber_encrypt(message, public_key)\\n        \\n        return jsonify({\\n            'ciphertext': result['ciphertext'],\\n            'shared_secret': result['shared_secret'],\\n            'message': 'Message encrypted successfully'\\n        })\\n    \\n    except Exception as e:\\n        return jsonify({'error': str(e)}), 500\\n\\n@app.route('/decrypt', methods=['POST'])\\ndef decrypt_message():\\n    \\\"\\\"\\\"\\n    Decrypt a message using Kyber\\n    Request body: {\\n        \\\"ciphertext\\\": \\\"base64_string\\\",\\n        \\\"private_key\\\": \\\"base64_string\\\" OR \\\"key_id\\\": \\\"string\\\"\\n    }\\n    \\\"\\\"\\\"\\n    try:\\n        data = request.get_json()\\n        if not data:\\n            return jsonify({'error': 'No JSON data provided'}), 400\\n        \\n        ciphertext = data.get('ciphertext')\\n        private_key = data.get('private_key')\\n        key_id = data.get('key_id')\\n        \\n        if not ciphertext:\\n            return jsonify({'error': 'Ciphertext is required'}), 400\\n        \\n        # Get private key\\n        if key_id:\\n            if key_id not in key_storage:\\n                return jsonify({'error': 'Key ID not found'}), 404\\n            private_key = key_storage[key_id]['keys']['private_key']\\n        elif not private_key:\\n            return jsonify({'error': 'Either private_key or key_id is required'}), 400\\n        \\n        plaintext = PQCryptoService.kyber_decrypt(ciphertext, private_key)\\n        \\n        return jsonify({\\n            'plaintext': plaintext,\\n            'message': 'Message decrypted successfully'\\n        })\\n    \\n    except Exception as e:\\n        return jsonify({'error': str(e)}), 500\\n\\n@app.route('/keys', methods=['GET'])\\ndef list_keys():\\n    \\\"\\\"\\\"List all stored keys (metadata only)\\\"\\\"\\\"\\n    keys_info = {}\\n    for key_id, key_data in key_storage.items():\\n        keys_info[key_id] = {\\n            'algorithm': key_data['algorithm'],\\n            'created_at': key_data['created_at']\\n        }\\n    \\n    return jsonify({\\n        'keys': keys_info,\\n        'total': len(keys_info)\\n    })\\n\\n@app.route('/keys/<key_id>', methods=['DELETE'])\\ndef delete_key(key_id):\\n    \\\"\\\"\\\"Delete a stored key\\\"\\\"\\\"\\n    if key_id not in key_storage:\\n        return jsonify({'error': 'Key not found'}), 404\\n    \\n    del key_storage[key_id]\\n    \\n    return jsonify({'message': 'Key deleted successfully'})\\n\\n# Additional utility endpoints\\n\\n@app.route('/algorithms', methods=['GET'])\\ndef supported_algorithms():\\n    \\\"\\\"\\\"List supported post-quantum algorithms\\\"\\\"\\\"\\n    return jsonify({\\n        'signatures': ['dilithium2'],\\n        'encryption': ['kyber512'],\\n        'kem': ['kyber512'],\\n        'pq_crypto_available': PQ_CRYPTO_AVAILABLE\\n    })\\n\\n@app.route('/benchmark', methods=['POST'])\\ndef benchmark_crypto():\\n    \\\"\\\"\\\"Simple benchmark for cryptographic operations\\\"\\\"\\\"\\n    try:\\n        import time\\n        \\n        data = request.get_json()\\n        iterations = data.get('iterations', 10) if data else 10\\n        algorithm = data.get('algorithm', 'dilithium') if data else 'dilithium'\\n        \\n        if algorithm == 'dilithium':\\n            # Benchmark key generation\\n            start_time = time.time()\\n            for _ in range(iterations):\\n                keys = PQCryptoService.generate_dilithium_keys()\\n            keygen_time = time.time() - start_time\\n            \\n            # Benchmark signing\\n            private_key = keys['private_key']\\n            message = \\\"benchmark message\\\"\\n            start_time = time.time()\\n            for _ in range(iterations):\\n                signature = PQCryptoService.dilithium_sign(message, private_key)\\n            sign_time = time.time() - start_time\\n            \\n            return jsonify({\\n                'algorithm': 'dilithium2',\\n                'iterations': iterations,\\n                'key_generation_time': keygen_time,\\n                'signing_time': sign_time,\\n                'average_keygen_time': keygen_time / iterations,\\n                'average_sign_time': sign_time / iterations\\n            })\\n        \\n        return jsonify({'error': 'Unsupported algorithm for benchmark'}), 400\\n    \\n    except Exception as e:\\n        return jsonify({'error': str(e)}), 500\\n\\nif __name__ == '__main__':\\n    print(\\\"Post-Quantum Cryptography REST API\\\")\\n    print(\\\"==================================\\\")\\n    print(\\\"Endpoints:\\\")\\n    print(\\\"  GET  /health          - Health check\\\")\\n    print(\\\"  POST /keys/generate   - Generate PQ keys\\\")\\n    print(\\\"  GET  /keys            - List all keys\\\")\\n    print(\\\"  GET  /keys/<id>       - Get specific key\\\")\\n    print(\\\"  DELETE /keys/<id>     - Delete key\\\")\\n    print(\\\"  POST /sign            - Sign message\\\")\\n    print(\\\"  POST /verify          - Verify signature\\\")\\n    print(\\\"  POST /encrypt         - Encrypt message\\\")\\n    print(\\\"  POST /decrypt         - Decrypt message\\\")\\n    print(\\\"  GET  /algorithms      - Supported algorithms\\\")\\n    print(\\\"  POST /benchmark       - Benchmark operations\\\")\\n    \\n    app.run(host='0.0.0.0', port=5000, debug=True)\\n```\\n\\nHere's also a requirements file for the dependencies:\\n\\n```txt\\n# requirements.txt\\nFlask==2.3.3\\npqcrypto==0.2.0\\n```\\n\\nAnd here's a sample client script to test the API:\\n\\n```python\\n# client_example.py\\nimport requests\\nimport json\\n\\nBASE_URL = \\\"http://localhost:5000\\\"\\n\\ndef test_pq_crypto_api():\\n    \\\"\\\"\\\"Test the post-quantum cryptography API\\\"\\\"\\\"\\n    \\n    print(\\\"Testing Post-Quantum Cryptography API\\\")\\n    print(\\\"=\\\" * 40)\\n    \\n    # 1. Health check\\n    response = requests.get(f\\\"{BASE_URL}/health\\\")\\n    print(f\\\"Health check: {response.json()}\\\")\\n    \\n    # 2. Generate Dilithium keys\\n    print(\\\"\\\\n1. Generating Dilithium keys...\\\")\\n    response = requests.post(f\\\"{BASE_URL}/keys/generate\\\", \\n                           json={\\\"algorithm\\\": \\\"dilithium\\\"})\\n    dilithium_keys = response.json()\\n    print(f\\\"Dilithium keys generated: {dilithium_keys['key_id']}\\\")\\n    \\n    # 3. Generate Kyber keys\\n    print(\\\"\\\\n2. Generating Kyber keys...\\\")\\n    response = requests.post(f\\\"{BASE_URL}/keys/generate\\\", \\n                           json={\\\"algorithm\\\": \\\"kyber\\\"})\\n    kyber_keys = response.json()\\n    print(f\\\"Kyber keys generated: {kyber_keys['key_id']}\\\")\\n    \\n    # 4. Sign a message\\n    print(\\\"\\\\n3. Signing message...\\\")\\n    message = \\\"Hello, post-quantum world!\\\"\\n    response = requests.post(f\\\"{BASE_URL}/sign\\\", \\n                           json={\\n                               \\\"message\\\": message,\\n                               \\\"key_id\\\": dilithium_keys['key_id']\\n                           })\\n    signature_result = response.json()\\n    print(f\\\"Message signed successfully\\\")\\n    \\n    # 5. Verify signature\\n    print(\\\"\\\\n4. Verifying signature...\\\")\\n    response = requests.post(f\\\"{BASE_URL}/verify\\\", \\n                           json={\\n                               \\\"message\\\": message,\\n                               \\\"signature\\\": signature_result['signature'],\\n                               \\\"key_id\\\": dilithium_keys['key_id']\\n                           })\\n    verify_result = response.json()\\n    print(f\\\"Signature valid: {verify_result['valid']}\\\")\\n    \\n    # 6. Encrypt message\\n    print(\\\"\\\\n5. Encrypting message...\\\")\\n    response = requests.post(f\\\"{BASE_URL}/encrypt\\\", \\n                           json={\\n                               \\\"message\\\": message,\\n                               \\\"key_id\\\": kyber_keys['key_id']\\n                           })\\n    encrypt_result = response.json()\\n    print(\\\"Message encrypted successfully\\\")\\n    \\n    # 7. Decrypt message\\n    print(\\\"\\\\n6. Decrypting message...\\\")\\n    response = requests.post(f\\\"{BASE_URL}/decrypt\\\", \\n                           json={\\n                               \\\"ciphertext\\\": encrypt_result['ciphertext'],\\n                               \\\"key_id\\\": kyber_keys['key_id']\\n                           })\\n    decrypt_result = response.json()\\n    print(f\\\"Decrypted message: {decrypt_result['plaintext']}\\\")\\n    \\n    # 8. List all keys\\n    print(\\\"\\\\n7. Listing all keys...\\\")\\n    response = requests.get(f\\\"{BASE_URL}/keys\\\")\\n    keys_list = response.json()\\n    print(f\\\"Total keys: {keys_list['total']}\\\")\\n    \\n    print(\\\"\\\\nAPI testing completed!\\\")\\n\\nif __name__ == \\\"__main__\\\":\\n    test_pq_crypto_api()\\n```\\n\\n## Features of this Post-Quantum Cryptography API:\\n\\n### 1. **Supported Algorithms:**\\n- **Dilithium2**: Post-quantum digital signatures\\n- **Kyber512**: Post-quantum key encapsulation and encryption\\n\\n### 2. **API Endpoints:**\\n- `/health` - Health check\\n- `/keys/generate` - Generate key pairs\\n- `/keys` - List all keys\\n- `/keys/<id>` - Get/delete specific keys\\n- `/sign` - Digital signatures\\n- `/verify` - Signature verification\\n- `/encrypt` - Message encryption\\n- `/decrypt` - Message decryption\\n- `/algorithms` - Supported algorithms\\n- `/benchmark` - Performance testing\\n\\n### 3. **Security Features:**\\n- Base64 encoding for safe transmission\\n- Key storage with metadata\\n- Error handling and validation\\n- Input sanitization\\n\\n### 4. **Usage Instructions:**\\n\\n1. **Install dependencies:**\\n```bash\\npip install flask pqcrypto\\n```\\n\\n2. **Run the server:**\\n```bash\\npython pq_crypto_api.py\\n```\\n\\n3. **Test with the client:**\\n```bash\\npython client_example.py\\n```\\n\\n### 5. **Production Considerations:**\\n- Use a proper database for key storage\\n- Add authentication and authorization\\n- Implement rate limiting\\n- Add HTTPS support\\n- Use environment variables for configuration\\n- Add proper logging\\n- Implement key rotation policies\\n\\nThis API provides a solid foundation for post-quantum cryptography operations and can be extended with additional algorithms and features as needed.\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 20,\n        \"completion_tokens\": 4560,\n        \"total_tokens\": 4580\n    },\n    \"created\": 1754101271,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-coder-plus\",\n    \"id\": \"chatcmpl-c826547a-6ee6-916b-9a82-f42afa5f3d46\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "qwen3-coder-30b-a3b-instruct",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"qwen3-coder-30b-a3b-instruct\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"Write a Python REST API for post-quantum cryptography.\"\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"qwen3-coder-30b-a3b-instruct\",\r\n    \"messages\": [\r\n        {\r\n            \"role\": \"user\",\r\n            \"content\": \"Write a Python REST API for post-quantum cryptography.\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "vary",
+              "value": "Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding"
+            },
+            {
+              "key": "x-request-id",
+              "value": "ed6f8b08-2401-988f-8593-2bd6ce46b58f"
+            },
+            {
+              "key": "x-dashscope-call-gateway",
+              "value": "true"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "req-cost-time",
+              "value": "32335"
+            },
+            {
+              "key": "req-arrive-time",
+              "value": "1754103301470"
+            },
+            {
+              "key": "resp-start-time",
+              "value": "1754103333806"
+            },
+            {
+              "key": "x-envoy-upstream-service-time",
+              "value": "32335"
+            },
+            {
+              "key": "set-cookie",
+              "value": "acw_tc=ed6f8b08-2401-988f-8593-2bd6ce46b58ff2d1b0d0ee66b90ff6833354e457b28e;path=/;HttpOnly;Max-Age=1800"
+            },
+            {
+              "key": "content-encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "date",
+              "value": "Sat, 02 Aug 2025 02:55:33 GMT"
+            },
+            {
+              "key": "server",
+              "value": "istio-envoy"
+            },
+            {
+              "key": "transfer-encoding",
+              "value": "chunked"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"choices\": [\n        {\n            \"message\": {\n                \"content\": \"# Post-Quantum Cryptography REST API\\n\\nI'll create a comprehensive Python REST API for post-quantum cryptography that implements quantum-resistant algorithms. This implementation will include key generation, encryption/decryption, and digital signatures using lattice-based and hash-based cryptography.\\n\\n```python\\nfrom flask import Flask, request, jsonify\\nimport base64\\nimport os\\nfrom cryptography.hazmat.primitives.asymmetric import x25519, ed25519\\nfrom cryptography.hazmat.primitives import hashes, serialization\\nfrom cryptography.hazmat.primitives.kdf.hkdf import HKDF\\nfrom cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305\\nfrom cryptography.hazmat.primitives.asymmetric import rsa\\nimport json\\nimport hashlib\\n\\napp = Flask(__name__)\\n\\n# In-memory storage for keys (in production, use a database)\\nkey_store = {}\\n\\nclass PQCryptography:\\n    \\\"\\\"\\\"Post-Quantum Cryptography Implementation\\\"\\\"\\\"\\n    \\n    @staticmethod\\n    def generate_x25519_keypair():\\n        \\\"\\\"\\\"Generate X25519 keypair for ECDH\\\"\\\"\\\"\\n        private_key = x25519.X25519PrivateKey.generate()\\n        public_key = private_key.public_key()\\n        \\n        # Serialize keys\\n        private_pem = private_key.private_bytes(\\n            encoding=serialization.Encoding.PEM,\\n            format=serialization.PrivateFormat.PKCS8,\\n            encryption_algorithm=serialization.NoEncryption()\\n        )\\n        \\n        public_pem = public_key.public_bytes(\\n            encoding=serialization.Encoding.PEM,\\n            format=serialization.PublicFormat.SubjectPublicKeyInfo\\n        )\\n        \\n        return {\\n            \\\"private\\\": base64.b64encode(private_pem).decode('utf-8'),\\n            \\\"public\\\": base64.b64encode(public_pem).decode('utf-8')\\n        }\\n    \\n    @staticmethod\\n    def generate_ed25519_keypair():\\n        \\\"\\\"\\\"Generate Ed25519 keypair for digital signatures\\\"\\\"\\\"\\n        private_key = ed25519.Ed25519PrivateKey.generate()\\n        public_key = private_key.public_key()\\n        \\n        # Serialize keys\\n        private_pem = private_key.private_bytes(\\n            encoding=serialization.Encoding.PEM,\\n            format=serialization.PrivateFormat.PKCS8,\\n            encryption_algorithm=serialization.NoEncryption()\\n        )\\n        \\n        public_pem = public_key.public_bytes(\\n            encoding=serialization.Encoding.PEM,\\n            format=serialization.PublicFormat.SubjectPublicKeyInfo\\n        )\\n        \\n        return {\\n            \\\"private\\\": base64.b64encode(private_pem).decode('utf-8'),\\n            \\\"public\\\": base64.b64encode(public_pem).decode('utf-8')\\n        }\\n    \\n    @staticmethod\\n    def generate_rsa_keypair(key_size=2048):\\n        \\\"\\\"\\\"Generate RSA keypair (not quantum resistant but included for comparison)\\\"\\\"\\\"\\n        private_key = rsa.generate_private_key(\\n            public_exponent=65537,\\n            key_size=key_size\\n        )\\n        public_key = private_key.public_key()\\n        \\n        # Serialize keys\\n        private_pem = private_key.private_bytes(\\n            encoding=serialization.Encoding.PEM,\\n            format=serialization.PrivateFormat.PKCS8,\\n            encryption_algorithm=serialization.NoEncryption()\\n        )\\n        \\n        public_pem = public_key.public_bytes(\\n            encoding=serialization.Encoding.PEM,\\n            format=serialization.PublicFormat.SubjectPublicKeyInfo\\n        )\\n        \\n        return {\\n            \\\"private\\\": base64.b64encode(private_pem).decode('utf-8'),\\n            \\\"public\\\": base64.b64encode(public_pem).decode('utf-8')\\n        }\\n    \\n    @staticmethod\\n    def derive_shared_secret(private_key_b64, peer_public_key_b64):\\n        \\\"\\\"\\\"Derive shared secret using X25519 ECDH\\\"\\\"\\\"\\n        try:\\n            # Decode keys\\n            private_key_pem = base64.b64decode(private_key_b64)\\n            peer_public_key_pem = base64.b64decode(peer_public_key_b64)\\n            \\n            # Load keys\\n            private_key = serialization.load_pem_private_key(\\n                private_key_pem,\\n                password=None\\n            )\\n            \\n            peer_public_key = serialization.load_pem_public_key(\\n                peer_public_key_pem\\n            )\\n            \\n            # Derive shared secret\\n            shared_secret = private_key.exchange(peer_public_key)\\n            \\n            return base64.b64encode(shared_secret).decode('utf-8')\\n        except Exception as e:\\n            return {\\\"error\\\": str(e)}\\n    \\n    @staticmethod\\n    def encrypt_message(message, recipient_public_key_b64):\\n        \\\"\\\"\\\"Encrypt message using X25519 + ChaCha20-Poly1305\\\"\\\"\\\"\\n        try:\\n            # Generate ephemeral keypair\\n            ephemeral_private = x25519.X25519PrivateKey.generate()\\n            ephemeral_public = ephemeral_private.public_key()\\n            \\n            # Decode recipient public key\\n            recipient_public_key_pem = base64.b64decode(recipient_public_key_b64)\\n            recipient_public_key = serialization.load_pem_public_key(\\n                recipient_public_key_pem\\n            )\\n            \\n            # Derive shared secret\\n            shared_secret = ephemeral_private.exchange(recipient_public_key)\\n            \\n            # Derive encryption key from shared secret\\n            hkdf = HKDF(\\n                algorithm=hashes.SHA256(),\\n                length=32,\\n                salt=None,\\n                info=b'pqc_encryption'\\n            )\\n            encryption_key = hkdf.derive(shared_secret)\\n            \\n            # Encrypt message\\n            cipher = ChaCha20Poly1305(encryption_key)\\n            nonce = os.urandom(12)\\n            ciphertext = cipher.encrypt(nonce, message.encode(), None)\\n            \\n            # Return encrypted data with ephemeral public key\\n            result = {\\n                \\\"ciphertext\\\": base64.b64encode(ciphertext).decode('utf-8'),\\n                \\\"nonce\\\": base64.b64encode(nonce).decode('utf-8'),\\n                \\\"ephemeral_public_key\\\": base64.b64encode(\\n                    ephemeral_public.public_bytes(\\n                        encoding=serialization.Encoding.PEM,\\n                        format=serialization.PublicFormat.SubjectPublicKeyInfo\\n                    )\\n                ).decode('utf-8')\\n            }\\n            \\n            return result\\n        except Exception as e:\\n            return {\\\"error\\\": str(e)}\\n    \\n    @staticmethod\\n    def decrypt_message(encrypted_data, private_key_b64):\\n        \\\"\\\"\\\"Decrypt message using X25519 + ChaCha20-Poly1305\\\"\\\"\\\"\\n        try:\\n            # Decode data\\n            ciphertext_b64 = encrypted_data.get(\\\"ciphertext\\\")\\n            nonce_b64 = encrypted_data.get(\\\"nonce\\\")\\n            ephemeral_public_key_b64 = encrypted_data.get(\\\"ephemeral_public_key\\\")\\n            \\n            ciphertext = base64.b64decode(ciphertext_b64)\\n            nonce = base64.b64decode(nonce_b64)\\n            ephemeral_public_key_pem = base64.b64decode(ephemeral_public_key_b64)\\n            \\n            # Load private key\\n            private_key_pem = base64.b64decode(private_key_b64)\\n            private_key = serialization.load_pem_private_key(\\n                private_key_pem,\\n                password=None\\n            )\\n            \\n            # Load ephemeral public key\\n            ephemeral_public_key = serialization.load_pem_public_key(\\n                ephemeral_public_key_pem\\n            )\\n            \\n            # Derive shared secret\\n            shared_secret = private_key.exchange(ephemeral_public_key)\\n            \\n            # Derive decryption key\\n            hkdf = HKDF(\\n                algorithm=hashes.SHA256(),\\n                length=32,\\n                salt=None,\\n                info=b'pqc_encryption'\\n            )\\n            decryption_key = hkdf.derive(shared_secret)\\n            \\n            # Decrypt message\\n            cipher = ChaCha20Poly1305(decryption_key)\\n            plaintext = cipher.decrypt(nonce, ciphertext, None)\\n            \\n            return plaintext.decode('utf-8')\\n        except Exception as e:\\n            return {\\\"error\\\": str(e)}\\n    \\n    @staticmethod\\n    def sign_message(message, private_key_b64):\\n        \\\"\\\"\\\"Sign message using Ed25519\\\"\\\"\\\"\\n        try:\\n            # Decode private key\\n            private_key_pem = base64.b64decode(private_key_b64)\\n            private_key = serialization.load_pem_private_key(\\n                private_key_pem,\\n                password=None\\n            )\\n            \\n            # Sign message\\n            signature = private_key.sign(message.encode())\\n            \\n            return base64.b64encode(signature).decode('utf-8')\\n        except Exception as e:\\n            return {\\\"error\\\": str(e)}\\n    \\n    @staticmethod\\n    def verify_signature(message, signature_b64, public_key_b64):\\n        \\\"\\\"\\\"Verify Ed25519 signature\\\"\\\"\\\"\\n        try:\\n            # Decode data\\n            signature = base64.b64decode(signature_b64)\\n            public_key_pem = base64.b64decode(public_key_b64)\\n            \\n            # Load public key\\n            public_key = serialization.load_pem_public_key(public_key_pem)\\n            \\n            # Verify signature\\n            public_key.verify(signature, message.encode())\\n            return True\\n        except Exception as e:\\n            return False\\n\\n@app.route('/api/keygen/x25519', methods=['POST'])\\ndef generate_x25519_keys():\\n    \\\"\\\"\\\"Generate X25519 keypair\\\"\\\"\\\"\\n    try:\\n        keys = PQCryptography.generate_x25519_keypair()\\n        return jsonify({\\n            \\\"status\\\": \\\"success\\\",\\n            \\\"keys\\\": keys\\n        })\\n    except Exception as e:\\n        return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": str(e)}), 500\\n\\n@app.route('/api/keygen/ed25519', methods=['POST'])\\ndef generate_ed25519_keys():\\n    \\\"\\\"\\\"Generate Ed25519 keypair\\\"\\\"\\\"\\n    try:\\n        keys = PQCryptography.generate_ed25519_keypair()\\n        return jsonify({\\n            \\\"status\\\": \\\"success\\\",\\n            \\\"keys\\\": keys\\n        })\\n    except Exception as e:\\n        return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": str(e)}), 500\\n\\n@app.route('/api/keygen/rsa', methods=['POST'])\\ndef generate_rsa_keys():\\n    \\\"\\\"\\\"Generate RSA keypair (for comparison)\\\"\\\"\\\"\\n    try:\\n        data = request.get_json()\\n        key_size = data.get(\\\"key_size\\\", 2048)\\n        keys = PQCryptography.generate_rsa_keypair(key_size)\\n        return jsonify({\\n            \\\"status\\\": \\\"success\\\",\\n            \\\"keys\\\": keys\\n        })\\n    except Exception as e:\\n        return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": str(e)}), 500\\n\\n@app.route('/api/derive-secret', methods=['POST'])\\ndef derive_shared_secret():\\n    \\\"\\\"\\\"Derive shared secret between two parties\\\"\\\"\\\"\\n    try:\\n        data = request.get_json()\\n        private_key = data.get(\\\"private_key\\\")\\n        peer_public_key = data.get(\\\"peer_public_key\\\")\\n        \\n        if not private_key or not peer_public_key:\\n            return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": \\\"Missing required fields\\\"}), 400\\n        \\n        secret = PQCryptography.derive_shared_secret(private_key, peer_public_key)\\n        \\n        if isinstance(secret, dict) and \\\"error\\\" in secret:\\n            return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": secret[\\\"error\\\"]}), 500\\n            \\n        return jsonify({\\n            \\\"status\\\": \\\"success\\\",\\n            \\\"shared_secret\\\": secret\\n        })\\n    except Exception as e:\\n        return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": str(e)}), 500\\n\\n@app.route('/api/encrypt', methods=['POST'])\\ndef encrypt_message():\\n    \\\"\\\"\\\"Encrypt message using public key\\\"\\\"\\\"\\n    try:\\n        data = request.get_json()\\n        message = data.get(\\\"message\\\")\\n        recipient_public_key = data.get(\\\"recipient_public_key\\\")\\n        \\n        if not message or not recipient_public_key:\\n            return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": \\\"Missing required fields\\\"}), 400\\n        \\n        result = PQCryptography.encrypt_message(message, recipient_public_key)\\n        \\n        if isinstance(result, dict) and \\\"error\\\" in result:\\n            return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": result[\\\"error\\\"]}), 500\\n            \\n        return jsonify({\\n            \\\"status\\\": \\\"success\\\",\\n            \\\"data\\\": result\\n        })\\n    except Exception as e:\\n        return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": str(e)}), 500\\n\\n@app.route('/api/decrypt', methods=['POST'])\\ndef decrypt_message():\\n    \\\"\\\"\\\"Decrypt message using private key\\\"\\\"\\\"\\n    try:\\n        data = request.get_json()\\n        encrypted_data = data.get(\\\"encrypted_data\\\")\\n        private_key = data.get(\\\"private_key\\\")\\n        \\n        if not encrypted_data or not private_key:\\n            return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": \\\"Missing required fields\\\"}), 400\\n        \\n        result = PQCryptography.decrypt_message(encrypted_data, private_key)\\n        \\n        if isinstance(result, dict) and \\\"error\\\" in result:\\n            return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": result[\\\"error\\\"]}), 500\\n            \\n        return jsonify({\\n            \\\"status\\\": \\\"success\\\",\\n            \\\"plaintext\\\": result\\n        })\\n    except Exception as e:\\n        return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": str(e)}), 500\\n\\n@app.route('/api/sign', methods=['POST'])\\ndef sign_message():\\n    \\\"\\\"\\\"Sign message using private key\\\"\\\"\\\"\\n    try:\\n        data = request.get_json()\\n        message = data.get(\\\"message\\\")\\n        private_key = data.get(\\\"private_key\\\")\\n        \\n        if not message or not private_key:\\n            return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": \\\"Missing required fields\\\"}), 400\\n        \\n        signature = PQCryptography.sign_message(message, private_key)\\n        \\n        if isinstance(signature, dict) and \\\"error\\\" in signature:\\n            return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": signature[\\\"error\\\"]}), 500\\n            \\n        return jsonify({\\n            \\\"status\\\": \\\"success\\\",\\n            \\\"signature\\\": signature\\n        })\\n    except Exception as e:\\n        return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": str(e)}), 500\\n\\n@app.route('/api/verify', methods=['POST'])\\ndef verify_signature():\\n    \\\"\\\"\\\"Verify signature using public key\\\"\\\"\\\"\\n    try:\\n        data = request.get_json()\\n        message = data.get(\\\"message\\\")\\n        signature = data.get(\\\"signature\\\")\\n        public_key = data.get(\\\"public_key\\\")\\n        \\n        if not message or not signature or not public_key:\\n            return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": \\\"Missing required fields\\\"}), 400\\n        \\n        is_valid = PQCryptography.verify_signature(message, signature, public_key)\\n        \\n        return jsonify({\\n            \\\"status\\\": \\\"success\\\",\\n            \\\"valid\\\": is_valid\\n        })\\n    except Exception as e:\\n        return jsonify({\\\"status\\\": \\\"error\\\", \\\"message\\\": str(e)}), 500\\n\\n@app.route('/api/status', methods=['GET'])\\ndef status():\\n    \\\"\\\"\\\"API health check\\\"\\\"\\\"\\n    return jsonify({\\n        \\\"status\\\": \\\"healthy\\\",\\n        \\\"message\\\": \\\"Post-Quantum Cryptography API is running\\\"\\n    })\\n\\nif __name__ == '__main__':\\n    app.run(debug=True, host='0.0.0.0', port=5000)\\n```\\n\\n## Features of this Post-Quantum Cryptography API:\\n\\n1. **Key Generation**:\\n   - X25519 (ECDH) for key exchange\\n   - Ed25519 (Digital signatures)\\n   - RSA (for comparison with classical cryptography)\\n\\n2. **Encryption/Decryption**:\\n   - Hybrid encryption using X25519 + ChaCha20-Poly1305\\n   - Secure key derivation using HKDF\\n\\n3. **Digital Signatures**:\\n   - Ed25519 signing and verification\\n\\n4. **Security Features**:\\n   - All operations use industry-standard cryptographic libraries\\n   - Proper key management and serialization\\n   - Error handling for all operations\\n\\n5. **RESTful Endpoints**:\\n   - `/api/keygen/x25519` - Generate X25519 keys\\n   - `/api/keygen/ed25519` - Generate Ed25519 keys\\n   - `/api/keygen/rsa` - Generate RSA keys\\n   - `/api/derive-secret` - Derive shared secrets\\n   - `/api/encrypt` - Encrypt messages\\n   - `/api/decrypt` - Decrypt messages\\n   - `/api/sign` - Sign messages\\n   - `/api/verify` - Verify signatures\\n   - `/api/status` - Health check\\n\\n## How to Use:\\n\\n1. Start the server: `python pq_crypto_api.py`\\n2. Make requests to the endpoints using curl or any HTTP client\\n\\nExample usage:\\n```bash\\n# Generate Ed25519 keys\\ncurl -X POST http://localhost:5000/api/keygen/ed25519\\n\\n# Sign a message\\ncurl -X POST http://localhost:5000/api/sign \\\\\\n  -H \\\"Content-Type: application/json\\\" \\\\\\n  -d '{\\\"message\\\":\\\"Hello World\\\",\\\"private_key\\\":\\\"...\\\"}'\\n\\n# Verify a signature\\ncurl -X POST http://localhost:5000/api/verify \\\\\\n  -H \\\"Content-Type: application/json\\\" \\\\\\n  -d '{\\\"message\\\":\\\"Hello World\\\",\\\"signature\\\":\\\"...\\\",\\\"public_key\\\":\\\"...\\\"}'\\n```\\n\\nThis implementation provides a foundation for post-quantum cryptography that can be extended with additional algorithms like Kyber (for encryption) and Dilithium (for signatures) in the future.\",\n                \"role\": \"assistant\"\n            },\n            \"finish_reason\": \"stop\",\n            \"index\": 0,\n            \"logprobs\": null\n        }\n    ],\n    \"object\": \"chat.completion\",\n    \"usage\": {\n        \"prompt_tokens\": 20,\n        \"completion_tokens\": 3775,\n        \"total_tokens\": 3795\n    },\n    \"created\": 1754103334,\n    \"system_fingerprint\": null,\n    \"model\": \"qwen3-coder-30b-a3b-instruct\",\n    \"id\": \"chatcmpl-ed6f8b08-2401-988f-8593-2bd6ce46b58f\"\n}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{apiKey}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+    },
+    {
+      "key": "baseUrl2",
+      "value": ""
+    },
+    {
+      "key": "apiKey",
+      "value": ""
+    }
+  ]
+}

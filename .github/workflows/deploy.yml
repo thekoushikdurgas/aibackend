@@ -1,0 +1,63 @@
+# Deploy when the repo root is ai.backend (standalone).
+# Monorepo (e.g. durgas_ai): path filters include ai.backend/** — set GitHub Actions
+# defaults.run.working-directory if your checkout layout differs.
+#
+# Secrets: EC2_HOST, EC2_USER, EC2_SSH_KEY (private PEM), ENV_FILE (.env contents).
+# Optional: EC2_SSH_KEY_PASSPHRASE for encrypted keys (add to appleboy/ssh-action if needed).
+#
+# Edit APP_ROOT in the remote script block to match your EC2 clone directory.
+
+name: Deploy API to EC2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - 'scripts/**'
+      - 'requirements.txt'
+      - 'requirements-dev.txt'
+      - 'alembic.ini'
+      - 'alembic/**'
+      - 'deploy/**'
+      - 'docker/**'
+      - 'compose.yaml'
+      - 'compose.dev.yaml'
+      - '.github/workflows/deploy.yml'
+      - 'ai.backend/app/**'
+      - 'ai.backend/scripts/**'
+      - 'ai.backend/requirements.txt'
+      - 'ai.backend/requirements-dev.txt'
+      - 'ai.backend/alembic.ini'
+      - 'ai.backend/alembic/**'
+      - 'ai.backend/deploy/**'
+      - 'ai.backend/docker/**'
+      - 'ai.backend/compose.yaml'
+      - 'ai.backend/compose.dev.yaml'
+      - 'ai.backend/.github/workflows/deploy.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+            APP_ROOT=/home/ubuntu/durgasai-backend
+            cd "$APP_ROOT"
+            echo "${{ secrets.ENV_FILE }}" > .env
+            chmod 600 .env || true
+            git fetch origin main
+            git reset --hard origin/main
+            export ENV_FILE="$APP_ROOT/.env"
+            bash deploy/remote-deploy.sh

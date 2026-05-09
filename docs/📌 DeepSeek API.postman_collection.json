@@ -1,0 +1,523 @@
+{
+  "info": {
+    "_postman_id": "c38f1247-1d41-4001-9945-865affeb20d9",
+    "name": "📌 DeepSeek API",
+    "description": "### About\n\n\"DeepSeek is a Chinese artificial intelligence company that develops open-source large language models.\"\n\n### Prerequisites\n\n- Postman Account\n    \n- DeepSeek Account: [https://platform.deepseek.com/](https://platform.deepseek.com/)\n    \n\n### Usage\n\n1. Create a fork\n    \n2. Update collection variables\n    \n3. Send requests\n    \n\n### Documentation\n\n- API: [https://api-docs.deepseek.com/](https://api-docs.deepseek.com/)\n    \n- Models: [https://api-docs.deepseek.com/quick_start/pricing](https://api-docs.deepseek.com/quick_start/pricing)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20572666",
+    "_collection_link": "https://www.postman.com/ai-engineer/generative-ai-apis/collection/av2zn4z/deepseek-api?action=share&source=collection_link&creator=20572666"
+  },
+  "item": [
+    {
+      "name": "deepseek-chat",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"deepseek-chat\",\r\n    \"messages\": [\r\n        {\"role\": \"system\", \"content\": \"You are a helpful assistant.\"},\r\n        {\"role\": \"user\", \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"}\r\n    ],\r\n    \"stream\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"deepseek-chat\",\r\n    \"messages\": [\r\n        {\"role\": \"system\", \"content\": \"You are a helpful assistant.\"},\r\n        {\"role\": \"user\", \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"}\r\n    ],\r\n    \"stream\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 06 Feb 2025 03:23:34 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "vary",
+              "value": "origin, access-control-request-method, access-control-request-headers"
+            },
+            {
+              "key": "vary",
+              "value": "accept-encoding"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "x-ds-trace-id",
+              "value": "a245b6911adcb6c073653505817c6f5e"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "90d805b1cdf80fc1-LAX"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": \"5620094e-9b5d-430c-a82d-beebcfea5084\",\n    \"object\": \"chat.completion\",\n    \"created\": 1738812214,\n    \"model\": \"deepseek-chat\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"Drying shirts in the sun is typically not dependent on the number of shirts, assuming they are all exposed to the same conditions (e.g., sunlight, airflow). If one shirt takes 1 hour to dry, then 3 shirts will also take 1 hour to dry, as long as they are spread out and not overlapping, allowing each shirt to receive adequate sunlight and airflow.\\n\\nSo, 3 shirts will take **1 hour** to dry in the sun.\"\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\"\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 32,\n        \"completion_tokens\": 94,\n        \"total_tokens\": 126,\n        \"prompt_tokens_details\": {\n            \"cached_tokens\": 0\n        },\n        \"prompt_cache_hit_tokens\": 0,\n        \"prompt_cache_miss_tokens\": 32\n    },\n    \"system_fingerprint\": \"fp_3a5770e1b4\"\n}"
+        },
+        {
+          "name": "Bad Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"deepseek-chat\",\r\n    \"messages\": [\r\n        {\"role\": \"system\", \"content\": \"You are a helpful assistant.\"},\r\n        {\"role\": \"user\", \"content\": \"Tell me about the 1989 Tiananmen Square protests and massacre.\"}\r\n    ],\r\n    \"stream\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 06 Feb 2025 03:23:58 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "118"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "vary",
+              "value": "origin, access-control-request-method, access-control-request-headers"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "x-ds-trace-id",
+              "value": "a6238e86d8f942bce189d114399d9dc2"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "90d806466e8d0fc1-LAX"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"error\": {\n        \"message\": \"Content Exists Risk\",\n        \"type\": \"invalid_request_error\",\n        \"param\": null,\n        \"code\": \"invalid_request_error\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "deepseek-reasoner",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"model\": \"deepseek-reasoner\",\r\n    \"messages\": [\r\n        {\"role\": \"system\", \"content\": \"You are a helpful assistant.\"},\r\n        {\"role\": \"user\", \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"}\r\n    ],\r\n    \"stream\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/chat/completions",
+          "host": ["{{baseUrl}}"],
+          "path": ["chat", "completions"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"deepseek-reasoner\",\r\n    \"messages\": [\r\n        {\"role\": \"system\", \"content\": \"You are a helpful assistant.\"},\r\n        {\"role\": \"user\", \"content\": \"If I dry one shirt in the sun, it takes 1 hour. How long do 3 shirts take?\"}\r\n    ],\r\n    \"stream\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 06 Feb 2025 04:07:53 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "vary",
+              "value": "origin, access-control-request-method, access-control-request-headers"
+            },
+            {
+              "key": "vary",
+              "value": "accept-encoding"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "gzip"
+            },
+            {
+              "key": "x-ds-trace-id",
+              "value": "efd53fa6f4e595e7973aea7947700c00"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "90d8469c38ce2ec1-LAX"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": \"9363dfcc-2bab-4a71-9ff7-7187b5a93f18\",\n    \"object\": \"chat.completion\",\n    \"created\": 1738814873,\n    \"model\": \"deepseek-reasoner\",\n    \"choices\": [\n        {\n            \"index\": 0,\n            \"message\": {\n                \"role\": \"assistant\",\n                \"content\": \"Drying time in the sun depends on factors like sunlight, airflow, and humidity, not the number of shirts (assuming they’re spread out and not overlapping). If all three shirts are hung simultaneously with enough space for each to receive adequate sun and air, they will **all dry in 1 hour**, just like one shirt. The process is parallel, not sequential.\",\n                \"reasoning_content\": \"Okay, so the user is asking if drying one shirt in the sun takes 1 hour, how long will three shirts take? Hmm, let's think about this.\\n\\nFirst, I need to understand the scenario. Drying clothes in the sun—this is about evaporation. The factors here would probably be sunlight exposure, humidity, wind, and the surface area of the clothes. But the question seems to be assuming that all other conditions are the same. \\n\\nIf one shirt takes 1 hour, would adding more shirts increase the time? Well, if you have multiple shirts drying, they might be spread out on a line. If they're not overlapping, each shirt has its own exposure to the sun and air. So theoretically, each shirt should dry in the same amount of time as one shirt, right? Because they're all getting the same sunlight and airflow. \\n\\nBut wait, maybe if there are too many shirts close together, they might block each other's airflow or shade each other. But the question doesn't mention any constraints like limited space. It just says \\\"dry three shirts.\\\" So if you have enough space to hang all three without them overlapping, then each can dry simultaneously. Therefore, the drying time should still be 1 hour. \\n\\nAlternatively, if someone thought that more clothes would take longer because you have to do them one after another, but that's not how drying works. Drying is a parallel process when you hang them all at the same time. Unlike tasks that require sequential processing, like washing dishes one after another, drying clothes can happen all at once if there's enough space and resources (sun, wind). \\n\\nSo the answer should be 1 hour. Unless there's a factor I'm missing, like maybe the drying area is limited, but the problem doesn't state that. So I think the answer is 1 hour.\"\n            },\n            \"logprobs\": null,\n            \"finish_reason\": \"stop\"\n        }\n    ],\n    \"usage\": {\n        \"prompt_tokens\": 34,\n        \"completion_tokens\": 454,\n        \"total_tokens\": 488,\n        \"prompt_tokens_details\": {\n            \"cached_tokens\": 0\n        },\n        \"completion_tokens_details\": {\n            \"reasoning_tokens\": 377\n        },\n        \"prompt_cache_hit_tokens\": 0,\n        \"prompt_cache_miss_tokens\": 34\n    },\n    \"system_fingerprint\": \"fp_7e73fd9a08\"\n}"
+        },
+        {
+          "name": "Bad Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"model\": \"deepseek-reasoner\",\r\n    \"messages\": [\r\n        {\"role\": \"system\", \"content\": \"You are a helpful assistant.\"},\r\n        {\"role\": \"user\", \"content\": \"Tell me about the 1989 Tiananmen Square protests and massacre.\"}\r\n    ],\r\n    \"stream\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/completions",
+              "host": ["{{baseUrl}}"],
+              "path": ["chat", "completions"]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Thu, 06 Feb 2025 03:24:23 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Content-Length",
+              "value": "118"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "vary",
+              "value": "origin, access-control-request-method, access-control-request-headers"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "x-ds-trace-id",
+              "value": "ef55ba5d5180ef82543c7f4c001696cb"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Report-To",
+              "value": "{\"endpoints\":[{\"url\":\"https:\\/\\/csp-reporting.cloudflare.com\\/cdn-cgi\\/script_monitor\\/report?m=nKWbieXNdJrXrNhLaS1Vt4iuDpgpzsNBXF0JH7lWHNg-1738812263-1.0.1.1-WCwMg7STq0pSzMfnVYIy1ncP4_666wO6XaQhHqbcky9oEoHA0xqs1egJmsBdmaAW7sL.EBwe1EsdpxBCQgaLVxar9A33FtvSnve5YPWPlNtRxW1LdpyJtqA9gu7_COM0OJb3IyVmmPG4d88zRqjCIswb4RKX11LRDSz1l7P51R0\"}],\"group\":\"cf-csp-endpoint\",\"max_age\":86400}"
+            },
+            {
+              "key": "Content-Security-Policy-Report-Only",
+              "value": "script-src 'none'; report-uri https://csp-reporting.cloudflare.com/cdn-cgi/script_monitor/report?m=nKWbieXNdJrXrNhLaS1Vt4iuDpgpzsNBXF0JH7lWHNg-1738812263-1.0.1.1-WCwMg7STq0pSzMfnVYIy1ncP4_666wO6XaQhHqbcky9oEoHA0xqs1egJmsBdmaAW7sL.EBwe1EsdpxBCQgaLVxar9A33FtvSnve5YPWPlNtRxW1LdpyJtqA9gu7_COM0OJb3IyVmmPG4d88zRqjCIswb4RKX11LRDSz1l7P51R0; report-to cf-csp-endpoint"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "90d806e3ac800fc1-LAX"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"error\": {\n        \"message\": \"Content Exists Risk\",\n        \"type\": \"invalid_request_error\",\n        \"param\": null,\n        \"code\": \"invalid_request_error\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Models",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/models",
+          "host": ["{{baseUrl}}"],
+          "path": ["models"]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/models",
+              "host": ["{{baseUrl}}"],
+              "path": ["models"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Date",
+              "value": "Fri, 14 Feb 2025 05:47:27 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "HWWAFSESTIME=1739512047502; path=/"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "HWWAFSESID=3fb1e734c7c41adafd; path=/"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "__cf_bm=tpfeaobUxHGGG5uKtPq_12c9CeAohOBUD2a7HvbG4v8-1739512047-1.0.1.1-PsOdZDpPc32XUH1YkZ1_FSt9y3COwyUR4fiPCZttNDlrrc90llWv7bkb13Mt1eMGXygRNeiG6s2E.OAOrXsEjQ; path=/; expires=Fri, 14-Feb-25 06:17:27 GMT; domain=.deepseek.com; HttpOnly; Secure; SameSite=None"
+            },
+            {
+              "key": "vary",
+              "value": "origin, access-control-request-method, access-control-request-headers"
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "x-ds-trace-id",
+              "value": "93674dfe94d47899d84cd895237dbd19"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=31536000; includeSubDomains; preload"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "911ac3784bedcbaf-LAX"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "gzip"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"object\": \"list\",\n    \"data\": [\n        {\n            \"id\": \"deepseek-chat\",\n            \"object\": \"model\",\n            \"owned_by\": \"deepseek\"\n        },\n        {\n            \"id\": \"deepseek-reasoner\",\n            \"object\": \"model\",\n            \"owned_by\": \"deepseek\"\n        }\n    ]\n}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{apiKey}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.deepseek.com/v1"
+    },
+    {
+      "key": "apiKey",
+      "value": ""
+    }
+  ]
+}

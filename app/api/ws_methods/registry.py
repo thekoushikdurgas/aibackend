@@ -1,0 +1,37 @@
+"""
+Central registry for WebSocket method modules.
+"""
+
+WS_METHOD_MODULES = [
+    "claude_code",
+    "council",
+    "chat",
+    "agents",
+    "vision",
+    "multimodal",
+    "health",
+    "rag",
+    "metrics",
+    "nvidia",
+    "groq",
+    "ollama",
+    "cohere",
+    "ai21",
+    "fal",
+    "openrouter",
+    "deepinfra",
+    "deepgram",
+    "elevenlabs",
+    "hyperbolic",
+    "reka",
+    "cerebras",
+    "embeddings",
+    "batch",
+    "nlp",
+    "scraper",
+    "benchmark",
+    "imagen",
+    "veo",
+    "auth",
+    "storage",
+]
