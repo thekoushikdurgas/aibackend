@@ -1,11 +1,18 @@
-# Deploy when the repo root is ai.backend (standalone).
-# Monorepo (e.g. durgas_ai): path filters include ai.backend/** — set GitHub Actions
-# defaults.run.working-directory if your checkout layout differs.
+# Deploy backend Docker stack on EC2 after tests pass locally / on CI.
 #
-# Secrets: EC2_HOST, EC2_USER, EC2_SSH_KEY (private PEM), ENV_FILE (.env contents).
-# Optional: EC2_SSH_KEY_PASSPHRASE for encrypted keys (add to appleboy/ssh-action if needed).
+# Secrets:
+#   EC2_HOST, EC2_USER, EC2_SSH_KEY — SSH access
+#   ENV_FILE — full contents of ai.backend/.env (production secrets + Compose interpolation keys)
+#   SUPABASE_ENV_FILE — optional; full contents of docker/supabase/supabase.env (recommended for Supabase stack).
+#     If unset or empty, deploy/remote-deploy.sh bootstraps from supabase.env.example when needed.
 #
-# Edit APP_ROOT in the remote script block to match your EC2 clone directory.
+# Repository variables (Settings → Secrets and variables → Actions → Variables):
+#   EC2_REPO_ROOT — git clone root on the server (default below if unset)
+#   DEPLOY_SUBDIR — e.g. ai.backend when the repo is a monorepo and backend lives in a subdirectory (default empty)
+#   VERIFY_SLEEP_SECONDS — seconds to wait before health checks (optional)
+#   VERIFY_STRICT_READY — set to 1 to fail deploy if GraphQL systemReady is not_ready (optional)
+#
+# Optional: EC2_SSH_KEY_PASSPHRASE for encrypted keys (extend appleboy/ssh-action if needed).
 
 name: Deploy API to EC2
 
@@ -44,7 +51,7 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - name: Deploy via SSH
+      - name: Deploy and verify via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -52,12 +59,30 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            set -e
-            APP_ROOT=/home/ubuntu/durgasai-backend
-            cd "$APP_ROOT"
-            echo "${{ secrets.ENV_FILE }}" > .env
-            chmod 600 .env || true
+            set -euo pipefail
+            export VERIFY_SLEEP_SECONDS="${{ vars.VERIFY_SLEEP_SECONDS }}"
+            export VERIFY_STRICT_READY="${{ vars.VERIFY_STRICT_READY }}"
+
+            REPO_ROOT="${{ vars.EC2_REPO_ROOT }}"
+            REPO_ROOT="${REPO_ROOT:-/home/ubuntu/durgasai-backend}"
+            SUB="${{ vars.DEPLOY_SUBDIR }}"
+            SUB="${SUB:-}"
+
+            BACKEND_DIR="$REPO_ROOT"
+            if [ -n "$SUB" ]; then BACKEND_DIR="$REPO_ROOT/$SUB"; fi
+
+            cd "$REPO_ROOT"
             git fetch origin main
             git reset --hard origin/main
-            export ENV_FILE="$APP_ROOT/.env"
+
+            mkdir -p "$BACKEND_DIR/docker/supabase"
+            cd "$BACKEND_DIR"
+
+            echo "${{ secrets.ENV_FILE }}" > .env
+            chmod 600 .env || true
+
+            echo "${{ secrets.SUPABASE_ENV_FILE }}" > docker/supabase/supabase.env
+            chmod 600 docker/supabase/supabase.env || true
+
             bash deploy/remote-deploy.sh
+            bash deploy/verify-stack.sh

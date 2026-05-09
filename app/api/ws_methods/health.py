@@ -74,6 +74,21 @@ async def handle_system_ready(
         checks["llm_provider"] = provider is not None
     except Exception as exc:
         details["llm_error"] = str(exc)
+
+    if settings.use_redis:
+        checks["redis"] = False
+        try:
+            import redis.asyncio as redis_async
+
+            client = redis_async.from_url(settings.redis_url, decode_responses=True)
+            try:
+                await client.ping()
+                checks["redis"] = True
+            finally:
+                await client.close()
+        except Exception as exc:
+            details["redis_error"] = str(exc)
+
     status = "ready" if all(checks.values()) else "not_ready"
     return {"status": status, "checks": checks, "details": details}
 
