@@ -18,12 +18,18 @@ if [[ ! -f .env ]]; then
   fi
 fi
 
-# Empty supabase.env breaks ${POSTGRES_*}, JWT, Logflare, etc. interpolation (Compose warns + db unhealthy).
-if [[ (! -f docker/supabase/supabase.env) || (! -s docker/supabase/supabase.env) ]] && [[ -f docker/supabase/supabase.env.example ]]; then
-  mkdir -p docker/supabase
-  cp -f docker/supabase/supabase.env.example docker/supabase/supabase.env
-  echo "Created docker/supabase/supabase.env from supabase.env.example — edit secrets before docker compose."
-fi
+# Empty or newline-only supabase.env breaks Compose (CI may write SUPABASE_ENV_CONTENT as blank → file still "non-empty" for -s).
+ensure_supabase_env_template() {
+  local f="docker/supabase/supabase.env"
+  local ex="docker/supabase/supabase.env.example"
+  [[ -f "$ex" ]] || return 0
+  if [[ ! -f "$f" ]] || [[ ! -s "$f" ]] || ! grep -qE '^[A-Za-z_][A-Za-z0-9_]*=.+' "$f" 2>/dev/null; then
+    mkdir -p docker/supabase
+    cp -f "$ex" "$f"
+    echo "Created/refilled $f from supabase.env.example — edit secrets before docker compose."
+  fi
+}
+ensure_supabase_env_template
 
 ENV_FILES=(--env-file .env --env-file docker/supabase/supabase.env)
 
@@ -47,7 +53,8 @@ validate_supabase_env() {
   done
   if ((${#missing[@]})); then
     echo "ERROR: $f must define non-empty values for: ${missing[*]}"
-    echo "See docker/supabase/supabase.env.example — replace placeholders before production."
+    echo "Copy docker/supabase/supabase.env.example to supabase.env and fill secrets."
+    echo "If the file looks empty but exists, remove it or fix it — newline-only files are refilled from the example automatically on the next run."
     exit 1
   fi
 }

@@ -1,115 +1,3 @@
-ubuntu@ip-172-31-45-226:~/aibackend$ sudo scripts/docker-up.sh
-Starting production-style stack (compose.yaml)...
-WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "JWT_EXPIRY" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "SUPABASE_PUBLIC_URL" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "PG_META_CRYPTO_KEY" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "STUDIO_DEFAULT_PROJECT" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "LOGFLARE_PUBLIC_ACCESS_TOKEN" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "LOGFLARE_PUBLIC_ACCESS_TOKEN" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "LOGFLARE_PRIVATE_ACCESS_TOKEN" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "PGRST_DB_SCHEMAS" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "STUDIO_DEFAULT_ORGANIZATION" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "DASHBOARD_USERNAME" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "DASHBOARD_PASSWORD" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "PGRST_DB_SCHEMAS" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "JWT_EXPIRY" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "SECRET_KEY_BASE" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "PG_META_CRYPTO_KEY" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "LOGFLARE_PRIVATE_ACCESS_TOKEN" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "LOGFLARE_PUBLIC_ACCESS_TOKEN" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "MAILER_URLPATHS_EMAIL_CHANGE" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "ENABLE_EMAIL_SIGNUP" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "ENABLE_EMAIL_AUTOCONFIRM" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "MAILER_URLPATHS_INVITE" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "ENABLE_ANONYMOUS_USERS" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "API_EXTERNAL_URL" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "SMTP_HOST" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "SMTP_PASS" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "MAILER_URLPATHS_RECOVERY" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "ADDITIONAL_REDIRECT_URLS" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "DISABLE_SIGNUP" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "SMTP_PORT" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "SMTP_SENDER_NAME" variable is not set. Defaulting to a blank string.
-WARN[0000] The "SITE_URL" variable is not set. Defaulting to a blank string.
-WARN[0000] The "JWT_EXPIRY" variable is not set. Defaulting to a blank string.
-WARN[0000] The "SMTP_ADMIN_EMAIL" variable is not set. Defaulting to a blank string.
-WARN[0000] The "SMTP_USER" variable is not set. Defaulting to a blank string.
-WARN[0000] The "MAILER_URLPATHS_CONFIRMATION" variable is not set. Defaulting to a blank string.
-WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string. 
-WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string.
-WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string.
-WARN[0000] The "SUPABASE_PUBLIC_URL" variable is not set. Defaulting to a blank string.
-WARN[0000] The "REGION" variable is not set. Defaulting to a blank string.
-WARN[0000] The "S3_PROTOCOL_ACCESS_KEY_SECRET" variable is not set. Defaulting to a blank string.
-WARN[0000] The "GLOBAL_S3_BUCKET" variable is not set. Defaulting to a blank string.
-WARN[0000] The "STORAGE_TENANT_ID" variable is not set. Defaulting to a blank string.
-WARN[0000] The "S3_PROTOCOL_ACCESS_KEY_ID" variable is not set. Defaulting to a blank string.
-WARN[0000] COMPOSE_BAKE=false is deprecated, support for internal compose builder will be removed in next release 
-[+] Building 0.5s (20/20) FINISHED                                                                                                                                                                                             docker:default
- => [backend internal] load build definition from Dockerfile                                                                                                                                                                             0.0s
- => => transferring dockerfile: 1.79kB                                                                                                                                                                                                   0.0s 
- => [backend internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                              0.1s 
- => [backend internal] load .dockerignore                                                                                                                                                                                                0.0s
- => => transferring context: 713B                                                                                                                                                                                                        0.0s 
- => [backend internal] load build context                                                                                                                                                                                                0.0s 
- => => transferring context: 16.32kB                                                                                                                                                                                                     0.0s 
- => [backend builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142                                                                                                0.0s 
- => => resolve docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142                                                                                                                0.0s 
- => CACHED [backend builder 2/6] WORKDIR /app                                                                                                                                                                                            0.0s 
- => CACHED [backend stage-1  3/10] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                               0.0s 
- => CACHED [backend builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                                 0.0s 
- => CACHED [backend builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                            0.0s 
- => CACHED [backend builder 5/6] COPY requirements.txt .                                                                                                                                                                                 0.0s 
- => CACHED [backend builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                      0.0s 
- => CACHED [backend stage-1  4/10] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                               0.0s 
- => CACHED [backend stage-1  5/10] COPY app/ ./app/                                                                                                                                                                                      0.0s 
- => CACHED [backend stage-1  6/10] COPY config/ ./config/                                                                                                                                                                                0.0s 
- => CACHED [backend stage-1  7/10] COPY alembic.ini .                                                                                                                                                                                    0.0s 
- => CACHED [backend stage-1  8/10] COPY alembic/ ./alembic/                                                                                                                                                                              0.0s 
- => CACHED [backend stage-1  9/10] RUN mkdir -p /app/data/chroma /app/data/logs                                                                                                                                                          0.0s
- => CACHED [backend stage-1 10/10] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                               0.0s 
- => [backend] exporting to image                                                                                                                                                                                                         0.1s 
- => => exporting layers                                                                                                                                                                                                                  0.0s 
- => => exporting manifest sha256:bc745802918fb86cfecff0f98eb9e085d0d84d7fa42ff7856548c6f1443e82a6                                                                                                                                        0.0s 
- => => exporting config sha256:7e9e80970b83437b96df46f14ac43aa7cb63081d24de42d309e99ade5f076529                                                                                                                                          0.0s 
- => => exporting attestation manifest sha256:dfe18305a8fb9c5d032b0966731cf8e69d6493cf68790f0991e4319d56d35435                                                                                                                            0.0s 
- => => exporting manifest list sha256:b99eacf19ff2b35b6ee26c235bd6b0650964a63212e72954007c9cdf317e839a                                                                                                                                   0.0s
- => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                                              0.0s 
- => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                                           0.0s 
- => [backend] resolving provenance for metadata file                                                                                                                                                                                     0.0s 
-[+] Running 7/7
- ✔ backend                         Built                                                                                                                                                                                                 0.0s 
- ✔ Container aibackend-redis-1     Running                                                                                                                                                                                               0.0s 
- ✔ Container supabase-imgproxy     Running                                                                                                                                                                                               0.0s 
- ✔ Container aibackend-chromadb-1  Running                                                                                                                                                                                               0.0s 
- ✔ Container aibackend-ollama-1    Running                                                                                                                                                                                               0.0s 
- ✔ Container aibackend-backend-1   Recreated                                                                                                                                                                                             0.4s 
- ✘ Container supabase-db           Error                                                                                                                                                                                                 0.5s 
-dependency failed to start: container supabase-db is unhealthy
-ubuntu@ip-172-31-45-226:~/aibackend$
 Run pytest tests/ -v --tb=short --cov=app --cov-report=xml --cov-report=term-missing
 ============================= test session starts ==============================
 platform linux -- Python 3.11.15, pytest-8.0.2, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.11.15/x64/bin/python
@@ -145,48 +33,56 @@ tests/test_graphql_schema.py:3: in <module>
     from app.graphql.schema import schema
 app/graphql/__init__.py:3: in <module>
     from app.graphql.schema import schema
-app/graphql/schema.py:7: in <module>
-    from app.graphql.modules.agents.resolvers import AgentsMutation, AgentsQuery
-app/graphql/modules/agents/resolvers.py:11: in <module>
-    from app.api.ws_methods import agents as agents_handlers
-app/api/ws_methods/agents.py:9: in <module>
-    from app.agents import AgentRouter
-app/agents/__init__.py:6: in <module>
-    from .router import AgentRouter
-app/agents/router.py:16: in <module>
-    from .website_scraper import WebsiteScraperAgent
-app/agents/website_scraper.py:11: in <module>
-    from app.services.scraper import (
-app/services/scraper/__init__.py:9: in <module>
-    from .export_handler import ExportHandler
-app/services/scraper/export_handler.py:9: in <module>
-    import pandas as pd
-E   ModuleNotFoundError: No module named 'pandas'
+app/graphql/schema.py:9: in <module>
+    from app.graphql.modules.chat.resolvers import ChatMutation, ChatQuery
+app/graphql/modules/chat/resolvers.py:9: in <module>
+    from app.api.ws_methods import chat as chat_handlers
+app/api/ws_methods/chat.py:12: in <module>
+    from app.services.memory import get_conversation_memory
+app/services/memory/__init__.py:5: in <module>
+    from .conversation import ConversationMemory, get_conversation_memory
+app/services/memory/conversation.py:16: in <module>
+    from app.database import AsyncSessionLocal
+app/database/__init__.py:6: in <module>
+    from app.database.sqlalchemy import AsyncSessionLocal, get_db, init_db, close_db
+app/database/sqlalchemy.py:22: in <module>
+    engine = create_async_engine(
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/engine.py:120: in create_async_engine
+    sync_engine = _create_engine(url, **kw)
+<string>:2: in create_engine
+    ???
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py:281: in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/sqlalchemy/engine/create.py:617: in create_engine
+    dbapi = dbapi_meth(**dbapi_args)
+/opt/hostedtoolcache/Python/3.11.15/x64/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/asyncpg.py:1094: in import_dbapi
+    return AsyncAdapt_asyncpg_dbapi(__import__("asyncpg"))
+E   ModuleNotFoundError: No module named 'asyncpg'
 
 ---------- coverage: platform linux, python 3.11.15-final-0 ----------
 Name                                                  Stmts   Miss  Cover   Missing
 -----------------------------------------------------------------------------------
 app/__init__.py                                           2      0   100%
-app/agents/__init__.py                                   10      8    20%   7-15
+app/agents/__init__.py                                   10      0   100%
 app/agents/base.py                                      108     67    38%   59-60, 65-67, 71, 84, 104, 111-155, 159-163, 176-183, 190-216
 app/agents/content_extractor.py                          78     63    19%   26, 68-147, 164-195, 199-203, 207-223
 app/agents/council_agent.py                              42     31    26%   25, 46-188
 app/agents/image_analyzer.py                             95     78    18%   24, 61-141, 151-163, 167-175, 179-194, 208, 222-243, 247-257, 261-281
 app/agents/page_analyzer.py                              61     49    20%   25, 53-118, 130-169
 app/agents/research_agent.py                             66     52    21%   26, 59-154, 166, 180-205
-app/agents/router.py                                     63     52    17%   18-220
+app/agents/router.py                                     63     36    43%   56-76, 100-101, 119-125, 132-206, 211, 219-220
 app/agents/seo_agent.py                                 111     95    14%   25, 83-165, 177-194, 204-254, 260-294, 298-311, 315-321
-app/agents/website_scraper.py                            84     79     6%   16-296
+app/agents/website_scraper.py                            84     70    17%   37, 63-268, 279-296
 app/api/__init__.py                                       0      0   100%
 app/api/ws_gateway.py                                   134    134     0%   5-295
 app/api/ws_methods/__init__.py                            0      0   100%
-app/api/ws_methods/agents.py                            118    114     3%   10-320
+app/api/ws_methods/agents.py                            118    104    12%   21-30, 39-90, 101-141, 152-197, 211-248, 259-299, 306-315, 320
 app/api/ws_methods/ai21.py                              100    100     0%   3-222
-app/api/ws_methods/auth.py                              328    328     0%   5-839
+app/api/ws_methods/auth.py                              328    302     8%   38-61, 77-185, 200-261, 275-300, 314-395, 411-460, 474-510, 527-579, 597-650, 667-706, 723-762, 779-832, 839
 app/api/ws_methods/batch.py                              27     27     0%   3-44
 app/api/ws_methods/benchmark.py                          23     23     0%   3-51
 app/api/ws_methods/cerebras.py                           28     28     0%   3-59
-app/api/ws_methods/chat.py                              136    136     0%   5-361
+app/api/ws_methods/chat.py                              136    130     4%   13-361
 app/api/ws_methods/claude_code.py                       112    112     0%   5-317
 app/api/ws_methods/cohere.py                             26     26     0%   3-66
 app/api/ws_methods/council.py                            28     28     0%   5-83
@@ -212,32 +108,32 @@ app/api/ws_methods/scraper.py                            17     17     0%   3-37
 app/api/ws_methods/storage.py                           195    195     0%   5-515
 app/api/ws_methods/veo.py                                15     15     0%   3-30
 app/api/ws_methods/vision.py                             52     52     0%   5-117
-app/config.py                                           481     42    91%   177-188, 628-634, 638-647, 656-666, 670-674, 787, 1081, 1086, 1091, 1100-1106, 1124
+app/config.py                                           481     39    92%   177-188, 628-634, 638-647, 656-666, 670-674, 787, 1081, 1086, 1105, 1124
 app/core/__init__.py                                      3      0   100%
-app/core/auth.py                                         75     75     0%   5-189
+app/core/auth.py                                         75     54    28%   27-42, 50-62, 79-98, 110-116, 123, 135-154, 168-171, 180, 187-189
 app/core/connection_manager.py                          153    123    20%   43-64, 74-99, 114-135, 150-155, 170-189, 207-274, 287-291, 303-305, 317-318, 328-329, 338-342, 351, 363-369, 383-406, 413-422
-app/core/jsonrpc.py                                      75     75     0%   5-221
+app/core/jsonrpc.py                                      75     49    35%   34-37, 58-69, 85-90, 111-121, 135-160, 179-195, 208, 221
 app/core/middleware.py                                   39     39     0%   5-100
 app/core/rate_limiter.py                                 21     21     0%   5-55
 app/core/realtime.py                                     81     81     0%   8-156
-app/core/streaming_processor.py                         146    118    19%   34-36, 51-85, 100-109, 130-149, 158-163, 177-189, 198-204, 216-221, 242-243, 263-297, 313-333, 357, 377-382, 397-400
-app/core/supabase_client.py                              71     71     0%   5-147
-app/core/ws_auth.py                                      51     51     0%   5-155
-app/database/__init__.py                                  3      3     0%   5-8
-app/database/sqlalchemy.py                               33     33     0%   5-70
-app/database/supabase.py                                139    139     0%   5-297
-app/debug_agent_log.py                                   14     14     0%   3-35
+app/core/streaming_processor.py                         146    109    25%   51-85, 100-109, 130-149, 177-189, 198-204, 216-221, 242-243, 263-297, 313-333, 357, 377-382, 397-400
+app/core/supabase_client.py                              71     50    30%   26-28, 39-57, 69-89, 99-117, 124-133, 138, 144-147
+app/core/ws_auth.py                                      51     43    16%   36-91, 110-116, 132-155
+app/database/__init__.py                                  3      1    67%   8
+app/database/sqlalchemy.py                               33     22    33%   30-70
+app/database/supabase.py                                139    114    18%   24-25, 31-33, 41-50, 56-67, 73-81, 91-101, 105-115, 125-140, 146-157, 161-168, 176-182, 188-203, 207-212, 222-232, 238-251, 255-265, 271-282, 286-291, 297
+app/debug_agent_log.py                                   14      6    57%   22-35
 app/graphql/__init__.py                                   2      1    50%   5
-app/graphql/context.py                                   16     16     0%   3-27
-app/graphql/errors.py                                     4      4     0%   3-9
+app/graphql/context.py                                   16      6    62%   19, 23-27
+app/graphql/errors.py                                     4      1    75%   9
 app/graphql/modules/__init__.py                           0      0   100%
 app/graphql/modules/agents/__init__.py                    0      0   100%
-app/graphql/modules/agents/resolvers.py                  33     27    18%   12-67
+app/graphql/modules/agents/resolvers.py                  33     10    70%   19, 33-39, 48, 56-57, 61-62, 66-67
 app/graphql/modules/auth/__init__.py                      0      0   100%
-app/graphql/modules/auth/resolvers.py                    66     66     0%   3-125
-app/graphql/modules/auth/types.py                        28     28     0%   3-40
+app/graphql/modules/auth/resolvers.py                    66     40    39%   27-47, 59-65, 83-100, 104-109, 115-125
+app/graphql/modules/auth/types.py                        28      0   100%
 app/graphql/modules/chat/__init__.py                      0      0   100%
-app/graphql/modules/chat/resolvers.py                    26     26     0%   3-49
+app/graphql/modules/chat/resolvers.py                    26     21    19%   10-49
 app/graphql/modules/council/__init__.py                   0      0   100%
 app/graphql/modules/council/resolvers.py                 12     12     0%   3-18
 app/graphql/modules/health/__init__.py                    0      0   100%
@@ -256,10 +152,10 @@ app/graphql/modules/storage/__init__.py                   0      0   100%
 app/graphql/modules/storage/resolvers.py                 46     46     0%   3-61
 app/graphql/modules/tools/__init__.py                     0      0   100%
 app/graphql/modules/tools/resolvers.py                   40     40     0%   3-53
-app/graphql/modules/util.py                              29     29     0%   3-60
+app/graphql/modules/util.py                              29     18    38%   17-19, 24-31, 46-50, 59-60
 app/graphql/modules/vision/__init__.py                    0      0   100%
 app/graphql/modules/vision/resolvers.py                  16     16     0%   3-23
-app/graphql/schema.py                                    20     17    15%   8-53
+app/graphql/schema.py                                    20     15    25%   10-53
 app/main.py                                             137    137     0%   5-256
 app/models/__init__.py                                    5      0   100%
 app/models/claude_code_session.py                        11      0   100%
@@ -273,7 +169,7 @@ app/services/ai21/answer.py                              56     56     0%   6-12
 app/services/ai21/completion.py                          49     49     0%   6-145
 app/services/ai21/finetune.py                           175    175     0%   6-360
 app/services/ai21/library.py                            101    101     0%   6-206
-app/services/ai_service.py                               90     90     0%   5-302
+app/services/ai_service.py                               90     73    19%   67-150, 175-197, 224-243, 252-266, 278-298
 app/services/benchmark/__init__.py                        2      2     0%   5-7
 app/services/benchmark/orchestrator.py                  152    152     0%   6-430
 app/services/claude_code/__init__.py                      7      7     0%   5-25
@@ -360,8 +256,8 @@ app/services/llm/nvidia.py                              111     96    14%   44-5
 app/services/llm/ollama.py                               70     56    20%   47-60, 70-114, 124-168, 172, 176-187, 191-197
 app/services/llm/openrouter.py                          300    277     8%   50-76, 80-86, 99-143, 153-162, 172-184, 194-426, 436-617, 621-639, 644-690, 709-719
 app/services/llm/reka.py                                142    124    13%   42-49, 53-57, 69-109, 117-125, 137-217, 229-284, 290-295, 301-307
-app/services/memory/__init__.py                           2      2     0%   5-7
-app/services/memory/conversation.py                     285    285     0%   6-629
+app/services/memory/__init__.py                           2      1    50%   7
+app/services/memory/conversation.py                     285    276     3%   17-629
 app/services/metrics/__init__.py                          5      0   100%
 app/services/metrics/analytics.py                       133    118    11%   22, 37-56, 77-135, 156-245, 256-308, 324-403
 app/services/metrics/collector.py                       144    126    12%   22, 51-117, 127-144, 153-167, 178-261, 272-307, 328-390, 396-434, 438-488
@@ -420,8 +316,8 @@ app/services/reka/__init__.py                             3      0   100%
 app/services/reka/client.py                              86     72    16%   37-43, 47-51, 72-102, 118-164, 176, 188, 197-202
 app/services/reka/model_registry.py                     112     93    17%   31-60, 70-74, 86-137, 141, 174-182, 186-192, 196-199, 211-215, 227-236, 248-257, 266-281, 290-302
 app/services/s3_storage_adapter.py                       66     66     0%   10-118
-app/services/scraper/__init__.py                          5      1    80%   11
-app/services/scraper/export_handler.py                  211    206     2%   10-400
+app/services/scraper/__init__.py                          5      0   100%
+app/services/scraper/export_handler.py                  211    197     7%   32, 41, 51-145, 155-316, 325-400
 app/services/scraper/generic_extractor.py               139    123    12%   31-32, 41, 61-97, 109-161, 172-188, 192-212, 223-237, 255-277, 292-317, 328-361
 app/services/scraper/page_detector.py                    89     76    15%   80, 104-143, 152-159, 165-183, 187-207, 211-250
 app/services/scraper/structured_data.py                 183    167     9%   30-31, 44, 61-87, 96-128, 137-165, 174-193, 202-212, 221-231, 241-326, 335-410
@@ -431,17 +327,16 @@ app/utils/file_handler.py                                41     41     0%   5-99
 app/utils/helpers.py                                     56     43    23%   14-18, 23, 30-50, 57-67, 72-78, 83-88, 93-94, 103-175
 app/utils/html_parser.py                                193    169    12%   18-19, 23-24, 28-41, 45-54, 58-62, 66-76, 80-93, 98-106, 110, 129, 142-168, 186-191, 203-204, 208-217, 221-253, 257-305, 309-340, 344-389, 393
 -----------------------------------------------------------------------------------
-TOTAL                                                 18194  14997    18%
+TOTAL                                                 18194  14649    19%
 Coverage XML written to file coverage.xml
 
 =========================== short test summary info ============================
 ERROR tests/test_graphql_schema.py
 !!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
-=============================== 1 error in 8.53s ===============================
+=============================== 1 error in 9.77s ===============================
 Error: Process completed with exit code 2.
-8s
 Run appleboy/ssh-action@v1.0.3
-/usr/bin/docker run --name ed6ac345c2b7880379df929ba9_15bd5f --label 435801 --workdir /github/workspace --rm -e "ENV_FILE_CONTENT" -e "SUPABASE_ENV_CONTENT" -e "INPUT_HOST" -e "INPUT_USERNAME" -e "INPUT_KEY" -e "INPUT_PORT" -e "INPUT_ENVS" -e "INPUT_SCRIPT" -e "INPUT_PASSPHRASE" -e "INPUT_PASSWORD" -e "INPUT_SYNC" -e "INPUT_USE_INSECURE_CIPHER" -e "INPUT_CIPHER" -e "INPUT_TIMEOUT" -e "INPUT_COMMAND_TIMEOUT" -e "INPUT_KEY_PATH" -e "INPUT_FINGERPRINT" -e "INPUT_PROXY_HOST" -e "INPUT_PROXY_PORT" -e "INPUT_PROXY_USERNAME" -e "INPUT_PROXY_PASSWORD" -e "INPUT_PROXY_PASSPHRASE" -e "INPUT_PROXY_TIMEOUT" -e "INPUT_PROXY_KEY" -e "INPUT_PROXY_KEY_PATH" -e "INPUT_PROXY_FINGERPRINT" -e "INPUT_PROXY_CIPHER" -e "INPUT_PROXY_USE_INSECURE_CIPHER" -e "INPUT_SCRIPT_STOP" -e "INPUT_ENVS_FORMAT" -e "INPUT_DEBUG" -e "INPUT_ALLENVS" -e "INPUT_REQUEST_PTY" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_RESULTS_URL" -e "ACTIONS_ORCHESTRATION_ID" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp":"/github/runner_temp" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/aibackend/aibackend":"/github/workspace" 435801:373929ed6ac345c2b7880379df929ba9
+/usr/bin/docker run --name f3e85ed46fa4f4f9a45259918423a09d56f4c_386d72 --label 8f3e85 --workdir /github/workspace --rm -e "ENV_FILE_CONTENT" -e "SUPABASE_ENV_CONTENT" -e "INPUT_HOST" -e "INPUT_USERNAME" -e "INPUT_KEY" -e "INPUT_PORT" -e "INPUT_ENVS" -e "INPUT_SCRIPT" -e "INPUT_PASSPHRASE" -e "INPUT_PASSWORD" -e "INPUT_SYNC" -e "INPUT_USE_INSECURE_CIPHER" -e "INPUT_CIPHER" -e "INPUT_TIMEOUT" -e "INPUT_COMMAND_TIMEOUT" -e "INPUT_KEY_PATH" -e "INPUT_FINGERPRINT" -e "INPUT_PROXY_HOST" -e "INPUT_PROXY_PORT" -e "INPUT_PROXY_USERNAME" -e "INPUT_PROXY_PASSWORD" -e "INPUT_PROXY_PASSPHRASE" -e "INPUT_PROXY_TIMEOUT" -e "INPUT_PROXY_KEY" -e "INPUT_PROXY_KEY_PATH" -e "INPUT_PROXY_FINGERPRINT" -e "INPUT_PROXY_CIPHER" -e "INPUT_PROXY_USE_INSECURE_CIPHER" -e "INPUT_SCRIPT_STOP" -e "INPUT_ENVS_FORMAT" -e "INPUT_DEBUG" -e "INPUT_ALLENVS" -e "INPUT_REQUEST_PTY" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_RESULTS_URL" -e "ACTIONS_ORCHESTRATION_ID" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp":"/github/runner_temp" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/aibackend/aibackend":"/github/workspace" 8f3e85:ed46fa4f4f9a45259918423a09d56f4c
 ======CMD======
 set -euo pipefail
 export VERIFY_SLEEP_SECONDS=""
@@ -476,245 +371,12 @@ bash deploy/verify-stack.sh
 ======END======
 err: From https://github.com/thekoushikdurgas/aibackend
 err:  * branch            main       -> FETCH_HEAD
-err:    dde7c4d..aee0661  main       -> origin/main
-out: HEAD is now at aee0661 9/5/2026
+err:    aee0661..cb25a63  main       -> origin/main
+out: HEAD is now at cb25a63 9/5/2026
 out: [deploy] ROOT=/home/***/aibackend
-out: [deploy] docker compose --env-file … -f compose.yaml up -d --build
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"STUDIO_DEFAULT_ORGANIZATION\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"STUDIO_DEFAULT_PROJECT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"LOGFLARE_PUBLIC_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"LOGFLARE_PRIVATE_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"LOGFLARE_PUBLIC_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"PGRST_DB_SCHEMAS\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"PG_META_CRYPTO_KEY\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"SUPABASE_PUBLIC_URL\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"SMTP_PASS\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"SMTP_SENDER_NAME\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"MAILER_URLPATHS_INVITE\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"ADDITIONAL_REDIRECT_URLS\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"MAILER_URLPATHS_RECOVERY\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"SITE_URL\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"DISABLE_SIGNUP\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"SMTP_USER\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"MAILER_URLPATHS_EMAIL_CHANGE\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"ENABLE_EMAIL_SIGNUP\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"SMTP_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"MAILER_URLPATHS_CONFIRMATION\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"ENABLE_ANONYMOUS_USERS\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"API_EXTERNAL_URL\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"JWT_EXPIRY\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"ENABLE_EMAIL_AUTOCONFIRM\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"SMTP_ADMIN_EMAIL\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"SMTP_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"PGRST_DB_SCHEMAS\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"JWT_EXPIRY\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"SECRET_KEY_BASE\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"LOGFLARE_PUBLIC_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"LOGFLARE_PRIVATE_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"JWT_EXPIRY\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"DASHBOARD_PASSWORD\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"DASHBOARD_USERNAME\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"SUPABASE_PUBLIC_URL\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"GLOBAL_S3_BUCKET\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"REGION\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"STORAGE_TENANT_ID\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"S3_PROTOCOL_ACCESS_KEY_ID\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"S3_PROTOCOL_ACCESS_KEY_SECRET\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"PG_META_CRYPTO_KEY\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:08Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err:  backend Skipped - No image to be pulled 
-err:  storage Pulling 
-err:  ollama Pulling 
-err:  db Pulling 
-err:  meta Pulling 
-err:  studio Pulling 
-err:  rest Pulling 
-err:  auth Pulling 
-err:  realtime Pulling 
-err:  chromadb Pulling 
-err:  analytics Pulling 
-err:  redis Pulling 
-err:  imgproxy Pulling 
-err:  kong Pulling 
-err:  rest Pulled 
-err:  ollama Pulled 
-err:  chromadb Pulled 
-err:  kong Pulled 
-err:  auth Pulled 
-err:  realtime Pulled 
-err:  redis Pulled 
-err:  imgproxy Pulled 
-err:  analytics Pulled 
-err:  meta Pulled 
-err:  storage Pulled 
-err:  studio Pulled 
-err:  db Pulled 
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"ENABLE_EMAIL_SIGNUP\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"SMTP_USER\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"MAILER_URLPATHS_EMAIL_CHANGE\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"ENABLE_EMAIL_AUTOCONFIRM\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"SMTP_ADMIN_EMAIL\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"SMTP_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"SMTP_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"DISABLE_SIGNUP\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"JWT_EXPIRY\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"MAILER_URLPATHS_INVITE\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"MAILER_URLPATHS_CONFIRMATION\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"MAILER_URLPATHS_RECOVERY\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"ENABLE_ANONYMOUS_USERS\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"ADDITIONAL_REDIRECT_URLS\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"SMTP_PASS\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"SMTP_SENDER_NAME\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"API_EXTERNAL_URL\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"SITE_URL\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"PGRST_DB_SCHEMAS\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"JWT_EXPIRY\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"SECRET_KEY_BASE\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"LOGFLARE_PRIVATE_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"LOGFLARE_PUBLIC_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"STUDIO_DEFAULT_ORGANIZATION\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"STUDIO_DEFAULT_PROJECT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"LOGFLARE_PUBLIC_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"LOGFLARE_PUBLIC_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"PG_META_CRYPTO_KEY\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"LOGFLARE_PRIVATE_ACCESS_TOKEN\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"SUPABASE_PUBLIC_URL\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"PGRST_DB_SCHEMAS\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"SUPABASE_PUBLIC_URL\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"GLOBAL_S3_BUCKET\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"REGION\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"S3_PROTOCOL_ACCESS_KEY_ID\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"STORAGE_TENANT_ID\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"S3_PROTOCOL_ACCESS_KEY_SECRET\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"PG_META_CRYPTO_KEY\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_HOST\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_DB\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"POSTGRES_PORT\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"JWT_EXPIRY\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"DASHBOARD_PASSWORD\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="The \"DASHBOARD_USERNAME\" variable is not set. Defaulting to a blank string."
-err: time="2026-05-10T04:32:10Z" level=warning msg="COMPOSE_BAKE=false is deprecated, support for internal compose builder will be removed in next release"
-out: #0 building with "default" instance using docker driver
-out: #1 [backend internal] load build definition from Dockerfile
-out: #1 transferring dockerfile: 1.79kB done
-out: #1 DONE 0.0s
-out: #2 [backend internal] load metadata for docker.io/library/python:3.11-slim
-out: #2 DONE 0.1s
-out: #3 [backend internal] load .dockerignore
-out: #3 transferring context: 713B done
-out: #3 DONE 0.0s
-out: #4 [backend builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142
-out: #4 resolve docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142 0.0s done
-out: #4 DONE 0.0s
-out: #5 [backend internal] load build context
-out: #5 transferring context: 1.68MB 0.1s done
-out: #5 DONE 0.1s
-out: #6 [backend builder 2/6] WORKDIR /app
-out: #6 CACHED
-out: #7 [backend builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*
-out: #7 CACHED
-out: #8 [backend builder 4/6] RUN python -m venv /opt/venv
-out: #8 CACHED
-out: #9 [backend builder 5/6] COPY requirements.txt .
-out: #9 CACHED
-out: #10 [backend stage-1  3/10] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*
-out: #10 CACHED
-out: #11 [backend builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt
-out: #11 CACHED
-out: #12 [backend stage-1  4/10] COPY --from=builder /opt/venv /opt/venv
-out: #12 CACHED
-out: #13 [backend stage-1  5/10] COPY app/ ./app/
-out: #13 DONE 0.1s
-out: #14 [backend stage-1  6/10] COPY config/ ./config/
-out: #14 DONE 0.0s
-out: #15 [backend stage-1  7/10] COPY alembic.ini .
-out: #15 DONE 0.0s
-out: #16 [backend stage-1  8/10] COPY alembic/ ./alembic/
-out: #16 DONE 0.0s
-out: #17 [backend stage-1  9/10] RUN mkdir -p /app/data/chroma /app/data/logs
-out: #17 DONE 0.4s
-out: #18 [backend stage-1 10/10] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app
-out: #18 0.527 usermod: no changes
-out: #18 DONE 1.3s
-out: #19 [backend] exporting to image
-out: #19 exporting layers
-out: #19 exporting layers 0.3s done
-out: #19 exporting manifest sha256:bc745802918fb86cfecff0f98eb9e085d0d84d7fa42ff7856548c6f1443e82a6 0.0s done
-out: #19 exporting config sha256:7e9e80970b83437b96df46f14ac43aa7cb63081d24de42d309e99ade5f076529 0.0s done
-out: #19 exporting attestation manifest sha256:b22ef2527a0fc98eb085d078987dc7bb1796a65c5fc3853858a4cee7cdf6a94a 0.0s done
-out: #19 exporting manifest list sha256:4fc4dbb148d3a4b80185deb55a63ec5e17fd7a1828c71e7980bf2402a779191a 0.0s done
-out: #19 naming to docker.io/library/aibackend-backend:latest done
-out: #19 unpacking to docker.io/library/aibackend-backend:latest
-out: #19 unpacking to docker.io/library/aibackend-backend:latest 0.2s done
-out: #19 DONE 0.7s
-out: #20 [backend] resolving provenance for metadata file
-err:  backend  Built
-out: #20 DONE 0.0s
-err:  Container aibackend-ollama-1  Running
-err:  Container supabase-imgproxy  Running
-err:  Container aibackend-chromadb-1  Running
-err:  Container aibackend-redis-1  Running
-err:  Container aibackend-backend-1  Recreate
-err:  Container aibackend-backend-1  Recreated
-err:  Container supabase-db  Starting
-err:  Container supabase-db  Started
-err:  Container supabase-db  Waiting
-err:  Container supabase-db  Waiting
-err:  Container supabase-db  Waiting
-err:  Container supabase-db  Waiting
-err:  Container supabase-db  Waiting
-err:  Container supabase-db  Error
-err:  Container supabase-db  Error
-err:  Container supabase-db  Error
-err:  Container supabase-db  Error
-err:  Container supabase-db  Error
-err: dependency failed to start: container supabase-db is unhealthy
-2026/05/10 04:32:14 Process exited with status 1
+out: [deploy] ERROR: docker/supabase/supabase.env missing non-empty keys: POSTGRES_PASSWORD JWT_SECRET ANON_KEY SERVICE_ROLE_KEY PG_META_CRYPTO_KEY LOGFLARE_PUBLIC_ACCESS_TOKEN LOGFLARE_PRIVATE_ACCESS_TOKEN SECRET_KEY_BASE DASHBOARD_USERNAME DASHBOARD_PASSWORD
+2026/05/10 05:10:13 Process exited with status 1
+ubuntu@ip-172-31-45-226:~/aibackend$ sudo scripts/docker-up.sh
+ERROR: docker/supabase/supabase.env must define non-empty values for: POSTGRES_PASSWORD JWT_SECRET ANON_KEY SERVICE_ROLE_KEY PG_META_CRYPTO_KEY LOGFLARE_PUBLIC_ACCESS_TOKEN LOGFLARE_PRIVATE_ACCESS_TOKEN SECRET_KEY_BASE DASHBOARD_USERNAME DASHBOARD_PASSWORD
+See docker/supabase/supabase.env.example — replace placeholders before production.
+ubuntu@ip-172-31-45-226:~/aibackend$ 

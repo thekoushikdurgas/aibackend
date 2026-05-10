@@ -17,11 +17,13 @@ bootstrap_env_files() {
     cp -f .env.example .env
     echo "[deploy] Created .env from .env.example — replace secrets for production."
   fi
-  # Empty file still breaks interpolation; refill from example when missing or zero-length
-  if [[ (! -f docker/supabase/supabase.env) || (! -s docker/supabase/supabase.env) ]] && [[ -f docker/supabase/supabase.env.example ]]; then
+  # Missing, empty, or newline-only supabase.env (e.g. empty GitHub SUPABASE_ENV_CONTENT) must not skip the template.
+  local f="docker/supabase/supabase.env"
+  local ex="docker/supabase/supabase.env.example"
+  if [[ -f "$ex" ]] && { [[ ! -f "$f" ]] || [[ ! -s "$f" ]] || ! grep -qE '^[A-Za-z_][A-Za-z0-9_]*=.+' "$f" 2>/dev/null; }; then
     mkdir -p docker/supabase
-    cp -f docker/supabase/supabase.env.example docker/supabase/supabase.env
-    echo "[deploy] Created docker/supabase/supabase.env from supabase.env.example."
+    cp -f "$ex" "$f"
+    echo "[deploy] Created/refilled docker/supabase/supabase.env from supabase.env.example (set SUPABASE_ENV_CONTENT for production overrides)."
   fi
 }
 
@@ -54,6 +56,7 @@ validate_supabase_env() {
   done
   if ((${#missing[@]})); then
     echo "[deploy] ERROR: $f missing non-empty keys: ${missing[*]}"
+    echo "[deploy] Fix: set GitHub secret SUPABASE_ENV_CONTENT to the full supabase.env body, or edit $f on the server (see supabase.env.example)."
     exit 1
   fi
 }
