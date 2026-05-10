@@ -18,14 +18,17 @@ if [[ ! -f .env ]]; then
   fi
 fi
 
-if [[ ! -f docker/supabase/supabase.env ]]; then
-  if [[ -f docker/supabase/supabase.env.example ]]; then
-    cp -f docker/supabase/supabase.env.example docker/supabase/supabase.env
-    echo "Created docker/supabase/supabase.env from supabase.env.example — edit before docker compose."
-  fi
+# Empty supabase.env breaks ${POSTGRES_*}, JWT, Logflare, etc. interpolation (Compose warns + db unhealthy).
+if [[ (! -f docker/supabase/supabase.env) || (! -s docker/supabase/supabase.env) ]] && [[ -f docker/supabase/supabase.env.example ]]; then
+  mkdir -p docker/supabase
+  cp -f docker/supabase/supabase.env.example docker/supabase/supabase.env
+  echo "Created docker/supabase/supabase.env from supabase.env.example — edit secrets before docker compose."
 fi
 
 ENV_FILES=(--env-file .env --env-file docker/supabase/supabase.env)
+
+# Compose v2.37+ may use Bake; avoid noisy warning when docker-buildx-plugin is not installed.
+export COMPOSE_BAKE="${COMPOSE_BAKE:-false}"
 
 if [[ "${1:-}" == "dev" ]]; then
   echo "Starting development stack (compose.dev.yaml)..."

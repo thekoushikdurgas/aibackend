@@ -12,6 +12,7 @@ from strawberry.types import Info
 from app.api.ws_methods import auth as auth_handlers
 from app.core.auth import verify_supabase_token
 from app.core.jsonrpc import JSONRPCError
+from app.debug_agent_log import agent_ndjson
 from app.graphql.context import GraphQLContext
 from app.graphql.errors import raise_jsonrpc_as_graphql
 from app.graphql.modules.auth.types import (
@@ -87,6 +88,14 @@ class AuthMutation:
         try:
             raw = await auth_handlers.handle_auth_signup(params, None)
         except JSONRPCError as e:
+            # #region agent log
+            agent_ndjson(
+                "H5",
+                "resolvers.py:sign_up",
+                "GraphQL sign_up caught JSONRPCError",
+                {"code": int(e.code)},
+            )
+            # #endregion
             raise_jsonrpc_as_graphql(e)
         return _auth_payload_from_dict(raw)
 

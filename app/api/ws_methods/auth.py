@@ -3,7 +3,9 @@ Supabase Authentication WebSocket Methods
 """
 
 import logging
+import socket
 from typing import Any, Dict, Optional, cast
+from urllib.parse import urlparse
 
 import httpx
 from supabase_auth.types import (
@@ -16,7 +18,9 @@ from supabase_auth.types import (
     UserAttributes,
 )
 
+from app.config import settings
 from app.core.supabase_client import get_supabase_client, is_supabase_configured
+from app.debug_agent_log import agent_ndjson
 from app.core.ws_auth import require_auth
 from app.core.jsonrpc import JSONRPCError, JSONRPCErrorCode
 
@@ -91,6 +95,40 @@ async def handle_auth_signup(
                 JSONRPCErrorCode.INTERNAL_ERROR, "Failed to initialize Supabase client"
             )
 
+        # #region agent log
+        _host = urlparse(settings.supabase_url or "").hostname
+        agent_ndjson(
+            "H1",
+            "auth.py:handle_auth_signup",
+            "supabase_url host from settings (no secrets)",
+            {"host": _host, "scheme": urlparse(settings.supabase_url or "").scheme},
+        )
+        _dns_ok: Optional[bool] = None
+        _dns_errno: Any = None
+        if _host:
+            try:
+                socket.getaddrinfo(_host, 443, type=socket.SOCK_STREAM)
+                _dns_ok = True
+            except OSError as _dns_e:
+                _dns_ok = False
+                _dns_errno = getattr(_dns_e, "errno", None)
+        agent_ndjson(
+            "H2",
+            "auth.py:handle_auth_signup",
+            "DNS probe for supabase host",
+            {"host": _host, "dns_ok": _dns_ok, "dns_errno": _dns_errno},
+        )
+        agent_ndjson(
+            "H3",
+            "auth.py:handle_auth_signup",
+            "supabase configured flags",
+            {
+                "has_url": bool(settings.supabase_url),
+                "has_anon_key": bool(settings.supabase_anon_key),
+            },
+        )
+        # #endregion
+
         response = supabase.auth.sign_up(
             {"email": email, "password": password, "options": {"data": metadata}}
         )
@@ -130,6 +168,17 @@ async def handle_auth_signup(
     except Exception as e:
         hint = _transport_user_message(e)
         if hint:
+            # #region agent log
+            agent_ndjson(
+                "H4",
+                "auth.py:handle_auth_signup",
+                "signup mapped to SERVICE_UNAVAILABLE",
+                {
+                    "exc_type": type(e).__name__,
+                    "errno": getattr(getattr(e, "__cause__", None), "errno", None),
+                },
+            )
+            # #endregion
             logger.warning("Signup unreachable: %s", e)
             raise JSONRPCError(JSONRPCErrorCode.SERVICE_UNAVAILABLE, hint)
         logger.error("Signup error: %s", e, exc_info=True)

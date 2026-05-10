@@ -1,87 +1,187 @@
-Run appleboy/ssh-action@v1.0.3
-  with:
-    host: ***
-    username: ***
-    key: ***
-    port: 22
-    envs: ENV_FILE_CONTENT,SUPABASE_ENV_CONTENT
-    script: set -euo pipefail
-  export VERIFY_SLEEP_SECONDS=""
-  export VERIFY_STRICT_READY=""
-  
-  REPO_ROOT=""
-  REPO_ROOT="${REPO_ROOT:-/home/***/aibackend}"
-  SUB=""
-  SUB="${SUB:-}"
-  
-  BACKEND_DIR="$REPO_ROOT"
-  if [ -n "$SUB" ]; then BACKEND_DIR="$REPO_ROOT/$SUB"; fi
-  
-  cd "$REPO_ROOT"
-  git fetch origin main
-  git reset --hard origin/main
-  
-  mkdir -p "$BACKEND_DIR/docker/supabase"
-  cd "$BACKEND_DIR"
-  
-  # Env passthrough avoids bash expanding ${…} inside the secret body (would break with set -u).
-  printf '%s\n' "${ENV_FILE_CONTENT:-}" > .env
-  chmod 600 .env || true
-  
-  printf '%s\n' "${SUPABASE_ENV_CONTENT:-}" > docker/supabase/supabase.env
-  chmod 600 docker/supabase/supabase.env || true
-  
-  bash deploy/remote-deploy.sh
-  bash deploy/verify-stack.sh
-  
-    timeout: 30s
-    command_timeout: 10m
-    proxy_port: 22
-    proxy_timeout: 30s
-  env:
-    ENV_FILE_CONTENT: ***
-  
-    SUPABASE_ENV_CONTENT: 
-/usr/bin/docker run --name a79611359f67359d84ef998757d5d3575ad1c_8bceb6 --label 9a7961 --workdir /github/workspace --rm -e "ENV_FILE_CONTENT" -e "SUPABASE_ENV_CONTENT" -e "INPUT_HOST" -e "INPUT_USERNAME" -e "INPUT_KEY" -e "INPUT_PORT" -e "INPUT_ENVS" -e "INPUT_SCRIPT" -e "INPUT_PASSPHRASE" -e "INPUT_PASSWORD" -e "INPUT_SYNC" -e "INPUT_USE_INSECURE_CIPHER" -e "INPUT_CIPHER" -e "INPUT_TIMEOUT" -e "INPUT_COMMAND_TIMEOUT" -e "INPUT_KEY_PATH" -e "INPUT_FINGERPRINT" -e "INPUT_PROXY_HOST" -e "INPUT_PROXY_PORT" -e "INPUT_PROXY_USERNAME" -e "INPUT_PROXY_PASSWORD" -e "INPUT_PROXY_PASSPHRASE" -e "INPUT_PROXY_TIMEOUT" -e "INPUT_PROXY_KEY" -e "INPUT_PROXY_KEY_PATH" -e "INPUT_PROXY_FINGERPRINT" -e "INPUT_PROXY_CIPHER" -e "INPUT_PROXY_USE_INSECURE_CIPHER" -e "INPUT_SCRIPT_STOP" -e "INPUT_ENVS_FORMAT" -e "INPUT_DEBUG" -e "INPUT_ALLENVS" -e "INPUT_REQUEST_PTY" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_RESULTS_URL" -e "ACTIONS_ORCHESTRATION_ID" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp":"/github/runner_temp" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/aibackend/aibackend":"/github/workspace" 9a7961:1359f67359d84ef998757d5d3575ad1c
-======CMD======
-set -euo pipefail
-export VERIFY_SLEEP_SECONDS=""
-export VERIFY_STRICT_READY=""
+ubuntu@ip-172-31-45-226:~/aibackend$ sudo scripts/docker-up.sh
+Starting production-style stack (compose.yaml)...
+WARN[0000] The "LOGFLARE_PRIVATE_ACCESS_TOKEN" variable is not set. Defaulting to a blank string. 
+WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string.
+WARN[0000] The "PG_META_CRYPTO_KEY" variable is not set. Defaulting to a blank string.
+WARN[0000] The "STUDIO_DEFAULT_ORGANIZATION" variable is not set. Defaulting to a blank string.
+WARN[0000] The "SUPABASE_PUBLIC_URL" variable is not set. Defaulting to a blank string.
+WARN[0000] The "LOGFLARE_PUBLIC_ACCESS_TOKEN" variable is not set. Defaulting to a blank string.
+WARN[0000] The "LOGFLARE_PUBLIC_ACCESS_TOKEN" variable is not set. Defaulting to a blank string.
+WARN[0000] The "STUDIO_DEFAULT_PROJECT" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string.
+WARN[0000] The "PGRST_DB_SCHEMAS" variable is not set. Defaulting to a blank string.
+WARN[0000] The "DASHBOARD_PASSWORD" variable is not set. Defaulting to a blank string.
+WARN[0000] The "DASHBOARD_USERNAME" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string.
+WARN[0000] The "SITE_URL" variable is not set. Defaulting to a blank string.
+WARN[0000] The "ADDITIONAL_REDIRECT_URLS" variable is not set. Defaulting to a blank string.
+WARN[0000] The "ENABLE_EMAIL_AUTOCONFIRM" variable is not set. Defaulting to a blank string.
+WARN[0000] The "SMTP_PASS" variable is not set. Defaulting to a blank string.
+WARN[0000] The "SMTP_SENDER_NAME" variable is not set. Defaulting to a blank string.
+WARN[0000] The "MAILER_URLPATHS_RECOVERY" variable is not set. Defaulting to a blank string. 
+WARN[0000] The "MAILER_URLPATHS_EMAIL_CHANGE" variable is not set. Defaulting to a blank string.
+WARN[0000] The "ENABLE_EMAIL_SIGNUP" variable is not set. Defaulting to a blank string.
+WARN[0000] The "API_EXTERNAL_URL" variable is not set. Defaulting to a blank string.
+WARN[0000] The "JWT_EXPIRY" variable is not set. Defaulting to a blank string.
+WARN[0000] The "SMTP_ADMIN_EMAIL" variable is not set. Defaulting to a blank string.
+WARN[0000] The "SMTP_PORT" variable is not set. Defaulting to a blank string.
+WARN[0000] The "SMTP_USER" variable is not set. Defaulting to a blank string.
+WARN[0000] The "MAILER_URLPATHS_INVITE" variable is not set. Defaulting to a blank string.
+WARN[0000] The "DISABLE_SIGNUP" variable is not set. Defaulting to a blank string.
+WARN[0000] The "SMTP_HOST" variable is not set. Defaulting to a blank string. 
+WARN[0000] The "MAILER_URLPATHS_CONFIRMATION" variable is not set. Defaulting to a blank string.
+WARN[0000] The "ENABLE_ANONYMOUS_USERS" variable is not set. Defaulting to a blank string.
+WARN[0000] The "JWT_EXPIRY" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string.
+WARN[0000] The "PGRST_DB_SCHEMAS" variable is not set. Defaulting to a blank string. 
+WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string.
+WARN[0000] The "REGION" variable is not set. Defaulting to a blank string.
+WARN[0000] The "S3_PROTOCOL_ACCESS_KEY_ID" variable is not set. Defaulting to a blank string.
+WARN[0000] The "S3_PROTOCOL_ACCESS_KEY_SECRET" variable is not set. Defaulting to a blank string.
+WARN[0000] The "SUPABASE_PUBLIC_URL" variable is not set. Defaulting to a blank string.
+WARN[0000] The "GLOBAL_S3_BUCKET" variable is not set. Defaulting to a blank string.
+WARN[0000] The "STORAGE_TENANT_ID" variable is not set. Defaulting to a blank string.
+WARN[0000] The "JWT_EXPIRY" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string.
+WARN[0000] The "SECRET_KEY_BASE" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string. 
+WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_DB" variable is not set. Defaulting to a blank string.
+WARN[0000] The "PG_META_CRYPTO_KEY" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_HOST" variable is not set. Defaulting to a blank string.
+WARN[0000] The "POSTGRES_PORT" variable is not set. Defaulting to a blank string.
+WARN[0000] The "LOGFLARE_PUBLIC_ACCESS_TOKEN" variable is not set. Defaulting to a blank string.
+WARN[0000] The "LOGFLARE_PRIVATE_ACCESS_TOKEN" variable is not set. Defaulting to a blank string.
+[+] Running 152/152
+ ✔ chromadb Pulled                                                                                                                                                                                                                                                                                                                  75.4s 
+ ✔ storage Pulled                                                                                                                                                                                                                                                                                                                   99.9s 
+ ✔ kong Pulled                                                                                                                                                                                                                                                                                                                      57.6s 
+ ✔ rest Pulled                                                                                                                                                                                                                                                                                                                       7.7s 
+ ✔ redis Pulled                                                                                                                                                                                                                                                                                                                     11.6s 
+ ✔ auth Pulled                                                                                                                                                                                                                                                                                                                      17.3s 
+ ✔ analytics Pulled                                                                                                                                                                                                                                                                                                                 79.7s 
+ ✔ realtime Pulled                                                                                                                                                                                                                                                                                                                  66.5s 
+ ✔ imgproxy Pulled                                                                                                                                                                                                                                                                                                                  41.2s 
+ ✔ meta Pulled                                                                                                                                                                                                                                                                                                                      53.7s 
+ ✔ studio Pulled                                                                                                                                                                                                                                                                                                                    94.9s 
+ ✔ ollama Pulled                                                                                                                                                                                                                                                                                                                   209.5s 
+ ✔ db Pulled                                                                                                                                                                                                                                                                                                                       142.7s 
 
-REPO_ROOT=""
-REPO_ROOT="${REPO_ROOT:-/home/***/aibackend}"
-SUB=""
-SUB="${SUB:-}"
 
-BACKEND_DIR="$REPO_ROOT"
-if [ -n "$SUB" ]; then BACKEND_DIR="$REPO_ROOT/$SUB"; fi
 
-cd "$REPO_ROOT"
-git fetch origin main
-git reset --hard origin/main
 
-mkdir -p "$BACKEND_DIR/docker/supabase"
-cd "$BACKEND_DIR"
 
-# Env passthrough avoids bash expanding ${…} inside the secret body (would break with set -u).
-printf '%s\n' "${ENV_FILE_CONTENT:-}" > .env
-chmod 600 .env || true
 
-printf '%s\n' "${SUPABASE_ENV_CONTENT:-}" > docker/supabase/supabase.env
-chmod 600 docker/supabase/supabase.env || true
 
-bash deploy/remote-deploy.sh
-bash deploy/verify-stack.sh
 
-======END======
-err: From https://github.com/thekoushikdurgas/aibackend
-err:  * branch            main       -> FETCH_HEAD
-err:    d6ca9c5..efcfa33  main       -> origin/main
-out: HEAD is now at efcfa33 9/5/2026
-out: [deploy] ROOT=/home/***/aibackend
-out: [deploy] Docker not available — repo updated only.
-out: [deploy] Start the app with: uvicorn app.main:app --host 0.0.0.0 --port 8000
-out: [verify] Waiting 15s for containers to become healthy...
-out: [verify] FastAPI GET http://127.0.0.1:8000/health
-err: curl: (7) Failed to connect to 127.0.0.1 port 8000 after 0 ms: Could not connect to server
-2026/05/10 01:14:02 Process exited with status 7
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+WARN[0209] Docker Compose is configured to build using Bake, but buildx isn't installed 
+[+] Building 721.5s (20/20) FINISHED                                                                                                                                                                                                                                                                                       docker:default
+ => [backend internal] load build definition from Dockerfile                                                                                                                                                                                                                                                                         0.0s
+ => => transferring dockerfile: 1.79kB                                                                                                                                                                                                                                                                                               0.0s 
+ => [backend internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                                                                                                                          0.4s 
+ => [backend internal] load .dockerignore                                                                                                                                                                                                                                                                                            0.0s
+ => => transferring context: 713B                                                                                                                                                                                                                                                                                                    0.0s
+ => [backend internal] load build context                                                                                                                                                                                                                                                                                            0.2s 
+ => => transferring context: 1.68MB                                                                                                                                                                                                                                                                                                  0.1s 
+ => [backend builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142                                                                                                                                                                                            3.0s 
+ => => resolve docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142                                                                                                                                                                                                            0.0s 
+ => => sha256:6f92665ed17afc6850bfbeb3fb681d6e1038fe59e2020ab126b859ec572da21b 250B / 250B                                                                                                                                                                                                                                           0.1s
+ => => sha256:01f59aef9b5c2caa2870aa8b9b8b5806ea3c36d893cd6e2467e252fc1b1fea46 1.29MB / 1.29MB                                                                                                                                                                                                                                       0.1s
+ => => sha256:fb4c70443787d9baef637d0b257f21b935d5feb6481f1ccdf4d07f48b2e393c1 14.37MB / 14.37MB                                                                                                                                                                                                                                     0.5s 
+ => => sha256:57fb71246055257a374deb7564ceca10f43c2352572b501efc08add5d24ebb61 29.78MB / 29.78MB                                                                                                                                                                                                                                     1.0s 
+ => => extracting sha256:57fb71246055257a374deb7564ceca10f43c2352572b501efc08add5d24ebb61                                                                                                                                                                                                                                            1.0s
+ => => extracting sha256:01f59aef9b5c2caa2870aa8b9b8b5806ea3c36d893cd6e2467e252fc1b1fea46                                                                                                                                                                                                                                            0.1s
+ => => extracting sha256:fb4c70443787d9baef637d0b257f21b935d5feb6481f1ccdf4d07f48b2e393c1                                                                                                                                                                                                                                            0.7s
+ => => extracting sha256:6f92665ed17afc6850bfbeb3fb681d6e1038fe59e2020ab126b859ec572da21b                                                                                                                                                                                                                                            0.0s
+ => [backend builder 2/6] WORKDIR /app                                                                                                                                                                                                                                                                                               4.4s 
+ => [backend builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                   15.4s
+ => [backend stage-1  3/10] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                  7.6s 
+ => [backend builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                                                                                                                               5.9s
+ => [backend builder 5/6] COPY requirements.txt .                                                                                                                                                                                                                                                                                    0.1s
+ => [backend builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                                                                                                                       157.9s
+ => [backend stage-1  4/10] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                                                                                                                                 85.2s
+ => [backend stage-1  5/10] COPY app/ ./app/                                                                                                                                                                                                                                                                                         0.6s
+ => [backend stage-1  6/10] COPY config/ ./config/                                                                                                                                                                                                                                                                                   0.0s
+ => [backend stage-1  7/10] COPY alembic.ini .                                                                                                                                                                                                                                                                                       0.0s
+ => [backend stage-1  8/10] COPY alembic/ ./alembic/                                                                                                                                                                                                                                                                                 0.0s
+ => [backend stage-1  9/10] RUN mkdir -p /app/data/chroma /app/data/logs                                                                                                                                                                                                                                                             0.4s
+ => [backend stage-1 10/10] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                                                                                                                                  1.5s
+ => [backend] exporting to image                                                                                                                                                                                                                                                                                                   394.5s
+ => => exporting layers                                                                                                                                                                                                                                                                                                            337.1s
+ => => exporting manifest sha256:256f86eff333910e7de5d4f2bd6f3c21f067aea3c97d5d8b4fcea460c77441f4                                                                                                                                                                                                                                    0.0s
+ => => exporting config sha256:7cf3500b901c206560de97a733c827abce196eaf687af251d5acb9f8a9abcd71                                                                                                                                                                                                                                      0.0s 
+ => => exporting attestation manifest sha256:0c6fe06de6f3bea4bd47dbb453c6a695c8632f4c880dc19db79cff15bb893973                                                                                                                                                                                                                        0.0s 
+ => => exporting manifest list sha256:7d127617588785e46298c400297591c14047ab5c1c6d09f03101c5496882a084                                                                                                                                                                                                                               0.0s 
+ => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                          0.0s 
+ => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                      57.3s 
+ => [backend] resolving provenance for metadata file                                                                                                                                                                                                                                                                                 0.0s
+[+] Running 23/23
+ ✔ backend                                   Built                                                                                                                                                                                                                                                                                   0.0s 
+ ✔ Network aibackend_durgasai_network        Created                                                                                                                                                                                                                                                                                 0.1s  ✔ Volume aibackend_db_config                Created                                                                                                                                                                                                                                                                                 0.0s 
+ ✔ Volume aibackend_chroma_data              Created                                                                                                                                                                                                                                                                                 0.0s 
+ ✔ Volume aibackend_backend_data             Created                                                                                                                                                                                                                                                                                 0.0s 
+ ✔ Volume aibackend_ollama_data              Created                                                                                                                                                                                                                                                                                 0.0s 
+ ✔ Volume aibackend_storage_data             Created                                                                                                                                                                                                                                                                                 0.0s 
+ ✔ Volume aibackend_redis_data               Created                                                                                                                                                                                                                                                                                 0.0s 
+ ✔ Volume aibackend_supabase_db_data         Created                                                                                                                                                                                                                                                                                 0.0s 
+ ✔ Container supabase-imgproxy               Started                                                                                                                                                                                                                                                                                 5.9s 
+ ✘ Container supabase-db                     Error                                                                                                                                                                                                                                                                                   7.4s 
+ ✔ Container aibackend-redis-1               Started                                                                                                                                                                                                                                                                                 6.1s 
+ ✔ Container aibackend-chromadb-1            Started                                                                                                                                                                                                                                                                                 5.7s 
+ ✔ Container aibackend-ollama-1              Started                                                                                                                                                                                                                                                                                 5.8s 
+ ✔ Container realtime-dev.supabase-realtime  Created                                                                                                                                                                                                                                                                                 0.2s 
+ ✔ Container supabase-auth                   Created                                                                                                                                                                                                                                                                                 0.2s 
+ ✔ Container supabase-analytics              Created                                                                                                                                                                                                                                                                                 0.2s 
+ ✔ Container supabase-rest                   Created                                                                                                                                                                                                                                                                                 0.1s 
+ ✔ Container supabase-meta                   Created                                                                                                                                                                                                                                                                                 0.2s 
+ ✔ Container supabase-storage                Created                                                                                                                                                                                                                                                                                 0.1s 
+ ✔ Container supabase-studio                 Created                                                                                                                                                                                                                                                                                 0.1s 
+ ✔ Container supabase-kong                   Created                                                                                                                                                                                                                                                                                 0.1s 
+ ✔ Container aibackend-backend-1             Created                                                                                                                                                                                                                                                                                 0.1s 
+dependency failed to start: container supabase-db is unhealthy
+ubuntu@ip-172-31-45-226:~/aibackend$ 

@@ -32,6 +32,8 @@ compose_env_args() {
   else
     echo "[deploy] WARNING: docker/supabase/supabase.env missing or empty — Supabase/Kong compose vars may fail."
   fi
+  # Compose v2.37+ Bake requires buildx; avoid noisy warning on minimal Docker installs.
+  export COMPOSE_BAKE="${COMPOSE_BAKE:-false}"
 }
 
 if ! command -v docker >/dev/null 2>&1; then
