@@ -87,7 +87,7 @@ Format response as JSON:
             # Parse HTML and get SEO data
             seo_data = {}
             if page_data.html or page_data.body_html:
-                html_content = page_data.html or page_data.body_html
+                html_content = (page_data.html or page_data.body_html) or ""
                 try:
                     parser = HTMLParser(html_content)
                     seo_data = {

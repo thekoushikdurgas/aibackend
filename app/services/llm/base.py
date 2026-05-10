@@ -15,7 +15,7 @@ class LLMResponse:
     text: str
     model: str
     provider: str
-    usage: Optional[Dict[str, int]] = None
+    usage: Optional[Dict[str, Any]] = None
     finish_reason: Optional[str] = None
     raw_response: Optional[Any] = None
 

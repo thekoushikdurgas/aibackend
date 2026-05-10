@@ -3,7 +3,7 @@ Groq method handlers
 """
 
 import logging
-from typing import Dict, Any, Optional, AsyncGenerator
+from typing import Any, AsyncGenerator, Dict, Optional, Union
 
 from app.services.llm.groq import GroqProvider
 from app.services.llm.groq_models import GroqModelSelector
@@ -20,7 +20,7 @@ async def handle_groq_chat_completions(
     params: Dict[str, Any],
     user: Optional[Dict[str, Any]] = None,
     connection_id: Optional[str] = None,
-) -> Dict[str, Any]:
+) -> Union[Dict[str, Any], AsyncGenerator[Dict[str, Any], None]]:
     """Handle groq.chat.completions method"""
     messages = params.get("messages", [])
     model = params.get("model")
@@ -103,15 +103,20 @@ async def handle_groq_vision_analyze(
 
     # Handle base64 file
     file_result = handle_file_param({"file": image}, "file")
-    image_data = None
+    image_data: Any = None
     if file_result:
         image_data, _ = file_result
     elif isinstance(image, str):
         image_data = image
 
+    if image_data is None:
+        raise JSONRPCError(
+            JSONRPCErrorCode.INVALID_PARAMS, "Could not decode image parameter"
+        )
+
     try:
         service = GroqVisionService()
-        result = await service.analyze(image=image_data, prompt=prompt)
+        result = await service.analyze_image(image=image_data, prompt=prompt)
         return result
     except Exception as e:
         logger.error(f"Groq vision error: {e}")
@@ -134,11 +139,16 @@ async def handle_groq_transcribe(
 
     # Handle base64 file
     file_result = handle_file_param({"file": audio}, "file")
-    audio_data = None
+    audio_data: Any = None
     if file_result:
         audio_data, _ = file_result
     elif isinstance(audio, str):
         audio_data = audio
+
+    if audio_data is None:
+        raise JSONRPCError(
+            JSONRPCErrorCode.INVALID_PARAMS, "Could not decode audio parameter"
+        )
 
     try:
         service = GroqSpeechToTextService()
@@ -158,9 +168,11 @@ async def handle_groq_models_list(
 ) -> Dict[str, Any]:
     """Handle groq.models.list method"""
     try:
-        selector = GroqModelSelector()
-        models = selector.list_models()
-        return {"object": "list", "data": models}
+        models = GroqModelSelector.list_models_by_category()
+        return {
+            "object": "list",
+            "data": [{"id": mid, "object": "model"} for mid in models],
+        }
     except Exception as e:
         logger.error(f"Groq models list error: {e}")
         raise JSONRPCError(

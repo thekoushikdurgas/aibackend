@@ -29,7 +29,7 @@ async def handle_vision_analyze(
 
     # Handle base64 file
     file_result = handle_file_param({"file": image}, "file")
-    image_data = None
+    image_data: str | bytes | None = None
     if file_result:
         image_data, _ = file_result
     elif isinstance(image, str):
@@ -37,6 +37,11 @@ async def handle_vision_analyze(
         image_data = image
 
     config = params.get("config", {})
+
+    if image_data is None:
+        raise JSONRPCError(
+            JSONRPCErrorCode.INVALID_PARAMS, "Could not resolve image data"
+        )
 
     try:
         service = GeminiVisionService()

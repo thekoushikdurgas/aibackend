@@ -21,7 +21,7 @@ async def handle_nvidia_chat_completions(
     params: Dict[str, Any],
     user: Optional[Dict[str, Any]] = None,
     connection_id: Optional[str] = None,
-) -> Dict[str, Any]:
+) -> Dict[str, Any] | AsyncGenerator[Dict[str, Any], None]:
     """Handle nvidia.chat.completions method"""
     messages = params.get("messages", [])
     model = params.get("model")
@@ -146,9 +146,9 @@ async def handle_nvidia_embeddings(
     try:
         service = NVIDIAEmbeddingService()
         if texts:
-            result = await service.embed_batch(texts=texts, model=model)
+            result = await service.embed(texts, model=model)
         else:
-            result = await service.embed(text=text, model=model)
+            result = await service.embed(text or "", model=model)
         return result
     except Exception as e:
         logger.error(f"NVIDIA embeddings error: {e}")

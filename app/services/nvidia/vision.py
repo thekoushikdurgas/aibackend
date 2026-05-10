@@ -122,10 +122,12 @@ class NVIDIAVisionService:
             logger.warning(f"Model {model} not in registry, proceeding anyway")
 
         # Prepare image content
-        image_content = self._prepare_image_content(image, image_url)
+        image_content = self._prepare_image_content(
+            image if image is not None else "", image_url
+        )
 
         # Build messages
-        messages = [
+        messages: list[dict[str, Any]] = [
             {
                 "role": "user",
                 "content": [{"type": "text", "text": prompt}, image_content],
@@ -215,7 +217,7 @@ class NVIDIAVisionService:
             logger.warning(f"Model {model} not in registry, proceeding anyway")
 
         # Build content array with text and all images
-        content = [{"type": "text", "text": prompt}]
+        content: list[dict[str, Any]] = [{"type": "text", "text": prompt}]
 
         # Add images
         if image_urls:
@@ -228,7 +230,7 @@ class NVIDIAVisionService:
                 content.append(image_content)
 
         # Build messages
-        messages = [{"role": "user", "content": content}]
+        messages: list[dict[str, Any]] = [{"role": "user", "content": content}]
 
         # Build request payload
         payload: Dict[str, Any] = {

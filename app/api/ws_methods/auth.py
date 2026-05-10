@@ -3,7 +3,17 @@ Supabase Authentication WebSocket Methods
 """
 
 import logging
-from typing import Dict, Any, Optional
+from typing import Any, Dict, Optional, cast
+
+from supabase_auth.types import (
+    Options,
+    Provider,
+    SignInWithEmailAndPasswordlessCredentials,
+    SignInWithEmailAndPasswordlessCredentialsOptions,
+    SignInWithOAuthCredentials,
+    SignInWithOAuthCredentialsOptions,
+    UserAttributes,
+)
 
 from app.core.supabase_client import get_supabase_client, is_supabase_configured
 from app.core.ws_auth import require_auth
@@ -50,7 +60,7 @@ async def handle_auth_signup(
             {"email": email, "password": password, "options": {"data": metadata}}
         )
 
-        result = {
+        result: Dict[str, Any] = {
             "success": True,
             "user": None,
             "session": None,
@@ -219,11 +229,17 @@ async def handle_auth_refresh(
             import httpx
             from app.config import settings
 
+            anon_key = settings.supabase_anon_key
+            if not anon_key:
+                raise JSONRPCError(
+                    JSONRPCErrorCode.INTERNAL_ERROR,
+                    "Supabase anon key is not configured",
+                )
             with httpx.Client() as client:
                 resp = client.post(
                     f"{settings.supabase_url}/auth/v1/token?grant_type=refresh_token",
                     headers={
-                        "apikey": settings.supabase_anon_key,
+                        "apikey": anon_key,
                         "Content-Type": "application/json",
                     },
                     json={"refresh_token": refresh_token},
@@ -360,8 +376,12 @@ async def handle_auth_reset_password_request(
             )
 
         # Request password reset
+        reset_opts: Dict[str, str] = {}
+        redirect_to = params.get("redirect_to")
+        if isinstance(redirect_to, str) and redirect_to.strip():
+            reset_opts["redirect_to"] = redirect_to
         supabase.auth.reset_password_for_email(
-            email, {"redirect_to": params.get("redirect_to")}  # Optional redirect URL
+            email, cast(Options, reset_opts) if reset_opts else None
         )
 
         return {"success": True, "message": "Password reset email sent"}
@@ -406,14 +426,18 @@ async def handle_auth_reset_password(
             )
 
         # Verify recovery token before updating password.
-        verify_response = supabase.auth.verify_otp({"type": "recovery", "token": token})
+        verify_response = supabase.auth.verify_otp(
+            cast(Any, {"type": "recovery", "token": token})
+        )
         if not verify_response or not getattr(verify_response, "session", None):
             raise JSONRPCError(
                 JSONRPCErrorCode.AUTHENTICATION_ERROR, "Invalid or expired reset token"
             )
 
         # Update password with verified recovery session
-        response = supabase.auth.update_user({"password": new_password})
+        response = supabase.auth.update_user(
+            cast(UserAttributes, {"password": new_password})
+        )
 
         return {
             "success": True,
@@ -475,7 +499,7 @@ async def handle_auth_update_user(
                 JSONRPCErrorCode.INVALID_PARAMS, "No update data provided"
             )
 
-        response = supabase.auth.update_user(update_data)
+        response = supabase.auth.update_user(cast(UserAttributes, update_data))
 
         if not response.user:
             raise JSONRPCError(JSONRPCErrorCode.INTERNAL_ERROR, "Failed to update user")
@@ -527,12 +551,16 @@ async def handle_auth_magic_link(
             )
 
         # Send magic link
-        supabase.auth.sign_in_with_otp(
-            {
-                "email": email,
-                "options": {"email_redirect_to": params.get("redirect_to")},
-            }
-        )
+        magic_opts: Dict[str, str] = {}
+        magic_redirect = params.get("redirect_to")
+        if isinstance(magic_redirect, str) and magic_redirect.strip():
+            magic_opts["email_redirect_to"] = magic_redirect
+        otp_cred: SignInWithEmailAndPasswordlessCredentials = {"email": email}
+        if magic_opts:
+            otp_cred["options"] = cast(
+                SignInWithEmailAndPasswordlessCredentialsOptions, magic_opts
+            )
+        supabase.auth.sign_in_with_otp(otp_cred)
 
         return {"success": True, "message": "Magic link email sent"}
 
@@ -573,12 +601,16 @@ async def handle_auth_oauth_url(
             )
 
         # Get OAuth URL
-        response = supabase.auth.sign_in_with_oauth(
-            {
-                "provider": provider,
-                "options": {"redirect_to": params.get("redirect_to")},
-            }
-        )
+        oauth_opts: Dict[str, str] = {}
+        oauth_redirect = params.get("redirect_to")
+        if isinstance(oauth_redirect, str) and oauth_redirect.strip():
+            oauth_opts["redirect_to"] = oauth_redirect
+        oauth_cred: SignInWithOAuthCredentials = {
+            "provider": cast(Provider, provider),
+        }
+        if oauth_opts:
+            oauth_cred["options"] = cast(SignInWithOAuthCredentialsOptions, oauth_opts)
+        response = supabase.auth.sign_in_with_oauth(oauth_cred)
 
         return {"success": True, "url": response.url, "provider": provider}
 

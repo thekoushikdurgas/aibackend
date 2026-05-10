@@ -68,7 +68,7 @@ class ImagenService:
         url = f"{self.base_url}/models/{self.model}:predict"
         headers = {"x-goog-api-key": self.api_key}
 
-        payload = {"instances": [{"prompt": prompt}], "parameters": {}}
+        payload: dict[str, Any] = {"instances": [{"prompt": prompt}], "parameters": {}}
 
         if aspect_ratio:
             payload["parameters"]["aspectRatio"] = aspect_ratio

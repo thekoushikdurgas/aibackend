@@ -59,7 +59,7 @@ Format your response as JSON with the following structure:
             # Parse HTML if available
             html_analysis = {}
             if page_data.html or page_data.body_html:
-                html_content = page_data.html or page_data.body_html
+                html_content = (page_data.html or page_data.body_html) or ""
                 try:
                     parser = HTMLParser(html_content)
                     html_analysis = parser.get_full_analysis()

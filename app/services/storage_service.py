@@ -67,7 +67,7 @@ class StorageService:
         try:
             bucket = self._get_bucket(bucket_type)
 
-            options = {}
+            options: dict[str, Any] = {}
             if content_type:
                 options["content-type"] = content_type
             if metadata:

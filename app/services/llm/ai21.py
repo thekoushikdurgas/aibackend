@@ -227,11 +227,11 @@ class AI21Provider(BaseLLMProvider):
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 async with client.stream(
                     "POST", url, json=payload, headers=headers
-                ) as response:
-                    response.raise_for_status()
+                ) as http_resp:
+                    http_resp.raise_for_status()
 
                     buffer = ""
-                    async for chunk in response.aiter_text():
+                    async for chunk in http_resp.aiter_text():
                         buffer += chunk
 
                         # Process Server-Sent Events (SSE) format
@@ -266,10 +266,10 @@ class AI21Provider(BaseLLMProvider):
         except httpx.HTTPError as e:
             logger.error(f"AI21 streaming error: {e}")
             # Fallback to non-streaming
-            response = await self.generate(
+            llm_resp = await self.generate(
                 prompt, config, context, conversation_history
             )
-            yield response.text
+            yield llm_resp.text
 
     async def health_check(self) -> bool:
         """Check if AI21 API is available"""

@@ -342,9 +342,10 @@ class RAGRetriever:
             try:
                 from app.utils.html_parser import HTMLParser
 
-                html = page_data.html or page_data.body_html
-                parser = HTMLParser(html)
-                return parser.get_text_content(max_length=50000)
+                html_content = (page_data.html or page_data.body_html) or ""
+                if html_content:
+                    parser = HTMLParser(html_content)
+                    return parser.get_text_content(max_length=50000)
             except Exception as e:
                 logger.warning(f"Failed to parse HTML: {e}")
 

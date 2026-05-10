@@ -63,7 +63,7 @@ class HyperbolicProvider(BaseLLMProvider):
         Uses OpenAI-compatible format with system/user/assistant roles.
         Supports multimodal content (text and image_url).
         """
-        messages = []
+        messages: list[dict[str, Any]] = []
 
         # Add system message if provided
         if system_prompt:
@@ -257,10 +257,10 @@ class HyperbolicProvider(BaseLLMProvider):
         except Exception as e:
             logger.error(f"Hyperbolic streaming error: {e}")
             # Fallback to non-streaming
-            response = await self.generate(
+            llm_resp = await self.generate(
                 prompt, config, context, conversation_history
             )
-            yield response.text
+            yield llm_resp.text
 
     async def health_check(self) -> bool:
         """Check if Hyperbolic API is available"""
@@ -277,7 +277,7 @@ class HyperbolicProvider(BaseLLMProvider):
         """List available Hyperbolic models"""
         return TEXT_MODELS + VISION_MODELS
 
-    def _prepare_image_content(self, image: Union[str, bytes]) -> Dict[str, str]:
+    def _prepare_image_content(self, image: Union[str, bytes]) -> Dict[str, Any]:
         """
         Prepare image content for multimodal message format.
 
@@ -344,12 +344,12 @@ class HyperbolicProvider(BaseLLMProvider):
         model = config.model or settings.hyperbolic_default_vision_model
 
         # Build multimodal message content
-        content_items = [{"type": "text", "text": prompt}]
+        content_items: list[dict[str, Any]] = [{"type": "text", "text": prompt}]
         for image in images:
             content_items.append(self._prepare_image_content(image))
 
         # Build messages with multimodal content
-        messages = []
+        messages: list[dict[str, Any]] = []
 
         # Add system message
         if config.system_prompt:

@@ -96,7 +96,7 @@ class OpenRouterProvider(BaseLLMProvider):
         Build messages array for OpenRouter chat completions API.
         Uses OpenAI-compatible format with system/user/assistant roles.
         """
-        messages = []
+        messages: list[dict[str, Any]] = []
 
         # Add system message if provided
         if system_prompt:
@@ -244,7 +244,7 @@ class OpenRouterProvider(BaseLLMProvider):
         fallback_models = settings.openrouter_fallback_models or []
         models_to_try = [model] + fallback_models
 
-        last_error = None
+        last_error: BaseException | None = None
         last_status_code = None
 
         for attempt_model in models_to_try:
@@ -477,11 +477,11 @@ class OpenRouterProvider(BaseLLMProvider):
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 async with client.stream(
                     "POST", url, json=payload, headers=headers
-                ) as response:
-                    response.raise_for_status()
+                ) as http_resp:
+                    http_resp.raise_for_status()
 
                     buffer = ""
-                    async for chunk in response.aiter_text():
+                    async for chunk in http_resp.aiter_text():
                         buffer += chunk
 
                         # Process Server-Sent Events (SSE) format
@@ -570,10 +570,10 @@ class OpenRouterProvider(BaseLLMProvider):
             )
             # Fallback to non-streaming
             try:
-                response = await self.generate(
+                llm_resp = await self.generate(
                     prompt, config, context, conversation_history
                 )
-                yield response.text
+                yield llm_resp.text
             except Exception as fallback_error:
                 logger.error(f"Fallback generation also failed: {fallback_error}")
                 raise Exception(
@@ -593,10 +593,10 @@ class OpenRouterProvider(BaseLLMProvider):
             )
             # Fallback to non-streaming
             try:
-                response = await self.generate(
+                llm_resp = await self.generate(
                     prompt, config, context, conversation_history
                 )
-                yield response.text
+                yield llm_resp.text
             except Exception as fallback_error:
                 logger.error(f"Fallback generation also failed: {fallback_error}")
                 raise Exception(
@@ -679,7 +679,7 @@ class OpenRouterProvider(BaseLLMProvider):
                 # Extract model IDs
                 model_ids = [
                     model.get("id", "")
-                    for model in self._model_cache
+                    for model in (self._model_cache or [])
                     if model.get("id")
                 ]
                 return model_ids

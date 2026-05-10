@@ -8,7 +8,9 @@ and Supabase URL/anon key are configured (including self-hosted Docker stack).
 from __future__ import annotations
 
 import logging
+import socket
 from typing import Any, Callable, List, Optional
+from urllib.parse import urlparse
 
 from realtime.types import PostgresChangesPayload, RealtimePostgresChangesListenEvent
 
@@ -24,6 +26,26 @@ logger = logging.getLogger(__name__)
 _subscribed_channels: List[Any] = []
 
 
+def _supabase_realtime_host_resolves(url: str) -> bool:
+    """Return True if the Supabase URL hostname resolves (avoids noisy library retries)."""
+    try:
+        parsed = urlparse(url)
+        host = parsed.hostname
+        if not host:
+            return False
+        if parsed.port is not None:
+            port = parsed.port
+        elif parsed.scheme in ("https", "wss"):
+            port = 443
+        else:
+            port = 80
+        socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
+        return True
+    except OSError as e:
+        logger.debug("Supabase Realtime host resolve check failed: %s", e)
+        return False
+
+
 async def init_realtime() -> None:
     """Connect Realtime WebSocket; optionally register lightweight postgres_changes listeners."""
     if (
@@ -36,6 +58,13 @@ async def init_realtime() -> None:
 
     client = await get_async_supabase_client()
     if not client:
+        return
+
+    if not _supabase_realtime_host_resolves(settings.supabase_url):
+        logger.warning(
+            "Supabase Realtime skipped: hostname does not resolve (%s)",
+            urlparse(settings.supabase_url).hostname or settings.supabase_url,
+        )
         return
 
     try:

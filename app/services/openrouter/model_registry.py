@@ -677,7 +677,7 @@ class OpenRouterModelRegistry:
         models = await self.fetch_models()
 
         # Filter and score models
-        candidates = []
+        candidates: list[dict[str, Any]] = []
         for model in models:
             model_id = model.get("id", "")
             if model_id == "openrouter/auto":

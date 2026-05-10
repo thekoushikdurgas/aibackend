@@ -67,7 +67,10 @@ class RekaModelRegistry:
 
     def _build_headers(self) -> Dict[str, str]:
         """Build request headers"""
-        headers = {"X-Api-Key": self.api_key, "Content-Type": "application/json"}
+        headers = {
+            "X-Api-Key": self.api_key or "",
+            "Content-Type": "application/json",
+        }
         return headers
 
     async def fetch_models(self, force_refresh: bool = False) -> List[Dict[str, Any]]:

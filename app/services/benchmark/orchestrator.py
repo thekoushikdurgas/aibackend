@@ -7,7 +7,7 @@ import asyncio
 import logging
 import time
 from datetime import datetime
-from typing import Dict, List, Optional, Any
+from typing import Any, Dict, List, Optional, cast
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -189,7 +189,7 @@ class BenchmarkOrchestrator:
             streaming=False,
         )
 
-        results = []
+        results: list[dict[str, Any]] = []
         tasks = []
 
         # Create benchmark tasks for all providers
@@ -226,7 +226,7 @@ class BenchmarkOrchestrator:
                         }
                     )
                 else:
-                    results.append(result)
+                    results.append(cast(dict[str, Any], result))
 
         except Exception as e:
             logger.error(f"Comparative benchmark error: {e}", exc_info=True)
@@ -237,7 +237,7 @@ class BenchmarkOrchestrator:
 
         # Rank by tokens_per_second (descending)
         successful_results.sort(
-            key=lambda x: x.get("tokens_per_second") or 0, reverse=True
+            key=lambda x: float(x.get("tokens_per_second") or 0), reverse=True
         )
 
         rankings = {}
@@ -251,13 +251,15 @@ class BenchmarkOrchestrator:
         if successful_results:
             # Fastest by total_time
             fastest = min(
-                successful_results, key=lambda x: x.get("total_time", float("inf"))
+                successful_results,
+                key=lambda x: float(x.get("total_time", float("inf"))),
             )
             fastest_provider = fastest["provider"]
 
             # Highest throughput by tokens_per_second
             highest = max(
-                successful_results, key=lambda x: x.get("tokens_per_second") or 0
+                successful_results,
+                key=lambda x: float(x.get("tokens_per_second") or 0),
             )
             highest_throughput = highest["provider"]
 
@@ -307,7 +309,7 @@ class BenchmarkOrchestrator:
             llm_provider = get_llm_provider(provider)
 
             # Track results
-            all_results = []
+            all_results: list[dict[str, Any]] = []
             errors = []
             start_time = time.time()
             end_time = start_time + duration_seconds
@@ -364,7 +366,7 @@ class BenchmarkOrchestrator:
                 for result in batch_results:
                     if isinstance(result, Exception):
                         errors.append({"error": str(result)})
-                    elif result:
+                    elif isinstance(result, dict):
                         all_results.append(result)
 
                 # Small delay to prevent overwhelming the API

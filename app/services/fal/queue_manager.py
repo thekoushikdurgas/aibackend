@@ -36,7 +36,7 @@ class QueueManager:
         self,
         status_url: str,
         response_url: str,
-        callback: Optional[Callable[[Dict[str, Any]], Dict[str, Any]]] = None,
+        callback: Optional[Any] = None,
     ) -> Dict[str, Any]:
         """
         Poll job status until completion or failure.
@@ -73,7 +73,7 @@ class QueueManager:
 
                     if callback:
                         try:
-                            await callback(status_response, result)
+                            callback(status_response, result)
                         except Exception as e:
                             logger.error(f"Callback error: {e}")
 

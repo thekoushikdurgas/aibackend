@@ -15,7 +15,7 @@ class CohereClassifier:
         self,
         inputs: List[str],
         examples: List[Dict[str, str]],
-        model: str = None,
+        model: str | None = None,
         truncate: str = "END",
     ) -> Dict[str, Any]:
         """Classify texts"""

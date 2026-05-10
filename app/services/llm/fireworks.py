@@ -32,10 +32,13 @@ class FireworksProvider(BaseLLMProvider):
     ):
         """Initialize Fireworks AI provider"""
         self.api_key = api_key or getattr(settings, "fireworks_api_key", None)
-        self.default_model = model or getattr(
-            settings,
-            "fireworks_model",
-            "accounts/fireworks/models/llama-v3-70b-instruct",
+        self.default_model = str(
+            model
+            or getattr(
+                settings,
+                "fireworks_model",
+                "accounts/fireworks/models/llama-v3-70b-instruct",
+            )
         )
         self.timeout = timeout
         self.base_url = base_url or getattr(
@@ -159,11 +162,11 @@ class FireworksProvider(BaseLLMProvider):
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 async with client.stream(
                     "POST", url, json=payload, headers=headers
-                ) as response:
-                    response.raise_for_status()
+                ) as http_resp:
+                    http_resp.raise_for_status()
 
                     buffer = ""
-                    async for chunk in response.aiter_text():
+                    async for chunk in http_resp.aiter_text():
                         buffer += chunk
                         lines = buffer.split("\n")
                         buffer = lines[-1]
@@ -190,10 +193,10 @@ class FireworksProvider(BaseLLMProvider):
 
         except httpx.HTTPError as e:
             logger.error(f"Fireworks AI streaming error: {e}")
-            response = await self.generate(
+            llm_resp = await self.generate(
                 prompt, config, context, conversation_history
             )
-            yield response.text
+            yield llm_resp.text
 
     async def health_check(self) -> bool:
         """Check if Fireworks AI API is available"""

@@ -41,6 +41,8 @@ REM SKIP_FINAL_FORMAT=1        Skip step 8 black write
 REM SKIP_BUILD=1               Skip step 9 pip check / import smoke
 REM SKIP_PIP_CHECK=1           Step 9: skip pip check only (Python 3.13+ on Windows often reports spurious "not supported on this platform" for wheels with incomplete metadata)
 REM SKIP_PRETTIER=1            Skip step 4b Prettier
+REM SKIP_DEV_SERVER=1        Skip interactive "Start API server?" and do not start uvicorn (same idea as codebase.sh)
+REM NO_PROMPT=1              Alias: skip server prompt / uvicorn (non-interactive CI or scripts)
 REM
 REM Python: prefer 3.11 (Docker). Use project venv: python -m venv venv
 REM ========================================
@@ -483,6 +485,9 @@ if /i "%SKIP_BUILD%"=="1" (
   ) else (
     if not "!SECTION9_STATUS!"=="WARNING" set "SECTION9_STATUS=PASSED"
     call :color_echo "%GREEN%" "  OK app.main import succeeded"
+    if /i "!SECTION9_STATUS!"=="WARNING" (
+      call :color_echo "%YELLOW%" "  Tip: set SKIP_PIP_CHECK=1 to skip pip check next time (Windows / Python 3.13 wheel metadata; see README)"
+    )
   )
 )
 echo.
@@ -512,6 +517,8 @@ if %ERROR_COUNT% EQU 0 (
     call :color_echo "%GREEN%" "  OK All blocking checks passed!"
     if %WARNING_COUNT% GTR 0 call :color_echo "%YELLOW%" "  Found %WARNING_COUNT% warning(s)"
     echo.
+    if /i "%SKIP_DEV_SERVER%"=="1" goto :end
+    if /i "%NO_PROMPT%"=="1" goto :end
     call :color_echo "%CYAN%" "  Start API server? (Y/N)"
     choice /C YN /N /M ""
     if errorlevel 2 goto :end

@@ -51,7 +51,7 @@ class AudioGenerationService:
         """
         model_id = "yue"
 
-        payload = {"lyrics": lyrics, "genres": genres}
+        payload: dict[str, Any] = {"lyrics": lyrics, "genres": genres}
 
         if duration:
             payload["duration"] = duration

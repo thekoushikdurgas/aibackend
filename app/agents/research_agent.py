@@ -65,7 +65,7 @@ Format response as JSON:
             title = page_data.title
 
             if page_data.html or page_data.body_html:
-                html_content = page_data.html or page_data.body_html
+                html_content = (page_data.html or page_data.body_html) or ""
                 try:
                     parser = HTMLParser(html_content)
                     text_content = parser.get_text_content(max_length=8000)
@@ -95,9 +95,11 @@ Format response as JSON:
                 page_data, word_count, reading_time
             )
 
+            title_str = title or ""
+
             # Build research prompt based on task
             prompt = self._build_research_prompt(
-                text_content, title, query, task_type, keywords
+                text_content, title_str, query, task_type, keywords
             )
 
             # Call LLM for research

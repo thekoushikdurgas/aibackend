@@ -41,8 +41,8 @@ async def handle_multimodal_text_to_image(
             prompt=prompt,
             model=model,
             negative_prompt=negative_prompt,
-            num_inference_steps=num_inference_steps,
-            guidance_scale=guidance_scale,
+            num_inference_steps=int(num_inference_steps or 50),
+            guidance_scale=float(guidance_scale or 7.5),
         )
         return result
     except Exception as e:
@@ -68,7 +68,7 @@ async def handle_multimodal_image_to_text(
 
     # Handle base64 file
     file_result = handle_file_param({"file": image}, "file")
-    image_data = None
+    image_data: str | bytes | None = None
     if file_result:
         image_data, _ = file_result
     elif isinstance(image, str):
@@ -76,7 +76,11 @@ async def handle_multimodal_image_to_text(
 
     try:
         service = ImageToTextService()
-        result = await service.analyze(image=image_data, prompt=prompt)
+        if image_data is None:
+            raise JSONRPCError(
+                JSONRPCErrorCode.INVALID_PARAMS, "Could not resolve image data"
+            )
+        result = await service.generate(image=image_data, prompt=prompt or None)
         return result
     except Exception as e:
         logger.error(f"Image-to-text error: {e}")
@@ -101,7 +105,7 @@ async def handle_multimodal_speech_to_text(
 
     # Handle base64 file
     file_result = handle_file_param({"file": audio}, "file")
-    audio_data = None
+    audio_data: str | bytes | None = None
     if file_result:
         audio_data, _ = file_result
     elif isinstance(audio, str):
@@ -109,6 +113,10 @@ async def handle_multimodal_speech_to_text(
 
     try:
         service = SpeechToTextService()
+        if audio_data is None:
+            raise JSONRPCError(
+                JSONRPCErrorCode.INVALID_PARAMS, "Could not resolve audio data"
+            )
         result = await service.transcribe(audio=audio_data, language=language)
         return result
     except Exception as e:
@@ -125,7 +133,7 @@ async def handle_multimodal_text_to_speech(
 ) -> Dict[str, Any]:
     """Handle multimodal.text_to_speech method"""
     text = params.get("text", "")
-    voice = params.get("voice")
+    _voice = params.get("voice")  # reserved for HF models that support voice selection
     model = params.get("model")
 
     if not text:
@@ -135,7 +143,7 @@ async def handle_multimodal_text_to_speech(
 
     try:
         service = TextToSpeechService()
-        result = await service.synthesize(text=text, voice=voice, model=model)
+        result = await service.generate(text=text, model=model)
         # Encode audio to base64 for WebSocket
         if result.get("audio"):
             from app.utils.file_handler import encode_base64_file
@@ -165,7 +173,7 @@ async def handle_multimodal_object_detection(
 
     # Handle base64 file
     file_result = handle_file_param({"file": image}, "file")
-    image_data = None
+    image_data: str | bytes | None = None
     if file_result:
         image_data, _ = file_result
     elif isinstance(image, str):
@@ -173,8 +181,18 @@ async def handle_multimodal_object_detection(
 
     try:
         service = ObjectDetectionService()
-        result = await service.detect(image=image_data)
-        return result
+        if image_data is None:
+            raise JSONRPCError(
+                JSONRPCErrorCode.INVALID_PARAMS, "Could not resolve image data"
+            )
+        if isinstance(image_data, bytes):
+            raw = await service.detect(image_data)
+        else:
+            if image_data.startswith("http://") or image_data.startswith("https://"):
+                raw = await service.detect_from_url(image_data)
+            else:
+                raw = await service.detect_from_base64(image_data)
+        return {"detections": raw}
     except Exception as e:
         logger.error(f"Object detection error: {e}")
         raise JSONRPCError(

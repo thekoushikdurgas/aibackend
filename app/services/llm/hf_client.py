@@ -225,6 +225,8 @@ class HuggingFaceClient:
                         continue
                     raise
 
+        raise RuntimeError("HF chat_completions: retry loop exited without result")
+
     async def inference_api(
         self,
         model: str,
@@ -271,6 +273,8 @@ class HuggingFaceClient:
                         await asyncio.sleep(wait_time)
                         continue
                     raise
+
+        raise RuntimeError("HF inference_api: retry loop exited without result")
 
     async def inference_api_binary(
         self,
@@ -327,6 +331,8 @@ class HuggingFaceClient:
                         continue
                     raise
 
+        raise RuntimeError("HF inference_api_binary: retry loop exited without result")
+
     async def inference_api_formdata(
         self, model: str, files: Dict[str, Any], use_router: bool = False
     ) -> Dict[str, Any]:
@@ -366,6 +372,10 @@ class HuggingFaceClient:
                         await asyncio.sleep(wait_time)
                         continue
                     raise
+
+        raise RuntimeError(
+            "HF inference_api_formdata: retry loop exited without result"
+        )
 
     async def inference_api_file(
         self,
@@ -417,6 +427,8 @@ class HuggingFaceClient:
                         await asyncio.sleep(wait_time)
                         continue
                     raise
+
+        raise RuntimeError("HF inference_api_file: retry loop exited without result")
 
     async def gradio_predict(
         self, space_url: str, data: List[Any], api_key: Optional[str] = None

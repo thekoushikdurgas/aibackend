@@ -79,7 +79,7 @@ class RAGChatService:
 
         try:
             # Use RAG pipeline to retrieve documents
-            rag_result = await self.rag_pipeline.query(
+            rag_raw = await self.rag_pipeline.query(
                 query=query,
                 collection_name=collection_name,
                 top_k=top_k,
@@ -87,6 +87,8 @@ class RAGChatService:
                 enable_reranking=enable_reranking,
                 max_context_length=max_context_length,
             )
+            assert isinstance(rag_raw, dict)
+            rag_result = rag_raw
 
             retrieved_docs = rag_result.get("sources", [])
             context = rag_result.get("context", "")

@@ -258,7 +258,7 @@ class GroqSafetyService:
         if not self.api_key:
             raise Exception("Groq API key not configured")
 
-        results = {
+        results: dict[str, Any] = {
             "safe": True,
             "messages_checked": len(messages),
             "violations": [],

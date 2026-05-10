@@ -5,7 +5,7 @@ Supports BLIP, GPT-4V, and other vision-language models
 
 import base64
 import logging
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 from app.config import settings
 from app.services.llm.hf_client import HuggingFaceClient
@@ -47,7 +47,8 @@ class ImageToTextService:
         """
         model = model or self.model
 
-        # Prepare inputs
+        # Prepare inputs (HF accepts str or small dict for VQA-style prompts)
+        inputs: str | dict[str, Any]
         if isinstance(image, bytes):
             # Convert bytes to base64
             image_b64 = base64.b64encode(image).decode("utf-8")

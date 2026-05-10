@@ -93,3 +93,5 @@ class HyperbolicAudioService:
                         await asyncio.sleep(wait_time)
                         continue
                     raise
+
+        raise RuntimeError("HyperbolicAudioService: retry loop exited without result")

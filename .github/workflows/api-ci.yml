@@ -91,8 +91,7 @@ jobs:
         run: npm run format:check
 
       - name: Type check (mypy)
-        run: mypy app/ --ignore-missing-imports
-        continue-on-error: true
+        run: mypy app/
 
       - name: Optional best-practices check
         if: ${{ hashFiles('scripts/check_best_practices.py') != '' }}
@@ -167,6 +166,10 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt -r requirements-dev.txt
+
+      # config.json is gitignored; app.config loads it at import time (see get_settings).
+      - name: Prepare CI config
+        run: cp -f config/config.example.json config/config.json
 
       - name: Run tests
         run: |

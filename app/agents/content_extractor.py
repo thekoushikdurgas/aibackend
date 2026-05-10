@@ -77,7 +77,7 @@ Format your response as JSON:
             text_content = ""
 
             if page_data.html or page_data.body_html:
-                html_content = page_data.html or page_data.body_html
+                html_content = (page_data.html or page_data.body_html) or ""
                 try:
                     parser = HTMLParser(html_content)
                     basic_extraction = {

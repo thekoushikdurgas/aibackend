@@ -5,7 +5,7 @@ OpenRouter Embedding Service
 import asyncio
 import logging
 import time
-from typing import Dict, List, Optional, Any
+from typing import ClassVar, Dict, List, Optional, Any
 
 import httpx
 
@@ -35,7 +35,7 @@ class OpenRouterEmbeddingService:
     ]
 
     # Model metadata including dimensions and pricing
-    MODEL_METADATA = {
+    MODEL_METADATA: ClassVar[dict[str, dict[str, Any]]] = {
         "google/gemini-embedding-001": {
             "dimensions": 768,
             "max_input_tokens": 2048,
@@ -179,7 +179,7 @@ class OpenRouterEmbeddingService:
             "openai/text-embedding-ada-002",
         ]
 
-        last_error = None
+        last_error: BaseException | None = None
         last_status_code = None
 
         for attempt_model in fallback_models:
@@ -333,7 +333,8 @@ class OpenRouterEmbeddingService:
         """
         model = model or self.model
         metadata = self.MODEL_METADATA.get(model, {})
-        return metadata.get("dimensions", 1536)  # Default to 1536
+        dims = metadata.get("dimensions", 1536)
+        return int(dims) if isinstance(dims, (int, float)) else 1536
 
     def get_model_metadata(self, model: Optional[str] = None) -> Dict[str, Any]:
         """

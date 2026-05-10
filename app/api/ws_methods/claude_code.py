@@ -190,10 +190,12 @@ async def handle_claude_code_tools_list(
     connection_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     p = params or {}
-    tools = tr.get_tools(
-        simple_mode=bool(p.get("simple_mode", False)),
-        include_mcp=not bool(p.get("no_mcp", False)),
-        permission_context=_perm_ctx(p),
+    tools: list[Any] = list(
+        tr.get_tools(
+            simple_mode=bool(p.get("simple_mode", False)),
+            include_mcp=not bool(p.get("no_mcp", False)),
+            permission_context=_perm_ctx(p),
+        )
     )
     q = p.get("query")
     if q:
@@ -222,9 +224,11 @@ async def handle_claude_code_commands_list(
     connection_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     p = params or {}
-    cmds = cr.get_commands(
-        include_plugin_commands=not p.get("no_plugin_commands", False),
-        include_skill_commands=not p.get("no_skill_commands", False),
+    cmds: list[Any] = list(
+        cr.get_commands(
+            include_plugin_commands=not p.get("no_plugin_commands", False),
+            include_skill_commands=not p.get("no_skill_commands", False),
+        )
     )
     if p.get("query"):
         cmds = cr.find_commands(str(p.get("query")), int(p.get("limit", 50)))

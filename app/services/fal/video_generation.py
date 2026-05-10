@@ -53,7 +53,7 @@ class VideoGenerationService:
         """
         model_id = "veo2"
 
-        payload = {"prompt": prompt}
+        payload: dict[str, Any] = {"prompt": prompt}
 
         if duration:
             payload["duration"] = duration
@@ -104,7 +104,7 @@ class VideoGenerationService:
         """
         model_id = "veo2"
 
-        payload = {"prompt": prompt, "image_url": image_url}
+        payload: dict[str, Any] = {"prompt": prompt, "image_url": image_url}
 
         if duration:
             payload["duration"] = duration

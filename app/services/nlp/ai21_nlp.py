@@ -8,7 +8,7 @@ Provides specialized NLP features using AI21 Labs API:
 """
 
 import logging
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import httpx
 
@@ -196,7 +196,7 @@ class AI21NLPService:
             raise Exception("AI21 API key not configured")
 
         url = f"{self.base_url}/improvements"
-        payload = {"text": text}
+        payload: dict[str, Any] = {"text": text}
 
         if improvement_types:
             payload["types"] = improvement_types

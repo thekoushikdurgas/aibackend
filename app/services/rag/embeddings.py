@@ -3,7 +3,7 @@ Embedding Service for RAG
 """
 
 import logging
-from typing import List, Optional
+from typing import Any, List, Optional
 
 from app.config import settings
 
@@ -174,10 +174,10 @@ class EmbeddingService:
         client = HuggingFaceClient(api_key=settings.huggingface_api_key)
 
         try:
+            parsed: Any
             # Try embeddings endpoint first (for models like Qwen3-Embedding)
             try:
-                url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{self.model_name}"
-                response = asyncio.run(
+                parsed = asyncio.run(
                     client.inference_api(
                         model=self.model_name,
                         inputs=text,
@@ -191,40 +191,39 @@ class EmbeddingService:
                 url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{self.model_name}"
                 headers = {"Authorization": f"Bearer {settings.huggingface_api_key}"}
 
-                response = httpx.post(
+                http_response = httpx.post(
                     url,
                     headers=headers,
                     json={"inputs": text, "options": {"wait_for_model": True}},
                     timeout=30.0,
                 )
-                response.raise_for_status()
-                response = response.json()
+                http_response.raise_for_status()
+                parsed = http_response.json()
 
             # Handle nested response format
-            if isinstance(response, list):
-                if len(response) > 0 and isinstance(response[0], list):
+            if isinstance(parsed, list):
+                if len(parsed) > 0 and isinstance(parsed[0], list):
                     # Mean pooling for token embeddings
                     import numpy as np
 
-                    return np.mean(response, axis=0).tolist()
-                elif len(response) > 0:
-                    return (
-                        response[0]
-                        if isinstance(response[0], (list, tuple))
-                        else response
-                    )
-                return response
+                    return np.mean(parsed, axis=0).tolist()
+                elif len(parsed) > 0:
+                    first = parsed[0]
+                    if isinstance(first, (list, tuple)):
+                        return [float(x) for x in first]
+                    return [float(first)] if isinstance(first, (int, float)) else []
+                return parsed
 
             # Handle dict response
-            if isinstance(response, dict):
-                if "embedding" in response:
-                    return response["embedding"]
-                elif "embeddings" in response:
-                    embeddings = response["embeddings"]
+            if isinstance(parsed, dict):
+                if "embedding" in parsed:
+                    return parsed["embedding"]
+                elif "embeddings" in parsed:
+                    embeddings = parsed["embeddings"]
                     if isinstance(embeddings, list) and len(embeddings) > 0:
                         return embeddings[0]
 
-            return response if isinstance(response, list) else [response]
+            return parsed if isinstance(parsed, list) else [parsed]
 
         except Exception as e:
             logger.error(f"HuggingFace embedding API error: {e}")

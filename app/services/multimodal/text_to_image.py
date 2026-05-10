@@ -5,7 +5,7 @@ Supports FLUX.1, Stable Diffusion, and other image generation models
 
 import base64
 import logging
-from typing import Optional
+from typing import Any, Optional
 
 from app.config import settings
 from app.services.llm.hf_client import HuggingFaceClient
@@ -54,7 +54,7 @@ class TextToImageService:
         model = model or self.model
 
         # Build parameters
-        parameters = {
+        parameters: dict[str, Any] = {
             "num_inference_steps": num_inference_steps,
             "guidance_scale": guidance_scale,
         }

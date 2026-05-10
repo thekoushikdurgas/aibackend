@@ -56,7 +56,7 @@ class HyperbolicClient:
 
     async def _handle_response(
         self, response: httpx.Response, retry_count: int = 0
-    ) -> Dict[str, Any]:
+    ) -> Optional[Dict[str, Any]]:
         """
         Handle HTTP response with error handling.
 
@@ -65,7 +65,7 @@ class HyperbolicClient:
             retry_count: Current retry attempt
 
         Returns:
-            Response data as dictionary
+            Response data as dictionary, or None when the caller should retry
 
         Raises:
             httpx.HTTPStatusError: For HTTP errors
@@ -146,6 +146,8 @@ class HyperbolicClient:
                         await asyncio.sleep(wait_time)
                         continue
                     raise
+
+        raise RuntimeError("HyperbolicClient.post: retry loop exited without result")
 
     async def post_stream(
         self, endpoint: str, data: Dict[str, Any], timeout: Optional[float] = None

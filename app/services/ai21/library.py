@@ -4,7 +4,7 @@ Provides RAG/Library management functionality for document storage and search
 """
 
 import logging
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import httpx
 
@@ -115,7 +115,7 @@ class AI21LibraryService:
             raise Exception("AI21 API key not configured")
 
         url = f"{self.base_url}/library/search"
-        payload = {"query": query}
+        payload: dict[str, Any] = {"query": query}
 
         if file_ids:
             payload["fileIds"] = file_ids

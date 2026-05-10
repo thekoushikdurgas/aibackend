@@ -78,7 +78,7 @@ class HyperbolicVisionService:
         Returns:
             Message dict with multimodal content
         """
-        content = [{"type": "text", "text": text}]
+        content: list[dict[str, Any]] = [{"type": "text", "text": text}]
 
         for image_url in image_urls:
             content.append({"type": "image_url", "image_url": {"url": image_url}})

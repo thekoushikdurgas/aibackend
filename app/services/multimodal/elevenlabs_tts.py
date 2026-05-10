@@ -110,7 +110,7 @@ class ElevenLabsTextToSpeechService:
 
     def _get_headers(self) -> Dict[str, str]:
         """Get request headers with authentication"""
-        return {"xi-api-key": self.api_key, "Content-Type": "application/json"}
+        return {"xi-api-key": self.api_key or "", "Content-Type": "application/json"}
 
     @cached(ttl=3600)
     async def list_models(self) -> List[Dict[str, Any]]:
@@ -281,6 +281,8 @@ class ElevenLabsTextToSpeechService:
         voice_settings: Optional[Dict[str, Any]] = None,
         return_base64: bool = True,
         optimize_streaming_latency: Optional[int] = None,
+        output_format: Optional[str] = None,
+        pronunciation_dictionary_locators: Optional[Any] = None,
     ) -> Dict[str, Any]:
         """
         Generate speech audio from text.
@@ -311,7 +313,7 @@ class ElevenLabsTextToSpeechService:
         await self.validate_text_length(text, model_id)
 
         # Build request body
-        body = {"text": text, "model_id": model_id}
+        body: Dict[str, Any] = {"text": text, "model_id": model_id}
 
         # Add voice settings if provided
         if voice_settings:
@@ -327,6 +329,13 @@ class ElevenLabsTextToSpeechService:
         # Add streaming optimization if provided
         if optimize_streaming_latency is not None:
             body["optimize_streaming_latency"] = optimize_streaming_latency
+
+        if output_format is not None:
+            body["output_format"] = output_format
+        if pronunciation_dictionary_locators is not None:
+            body["pronunciation_dictionary_locators"] = (
+                pronunciation_dictionary_locators
+            )
 
         url = f"{self.base_url}/text-to-speech/{voice_id}"
 
@@ -422,7 +431,7 @@ class ElevenLabsTextToSpeechService:
         await self.validate_text_length(text, model_id)
 
         # Build request body
-        body = {"text": text, "model_id": model_id}
+        body: Dict[str, Any] = {"text": text, "model_id": model_id}
 
         if voice_settings:
             body["voice_settings"] = voice_settings

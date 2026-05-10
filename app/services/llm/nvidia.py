@@ -191,10 +191,10 @@ class NVIDIAProvider(BaseLLMProvider):
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 async with client.stream(
                     "POST", url, json=payload, headers=self._get_headers()
-                ) as response:
-                    response.raise_for_status()
+                ) as http_resp:
+                    http_resp.raise_for_status()
 
-                    async for line in response.aiter_lines():
+                    async for line in http_resp.aiter_lines():
                         if not line.strip():
                             continue
 
@@ -224,10 +224,10 @@ class NVIDIAProvider(BaseLLMProvider):
         except httpx.HTTPError as e:
             logger.error(f"NVIDIA streaming error: {e}")
             # Fallback to non-streaming
-            response = await self.generate(
+            llm_resp = await self.generate(
                 prompt, config, context, conversation_history
             )
-            yield response.text
+            yield llm_resp.text
 
     async def health_check(self) -> bool:
         """Check if NVIDIA API is available"""

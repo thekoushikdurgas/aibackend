@@ -101,7 +101,7 @@ class NVIDIAImageService:
             data = response.json()
 
             # Extract image from artifacts
-            result = {"model": model, "artifacts": []}
+            result: dict[str, Any] = {"model": model, "artifacts": []}
 
             artifacts = data.get("artifacts", [])
             for artifact in artifacts:

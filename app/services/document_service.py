@@ -92,7 +92,7 @@ class DocumentService:
         }
 
         # Process each page/section
-        all_chunks = []
+        all_chunks: list[dict[str, Any]] = []
         chunk_ids = []
         chunk_embeddings = []
         chunk_metadatas = []

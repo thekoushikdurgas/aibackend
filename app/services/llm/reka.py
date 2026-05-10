@@ -50,7 +50,10 @@ class RekaProvider(BaseLLMProvider):
 
     def _build_headers(self) -> Dict[str, str]:
         """Build request headers"""
-        headers = {"X-Api-Key": self.api_key, "Content-Type": "application/json"}
+        headers = {
+            "X-Api-Key": self.api_key or "",
+            "Content-Type": "application/json",
+        }
         return headers
 
     def _build_messages(

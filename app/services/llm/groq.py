@@ -5,7 +5,7 @@ Ultra-fast inference with OpenAI-compatible API
 
 import json
 import logging
-from typing import Any, AsyncIterator, Dict, List, Optional, Union
+from typing import Any, AsyncIterator, Dict, List, Optional, Union, Sequence
 
 import httpx
 
@@ -60,7 +60,7 @@ class GroqProvider(BaseLLMProvider):
         Groq uses OpenAI-compatible format with system/user/assistant roles.
         Supports multimodal content (text and image_url).
         """
-        messages = []
+        messages: list[dict[str, Any]] = []
 
         # Add system message if provided
         if system_prompt:
@@ -233,11 +233,11 @@ class GroqProvider(BaseLLMProvider):
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 async with client.stream(
                     "POST", url, json=payload, headers=headers
-                ) as response:
-                    response.raise_for_status()
+                ) as http_resp:
+                    http_resp.raise_for_status()
 
                     buffer = ""
-                    async for chunk in response.aiter_text():
+                    async for chunk in http_resp.aiter_text():
                         buffer += chunk
 
                         # Process Server-Sent Events (SSE) format
@@ -272,10 +272,10 @@ class GroqProvider(BaseLLMProvider):
         except httpx.HTTPError as e:
             logger.error(f"Groq streaming error: {e}")
             # Fallback to non-streaming
-            response = await self.generate(
+            llm_resp = await self.generate(
                 prompt, config, context, conversation_history
             )
-            yield response.text
+            yield llm_resp.text
 
     async def health_check(self) -> bool:
         """Check if Groq API is available"""
@@ -347,7 +347,7 @@ class GroqProvider(BaseLLMProvider):
             }
         return {"id": model, **info}
 
-    def _prepare_image_content(self, image: Union[str, bytes]) -> Dict[str, str]:
+    def _prepare_image_content(self, image: Union[str, bytes]) -> Dict[str, Any]:
         """
         Prepare image content for multimodal message format.
 
@@ -385,7 +385,7 @@ class GroqProvider(BaseLLMProvider):
     async def generate_with_vision(
         self,
         prompt: str,
-        images: List[Union[str, bytes]],
+        images: Sequence[Union[str, bytes]],
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
         conversation_history: Optional[List[Dict[str, Any]]] = None,
@@ -414,12 +414,12 @@ class GroqProvider(BaseLLMProvider):
         model = config.model or self.default_model
 
         # Build multimodal message content
-        content_items = [{"type": "text", "text": prompt}]
+        content_items: list[dict[str, Any]] = [{"type": "text", "text": prompt}]
         for image in images:
             content_items.append(self._prepare_image_content(image))
 
         # Build messages with multimodal content
-        messages = []
+        messages: list[dict[str, Any]] = []
 
         # Add system message
         if config.system_prompt:

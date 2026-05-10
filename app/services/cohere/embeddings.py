@@ -14,7 +14,7 @@ class CohereEmbeddings:
     async def embed(
         self,
         texts: List[str],
-        model: str = None,
+        model: str | None = None,
         input_type: str = "search_document",
         truncate: str = "END",
     ) -> Dict[str, Any]:
@@ -28,7 +28,10 @@ class CohereEmbeddings:
         return await self.client.post("/embed", payload)
 
     async def create_embed_job(
-        self, dataset_id: str, model: str = None, input_type: str = "search_document"
+        self,
+        dataset_id: str,
+        model: str | None = None,
+        input_type: str = "search_document",
     ) -> Dict[str, Any]:
         """Create async embedding job"""
         payload = {

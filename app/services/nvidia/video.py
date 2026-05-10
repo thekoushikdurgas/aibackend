@@ -89,7 +89,7 @@ class NVIDIAVideoService:
             data = response.json()
 
             # Extract video from artifacts
-            result = {"model": model, "artifacts": []}
+            result: dict[str, Any] = {"model": model, "artifacts": []}
 
             artifacts = data.get("artifacts", [])
             for artifact in artifacts:

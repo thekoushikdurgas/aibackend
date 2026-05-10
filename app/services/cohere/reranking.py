@@ -15,7 +15,7 @@ class CohereReranker:
         self,
         query: str,
         documents: List[str],
-        model: str = None,
+        model: str | None = None,
         top_n: Optional[int] = None,
         return_documents: bool = True,
     ) -> Dict[str, Any]:

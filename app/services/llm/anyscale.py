@@ -32,8 +32,9 @@ class AnyscaleProvider(BaseLLMProvider):
     ):
         """Initialize Anyscale provider"""
         self.api_key = api_key or getattr(settings, "anyscale_api_key", None)
-        self.default_model = model or getattr(
-            settings, "anyscale_model", "meta-llama/Llama-3-70b-chat-hf"
+        self.default_model = str(
+            model
+            or getattr(settings, "anyscale_model", "meta-llama/Llama-3-70b-chat-hf")
         )
         self.timeout = timeout
         self.base_url = base_url or getattr(
@@ -157,11 +158,11 @@ class AnyscaleProvider(BaseLLMProvider):
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 async with client.stream(
                     "POST", url, json=payload, headers=headers
-                ) as response:
-                    response.raise_for_status()
+                ) as http_resp:
+                    http_resp.raise_for_status()
 
                     buffer = ""
-                    async for chunk in response.aiter_text():
+                    async for chunk in http_resp.aiter_text():
                         buffer += chunk
                         lines = buffer.split("\n")
                         buffer = lines[-1]
@@ -188,10 +189,10 @@ class AnyscaleProvider(BaseLLMProvider):
 
         except httpx.HTTPError as e:
             logger.error(f"Anyscale streaming error: {e}")
-            response = await self.generate(
+            llm_resp = await self.generate(
                 prompt, config, context, conversation_history
             )
-            yield response.text
+            yield llm_resp.text
 
     async def health_check(self) -> bool:
         """Check if Anyscale API is available"""

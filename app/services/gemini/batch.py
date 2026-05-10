@@ -121,7 +121,7 @@ class GeminiBatchService:
 
         url = f"{self.base_url}/batches"
         headers = {"x-goog-api-key": self.api_key}
-        params = {"page_size": page_size}
+        params: dict[str, Any] = {"page_size": page_size}
         if page_token:
             params["page_token"] = page_token
 

@@ -226,10 +226,10 @@ class NVIDIAChatService(BaseLLMProvider):
         try:
             async with self.client.stream(
                 "chat/completions", url_type=url_type, model_id=model, json=payload
-            ) as response:
-                response.raise_for_status()
+            ) as http_resp:
+                http_resp.raise_for_status()
 
-                async for line in response.aiter_lines():
+                async for line in http_resp.aiter_lines():
                     if not line.strip():
                         continue
 
@@ -257,10 +257,10 @@ class NVIDIAChatService(BaseLLMProvider):
         except Exception as e:
             logger.error(f"NVIDIA streaming error: {e}")
             # Fallback to non-streaming
-            response = await self.generate(
+            llm_resp = await self.generate(
                 prompt, config, context, conversation_history
             )
-            yield response.text
+            yield llm_resp.text
 
     async def health_check(self) -> bool:
         """Check if NVIDIA chat API is available"""

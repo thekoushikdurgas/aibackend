@@ -116,7 +116,7 @@ class ModelSelector:
 
     @classmethod
     async def select_council_models(
-        cls, min_models: int = None, max_models: int = None
+        cls, min_models: int | None = None, max_models: int | None = None
     ) -> List[str]:
         """
         Select models for the council based on health and availability.
@@ -128,8 +128,16 @@ class ModelSelector:
         Returns:
             List of provider names selected for council
         """
-        min_models = min_models or getattr(settings, "council_min_models", 3)
-        max_models = max_models or getattr(settings, "council_max_models", 5)
+        min_models = (
+            min_models
+            if min_models is not None
+            else int(getattr(settings, "council_min_models", 3) or 3)
+        )
+        max_models = (
+            max_models
+            if max_models is not None
+            else int(getattr(settings, "council_max_models", 5) or 5)
+        )
 
         # Get preferred providers in order
         providers_to_check = [
@@ -218,7 +226,7 @@ class ModelSelector:
 
 # Convenience functions
 async def select_council_models(
-    min_models: int = None, max_models: int = None
+    min_models: int | None = None, max_models: int | None = None
 ) -> List[str]:
     """Select council models"""
     return await ModelSelector.select_council_models(min_models, max_models)
