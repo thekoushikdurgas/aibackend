@@ -11,6 +11,7 @@
 #   DEPLOY_SUBDIR — e.g. ai.backend when the repo is a monorepo and backend lives in a subdirectory (default empty)
 #   VERIFY_SLEEP_SECONDS — seconds to wait before health checks (optional)
 #   VERIFY_STRICT_READY — set to 1 to fail deploy if GraphQL systemReady is not_ready (optional)
+#   VERIFY_REQUIRE_DOCKER — set to 1 to fail verify when docker is missing (default 0 = skip verify)
 #
 # Optional: EC2_SSH_KEY_PASSPHRASE for encrypted keys (extend appleboy/ssh-action if needed).
 
@@ -66,6 +67,7 @@ jobs:
             set -euo pipefail
             export VERIFY_SLEEP_SECONDS="${{ vars.VERIFY_SLEEP_SECONDS }}"
             export VERIFY_STRICT_READY="${{ vars.VERIFY_STRICT_READY }}"
+            export VERIFY_REQUIRE_DOCKER="${{ vars.VERIFY_REQUIRE_DOCKER }}"
 
             REPO_ROOT="${{ vars.EC2_REPO_ROOT }}"
             REPO_ROOT="${REPO_ROOT:-/home/ubuntu/aibackend}"

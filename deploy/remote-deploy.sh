@@ -7,6 +7,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
+# Non-login SSH sessions often use a minimal PATH; docker may be in /usr/local/bin or /snap/bin.
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin${PATH:+:$PATH}"
+
 echo "[deploy] ROOT=$ROOT"
 
 bootstrap_env_files() {

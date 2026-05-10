@@ -1,389 +1,87 @@
-Microsoft Windows [Version 10.0.26100.8246]
-(c) Microsoft Corporation. All rights reserved.
+Run appleboy/ssh-action@v1.0.3
+  with:
+    host: ***
+    username: ***
+    key: ***
+    port: 22
+    envs: ENV_FILE_CONTENT,SUPABASE_ENV_CONTENT
+    script: set -euo pipefail
+  export VERIFY_SLEEP_SECONDS=""
+  export VERIFY_STRICT_READY=""
+  
+  REPO_ROOT=""
+  REPO_ROOT="${REPO_ROOT:-/home/***/aibackend}"
+  SUB=""
+  SUB="${SUB:-}"
+  
+  BACKEND_DIR="$REPO_ROOT"
+  if [ -n "$SUB" ]; then BACKEND_DIR="$REPO_ROOT/$SUB"; fi
+  
+  cd "$REPO_ROOT"
+  git fetch origin main
+  git reset --hard origin/main
+  
+  mkdir -p "$BACKEND_DIR/docker/supabase"
+  cd "$BACKEND_DIR"
+  
+  # Env passthrough avoids bash expanding ${…} inside the secret body (would break with set -u).
+  printf '%s\n' "${ENV_FILE_CONTENT:-}" > .env
+  chmod 600 .env || true
+  
+  printf '%s\n' "${SUPABASE_ENV_CONTENT:-}" > docker/supabase/supabase.env
+  chmod 600 docker/supabase/supabase.env || true
+  
+  bash deploy/remote-deploy.sh
+  bash deploy/verify-stack.sh
+  
+    timeout: 30s
+    command_timeout: 10m
+    proxy_port: 22
+    proxy_timeout: 30s
+  env:
+    ENV_FILE_CONTENT: ***
+  
+    SUPABASE_ENV_CONTENT: 
+/usr/bin/docker run --name a79611359f67359d84ef998757d5d3575ad1c_8bceb6 --label 9a7961 --workdir /github/workspace --rm -e "ENV_FILE_CONTENT" -e "SUPABASE_ENV_CONTENT" -e "INPUT_HOST" -e "INPUT_USERNAME" -e "INPUT_KEY" -e "INPUT_PORT" -e "INPUT_ENVS" -e "INPUT_SCRIPT" -e "INPUT_PASSPHRASE" -e "INPUT_PASSWORD" -e "INPUT_SYNC" -e "INPUT_USE_INSECURE_CIPHER" -e "INPUT_CIPHER" -e "INPUT_TIMEOUT" -e "INPUT_COMMAND_TIMEOUT" -e "INPUT_KEY_PATH" -e "INPUT_FINGERPRINT" -e "INPUT_PROXY_HOST" -e "INPUT_PROXY_PORT" -e "INPUT_PROXY_USERNAME" -e "INPUT_PROXY_PASSWORD" -e "INPUT_PROXY_PASSPHRASE" -e "INPUT_PROXY_TIMEOUT" -e "INPUT_PROXY_KEY" -e "INPUT_PROXY_KEY_PATH" -e "INPUT_PROXY_FINGERPRINT" -e "INPUT_PROXY_CIPHER" -e "INPUT_PROXY_USE_INSECURE_CIPHER" -e "INPUT_SCRIPT_STOP" -e "INPUT_ENVS_FORMAT" -e "INPUT_DEBUG" -e "INPUT_ALLENVS" -e "INPUT_REQUEST_PTY" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_RESULTS_URL" -e "ACTIONS_ORCHESTRATION_ID" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp":"/github/runner_temp" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/aibackend/aibackend":"/github/workspace" 9a7961:1359f67359d84ef998757d5d3575ad1c
+======CMD======
+set -euo pipefail
+export VERIFY_SLEEP_SECONDS=""
+export VERIFY_STRICT_READY=""
 
-E:\durgas_ai\ai.backend>codebase.bat
+REPO_ROOT=""
+REPO_ROOT="${REPO_ROOT:-/home/***/aibackend}"
+SUB=""
+SUB="${SUB:-}"
 
-========================================
-  DURGASAI BACKEND (FASTAPI) STATE CHECK
-========================================
+BACKEND_DIR="$REPO_ROOT"
+if [ -n "$SUB" ]; then BACKEND_DIR="$REPO_ROOT/$SUB"; fi
 
-Current directory: E:\durgas_ai\ai.backend
-Using venv Python: E:\durgas_ai\ai.backend\venv\Scripts\python.exe
+cd "$REPO_ROOT"
+git fetch origin main
+git reset --hard origin/main
 
-[0] Python source inventory (app / scripts / tests)...
-----------------------------------------
-  Output: reports\api-source-inventory.txt
-  OK Inventory written
+mkdir -p "$BACKEND_DIR/docker/supabase"
+cd "$BACKEND_DIR"
 
-[0b] Self-hosted Supabase (optional)
-----------------------------------------
-  For Docker: copy docker\supabase\supabase.env.example -^^> docker\supabase\supabase.env
-  Start stack: docker compose -f docker\docker-compose.yml --env-file docker\supabase\supabase.env up -d
-  See docker\README.md for ports 8080 (Kong) and 3001 (Studio).
+# Env passthrough avoids bash expanding ${…} inside the secret body (would break with set -u).
+printf '%s\n' "${ENV_FILE_CONTENT:-}" > .env
+chmod 600 .env || true
 
-[1/10] Dependencies (pip)...
-----------------------------------------
-  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pip install --upgrade pip
-Requirement already satisfied: pip in .\venv\Lib\site-packages (26.1.1)
-  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pip install --no-warn-script-location -r requirements.txt -r requirements-dev.txt
-Requirement already satisfied: fastapi==0.109.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 2)) (0.109.2)
-Requirement already satisfied: uvicorn==0.27.1 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.27.1)
-Requirement already satisfied: strawberry-graphql==0.315.3 in .\venv\Lib\site-packages (from strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (0.315.3)
-Requirement already satisfied: python-multipart==0.0.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 5)) (0.0.9)
-Requirement already satisfied: websockets<16,>=13 in .\venv\Lib\site-packages (from -r requirements.txt (line 7)) (15.0.1)
-Requirement already satisfied: sentence-transformers==2.5.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 10)) (2.5.1)
-Requirement already satisfied: transformers==4.38.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 11)) (4.38.1)
-Requirement already satisfied: torch==2.2.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 12)) (2.2.0)
-Requirement already satisfied: huggingface-hub==0.21.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 13)) (0.21.2)
-Requirement already satisfied: chromadb==1.5.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 16)) (1.5.9)
-Requirement already satisfied: PyMuPDF==1.23.8 in .\venv\Lib\site-packages (from -r requirements.txt (line 19)) (1.23.8)
-Requirement already satisfied: python-docx==1.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 20)) (1.1.0)
-Requirement already satisfied: tiktoken==0.5.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 21)) (0.5.2)
-Requirement already satisfied: sqlalchemy==2.0.49 in .\venv\Lib\site-packages (from -r requirements.txt (line 24)) (2.0.49)
-Requirement already satisfied: greenlet<4,>=3.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 25)) (3.5.0)
-Requirement already satisfied: aiosqlite==0.20.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 26)) (0.20.0)
-Requirement already satisfied: alembic==1.13.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 27)) (1.13.1)
-Requirement already satisfied: python-jose==3.3.0 in .\venv\Lib\site-packages (from python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (3.3.0)
-Requirement already satisfied: passlib==1.7.4 in .\venv\Lib\site-packages (from passlib[bcrypt]==1.7.4->-r requirements.txt (line 31)) (1.7.4)
-Requirement already satisfied: slowapi==0.1.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 32)) (0.1.9)
-Requirement already satisfied: httpx<0.29,>=0.26 in .\venv\Lib\site-packages (from -r requirements.txt (line 35)) (0.28.1)
-Requirement already satisfied: aiohttp==3.9.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 36)) (3.9.3)
-Requirement already satisfied: redis==5.0.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 39)) (5.0.1)
-Requirement already satisfied: pydantic<3,>=2.10.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 42)) (2.13.4)
-Requirement already satisfied: pydantic-core<3,>=2.27.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 43)) (2.46.4)
-Requirement already satisfied: pydantic-settings>=2.6.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 44)) (2.14.1)
-Requirement already satisfied: numpy<3,>=2.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 47)) (2.4.4)
-Requirement already satisfied: grpcio<2,>=1.68 in .\venv\Lib\site-packages (from -r requirements.txt (line 48)) (1.80.0)
-Requirement already satisfied: beautifulsoup4==4.12.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 51)) (4.12.3)
-Requirement already satisfied: lxml==5.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 52)) (5.1.0)
-Requirement already satisfied: tenacity==8.2.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 55)) (8.2.3)
-Requirement already satisfied: structlog==24.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 56)) (24.1.0)
-Requirement already satisfied: boto3>=1.35.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 59)) (1.42.14)
-Requirement already satisfied: supabase==2.30.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 62)) (2.30.0)
-Requirement already satisfied: pytest==8.0.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 65)) (8.0.2)
-Requirement already satisfied: pytest-asyncio==0.23.5 in .\venv\Lib\site-packages (from -r requirements.txt (line 66)) (0.23.5)
-Requirement already satisfied: pytest-cov==4.1.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 7)) (4.1.0)
-Requirement already satisfied: black==24.2.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 10)) (24.2.0)
-Requirement already satisfied: isort==5.13.2 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 11)) (5.13.2)
-Requirement already satisfied: flake8==7.0.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 12)) (7.0.0)
-Requirement already satisfied: mypy==1.8.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 13)) (1.8.0)
-Requirement already satisfied: ruff==0.8.4 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 14)) (0.8.4)
-Requirement already satisfied: mkdocs==1.5.3 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 17)) (1.5.3)
-Requirement already satisfied: mkdocs-material==9.5.9 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 18)) (9.5.9)
-Requirement already satisfied: starlette<0.37.0,>=0.36.3 in .\venv\Lib\site-packages (from fastapi==0.109.2->-r requirements.txt (line 2)) (0.36.3)
-Requirement already satisfied: typing-extensions>=4.8.0 in .\venv\Lib\site-packages (from fastapi==0.109.2->-r requirements.txt (line 2)) (4.15.0)
-Requirement already satisfied: click>=7.0 in .\venv\Lib\site-packages (from uvicorn==0.27.1->uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (8.3.1)
-Requirement already satisfied: h11>=0.8 in .\venv\Lib\site-packages (from uvicorn==0.27.1->uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.16.0)
-Requirement already satisfied: graphql-core<3.4.0,>=3.2.0 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (3.2.8)
-Requirement already satisfied: python-dateutil>=2.7 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (2.9.0.post0)
-Requirement already satisfied: packaging>=23 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (23.2)
-Requirement already satisfied: cross-web>=0.6.0 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (0.6.0)
-Requirement already satisfied: tqdm in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (4.67.1)
-Requirement already satisfied: scikit-learn in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.8.0)
-Requirement already satisfied: scipy in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.16.3)
-Requirement already satisfied: Pillow in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (12.0.0)
-Requirement already satisfied: filelock in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (3.20.0)
-Requirement already satisfied: pyyaml>=5.1 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (6.0.3)
-Requirement already satisfied: regex!=2019.12.17 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (2025.11.3)
-Requirement already satisfied: requests in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (2.32.5)
-Requirement already satisfied: tokenizers<0.19,>=0.14 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (0.15.2)
-Requirement already satisfied: safetensors>=0.4.1 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (0.7.0)
-Requirement already satisfied: fsspec>=2023.5.0 in .\venv\Lib\site-packages (from huggingface-hub==0.21.2->-r requirements.txt (line 13)) (2025.12.0)
-Requirement already satisfied: sympy in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 12)) (1.14.0)
-Requirement already satisfied: networkx in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 12)) (3.6.1)
-Requirement already satisfied: jinja2 in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 12)) (3.1.6)
-Requirement already satisfied: build>=1.0.3 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.3.0)
-Requirement already satisfied: pybase64>=1.4.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.4.3)
-Requirement already satisfied: onnxruntime>=1.14.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.23.2)
-Requirement already satisfied: opentelemetry-api>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
-Requirement already satisfied: opentelemetry-exporter-otlp-proto-grpc>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
-Requirement already satisfied: opentelemetry-sdk>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
-Requirement already satisfied: pypika>=0.48.9 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (0.48.9)
-Requirement already satisfied: overrides>=7.3.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (7.7.0)
-Requirement already satisfied: importlib-resources in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (6.5.2)
-Requirement already satisfied: bcrypt>=4.0.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (5.0.0)
-Requirement already satisfied: typer>=0.9.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (0.20.0)
-Requirement already satisfied: kubernetes>=28.1.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (34.1.0)
-Requirement already satisfied: mmh3>=4.0.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (5.2.0)
-Requirement already satisfied: orjson>=3.9.12 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (3.11.9)
-Requirement already satisfied: rich>=10.11.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (14.2.0)
-Requirement already satisfied: jsonschema>=4.19.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (4.26.0)
-Requirement already satisfied: PyMuPDFb==1.23.7 in .\venv\Lib\site-packages (from PyMuPDF==1.23.8->-r requirements.txt (line 19)) (1.23.7)
-Requirement already satisfied: Mako in .\venv\Lib\site-packages (from alembic==1.13.1->-r requirements.txt (line 27)) (1.3.10)
-Requirement already satisfied: ecdsa!=0.15 in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (0.19.1)
-Requirement already satisfied: rsa in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (4.9.1)
-Requirement already satisfied: pyasn1 in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (0.6.1)
-Requirement already satisfied: limits>=2.3 in .\venv\Lib\site-packages (from slowapi==0.1.9->-r requirements.txt (line 32)) (5.6.0)
-Requirement already satisfied: aiosignal>=1.1.2 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 36)) (1.4.0)
-Requirement already satisfied: attrs>=17.3.0 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 36)) (25.4.0)
-Requirement already satisfied: frozenlist>=1.1.1 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 36)) (1.8.0)
-Requirement already satisfied: multidict<7.0,>=4.5 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 36)) (6.7.0)
-Requirement already satisfied: yarl<2.0,>=1.0 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 36)) (1.22.0)
-Requirement already satisfied: soupsieve>1.2 in .\venv\Lib\site-packages (from beautifulsoup4==4.12.3->-r requirements.txt (line 51)) (2.8)
-Requirement already satisfied: realtime==2.30.0 in .\venv\Lib\site-packages (from supabase==2.30.0->-r requirements.txt (line 62)) (2.30.0)
-Requirement already satisfied: supabase-functions==2.30.0 in .\venv\Lib\site-packages (from supabase==2.30.0->-r requirements.txt (line 62)) (2.30.0)
-Requirement already satisfied: storage3==2.30.0 in .\venv\Lib\site-packages (from supabase==2.30.0->-r requirements.txt (line 62)) (2.30.0)
-Requirement already satisfied: supabase-auth==2.30.0 in .\venv\Lib\site-packages (from supabase==2.30.0->-r requirements.txt (line 62)) (2.30.0)
-Requirement already satisfied: postgrest==2.30.0 in .\venv\Lib\site-packages (from supabase==2.30.0->-r requirements.txt (line 62)) (2.30.0)
-Requirement already satisfied: iniconfig in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 65)) (2.3.0)
-Requirement already satisfied: pluggy<2.0,>=1.3.0 in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 65)) (1.6.0)
-Requirement already satisfied: colorama in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 65)) (0.4.6)
-Requirement already satisfied: coverage>=5.2.1 in .\venv\Lib\site-packages (from coverage[toml]>=5.2.1->pytest-cov==4.1.0->-r requirements-dev.txt (line 7)) (7.13.5)
-Requirement already satisfied: mypy-extensions>=0.4.3 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (1.1.0)
-Requirement already satisfied: pathspec>=0.9.0 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (1.1.1)
-Requirement already satisfied: platformdirs>=2 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (4.9.6)
-Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (0.7.0)
-Requirement already satisfied: pycodestyle<2.12.0,>=2.11.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (2.11.1)
-Requirement already satisfied: pyflakes<3.3.0,>=3.2.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (3.2.0)
-Requirement already satisfied: ghp-import>=1.0 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (2.1.0)
-Requirement already satisfied: markdown>=3.2.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (3.10.2)
-Requirement already satisfied: markupsafe>=2.0.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (3.0.3)
-Requirement already satisfied: mergedeep>=1.3.4 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (1.3.4)
-Requirement already satisfied: pyyaml-env-tag>=0.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (1.1)
-Requirement already satisfied: watchdog>=2.0 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (6.0.0)
-Requirement already satisfied: babel~=2.10 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (2.18.0)
-Requirement already satisfied: mkdocs-material-extensions~=1.3 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (1.3.1)
-Requirement already satisfied: paginate~=0.5 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (0.5.7)
-Requirement already satisfied: pygments~=2.16 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (2.19.2)
-Requirement already satisfied: pymdown-extensions~=10.2 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (10.21.2)
-Requirement already satisfied: deprecation>=2.1.0 in .\venv\Lib\site-packages (from postgrest==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (2.1.0)
-Requirement already satisfied: cryptography>=3.4.0 in .\venv\Lib\site-packages (from python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (46.0.3)
-Requirement already satisfied: pyiceberg>=0.10.0 in .\venv\Lib\site-packages (from storage3==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (0.11.1)
-Requirement already satisfied: pyjwt>=2.10.1 in .\venv\Lib\site-packages (from pyjwt[crypto]>=2.10.1->supabase-auth==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (2.12.1)
-Requirement already satisfied: strenum>=0.4.15 in .\venv\Lib\site-packages (from supabase-functions==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (0.4.15)
-Requirement already satisfied: httptools>=0.5.0 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.7.1)
-Requirement already satisfied: python-dotenv>=0.13 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (1.0.1)
-Requirement already satisfied: watchfiles>=0.13 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (1.1.1)
-Requirement already satisfied: anyio in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 35)) (4.12.0)
-Requirement already satisfied: certifi in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 35)) (2025.11.12)
-Requirement already satisfied: httpcore==1.* in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 35)) (1.0.9)
-Requirement already satisfied: idna in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 35)) (3.11)
-Requirement already satisfied: annotated-types>=0.6.0 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 42)) (0.7.0)
-Requirement already satisfied: typing-inspection>=0.4.2 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 42)) (0.4.2)
-Requirement already satisfied: h2<5,>=3 in .\venv\Lib\site-packages (from httpx[http2]<0.29,>=0.26->postgrest==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (4.3.0)
-Requirement already satisfied: hyperframe<7,>=6.1 in .\venv\Lib\site-packages (from h2<5,>=3->httpx[http2]<0.29,>=0.26->postgrest==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (6.1.0)
-Requirement already satisfied: hpack<5,>=4.1 in .\venv\Lib\site-packages (from h2<5,>=3->httpx[http2]<0.29,>=0.26->postgrest==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (4.1.0)
-Requirement already satisfied: charset_normalizer<4,>=2 in .\venv\Lib\site-packages (from requests->transformers==4.38.1->-r requirements.txt (line 11)) (3.4.4)
-Requirement already satisfied: urllib3<3,>=1.21.1 in .\venv\Lib\site-packages (from requests->transformers==4.38.1->-r requirements.txt (line 11)) (2.3.0)
-Requirement already satisfied: propcache>=0.2.1 in .\venv\Lib\site-packages (from yarl<2.0,>=1.0->aiohttp==3.9.3->-r requirements.txt (line 36)) (0.4.1)
-Requirement already satisfied: botocore<1.43.0,>=1.42.14 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 59)) (1.42.14)
-Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 59)) (1.0.1)
-Requirement already satisfied: s3transfer<0.17.0,>=0.16.0 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 59)) (0.16.0)
-Requirement already satisfied: six>=1.5 in .\venv\Lib\site-packages (from python-dateutil>=2.7->strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (1.17.0)
-Requirement already satisfied: pyproject_hooks in .\venv\Lib\site-packages (from build>=1.0.3->chromadb==1.5.9->-r requirements.txt (line 16)) (1.2.0)
-Requirement already satisfied: cffi>=2.0.0 in .\venv\Lib\site-packages (from cryptography>=3.4.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (2.0.0)
-Requirement already satisfied: pycparser in .\venv\Lib\site-packages (from cffi>=2.0.0->cryptography>=3.4.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (2.23)
-Requirement already satisfied: jsonschema-specifications>=2023.03.6 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 16)) (2025.9.1)
-Requirement already satisfied: referencing>=0.28.4 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.37.0)
-Requirement already satisfied: rpds-py>=0.25.0 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.30.0)
-Requirement already satisfied: google-auth>=1.0.1 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (2.43.0)
-Requirement already satisfied: websocket-client!=0.40.0,!=0.41.*,!=0.42.*,>=0.32.0 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.9.0)
-Requirement already satisfied: requests-oauthlib in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (2.0.0)
-Requirement already satisfied: durationpy>=0.7 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.10)
-Requirement already satisfied: cachetools<7.0,>=2.0.0 in .\venv\Lib\site-packages (from google-auth>=1.0.1->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (6.2.3)
-Requirement already satisfied: pyasn1-modules>=0.2.1 in .\venv\Lib\site-packages (from google-auth>=1.0.1->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.4.2)
-Requirement already satisfied: deprecated>=1.2 in .\venv\Lib\site-packages (from limits>=2.3->slowapi==0.1.9->-r requirements.txt (line 32)) (1.3.1)
-Requirement already satisfied: wrapt<3,>=1.10 in .\venv\Lib\site-packages (from deprecated>=1.2->limits>=2.3->slowapi==0.1.9->-r requirements.txt (line 32)) (1.17.3)
-Requirement already satisfied: coloredlogs in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (15.0.1)
-Requirement already satisfied: flatbuffers in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (25.9.23)
-Requirement already satisfied: protobuf in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (6.33.6)
-Requirement already satisfied: importlib-metadata<8.8.0,>=6.0 in .\venv\Lib\site-packages (from opentelemetry-api>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (8.7.0)
-Requirement already satisfied: zipp>=3.20 in .\venv\Lib\site-packages (from importlib-metadata<8.8.0,>=6.0->opentelemetry-api>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (3.23.0)
-Requirement already satisfied: googleapis-common-protos~=1.57 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.75.0)
-Requirement already satisfied: opentelemetry-exporter-otlp-proto-common==1.39.1 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
-Requirement already satisfied: opentelemetry-proto==1.39.1 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
-Requirement already satisfied: opentelemetry-semantic-conventions==0.60b1 in .\venv\Lib\site-packages (from opentelemetry-sdk>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.60b1)
-Requirement already satisfied: strictyaml<2.0.0,>=1.7.0 in .\venv\Lib\site-packages (from pyiceberg>=0.10.0->storage3==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (1.7.3)
-Requirement already satisfied: pyparsing<4.0.0,>=3.1.0 in .\venv\Lib\site-packages (from pyiceberg>=0.10.0->storage3==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (3.3.2)
-Requirement already satisfied: pyroaring<2.0.0,>=1.0.0 in .\venv\Lib\site-packages (from pyiceberg>=0.10.0->storage3==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (1.1.0)
-Requirement already satisfied: zstandard<1.0.0,>=0.13.0 in .\venv\Lib\site-packages (from pyiceberg>=0.10.0->storage3==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (0.25.0)
-Requirement already satisfied: markdown-it-py>=2.2.0 in .\venv\Lib\site-packages (from rich>=10.11.0->chromadb==1.5.9->-r requirements.txt (line 16)) (4.0.0)
-Requirement already satisfied: mdurl~=0.1 in .\venv\Lib\site-packages (from markdown-it-py>=2.2.0->rich>=10.11.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.1.2)
-Requirement already satisfied: shellingham>=1.3.0 in .\venv\Lib\site-packages (from typer>=0.9.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.5.4)
-Requirement already satisfied: humanfriendly>=9.1 in .\venv\Lib\site-packages (from coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (10.0)
-Requirement already satisfied: pyreadline3 in .\venv\Lib\site-packages (from humanfriendly>=9.1->coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (3.5.4)
-Requirement already satisfied: oauthlib>=3.0.0 in .\venv\Lib\site-packages (from requests-oauthlib->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (3.3.1)
-Requirement already satisfied: joblib>=1.3.0 in .\venv\Lib\site-packages (from scikit-learn->sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.5.2)
-Requirement already satisfied: threadpoolctl>=3.2.0 in .\venv\Lib\site-packages (from scikit-learn->sentence-transformers==2.5.1->-r requirements.txt (line 10)) (3.6.0)
-Requirement already satisfied: mpmath<1.4,>=1.1.0 in .\venv\Lib\site-packages (from sympy->torch==2.2.0->-r requirements.txt (line 12)) (1.3.0)
-  OK Dependencies installed
+printf '%s\n' "${SUPABASE_ENV_CONTENT:-}" > docker/supabase/supabase.env
+chmod 600 docker/supabase/supabase.env || true
 
-[2/10] Environment validation (preflight)...
-----------------------------------------
-  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  scripts\validate_env.py
-validate_env: OK - settings load successfully
-  OK Environment validation passed
+bash deploy/remote-deploy.sh
+bash deploy/verify-stack.sh
 
-[3/10] Type checking (mypy)...
-----------------------------------------
-  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m mypy app/
-app\services\gemini\functions.py:20: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-app\core\streaming_processor.py:162: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-app\core\streaming_processor.py:163: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-app\core\connection_manager.py:23: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-app\core\connection_manager.py:24: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-app\core\connection_manager.py:25: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-app\core\connection_manager.py:27: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-app\services\metrics\websocket_metrics.py:26: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-app\services\metrics\websocket_metrics.py:27: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-app\services\metrics\websocket_metrics.py:28: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-app\services\multimodal\elevenlabs_tts.py:36: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-app\api\ws_gateway.py:36: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-app\api\ws_gateway.py:37: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
-Success: no issues found in 263 source files
-  OK mypy passed
-
-[4/10] Formatting checks (black)...
-----------------------------------------
-  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m black --check app/ scripts/ tests/
-All done! ✨ 🍰 ✨
-269 files would be left unchanged.
-  OK black check passed
-
-[4b/10] Prettier (Markdown, JSON, YAML, etc.)...
-----------------------------------------
-  Complements black (Python); formats Markdown, JSON, YAML, etc.
-  Running: npm run format:check
-
-> format:check
-> prettier --check .
-
-Checking formatting...
-All matched files use Prettier code style!
-  OK Prettier check passed
-
-[5/10] Linting (ruff)...
-----------------------------------------
-  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m ruff check app/ scripts/ tests/
-All checks passed!
-  OK ruff passed
-
-[6/10] Running tests (pytest)...
-----------------------------------------
-  ENVIRONMENT=test
-  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pytest tests/ -q --tb=short
-================================================= test session starts =================================================
-platform win32 -- Python 3.13.13, pytest-8.0.2, pluggy-1.6.0
-rootdir: E:\durgas_ai\ai.backend
-configfile: pytest.ini
-plugins: anyio-4.12.0, asyncio-0.23.5, cov-4.1.0
-asyncio: mode=Mode.AUTO
-collected 5 items
-
-tests\council\hallucination_eval\test_eval_harness.py .                                                          [ 20%]
-tests\council\test_verifier_rag.py ..                                                                            [ 60%]
-tests\test_graphql_schema.py ..                                                                                  [100%]
-
-================================================== 5 passed in 4.81s ==================================================
-  OK Tests passed
-
-[6b] Coverage skipped (set RUN_TEST_COVERAGE=1 for pytest --cov=app)
-
-[7/10] API best-practices checklist...
-----------------------------------------
-  scripts\check_best_practices.py - config .api-checker-config.json
-  Output: reports\check_report_bat.json
-  Running: check_best_practices.py
-Best-practices score: 42.2/100
-  OK Best-practices check passed
-
-[8/10] Final format (black)...
-----------------------------------------
-  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m black app/ scripts/ tests/
-All done! ✨ 🍰 ✨
-269 files left unchanged.
-  OK black formatting applied
-
-[9/10] Install / import integrity...
-----------------------------------------
-  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pip check
-aiohttp 3.9.3 is not supported on this platform
-cffi 2.0.0 is not supported on this platform
-charset-normalizer 3.4.4 is not supported on this platform
-chroma-hnswlib 0.7.3 is not supported on this platform
-frozenlist 1.8.0 is not supported on this platform
-httptools 0.7.1 is not supported on this platform
-lxml 5.1.0 is not supported on this platform
-MarkupSafe 3.0.3 is not supported on this platform
-mmh3 5.2.0 is not supported on this platform
-multidict 6.7.0 is not supported on this platform
-onnxruntime 1.23.2 is not supported on this platform
-pillow 12.0.0 is not supported on this platform
-propcache 0.4.1 is not supported on this platform
-pulsar-client 3.8.0 is not supported on this platform
-PyMuPDF 1.23.8 is not supported on this platform
-PyYAML 6.0.3 is not supported on this platform
-regex 2025.11.3 is not supported on this platform
-scikit-learn 1.8.0 is not supported on this platform
-scipy 1.16.3 is not supported on this platform
-tiktoken 0.5.2 is not supported on this platform
-tokenizers 0.15.2 is not supported on this platform
-torch 2.2.0 is not supported on this platform
-watchfiles 1.1.1 is not supported on this platform
-wrapt 1.17.3 is not supported on this platform
-yarl 1.22.0 is not supported on this platform
-   pip check reported conflicts
-  Import smoke: from app.main import app
-  OK app.main import succeeded
-
-
-========================================
-  SUMMARY
-========================================
-
-Section Status:
-  [0] Source inventory:              PASSED  (reports\api-source-inventory.txt)
-  [1] Pip dependencies:              PASSED
-  [2] Environment validate:          PASSED
-  [3] mypy:                          PASSED
-  [4] black --check:                 PASSED
-  [4b] Prettier:                     PASSED
-  [5] ruff check:                    PASSED
-  [6] pytest:                        PASSED
-  [6b] pytest coverage:              SKIPPED
-  [7] Best practices (check_*.py):  PASSED
-  [8] black (apply):                 PASSED
-  [9] pip check + import app:        WARNING
-
-  OK All blocking checks passed
-  Found 1 warning(s)
-
-  Start API server? (Y/N)
- Y
-
-[10/10] Starting uvicorn (reload)...
-  E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m uvicorn app.main:app --reload
-  Press Ctrl+C to stop
-
-INFO:     Will watch for changes in these directories: ['E:\\durgas_ai\\ai.backend']
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [1696] using StatReload
-INFO:     Started server process [23276]
-INFO:     Waiting for application startup.
-2026-05-10 06:28:56,231 - app.main - INFO - Starting DurgasAI Backend v1.0.0
-2026-05-10 06:28:56,231 - app.main - INFO - Environment: development
-2026-05-10 06:28:56,231 - app.main - INFO - Default LLM Provider: ollama
-2026-05-10 06:28:57,239 - app.core.supabase_client - INFO - Supabase client initialized successfully
-2026-05-10 06:28:57,239 - app.database.sqlalchemy - INFO - Supabase client initialized for database operations
-2026-05-10 06:28:57,240 - app.main - INFO - Database initialized successfully
-2026-05-10 06:28:57,240 - app.main - INFO - Supabase initialized successfully
-2026-05-10 06:28:58,049 - app.core.supabase_client - INFO - Async Supabase client initialized successfully
-2026-05-10 06:28:58,114 - realtime._async.client - ERROR - Connection attempt failed: [Errno 11001] getaddrinfo failed
-2026-05-10 06:28:59,125 - realtime._async.client - ERROR - Connection attempt failed: [Errno 11001] getaddrinfo failed
-2026-05-10 06:29:01,136 - realtime._async.client - ERROR - Connection attempt failed: [Errno 11001] getaddrinfo failed
-2026-05-10 06:29:05,170 - realtime._async.client - ERROR - Connection attempt failed: [Errno 11001] getaddrinfo failed
-2026-05-10 06:29:13,220 - realtime._async.client - ERROR - Connection attempt failed: [Errno 11001] getaddrinfo failed
-2026-05-10 06:29:13,220 - realtime._async.client - ERROR - Connection failed permanently after 5 attempts. Error: [Errno 11001] getaddrinfo failed
-2026-05-10 06:29:13,221 - app.core.realtime - WARNING - Supabase Realtime init skipped: [Errno 11001] getaddrinfo failed
-2026-05-10 06:29:13,681 - app.services.rag.vectorstore - INFO - ChromaDB client initialized at ./data/chroma
-2026-05-10 06:29:13,685 - app.services.rag.vectorstore - INFO - Using collection: durgasai_pages
-2026-05-10 06:29:13,685 - app.services.rag.vectorstore - INFO - ChromaDB initialized
-2026-05-10 06:29:13,686 - app.main - INFO - ChromaDB initialized successfully
-2026-05-10 06:29:13,686 - app.services.llm.factory - INFO - Created LLM provider instance: ollama
-2026-05-10 06:29:13,686 - app.main - INFO - LLM Provider (ollama) initialized
-2026-05-10 06:29:13,826 - app.services.rag.vectorstore - INFO - ChromaDB client initialized at ./data/chroma
-2026-05-10 06:29:13,829 - app.services.rag.vectorstore - INFO - Using collection: durgasai_pages
-2026-05-10 06:29:13,829 - app.services.rag.vectorstore - INFO - ChromaDB initialized
-2026-05-10 06:29:13,829 - app.services.rag.pipeline - INFO - RAG Pipeline initialized
-2026-05-10 06:29:13,829 - app.main - INFO - RAG Pipeline initialized successfully
-INFO:     Application startup complete.
+======END======
+err: From https://github.com/thekoushikdurgas/aibackend
+err:  * branch            main       -> FETCH_HEAD
+err:    d6ca9c5..efcfa33  main       -> origin/main
+out: HEAD is now at efcfa33 9/5/2026
+out: [deploy] ROOT=/home/***/aibackend
+out: [deploy] Docker not available — repo updated only.
+out: [deploy] Start the app with: uvicorn app.main:app --host 0.0.0.0 --port 8000
+out: [verify] Waiting 15s for containers to become healthy...
+out: [verify] FastAPI GET http://127.0.0.1:8000/health
+err: curl: (7) Failed to connect to 127.0.0.1 port 8000 after 0 ms: Could not connect to server
+2026/05/10 01:14:02 Process exited with status 7

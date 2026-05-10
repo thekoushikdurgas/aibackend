@@ -7,11 +7,24 @@
 #   VERIFY_KONG_URL         default http://127.0.0.1:8080
 #   VERIFY_SLEEP_SECONDS    wait before checks (default 15)
 #   VERIFY_STRICT_READY     if 1, fail when GraphQL systemReady status is not_ready (default 0)
+#   VERIFY_REQUIRE_DOCKER   if 1, fail when docker is missing instead of skipping (default 0)
 
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
+
+# Match remote-deploy.sh: SSH shells may omit directories where docker is installed.
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin${PATH:+:$PATH}"
+
+if ! command -v docker >/dev/null 2>&1; then
+  if [[ "${VERIFY_REQUIRE_DOCKER:-0}" == "1" ]]; then
+    echo "[verify] ERROR: docker not on PATH but VERIFY_REQUIRE_DOCKER=1."
+    exit 1
+  fi
+  echo "[verify] SKIP: docker not on PATH — no Compose stack to verify (install Docker or widen ssh PATH)."
+  exit 0
+fi
 
 API_URL="${VERIFY_API_URL:-http://127.0.0.1:8000}"
 KONG_URL="${VERIFY_KONG_URL:-http://127.0.0.1:8080}"
