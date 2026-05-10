@@ -8,6 +8,9 @@ setlocal
 set "ROOT=%~dp0.."
 cd /d "%ROOT%"
 
+docker buildx version >nul 2>&1
+if errorlevel 1 set "DOCKER_BUILDKIT=0"
+
 if not exist ".env" (
   if exist ".env.example" (
     copy /y ".env.example" ".env" >nul

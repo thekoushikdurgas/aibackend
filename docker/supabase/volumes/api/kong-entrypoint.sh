@@ -25,6 +25,13 @@ else
     export LUA_RT_WS_EXPR="\$(query_params.apikey)"
 fi
 
+# basicauth_credentials in kong.yml use YAML single-quoted scalars; apostrophe must be doubled.
+escape_yaml_sq() {
+    printf '%s' "$1" | sed "s/'/''/g"
+}
+export DASHBOARD_USERNAME="$(escape_yaml_sq "${DASHBOARD_USERNAME}")"
+export DASHBOARD_PASSWORD="$(escape_yaml_sq "${DASHBOARD_PASSWORD}")"
+
 # Substitute environment variables in the Kong declarative config.
 # Uses awk instead of eval/echo to preserve YAML quoting (eval strips double
 # quotes, breaking "Header: value" patterns that YAML parses as mappings).

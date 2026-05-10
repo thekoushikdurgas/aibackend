@@ -9,6 +9,11 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
+# Compose v2.37+ may prefer Bake; stock Ubuntu Docker often lacks the buildx CLI plugin → noisy warning.
+if ! docker buildx version >/dev/null 2>&1; then
+  export DOCKER_BUILDKIT=0
+fi
+
 if [[ ! -f .env ]]; then
   if [[ -f .env.example ]]; then
     cp -f .env.example .env

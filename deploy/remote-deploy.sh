@@ -12,6 +12,10 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/
 
 echo "[deploy] ROOT=$ROOT"
 
+if ! docker buildx version >/dev/null 2>&1; then
+  export DOCKER_BUILDKIT=0
+fi
+
 bootstrap_env_files() {
   if [[ ! -f .env ]] && [[ -f .env.example ]]; then
     cp -f .env.example .env

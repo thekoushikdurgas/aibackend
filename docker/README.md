@@ -171,6 +171,8 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/rest/v1/
 - **chromadb** from app: use `http://chromadb:8000` inside the Compose network (not `localhost`) when the backend runs in a container.
 - **GPU / Ollama**: uncomment `deploy.resources` in `docker-compose.yml` under `ollama` for NVIDIA.
 - **Kong / Realtime errors**: confirm `docker/supabase/volumes/api/kong.yml` and `kong-entrypoint.sh` exist (shipped from upstream Supabase layout).
+- **`supabase-kong` unhealthy / backend stuck “waiting for kong”**: Kong parses a large declarative config after Studio is up; on slower hosts the default health window can be too short — `docker-compose.supabase.yml` gives Kong **90s start_period** and more retries. If it still fails: `docker logs supabase-kong` (YAML/Lua errors). Avoid **`'`** in **`DASHBOARD_PASSWORD`** / **`DASHBOARD_USERNAME`** — they break the single-quoted basic-auth lines after env substitution.
+- **Compose “build using Bake, but buildx isn't installed”**: Startup scripts set **`DOCKER_BUILDKIT=0`** when **`docker buildx`** is missing; or install **`docker-buildx-plugin`** (`sudo apt-get install -y docker-buildx-plugin` on Debian/Ubuntu).
 
 ## Files in this folder
 
