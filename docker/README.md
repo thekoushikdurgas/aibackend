@@ -163,7 +163,7 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/rest/v1/
 
 - **Compose “variable is not set. Defaulting to a blank string”** (many `POSTGRES_*`, `JWT_*`, Logflare, SMTP, …): **`docker/supabase/supabase.env` was missing or empty**, so Compose could not interpolate `docker-compose.supabase.yml`. Copy from `supabase.env.example` (or run `./scripts/docker-up.sh`, which refills an empty file), then set secrets. Do **not** commit real `supabase.env`.
 - **`supabase-db` unhealthy / `dependency failed to start: container supabase-db`**: Usually the same blank-env issue (Postgres gets empty password/host/db name). Fix env files, then run `docker compose … down` and **`docker compose … up -d --build`** again. If the DB volume initialized badly, remove only after backup: `docker volume rm …supabase_db_data` (name from `docker volume ls`).
-- **`Docker Compose is configured to build using Bake, but buildx isn't installed`**: Startup scripts set **`COMPOSE_BAKE=false`** by default; or install **`docker-buildx-plugin`** on the host if you want Bake builds.
+- **`Docker Compose is configured to build using Bake, but buildx isn't installed`**: Install **`docker-buildx-plugin`** on the host, or upgrade Docker Compose; startup scripts no longer set **`COMPOSE_BAKE=false`** (that flag is deprecated in newer Compose releases).
 - **Build slow / huge context**: ensure **`ai.backend/.dockerignore`** exists (excludes `venv/`, `.git`, tests).
 - **`env_file` errors**: create `ai.backend/.env` from `.env.example` and `docker/supabase/supabase.env` from `docker/supabase/supabase.env.example`.
 - **`${POSTGRES_PASSWORD}` empty in compose**: set variables in **`ai.backend/.env`** (Compose interpolates from project `.env`, not only `env_file` on services).

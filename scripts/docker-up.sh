@@ -27,8 +27,32 @@ fi
 
 ENV_FILES=(--env-file .env --env-file docker/supabase/supabase.env)
 
-# Compose v2.37+ may use Bake; avoid noisy warning when docker-buildx-plugin is not installed.
-export COMPOSE_BAKE="${COMPOSE_BAKE:-false}"
+validate_supabase_env() {
+  local f="docker/supabase/supabase.env"
+  [[ -f "$f" && -s "$f" ]] || {
+    echo "ERROR: $f missing or empty. Copy docker/supabase/supabase.env.example and set secrets."
+    exit 1
+  }
+  local req=(
+    POSTGRES_PASSWORD JWT_SECRET ANON_KEY SERVICE_ROLE_KEY
+    PG_META_CRYPTO_KEY LOGFLARE_PUBLIC_ACCESS_TOKEN LOGFLARE_PRIVATE_ACCESS_TOKEN
+    SECRET_KEY_BASE DASHBOARD_USERNAME DASHBOARD_PASSWORD
+  )
+  local missing=()
+  local k
+  for k in "${req[@]}"; do
+    if ! grep -qE "^${k}=." "$f" 2>/dev/null; then
+      missing+=("$k")
+    fi
+  done
+  if ((${#missing[@]})); then
+    echo "ERROR: $f must define non-empty values for: ${missing[*]}"
+    echo "See docker/supabase/supabase.env.example — replace placeholders before production."
+    exit 1
+  fi
+}
+
+validate_supabase_env
 
 if [[ "${1:-}" == "dev" ]]; then
   echo "Starting development stack (compose.dev.yaml)..."

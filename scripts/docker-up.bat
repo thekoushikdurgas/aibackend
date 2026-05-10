@@ -29,9 +29,6 @@ if not defined SUPABASE_ENV_OK if exist "docker\supabase\supabase.env.example" (
 REM Compose interpolates ${VAR} from env files here — supabase.env supplies POSTGRES_*, JWT_SECRET, ANON_KEY, etc.
 set "ENV_FILES=--env-file .env --env-file docker\supabase\supabase.env"
 
-REM Compose v2.37+ may use Bake; suppress warning when docker-buildx-plugin is not installed.
-if not defined COMPOSE_BAKE set "COMPOSE_BAKE=false"
-
 if /i "%~1"=="dev" (
   echo Starting development stack ^(compose.dev.yaml^)...
   docker compose %ENV_FILES% -f compose.dev.yaml up --build

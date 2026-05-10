@@ -32,8 +32,30 @@ compose_env_args() {
   else
     echo "[deploy] WARNING: docker/supabase/supabase.env missing or empty — Supabase/Kong compose vars may fail."
   fi
-  # Compose v2.37+ Bake requires buildx; avoid noisy warning on minimal Docker installs.
-  export COMPOSE_BAKE="${COMPOSE_BAKE:-false}"
+}
+
+validate_supabase_env() {
+  local f="docker/supabase/supabase.env"
+  [[ -f "$f" && -s "$f" ]] || {
+    echo "[deploy] ERROR: $f missing or empty. Set SUPABASE_ENV_CONTENT secret or copy supabase.env.example on the server."
+    exit 1
+  }
+  local req=(
+    POSTGRES_PASSWORD JWT_SECRET ANON_KEY SERVICE_ROLE_KEY
+    PG_META_CRYPTO_KEY LOGFLARE_PUBLIC_ACCESS_TOKEN LOGFLARE_PRIVATE_ACCESS_TOKEN
+    SECRET_KEY_BASE DASHBOARD_USERNAME DASHBOARD_PASSWORD
+  )
+  local missing=()
+  local k
+  for k in "${req[@]}"; do
+    if ! grep -qE "^${k}=." "$f" 2>/dev/null; then
+      missing+=("$k")
+    fi
+  done
+  if ((${#missing[@]})); then
+    echo "[deploy] ERROR: $f missing non-empty keys: ${missing[*]}"
+    exit 1
+  fi
 }
 
 if ! command -v docker >/dev/null 2>&1; then
@@ -50,6 +72,7 @@ if [[ ! -f .env ]] || [[ ! -s .env ]]; then
 fi
 
 compose_env_args
+validate_supabase_env
 
 if [[ -f compose.yaml ]]; then
   echo "[deploy] docker compose --env-file … -f compose.yaml up -d --build"
