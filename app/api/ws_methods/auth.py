@@ -5,6 +5,7 @@ Supabase Authentication WebSocket Methods
 import logging
 from typing import Any, Dict, Optional, cast
 
+import httpx
 from supabase_auth.types import (
     Options,
     Provider,
@@ -20,6 +21,40 @@ from app.core.ws_auth import require_auth
 from app.core.jsonrpc import JSONRPCError, JSONRPCErrorCode
 
 logger = logging.getLogger(__name__)
+
+_SUPABASE_UNREACHABLE = (
+    "Cannot reach Supabase from this backend. "
+    "Set a reachable SUPABASE_URL and keys in ai.backend/.env (the host must resolve; "
+    "for local Docker Supabase use http://127.0.0.1:8080 — see .env.example)."
+)
+
+
+def _transport_user_message(exc: BaseException) -> Optional[str]:
+    """User-facing message when the Supabase HTTP client cannot connect or DNS fails."""
+    if isinstance(
+        exc,
+        (
+            httpx.ConnectError,
+            httpx.ConnectTimeout,
+            httpx.ReadTimeout,
+            httpx.WriteTimeout,
+            httpx.TimeoutException,
+            httpx.PoolTimeout,
+        ),
+    ):
+        return _SUPABASE_UNREACHABLE
+    text = str(exc).lower()
+    if any(
+        part in text
+        for part in (
+            "getaddrinfo",
+            "name or service not known",
+            "nodename nor servname",
+            "temporary failure in name resolution",
+        )
+    ):
+        return _SUPABASE_UNREACHABLE
+    return None
 
 
 async def handle_auth_signup(
@@ -90,8 +125,14 @@ async def handle_auth_signup(
 
         return result
 
+    except JSONRPCError:
+        raise
     except Exception as e:
-        logger.error(f"Signup error: {e}")
+        hint = _transport_user_message(e)
+        if hint:
+            logger.warning("Signup unreachable: %s", e)
+            raise JSONRPCError(JSONRPCErrorCode.SERVICE_UNAVAILABLE, hint)
+        logger.error("Signup error: %s", e, exc_info=True)
         raise JSONRPCError(JSONRPCErrorCode.INTERNAL_ERROR, f"Signup failed: {str(e)}")
 
 
@@ -154,14 +195,20 @@ async def handle_auth_signin(
             },
         }
 
+    except JSONRPCError:
+        raise
     except Exception as e:
-        logger.error(f"Signin error: {e}")
         error_msg = str(e)
         if (
             "Invalid login credentials" in error_msg
             or "Email not confirmed" in error_msg
         ):
             raise JSONRPCError(JSONRPCErrorCode.AUTHENTICATION_ERROR, error_msg)
+        hint = _transport_user_message(e)
+        if hint:
+            logger.warning("Signin unreachable: %s", e)
+            raise JSONRPCError(JSONRPCErrorCode.SERVICE_UNAVAILABLE, hint)
+        logger.error("Signin error: %s", e, exc_info=True)
         raise JSONRPCError(
             JSONRPCErrorCode.INTERNAL_ERROR, f"Signin failed: {error_msg}"
         )
@@ -193,8 +240,14 @@ async def handle_auth_signout(
 
         return {"success": True, "message": "Signed out successfully"}
 
+    except JSONRPCError:
+        raise
     except Exception as e:
-        logger.error(f"Signout error: {e}")
+        hint = _transport_user_message(e)
+        if hint:
+            logger.warning("Signout unreachable: %s", e)
+            raise JSONRPCError(JSONRPCErrorCode.SERVICE_UNAVAILABLE, hint)
+        logger.error("Signout error: %s", e, exc_info=True)
         raise JSONRPCError(JSONRPCErrorCode.INTERNAL_ERROR, f"Signout failed: {str(e)}")
 
 
@@ -226,7 +279,6 @@ async def handle_auth_refresh(
         if refresh_token:
             # Use refresh token to get new session via Supabase REST API
             # The Python client's refresh_session() uses current session, so we call API directly
-            import httpx
             from app.config import settings
 
             anon_key = settings.supabase_anon_key
@@ -283,8 +335,14 @@ async def handle_auth_refresh(
             },
         }
 
+    except JSONRPCError:
+        raise
     except Exception as e:
-        logger.error(f"Refresh error: {e}")
+        hint = _transport_user_message(e)
+        if hint:
+            logger.warning("Refresh unreachable: %s", e)
+            raise JSONRPCError(JSONRPCErrorCode.SERVICE_UNAVAILABLE, hint)
+        logger.error("Refresh error: %s", e, exc_info=True)
         raise JSONRPCError(
             JSONRPCErrorCode.AUTHENTICATION_ERROR, f"Token refresh failed: {str(e)}"
         )
@@ -342,8 +400,14 @@ async def handle_auth_verify(
             else:
                 return {"valid": False, "error": "No active session"}
 
+    except JSONRPCError:
+        raise
     except Exception as e:
-        logger.error(f"Verify error: {e}")
+        hint = _transport_user_message(e)
+        if hint:
+            logger.warning("Verify unreachable: %s", e)
+            return {"valid": False, "error": hint}
+        logger.error("Verify error: %s", e, exc_info=True)
         return {"valid": False, "error": str(e)}
 
 
@@ -386,8 +450,14 @@ async def handle_auth_reset_password_request(
 
         return {"success": True, "message": "Password reset email sent"}
 
+    except JSONRPCError:
+        raise
     except Exception as e:
-        logger.error(f"Reset password request error: {e}")
+        hint = _transport_user_message(e)
+        if hint:
+            logger.warning("Reset password request unreachable: %s", e)
+            raise JSONRPCError(JSONRPCErrorCode.SERVICE_UNAVAILABLE, hint)
+        logger.error("Reset password request error: %s", e, exc_info=True)
         raise JSONRPCError(
             JSONRPCErrorCode.INTERNAL_ERROR, f"Failed to send reset email: {str(e)}"
         )
@@ -449,8 +519,14 @@ async def handle_auth_reset_password(
             ),
         }
 
+    except JSONRPCError:
+        raise
     except Exception as e:
-        logger.error(f"Reset password error: {e}")
+        hint = _transport_user_message(e)
+        if hint:
+            logger.warning("Reset password unreachable: %s", e)
+            raise JSONRPCError(JSONRPCErrorCode.SERVICE_UNAVAILABLE, hint)
+        logger.error("Reset password error: %s", e, exc_info=True)
         raise JSONRPCError(
             JSONRPCErrorCode.INTERNAL_ERROR, f"Password reset failed: {str(e)}"
         )
@@ -514,8 +590,14 @@ async def handle_auth_update_user(
             },
         }
 
+    except JSONRPCError:
+        raise
     except Exception as e:
-        logger.error(f"Update user error: {e}")
+        hint = _transport_user_message(e)
+        if hint:
+            logger.warning("Update user unreachable: %s", e)
+            raise JSONRPCError(JSONRPCErrorCode.SERVICE_UNAVAILABLE, hint)
+        logger.error("Update user error: %s", e, exc_info=True)
         raise JSONRPCError(
             JSONRPCErrorCode.INTERNAL_ERROR, f"User update failed: {str(e)}"
         )
@@ -564,8 +646,14 @@ async def handle_auth_magic_link(
 
         return {"success": True, "message": "Magic link email sent"}
 
+    except JSONRPCError:
+        raise
     except Exception as e:
-        logger.error(f"Magic link error: {e}")
+        hint = _transport_user_message(e)
+        if hint:
+            logger.warning("Magic link unreachable: %s", e)
+            raise JSONRPCError(JSONRPCErrorCode.SERVICE_UNAVAILABLE, hint)
+        logger.error("Magic link error: %s", e, exc_info=True)
         raise JSONRPCError(
             JSONRPCErrorCode.INTERNAL_ERROR, f"Failed to send magic link: {str(e)}"
         )
@@ -614,8 +702,14 @@ async def handle_auth_oauth_url(
 
         return {"success": True, "url": response.url, "provider": provider}
 
+    except JSONRPCError:
+        raise
     except Exception as e:
-        logger.error(f"OAuth URL error: {e}")
+        hint = _transport_user_message(e)
+        if hint:
+            logger.warning("OAuth URL unreachable: %s", e)
+            raise JSONRPCError(JSONRPCErrorCode.SERVICE_UNAVAILABLE, hint)
+        logger.error("OAuth URL error: %s", e, exc_info=True)
         raise JSONRPCError(
             JSONRPCErrorCode.INTERNAL_ERROR, f"Failed to get OAuth URL: {str(e)}"
         )
@@ -678,8 +772,14 @@ async def handle_auth_oauth_callback(
             ),
         }
 
+    except JSONRPCError:
+        raise
     except Exception as e:
-        logger.error(f"OAuth callback error: {e}")
+        hint = _transport_user_message(e)
+        if hint:
+            logger.warning("OAuth callback unreachable: %s", e)
+            raise JSONRPCError(JSONRPCErrorCode.SERVICE_UNAVAILABLE, hint)
+        logger.error("OAuth callback error: %s", e, exc_info=True)
         raise JSONRPCError(
             JSONRPCErrorCode.INTERNAL_ERROR, f"OAuth callback failed: {str(e)}"
         )

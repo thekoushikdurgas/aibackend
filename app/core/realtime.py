@@ -61,9 +61,11 @@ async def init_realtime() -> None:
         return
 
     if not _supabase_realtime_host_resolves(settings.supabase_url):
-        logger.warning(
-            "Supabase Realtime skipped: hostname does not resolve (%s)",
-            urlparse(settings.supabase_url).hostname or settings.supabase_url,
+        host = urlparse(settings.supabase_url).hostname or settings.supabase_url
+        logger.info(
+            "Supabase Realtime skipped: host does not resolve (%s). "
+            "Fix SUPABASE_URL or set SUPABASE_ENABLE_REALTIME=false if you do not need Realtime.",
+            host,
         )
         return
 
