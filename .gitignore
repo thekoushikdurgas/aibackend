@@ -36,18 +36,6 @@ ENV/
 *.swo
 *~
 
-# Environment variables (legacy - now using config.json)
-.env
-.env.local
-
-# Local Supabase stack secrets (see docker/supabase/supabase.env.example)
-docker/supabase/supabase.env
-
-# Configuration files (protect sensitive data)
-config/config.json
-config/config.*.json
-!config/config.example.json
-
 # Database
 *.db
 *.sqlite
