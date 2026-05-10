@@ -5,7 +5,7 @@ Ultra-fast inference using wafer-scale processors
 
 import json
 import logging
-from typing import Any, AsyncIterator, Dict, List, Optional, Union
+from typing import Any, AsyncIterator, Dict, List, Optional
 
 import httpx
 
@@ -55,7 +55,7 @@ class CerebrasProvider(BaseLLMProvider):
         self,
         prompt: str,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
         system_prompt: Optional[str] = None,
     ) -> List[Dict[str, str]]:
         """
@@ -107,7 +107,7 @@ class CerebrasProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> LLMResponse:
         """Generate a response using Cerebras AI API"""
         if not self.api_key:
@@ -215,7 +215,7 @@ class CerebrasProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> AsyncIterator[str]:
         """Stream a response using Cerebras AI API"""
         if not self.api_key:
@@ -470,21 +470,16 @@ class CerebrasProvider(BaseLLMProvider):
             logger.warning(f"Cerebras health check failed: {e}")
             return False
 
-    async def list_models(
-        self, include_metadata: bool = False
-    ) -> Union[List[str], List[Dict[str, Any]]]:
+    async def list_models(self) -> List[str]:
         """
-        List available Cerebras models.
-
-        Args:
-            include_metadata: If True, returns list of dicts with model metadata.
-                            If False, returns list of model IDs (strings).
-
-        Returns:
-            List of model IDs (strings) or list of model info dicts with id, object, created, owned_by
+        List available Cerebras model IDs (BaseLLMProvider contract).
         """
+        return await self._list_model_ids()
+
+    async def list_models_with_metadata(self) -> List[Dict[str, Any]]:
+        """Return full model metadata dicts from the Cerebras API."""
         if not self.api_key:
-            return [] if not include_metadata else []
+            return []
 
         try:
             url = f"{self.API_BASE}/models"
@@ -498,26 +493,41 @@ class CerebrasProvider(BaseLLMProvider):
                 response.raise_for_status()
                 data = response.json()
 
-                # Extract model information from response
                 if isinstance(data, dict) and "data" in data:
-                    if include_metadata:
-                        # Return full model metadata
-                        return data["data"]
-                    else:
-                        # Return just model IDs
-                        models = []
-                        for model_info in data["data"]:
-                            if isinstance(model_info, dict) and "id" in model_info:
-                                models.append(model_info["id"])
-                        return models if models else self._get_default_models()
-                else:
-                    # Fallback to default models
-                    return self._get_default_models() if not include_metadata else []
+                    raw = data["data"]
+                    if isinstance(raw, list):
+                        return [x for x in raw if isinstance(x, dict)]
+                return []
+        except Exception as e:
+            logger.warning(f"Failed to fetch Cerebras models (metadata): {e}")
+            return []
+
+    async def _list_model_ids(self) -> List[str]:
+        """Internal: model id strings only."""
+        if not self.api_key:
+            return []
+
+        try:
+            url = f"{self.API_BASE}/models"
+            headers = {
+                "Authorization": f"Bearer {self.api_key}",
+                "Content-Type": "application/json",
+            }
+
+            async with httpx.AsyncClient(timeout=10.0) as client:
+                response = await client.get(url, headers=headers)
+                response.raise_for_status()
+                data = response.json()
+
+                if isinstance(data, dict) and "data" in data:
+                    models: List[str] = []
+                    for model_info in data["data"]:
+                        if isinstance(model_info, dict) and "id" in model_info:
+                            models.append(str(model_info["id"]))
+                    return models if models else self._get_default_models()
+                return self._get_default_models()
         except Exception as e:
             logger.warning(f"Failed to fetch Cerebras models: {e}")
-            if include_metadata:
-                # Return empty list for metadata mode
-                return []
             return self._get_default_models()
 
     def _get_default_models(self) -> List[str]:

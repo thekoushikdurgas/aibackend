@@ -55,7 +55,7 @@ class HyperbolicProvider(BaseLLMProvider):
         self,
         prompt: str,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
         system_prompt: Optional[str] = None,
     ) -> List[Dict[str, Any]]:
         """
@@ -114,7 +114,7 @@ class HyperbolicProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> LLMResponse:
         """Generate a response using Hyperbolic API"""
         if not self.api_key:
@@ -186,7 +186,7 @@ class HyperbolicProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> AsyncIterator[str]:
         """Stream a response using Hyperbolic API"""
         if not self.api_key:
@@ -318,7 +318,7 @@ class HyperbolicProvider(BaseLLMProvider):
         images: List[Union[str, bytes]],
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> LLMResponse:
         """
         Generate a response with vision capabilities (text + images).

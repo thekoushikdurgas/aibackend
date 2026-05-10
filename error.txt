@@ -1,138 +1,815 @@
-Run appleboy/ssh-action@v1.0.3
-/usr/bin/docker run --name eef9d50f2a3d28ed4254a06cbdaa5387d7ae_21053d --label 83eef9 --workdir /github/workspace --rm -e "INPUT_HOST" -e "INPUT_USERNAME" -e "INPUT_KEY" -e "INPUT_PORT" -e "INPUT_SCRIPT" -e "INPUT_PASSPHRASE" -e "INPUT_PASSWORD" -e "INPUT_SYNC" -e "INPUT_USE_INSECURE_CIPHER" -e "INPUT_CIPHER" -e "INPUT_TIMEOUT" -e "INPUT_COMMAND_TIMEOUT" -e "INPUT_KEY_PATH" -e "INPUT_FINGERPRINT" -e "INPUT_PROXY_HOST" -e "INPUT_PROXY_PORT" -e "INPUT_PROXY_USERNAME" -e "INPUT_PROXY_PASSWORD" -e "INPUT_PROXY_PASSPHRASE" -e "INPUT_PROXY_TIMEOUT" -e "INPUT_PROXY_KEY" -e "INPUT_PROXY_KEY_PATH" -e "INPUT_PROXY_FINGERPRINT" -e "INPUT_PROXY_CIPHER" -e "INPUT_PROXY_USE_INSECURE_CIPHER" -e "INPUT_SCRIPT_STOP" -e "INPUT_ENVS" -e "INPUT_ENVS_FORMAT" -e "INPUT_DEBUG" -e "INPUT_ALLENVS" -e "INPUT_REQUEST_PTY" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_RESULTS_URL" -e "ACTIONS_ORCHESTRATION_ID" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp":"/github/runner_temp" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/aibackend/aibackend":"/github/workspace" 83eef9:d50f2a3d28ed4254a06cbdaa5387d7ae
-======CMD======
-set -euo pipefail
-export VERIFY_SLEEP_SECONDS=""
-export VERIFY_STRICT_READY=""
+Microsoft Windows [Version 10.0.26100.8246]
+(c) Microsoft Corporation. All rights reserved.
 
-REPO_ROOT=""
-REPO_ROOT="${REPO_ROOT:-/home/***/aibackend}"
-SUB=""
-SUB="${SUB:-}"
+E:\durgas_ai\ai.backend>codebase.bat
 
-BACKEND_DIR="$REPO_ROOT"
-if [ -n "$SUB" ]; then BACKEND_DIR="$REPO_ROOT/$SUB"; fi
+========================================
+  DURGASAI BACKEND (FASTAPI) STATE CHECK
+========================================
 
-cd "$REPO_ROOT"
-git fetch origin main
-git reset --hard origin/main
+Current directory: E:\durgas_ai\ai.backend
+Using venv Python: E:\durgas_ai\ai.backend\venv\Scripts\python.exe
 
-mkdir -p "$BACKEND_DIR/docker/supabase"
-cd "$BACKEND_DIR"
+[0] Python source inventory (app / scripts / tests)...
+----------------------------------------
+  Output: reports\api-source-inventory.txt
+  OK Inventory written
 
-echo "***
-***
+[0b] Self-hosted Supabase (optional)
+----------------------------------------
+  For Docker: copy docker\supabase\supabase.env.example -^^> docker\supabase\supabase.env
+  Start stack: docker compose -f docker\docker-compose.yml --env-file docker\supabase\supabase.env up -d
+  See docker\README.md for ports 8080 (Kong) and 3001 (Studio).
 
-***
-***
-***
-***
-***
-***
-***
+[1/10] Dependencies (pip)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pip install --upgrade pip
+Requirement already satisfied: pip in .\venv\Lib\site-packages (26.1.1)
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pip install --no-warn-script-location -r requirements.txt -r requirements-dev.txt
+Requirement already satisfied: fastapi==0.109.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 2)) (0.109.2)
+Requirement already satisfied: uvicorn==0.27.1 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.27.1)
+Requirement already satisfied: strawberry-graphql==0.315.3 in .\venv\Lib\site-packages (from strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (0.315.3)
+Requirement already satisfied: python-multipart==0.0.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 5)) (0.0.9)
+Requirement already satisfied: websockets<16,>=13 in .\venv\Lib\site-packages (from -r requirements.txt (line 7)) (15.0.1)
+Requirement already satisfied: sentence-transformers==2.5.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 10)) (2.5.1)
+Requirement already satisfied: transformers==4.38.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 11)) (4.38.1)
+Requirement already satisfied: torch==2.2.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 12)) (2.2.0)
+Requirement already satisfied: huggingface-hub==0.21.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 13)) (0.21.2)
+Requirement already satisfied: chromadb==1.5.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 16)) (1.5.9)
+Requirement already satisfied: PyMuPDF==1.23.8 in .\venv\Lib\site-packages (from -r requirements.txt (line 19)) (1.23.8)
+Requirement already satisfied: python-docx==1.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 20)) (1.1.0)
+Requirement already satisfied: tiktoken==0.5.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 21)) (0.5.2)
+Requirement already satisfied: sqlalchemy==2.0.49 in .\venv\Lib\site-packages (from -r requirements.txt (line 24)) (2.0.49)
+Requirement already satisfied: greenlet<4,>=3.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 25)) (3.5.0)
+Requirement already satisfied: aiosqlite==0.20.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 26)) (0.20.0)
+Requirement already satisfied: alembic==1.13.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 27)) (1.13.1)
+Requirement already satisfied: python-jose==3.3.0 in .\venv\Lib\site-packages (from python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (3.3.0)
+Requirement already satisfied: passlib==1.7.4 in .\venv\Lib\site-packages (from passlib[bcrypt]==1.7.4->-r requirements.txt (line 31)) (1.7.4)
+Requirement already satisfied: slowapi==0.1.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 32)) (0.1.9)
+Requirement already satisfied: httpx<0.29,>=0.26 in .\venv\Lib\site-packages (from -r requirements.txt (line 35)) (0.28.1)
+Requirement already satisfied: aiohttp==3.9.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 36)) (3.9.3)
+Requirement already satisfied: redis==5.0.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 39)) (5.0.1)
+Requirement already satisfied: pydantic<3,>=2.10.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 42)) (2.13.4)
+Requirement already satisfied: pydantic-core<3,>=2.27.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 43)) (2.46.4)
+Requirement already satisfied: pydantic-settings>=2.6.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 44)) (2.14.1)
+Requirement already satisfied: numpy<3,>=2.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 47)) (2.4.4)
+Requirement already satisfied: grpcio<2,>=1.68 in .\venv\Lib\site-packages (from -r requirements.txt (line 48)) (1.80.0)
+Requirement already satisfied: beautifulsoup4==4.12.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 51)) (4.12.3)
+Requirement already satisfied: lxml==5.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 52)) (5.1.0)
+Requirement already satisfied: tenacity==8.2.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 55)) (8.2.3)
+Requirement already satisfied: structlog==24.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 56)) (24.1.0)
+Requirement already satisfied: boto3>=1.35.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 59)) (1.42.14)
+Requirement already satisfied: supabase==2.30.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 62)) (2.30.0)
+Requirement already satisfied: pytest==8.0.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 65)) (8.0.2)
+Requirement already satisfied: pytest-asyncio==0.23.5 in .\venv\Lib\site-packages (from -r requirements.txt (line 66)) (0.23.5)
+Requirement already satisfied: pytest-cov==4.1.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 7)) (4.1.0)
+Requirement already satisfied: black==24.2.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 10)) (24.2.0)
+Requirement already satisfied: isort==5.13.2 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 11)) (5.13.2)
+Requirement already satisfied: flake8==7.0.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 12)) (7.0.0)
+Requirement already satisfied: mypy==1.8.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 13)) (1.8.0)
+Requirement already satisfied: ruff==0.8.4 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 14)) (0.8.4)
+Requirement already satisfied: mkdocs==1.5.3 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 17)) (1.5.3)
+Requirement already satisfied: mkdocs-material==9.5.9 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 18)) (9.5.9)
+Requirement already satisfied: starlette<0.37.0,>=0.36.3 in .\venv\Lib\site-packages (from fastapi==0.109.2->-r requirements.txt (line 2)) (0.36.3)
+Requirement already satisfied: typing-extensions>=4.8.0 in .\venv\Lib\site-packages (from fastapi==0.109.2->-r requirements.txt (line 2)) (4.15.0)
+Requirement already satisfied: click>=7.0 in .\venv\Lib\site-packages (from uvicorn==0.27.1->uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (8.3.1)
+Requirement already satisfied: h11>=0.8 in .\venv\Lib\site-packages (from uvicorn==0.27.1->uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.16.0)
+Requirement already satisfied: graphql-core<3.4.0,>=3.2.0 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (3.2.8)
+Requirement already satisfied: python-dateutil>=2.7 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (2.9.0.post0)
+Requirement already satisfied: packaging>=23 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (23.2)
+Requirement already satisfied: cross-web>=0.6.0 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (0.6.0)
+Requirement already satisfied: tqdm in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (4.67.1)
+Requirement already satisfied: scikit-learn in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.8.0)
+Requirement already satisfied: scipy in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.16.3)
+Requirement already satisfied: Pillow in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (12.0.0)
+Requirement already satisfied: filelock in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (3.20.0)
+Requirement already satisfied: pyyaml>=5.1 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (6.0.3)
+Requirement already satisfied: regex!=2019.12.17 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (2025.11.3)
+Requirement already satisfied: requests in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (2.32.5)
+Requirement already satisfied: tokenizers<0.19,>=0.14 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (0.15.2)
+Requirement already satisfied: safetensors>=0.4.1 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (0.7.0)
+Requirement already satisfied: fsspec>=2023.5.0 in .\venv\Lib\site-packages (from huggingface-hub==0.21.2->-r requirements.txt (line 13)) (2025.12.0)
+Requirement already satisfied: sympy in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 12)) (1.14.0)
+Requirement already satisfied: networkx in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 12)) (3.6.1)
+Requirement already satisfied: jinja2 in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 12)) (3.1.6)
+Requirement already satisfied: build>=1.0.3 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.3.0)
+Requirement already satisfied: pybase64>=1.4.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.4.3)
+Requirement already satisfied: onnxruntime>=1.14.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.23.2)
+Requirement already satisfied: opentelemetry-api>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
+Requirement already satisfied: opentelemetry-exporter-otlp-proto-grpc>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
+Requirement already satisfied: opentelemetry-sdk>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
+Requirement already satisfied: pypika>=0.48.9 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (0.48.9)
+Requirement already satisfied: overrides>=7.3.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (7.7.0)
+Requirement already satisfied: importlib-resources in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (6.5.2)
+Requirement already satisfied: bcrypt>=4.0.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (5.0.0)
+Requirement already satisfied: typer>=0.9.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (0.20.0)
+Requirement already satisfied: kubernetes>=28.1.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (34.1.0)
+Requirement already satisfied: mmh3>=4.0.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (5.2.0)
+Requirement already satisfied: orjson>=3.9.12 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (3.11.9)
+Requirement already satisfied: rich>=10.11.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (14.2.0)
+Requirement already satisfied: jsonschema>=4.19.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (4.26.0)
+Requirement already satisfied: PyMuPDFb==1.23.7 in .\venv\Lib\site-packages (from PyMuPDF==1.23.8->-r requirements.txt (line 19)) (1.23.7)
+Requirement already satisfied: Mako in .\venv\Lib\site-packages (from alembic==1.13.1->-r requirements.txt (line 27)) (1.3.10)
+Requirement already satisfied: ecdsa!=0.15 in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (0.19.1)
+Requirement already satisfied: rsa in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (4.9.1)
+Requirement already satisfied: pyasn1 in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (0.6.1)
+Requirement already satisfied: limits>=2.3 in .\venv\Lib\site-packages (from slowapi==0.1.9->-r requirements.txt (line 32)) (5.6.0)
+Requirement already satisfied: aiosignal>=1.1.2 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 36)) (1.4.0)
+Requirement already satisfied: attrs>=17.3.0 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 36)) (25.4.0)
+Requirement already satisfied: frozenlist>=1.1.1 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 36)) (1.8.0)
+Requirement already satisfied: multidict<7.0,>=4.5 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 36)) (6.7.0)
+Requirement already satisfied: yarl<2.0,>=1.0 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 36)) (1.22.0)
+Requirement already satisfied: soupsieve>1.2 in .\venv\Lib\site-packages (from beautifulsoup4==4.12.3->-r requirements.txt (line 51)) (2.8)
+Requirement already satisfied: realtime==2.30.0 in .\venv\Lib\site-packages (from supabase==2.30.0->-r requirements.txt (line 62)) (2.30.0)
+Requirement already satisfied: supabase-functions==2.30.0 in .\venv\Lib\site-packages (from supabase==2.30.0->-r requirements.txt (line 62)) (2.30.0)
+Requirement already satisfied: storage3==2.30.0 in .\venv\Lib\site-packages (from supabase==2.30.0->-r requirements.txt (line 62)) (2.30.0)
+Requirement already satisfied: supabase-auth==2.30.0 in .\venv\Lib\site-packages (from supabase==2.30.0->-r requirements.txt (line 62)) (2.30.0)
+Requirement already satisfied: postgrest==2.30.0 in .\venv\Lib\site-packages (from supabase==2.30.0->-r requirements.txt (line 62)) (2.30.0)
+Requirement already satisfied: iniconfig in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 65)) (2.3.0)
+Requirement already satisfied: pluggy<2.0,>=1.3.0 in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 65)) (1.6.0)
+Requirement already satisfied: colorama in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 65)) (0.4.6)
+Requirement already satisfied: coverage>=5.2.1 in .\venv\Lib\site-packages (from coverage[toml]>=5.2.1->pytest-cov==4.1.0->-r requirements-dev.txt (line 7)) (7.13.5)
+Requirement already satisfied: mypy-extensions>=0.4.3 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (1.1.0)
+Requirement already satisfied: pathspec>=0.9.0 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (1.1.1)
+Requirement already satisfied: platformdirs>=2 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (4.9.6)
+Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (0.7.0)
+Requirement already satisfied: pycodestyle<2.12.0,>=2.11.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (2.11.1)
+Requirement already satisfied: pyflakes<3.3.0,>=3.2.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (3.2.0)
+Requirement already satisfied: ghp-import>=1.0 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (2.1.0)
+Requirement already satisfied: markdown>=3.2.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (3.10.2)
+Requirement already satisfied: markupsafe>=2.0.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (3.0.3)
+Requirement already satisfied: mergedeep>=1.3.4 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (1.3.4)
+Requirement already satisfied: pyyaml-env-tag>=0.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (1.1)
+Requirement already satisfied: watchdog>=2.0 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (6.0.0)
+Requirement already satisfied: babel~=2.10 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (2.18.0)
+Requirement already satisfied: mkdocs-material-extensions~=1.3 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (1.3.1)
+Requirement already satisfied: paginate~=0.5 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (0.5.7)
+Requirement already satisfied: pygments~=2.16 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (2.19.2)
+Requirement already satisfied: pymdown-extensions~=10.2 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (10.21.2)
+Requirement already satisfied: deprecation>=2.1.0 in .\venv\Lib\site-packages (from postgrest==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (2.1.0)
+Requirement already satisfied: cryptography>=3.4.0 in .\venv\Lib\site-packages (from python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (46.0.3)
+Requirement already satisfied: pyiceberg>=0.10.0 in .\venv\Lib\site-packages (from storage3==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (0.11.1)
+Requirement already satisfied: pyjwt>=2.10.1 in .\venv\Lib\site-packages (from pyjwt[crypto]>=2.10.1->supabase-auth==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (2.12.1)
+Requirement already satisfied: strenum>=0.4.15 in .\venv\Lib\site-packages (from supabase-functions==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (0.4.15)
+Requirement already satisfied: httptools>=0.5.0 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.7.1)
+Requirement already satisfied: python-dotenv>=0.13 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (1.0.1)
+Requirement already satisfied: watchfiles>=0.13 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (1.1.1)
+Requirement already satisfied: anyio in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 35)) (4.12.0)
+Requirement already satisfied: certifi in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 35)) (2025.11.12)
+Requirement already satisfied: httpcore==1.* in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 35)) (1.0.9)
+Requirement already satisfied: idna in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 35)) (3.11)
+Requirement already satisfied: annotated-types>=0.6.0 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 42)) (0.7.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 42)) (0.4.2)
+Requirement already satisfied: h2<5,>=3 in .\venv\Lib\site-packages (from httpx[http2]<0.29,>=0.26->postgrest==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (4.3.0)
+Requirement already satisfied: hyperframe<7,>=6.1 in .\venv\Lib\site-packages (from h2<5,>=3->httpx[http2]<0.29,>=0.26->postgrest==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (6.1.0)
+Requirement already satisfied: hpack<5,>=4.1 in .\venv\Lib\site-packages (from h2<5,>=3->httpx[http2]<0.29,>=0.26->postgrest==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (4.1.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in .\venv\Lib\site-packages (from requests->transformers==4.38.1->-r requirements.txt (line 11)) (3.4.4)
+Requirement already satisfied: urllib3<3,>=1.21.1 in .\venv\Lib\site-packages (from requests->transformers==4.38.1->-r requirements.txt (line 11)) (2.3.0)
+Requirement already satisfied: propcache>=0.2.1 in .\venv\Lib\site-packages (from yarl<2.0,>=1.0->aiohttp==3.9.3->-r requirements.txt (line 36)) (0.4.1)
+Requirement already satisfied: botocore<1.43.0,>=1.42.14 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 59)) (1.42.14)
+Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 59)) (1.0.1)
+Requirement already satisfied: s3transfer<0.17.0,>=0.16.0 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 59)) (0.16.0)
+Requirement already satisfied: six>=1.5 in .\venv\Lib\site-packages (from python-dateutil>=2.7->strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (1.17.0)
+Requirement already satisfied: pyproject_hooks in .\venv\Lib\site-packages (from build>=1.0.3->chromadb==1.5.9->-r requirements.txt (line 16)) (1.2.0)
+Requirement already satisfied: cffi>=2.0.0 in .\venv\Lib\site-packages (from cryptography>=3.4.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (2.0.0)
+Requirement already satisfied: pycparser in .\venv\Lib\site-packages (from cffi>=2.0.0->cryptography>=3.4.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 30)) (2.23)
+Requirement already satisfied: jsonschema-specifications>=2023.03.6 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 16)) (2025.9.1)
+Requirement already satisfied: referencing>=0.28.4 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.37.0)
+Requirement already satisfied: rpds-py>=0.25.0 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.30.0)
+Requirement already satisfied: google-auth>=1.0.1 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (2.43.0)
+Requirement already satisfied: websocket-client!=0.40.0,!=0.41.*,!=0.42.*,>=0.32.0 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.9.0)
+Requirement already satisfied: requests-oauthlib in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (2.0.0)
+Requirement already satisfied: durationpy>=0.7 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.10)
+Requirement already satisfied: cachetools<7.0,>=2.0.0 in .\venv\Lib\site-packages (from google-auth>=1.0.1->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (6.2.3)
+Requirement already satisfied: pyasn1-modules>=0.2.1 in .\venv\Lib\site-packages (from google-auth>=1.0.1->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.4.2)
+Requirement already satisfied: deprecated>=1.2 in .\venv\Lib\site-packages (from limits>=2.3->slowapi==0.1.9->-r requirements.txt (line 32)) (1.3.1)
+Requirement already satisfied: wrapt<3,>=1.10 in .\venv\Lib\site-packages (from deprecated>=1.2->limits>=2.3->slowapi==0.1.9->-r requirements.txt (line 32)) (1.17.3)
+Requirement already satisfied: coloredlogs in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (15.0.1)
+Requirement already satisfied: flatbuffers in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (25.9.23)
+Requirement already satisfied: protobuf in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (6.33.6)
+Requirement already satisfied: importlib-metadata<8.8.0,>=6.0 in .\venv\Lib\site-packages (from opentelemetry-api>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (8.7.0)
+Requirement already satisfied: zipp>=3.20 in .\venv\Lib\site-packages (from importlib-metadata<8.8.0,>=6.0->opentelemetry-api>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (3.23.0)
+Requirement already satisfied: googleapis-common-protos~=1.57 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.75.0)
+Requirement already satisfied: opentelemetry-exporter-otlp-proto-common==1.39.1 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
+Requirement already satisfied: opentelemetry-proto==1.39.1 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
+Requirement already satisfied: opentelemetry-semantic-conventions==0.60b1 in .\venv\Lib\site-packages (from opentelemetry-sdk>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.60b1)
+Requirement already satisfied: strictyaml<2.0.0,>=1.7.0 in .\venv\Lib\site-packages (from pyiceberg>=0.10.0->storage3==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (1.7.3)
+Requirement already satisfied: pyparsing<4.0.0,>=3.1.0 in .\venv\Lib\site-packages (from pyiceberg>=0.10.0->storage3==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (3.3.2)
+Requirement already satisfied: pyroaring<2.0.0,>=1.0.0 in .\venv\Lib\site-packages (from pyiceberg>=0.10.0->storage3==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (1.1.0)
+Requirement already satisfied: zstandard<1.0.0,>=0.13.0 in .\venv\Lib\site-packages (from pyiceberg>=0.10.0->storage3==2.30.0->supabase==2.30.0->-r requirements.txt (line 62)) (0.25.0)
+Requirement already satisfied: markdown-it-py>=2.2.0 in .\venv\Lib\site-packages (from rich>=10.11.0->chromadb==1.5.9->-r requirements.txt (line 16)) (4.0.0)
+Requirement already satisfied: mdurl~=0.1 in .\venv\Lib\site-packages (from markdown-it-py>=2.2.0->rich>=10.11.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.1.2)
+Requirement already satisfied: shellingham>=1.3.0 in .\venv\Lib\site-packages (from typer>=0.9.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.5.4)
+Requirement already satisfied: humanfriendly>=9.1 in .\venv\Lib\site-packages (from coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (10.0)
+Requirement already satisfied: pyreadline3 in .\venv\Lib\site-packages (from humanfriendly>=9.1->coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (3.5.4)
+Requirement already satisfied: oauthlib>=3.0.0 in .\venv\Lib\site-packages (from requests-oauthlib->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (3.3.1)
+Requirement already satisfied: joblib>=1.3.0 in .\venv\Lib\site-packages (from scikit-learn->sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.5.2)
+Requirement already satisfied: threadpoolctl>=3.2.0 in .\venv\Lib\site-packages (from scikit-learn->sentence-transformers==2.5.1->-r requirements.txt (line 10)) (3.6.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in .\venv\Lib\site-packages (from sympy->torch==2.2.0->-r requirements.txt (line 12)) (1.3.0)
+  OK Dependencies installed
 
-***
-***
-***
-***
-***
-***
+[2/10] Environment validation (preflight)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  scripts\validate_env.py
+validate_env: OK - settings load successfully
+  OK Environment validation passed
 
-***
-***
-***
+[3/10] Type checking (mypy)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m mypy app/
+app\services\gemini\functions.py:20: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\core\streaming_processor.py:162: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\core\streaming_processor.py:163: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\services\reka\model_registry.py:71: error: Incompatible return value type (got "dict[str, str | None]", expected "dict[str, str]")  [return-value]
+app\services\openrouter\model_registry.py:750: error: Argument "key" to "sort" of "list" has incompatible type "Callable[[dict[str, object]], object]"; expected "Callable[[dict[str, object]], SupportsDunderLT[Any] | SupportsDunderGT[Any]]"  [arg-type]
+app\services\openrouter\model_registry.py:750: error: Incompatible return value type (got "object", expected "SupportsDunderLT[Any] | SupportsDunderGT[Any]")  [return-value]
+app\services\openrouter\model_registry.py:762: error: Value of type "object" is not indexable  [index]
+app\services\openrouter\model_registry.py:765: error: Value of type "object" is not indexable  [index]
+app\services\openrouter\embeddings.py:276: error: Incompatible types in assignment (expression has type "RequestError", variable has type "HTTPStatusError | None")  [assignment]
+app\services\openrouter\embeddings.py:286: error: Incompatible types in assignment (expression has type "Exception", variable has type "HTTPStatusError | None")  [assignment]
+app\services\openrouter\embeddings.py:336: error: Incompatible return value type (got "object", expected "int")  [return-value]
+app\services\openrouter\embeddings.py:365: error: "object" has no attribute "get"  [attr-defined]
+app\services\ollama\client.py:66: error: Argument 3 to "getattr" has incompatible type "str"; expected "OllamaMode | None"  [arg-type]
+app\services\ollama\client.py:84: error: Incompatible return value type (got "str | Any | None", expected "str")  [return-value]
+app\services\ollama\client.py:176: error: Incompatible return value type (got "_AsyncGeneratorContextManager[Response]", expected "AsyncClient")  [return-value]
+app\services\nvidia\client.py:237: error: Incompatible return value type (got "_AsyncGeneratorContextManager[Response]", expected "AsyncClient")  [return-value]
+app\services\nlp\ai21_nlp.py:202: error: Incompatible types in assignment (expression has type "list[str]", target has type "str")  [assignment]
+app\services\multimodal\elevenlabs_tts.py:36: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\services\multimodal\elevenlabs_tts.py:113: error: Dict entry 0 has incompatible type "str": "str | None"; expected "str": "str"  [dict-item]
+app\services\multimodal\elevenlabs_tts.py:318: error: Incompatible types in assignment (expression has type "dict[str, Any]", target has type "str")  [assignment]
+app\services\multimodal\elevenlabs_tts.py:321: error: Incompatible types in assignment (expression has type "dict[str, float]", target has type "str")  [assignment]
+app\services\multimodal\elevenlabs_tts.py:329: error: Incompatible types in assignment (expression has type "int", target has type "str")  [assignment]
+app\services\multimodal\elevenlabs_tts.py:428: error: Incompatible types in assignment (expression has type "dict[str, Any]", target has type "str")  [assignment]
+app\services\multimodal\elevenlabs_tts.py:430: error: Incompatible types in assignment (expression has type "dict[str, float]", target has type "str")  [assignment]
+app\services\multimodal\elevenlabs_tts.py:437: error: Incompatible types in assignment (expression has type "int", target has type "str")  [assignment]
+app\services\llm\openrouter.py:300: error: Dict entry 3 has incompatible type "str": "float"; expected "str": "int"  [dict-item]
+app\services\llm\openrouter.py:380: error: Incompatible types in assignment (expression has type "RequestError", variable has type "HTTPStatusError | None")  [assignment]
+app\services\llm\openrouter.py:390: error: Incompatible types in assignment (expression has type "Exception", variable has type "HTTPStatusError | None")  [assignment]
+app\services\llm\openrouter.py:428: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\openrouter.py:573: error: Incompatible types in assignment (expression has type "LLMResponse", variable has type "Response")  [assignment]
+app\services\llm\openrouter.py:596: error: Incompatible types in assignment (expression has type "LLMResponse", variable has type "Response")  [assignment]
+app\services\llm\openrouter.py:682: error: Item "None" of "list[dict[str, Any]] | None" has no attribute "__iter__" (not iterable)  [union-attr]
+app\services\llm\nvidia.py:153: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\nvidia.py:227: error: Incompatible types in assignment (expression has type "LLMResponse", variable has type "Response")  [assignment]
+app\services\llm\hf_client.py:140: error: Missing return statement  [return]
+app\services\llm\hf_client.py:228: error: Missing return statement  [return]
+app\services\llm\hf_client.py:275: error: Missing return statement  [return]
+app\services\llm\hf_client.py:330: error: Missing return statement  [return]
+app\services\llm\hf_client.py:370: error: Missing return statement  [return]
+app\services\llm\groq.py:193: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\groq.py:275: error: Incompatible types in assignment (expression has type "LLMResponse", variable has type "Response")  [assignment]
+app\services\llm\groq.py:367: error: Dict entry 1 has incompatible type "str": "dict[str, str]"; expected "str": "str"  [dict-item]
+app\services\llm\groq.py:372: error: Dict entry 1 has incompatible type "str": "dict[str, str]"; expected "str": "str"  [dict-item]
+app\services\llm\groq.py:375: error: Dict entry 1 has incompatible type "str": "dict[str, str]"; expected "str": "str"  [dict-item]
+app\services\llm\groq.py:380: error: Dict entry 1 has incompatible type "str": "dict[str, str]"; expected "str": "str"  [dict-item]
+app\services\llm\groq.py:457: error: Dict entry 1 has incompatible type "str": "list[dict[str, str]]"; expected "str": "str"  [dict-item]
+app\services\llm\gemini.py:124: error: Unsupported target for indexed assignment ("Collection[Collection[str]]")  [index]
+app\services\llm\gemini.py:136: error: Unsupported target for indexed assignment ("Collection[Collection[str]]")  [index]
+app\services\llm\gemini.py:179: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\gemini.py:220: error: Unsupported target for indexed assignment ("Collection[Collection[str]]")  [index]
+app\services\llm\gemini.py:280: error: Incompatible types in assignment (expression has type "LLMResponse", variable has type "Response")  [assignment]
+app\services\llm\fireworks.py:35: error: Incompatible types in assignment (expression has type "str | Any | None", variable has type "str")  [assignment]
+app\services\llm\fireworks.py:122: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\fireworks.py:193: error: Incompatible types in assignment (expression has type "LLMResponse", variable has type "Response")  [assignment]
+app\services\llm\deepinfra.py:38: error: Incompatible types in assignment (expression has type "str | Any | None", variable has type "str")  [assignment]
+app\services\llm\deepinfra.py:129: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\deepinfra.py:200: error: Incompatible types in assignment (expression has type "LLMResponse", variable has type "Response")  [assignment]
+app\services\llm\cohere.py:160: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\cerebras.py:213: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\cerebras.py:304: error: Incompatible types in assignment (expression has type "LLMResponse", variable has type "Response")  [assignment]
+app\services\llm\cerebras.py:473: error: Signature of "list_models" incompatible with supertype "BaseLLMProvider"  [override]
+app\services\llm\cerebras.py:473: note:      Superclass:
+app\services\llm\cerebras.py:473: note:          def list_models(self) -> Coroutine[Any, Any, list[str]]
+app\services\llm\cerebras.py:473: note:      Subclass:
+app\services\llm\cerebras.py:473: note:          def list_models(self, include_metadata: bool = ...) -> Coroutine[Any, Any, list[str] | list[dict[str, Any]]]
+app\services\llm\anyscale.py:35: error: Incompatible types in assignment (expression has type "str | Any | None", variable has type "str")  [assignment]
+app\services\llm\anyscale.py:120: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\anyscale.py:191: error: Incompatible types in assignment (expression has type "LLMResponse", variable has type "Response")  [assignment]
+app\services\llm\ai21.py:187: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\ai21.py:269: error: Incompatible types in assignment (expression has type "LLMResponse", variable has type "Response")  [assignment]
+app\services\hyperbolic\client.py:83: error: Incompatible return value type (got "None", expected "dict[str, Any]")  [return-value]
+app\services\hyperbolic\client.py:92: error: Incompatible return value type (got "None", expected "dict[str, Any]")  [return-value]
+app\services\hyperbolic\client.py:104: error: Missing return statement  [return]
+app\services\gemini\imagen.py:74: error: Unsupported target for indexed assignment ("Collection[dict[str, str]]")  [index]
+app\services\gemini\imagen.py:76: error: Unsupported target for indexed assignment ("Collection[dict[str, str]]")  [index]
+app\services\gemini\imagen.py:78: error: Unsupported target for indexed assignment ("Collection[dict[str, str]]")  [index]
+app\services\gemini\imagen.py:80: error: Unsupported target for indexed assignment ("Collection[dict[str, str]]")  [index]
+app\services\gemini\imagen.py:82: error: Unsupported target for indexed assignment ("Collection[dict[str, str]]")  [index]
+app\services\gemini\batch.py:126: error: Incompatible types in assignment (expression has type "str", target has type "int")  [assignment]
+app\services\ai21\library.py:121: error: Incompatible types in assignment (expression has type "list[str]", target has type "str")  [assignment]
+app\core\connection_manager.py:23: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\core\connection_manager.py:24: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\core\connection_manager.py:25: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\core\connection_manager.py:27: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\services\reka\client.py:48: error: Incompatible return value type (got "dict[str, str | None]", expected "dict[str, str]")  [return-value]
+app\services\ollama\model_management.py:70: error: "Coroutine[Any, Any, AsyncClient]" has no attribute "__aenter__"  [attr-defined]
+app\services\ollama\model_management.py:70: note: Maybe you forgot to use "await"?
+app\services\ollama\model_management.py:70: error: "Coroutine[Any, Any, AsyncClient]" has no attribute "__aexit__"  [attr-defined]
+app\services\ollama\generate.py:58: error: Incompatible types in assignment (expression has type "str | Any | None", variable has type "str")  [assignment]
+app\services\ollama\generate.py:127: error: Unsupported target for indexed assignment ("object")  [index]
+app\services\ollama\generate.py:168: error: Unsupported target for indexed assignment ("object")  [index]
+app\services\ollama\generate.py:191: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\ollama\generate.py:245: error: Unsupported target for indexed assignment ("object")  [index]
+app\services\ollama\generate.py:249: error: "AsyncClient" has no attribute "aiter_lines"  [attr-defined]
+app\services\ollama\generate.py:283: error: Unsupported target for indexed assignment ("object")  [index]
+app\services\ollama\generate.py:286: error: "Coroutine[Any, Any, AsyncClient]" has no attribute "__aenter__"  [attr-defined]
+app\services\ollama\generate.py:286: note: Maybe you forgot to use "await"?
+app\services\ollama\generate.py:286: error: "Coroutine[Any, Any, AsyncClient]" has no attribute "__aexit__"  [attr-defined]
+app\services\nvidia\vision.py:125: error: Argument 1 to "_prepare_image_content" of "NVIDIAVisionService" has incompatible type "str | bytes | None"; expected "str | bytes"  [arg-type]
+app\services\nvidia\vision.py:223: error: Dict entry 1 has incompatible type "str": "dict[str, str]"; expected "str": "str"  [dict-item]
+app\services\nvidia\video.py:108: error: "Sequence[str]" has no attribute "append"  [attr-defined]
+app\services\nvidia\nim.py:176: error: "Coroutine[Any, Any, AsyncClient]" has no attribute "__aenter__"  [attr-defined]
+app\services\nvidia\nim.py:176: note: Maybe you forgot to use "await"?
+app\services\nvidia\nim.py:176: error: "Coroutine[Any, Any, AsyncClient]" has no attribute "__aexit__"  [attr-defined]
+app\services\nvidia\image.py:120: error: "Sequence[str]" has no attribute "append"  [attr-defined]
+app\services\nvidia\chat.py:168: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\nvidia\chat.py:227: error: "Coroutine[Any, Any, AsyncClient]" has no attribute "__aenter__"  [attr-defined]
+app\services\nvidia\chat.py:227: note: Maybe you forgot to use "await"?
+app\services\nvidia\chat.py:227: error: "Coroutine[Any, Any, AsyncClient]" has no attribute "__aexit__"  [attr-defined]
+app\services\multimodal\text_to_image.py:63: error: Incompatible types in assignment (expression has type "str", target has type "float")  [assignment]
+app\services\multimodal\image_to_text.py:70: error: Incompatible types in assignment (expression has type "dict[str, str]", variable has type "str")  [assignment]
+app\services\multimodal\groq_vision.py:163: error: Argument "images" to "generate_with_vision" of "GroqProvider" has incompatible type "list[str]"; expected "list[str | bytes]"  [arg-type]
+app\services\multimodal\groq_vision.py:163: note: "List" is invariant -- see https://mypy.readthedocs.io/en/stable/common_issues.html#variance
+app\services\multimodal\groq_vision.py:163: note: Consider using "Sequence" instead, which is covariant
+app\services\metrics\websocket_metrics.py:26: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\services\metrics\websocket_metrics.py:27: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\services\metrics\websocket_metrics.py:28: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\services\llm\reka.py:54: error: Incompatible return value type (got "dict[str, str | None]", expected "dict[str, str]")  [return-value]
+app\services\llm\reka.py:216: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\huggingface.py:190: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\groq_safety.py:280: error: "object" has no attribute "append"  [attr-defined]
+app\services\llm\groq_safety.py:292: error: "object" has no attribute "append"  [attr-defined]
+app\services\llm\groq_safety.py:304: error: "object" has no attribute "append"  [attr-defined]
+app\services\hyperbolic\vision.py:84: error: Dict entry 1 has incompatible type "str": "dict[str, str]"; expected "str": "str"  [dict-item]
+app\services\hyperbolic\audio.py:29: error: Missing return statement  [return]
+app\services\fal\queue_manager.py:76: error: Incompatible types in "await" (actual type "dict[str, Any]", expected type "Awaitable[Any]")  [misc]
+app\services\fal\queue_manager.py:76: error: Too many arguments  [call-arg]
+app\services\cohere\reranking.py:18: error: Incompatible default for argument "model" (default has type "None", argument has type "str")  [assignment]
+app\services\cohere\reranking.py:18: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
+app\services\cohere\reranking.py:18: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
+app\services\cohere\embeddings.py:17: error: Incompatible default for argument "model" (default has type "None", argument has type "str")  [assignment]
+app\services\cohere\embeddings.py:17: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
+app\services\cohere\embeddings.py:17: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
+app\services\cohere\embeddings.py:31: error: Incompatible default for argument "model" (default has type "None", argument has type "str")  [assignment]
+app\services\cohere\embeddings.py:31: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
+app\services\cohere\embeddings.py:31: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
+app\services\cohere\classification.py:18: error: Incompatible default for argument "model" (default has type "None", argument has type "str")  [assignment]
+app\services\cohere\classification.py:18: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
+app\services\cohere\classification.py:18: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
+app\api\ws_methods\elevenlabs.py:18: error: Unexpected keyword argument "output_format" for "generate" of "ElevenLabsTextToSpeechService"  [call-arg]
+app\services\multimodal\elevenlabs_tts.py:276: note: "generate" of "ElevenLabsTextToSpeechService" defined here
+app\api\ws_methods\elevenlabs.py:18: error: Unexpected keyword argument "pronunciation_dictionary_locators" for "generate" of "ElevenLabsTextToSpeechService"  [call-arg]
+app\services\multimodal\elevenlabs_tts.py:276: note: "generate" of "ElevenLabsTextToSpeechService" defined here
+app\services\fal\video_generation.py:59: error: Incompatible types in assignment (expression has type "int", target has type "str")  [assignment]
+app\services\fal\video_generation.py:63: error: Incompatible types in assignment (expression has type "int", target has type "str")  [assignment]
+app\services\fal\video_generation.py:110: error: Incompatible types in assignment (expression has type "int", target has type "str")  [assignment]
+app\services\fal\video_generation.py:114: error: Incompatible types in assignment (expression has type "int", target has type "str")  [assignment]
+app\services\fal\audio_generation.py:57: error: Incompatible types in assignment (expression has type "int", target has type "str")  [assignment]
+app\api\ws_methods\groq.py:38: error: Argument "max_tokens" to "LLMConfig" has incompatible type "Any | None"; expected "int"  [arg-type]
+app\api\ws_methods\groq.py:52: error: Incompatible return value type (got "AsyncGenerator[dict[str, Any], None]", expected "dict[str, Any]")  [return-value]
+app\api\ws_methods\groq.py:110: error: Incompatible types in assignment (expression has type "str", variable has type "bytes | None")  [assignment]
+app\api\ws_methods\groq.py:114: error: "GroqVisionService" has no attribute "analyze"  [attr-defined]
+app\api\ws_methods\groq.py:141: error: Incompatible types in assignment (expression has type "str", variable has type "bytes | None")  [assignment]
+app\api\ws_methods\groq.py:145: error: Argument "audio" to "transcribe" of "GroqSpeechToTextService" has incompatible type "bytes | None"; expected "str | bytes | BytesIO"  [arg-type]
+app\api\ws_methods\groq.py:162: error: "GroqModelSelector" has no attribute "list_models"  [attr-defined]
+app\api\ws_methods\cohere.py:41: error: Argument "model" to "embed" of "CohereEmbeddings" has incompatible type "Any | None"; expected "str"  [arg-type]
+app\api\ws_methods\cohere.py:60: error: Argument "model" to "classify" of "CohereClassifier" has incompatible type "Any | None"; expected "str"  [arg-type]
+app\services\rag\embeddings.py:194: error: Incompatible types in assignment (expression has type "Response", variable has type "dict[str, Any]")  [assignment]
+app\services\rag\embeddings.py:200: error: "dict[str, Any]" has no attribute "raise_for_status"  [attr-defined]
+app\services\rag\embeddings.py:201: error: "dict[str, Any]" has no attribute "json"  [attr-defined]
+app\services\rag\embeddings.py:227: error: List item 0 has incompatible type "dict[str, Any]"; expected "float"  [list-item]
+app\services\llm\ollama.py:57: error: Incompatible types in assignment (expression has type "str | Any | None", variable has type "str")  [assignment]
+app\services\llm\ollama.py:89: error: Unsupported target for indexed assignment ("object")  [index]
+app\services\llm\ollama.py:114: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\ollama.py:143: error: Unsupported target for indexed assignment ("object")  [index]
+app\services\llm\ollama.py:147: error: "Coroutine[Any, Any, AsyncClient]" has no attribute "__aenter__"  [attr-defined]
+app\services\llm\ollama.py:147: note: Maybe you forgot to use "await"?
+app\services\llm\ollama.py:147: error: "Coroutine[Any, Any, AsyncClient]" has no attribute "__aexit__"  [attr-defined]
+app\services\llm\hyperbolic.py:184: error: Return type "AsyncIterator[str]" of "stream" incompatible with return type "Coroutine[Any, Any, AsyncGenerator[str, None]]" in supertype "BaseLLMProvider"  [override]
+app\services\llm\hyperbolic.py:260: error: Incompatible types in assignment (expression has type "LLMResponse", variable has type "Response")  [assignment]
+app\services\llm\hyperbolic.py:297: error: Dict entry 1 has incompatible type "str": "dict[str, str]"; expected "str": "str"  [dict-item]
+app\services\llm\hyperbolic.py:302: error: Dict entry 1 has incompatible type "str": "dict[str, str]"; expected "str": "str"  [dict-item]
+app\services\llm\hyperbolic.py:305: error: Dict entry 1 has incompatible type "str": "dict[str, str]"; expected "str": "str"  [dict-item]
+app\services\llm\hyperbolic.py:310: error: Dict entry 1 has incompatible type "str": "dict[str, str]"; expected "str": "str"  [dict-item]
+app\services\llm\hyperbolic.py:387: error: Dict entry 1 has incompatible type "str": "list[dict[str, str]]"; expected "str": "str"  [dict-item]
+app\api\ws_methods\vision.py:37: error: Incompatible types in assignment (expression has type "str", variable has type "bytes | None")  [assignment]
+app\api\ws_methods\vision.py:44: error: Argument "image" to "analyze_image" of "GeminiVisionService" has incompatible type "bytes | None"; expected "str | bytes"  [arg-type]
+app\api\ws_methods\ollama.py:36: error: Cannot instantiate abstract class "OllamaGenerateService" with abstract attribute "list_models"  [abstract]
+app\api\ws_methods\ollama.py:37: error: Argument "max_tokens" to "LLMConfig" has incompatible type "Any | None"; expected "int"  [arg-type]
+app\api\ws_methods\ollama.py:40: error: Incompatible return value type (got "AsyncGenerator[dict[str, Any], None]", expected "dict[str, Any]")  [return-value]
+app\api\ws_methods\ollama.py:85: error: Cannot instantiate abstract class "OllamaGenerateService" with abstract attribute "list_models"  [abstract]
+app\api\ws_methods\ollama.py:86: error: Argument "max_tokens" to "LLMConfig" has incompatible type "Any | None"; expected "int"  [arg-type]
+app\api\ws_methods\ollama.py:89: error: Incompatible return value type (got "AsyncGenerator[dict[str, Any], None]", expected "dict[str, Any]")  [return-value]
+app\api\ws_methods\ollama.py:91: error: "OllamaGenerateService" has no attribute "chat"  [attr-defined]
+app\api\ws_methods\ollama.py:110: error: "OllamaGenerateService" has no attribute "stream_chat"; maybe "_stream_chat"?  [attr-defined]
+app\api\ws_methods\nvidia.py:39: error: Argument "max_tokens" to "LLMConfig" has incompatible type "Any | None"; expected "int"  [arg-type]
+app\api\ws_methods\nvidia.py:53: error: Incompatible return value type (got "AsyncGenerator[dict[str, Any], None]", expected "dict[str, Any]")  [return-value]
+app\api\ws_methods\nvidia.py:149: error: "NVIDIAEmbeddingService" has no attribute "embed_batch"  [attr-defined]
+app\api\ws_methods\nvidia.py:151: error: Unexpected keyword argument "text" for "embed" of "NVIDIAEmbeddingService"; did you mean "texts"?  [call-arg]
+app\services\nvidia\embeddings.py:53: note: "embed" of "NVIDIAEmbeddingService" defined here
+app\api\ws_methods\multimodal.py:44: error: Argument "num_inference_steps" to "generate" of "TextToImageService" has incompatible type "Any | None"; expected "int"  [arg-type]
+app\api\ws_methods\multimodal.py:45: error: Argument "guidance_scale" to "generate" of "TextToImageService" has incompatible type "Any | None"; expected "float"  [arg-type]
+app\api\ws_methods\multimodal.py:75: error: Incompatible types in assignment (expression has type "str", variable has type "bytes | None")  [assignment]
+app\api\ws_methods\multimodal.py:79: error: "ImageToTextService" has no attribute "analyze"  [attr-defined]
+app\api\ws_methods\multimodal.py:108: error: Incompatible types in assignment (expression has type "str", variable has type "bytes | None")  [assignment]
+app\api\ws_methods\multimodal.py:112: error: Argument "audio" to "transcribe" of "SpeechToTextService" has incompatible type "bytes | None"; expected "str | bytes"  [arg-type]
+app\api\ws_methods\multimodal.py:138: error: "TextToSpeechService" has no attribute "synthesize"  [attr-defined]
+app\api\ws_methods\multimodal.py:172: error: Incompatible types in assignment (expression has type "str", variable has type "bytes | None")  [assignment]
+app\api\ws_methods\multimodal.py:176: error: Unexpected keyword argument "image" for "detect" of "ObjectDetectionService"  [call-arg]
+app\services\multimodal\object_detection.py:34: note: "detect" of "ObjectDetectionService" defined here
+app\api\ws_methods\multimodal.py:177: error: Incompatible return value type (got "list[dict[str, Any]]", expected "dict[str, Any]")  [return-value]
+app\services\llm\factory.py:149: error: "add" of "set" does not return a value (it only ever returns None)  [func-returns-value]
+app\services\rag\vectorstore.py:43: error: Function "chromadb.Client" is not valid as a type  [valid-type]
+app\services\rag\vectorstore.py:43: note: Perhaps you need "Callable[...]" or a callback protocol?
+app\services\rag\vectorstore.py:46: error: Incompatible types in assignment (expression has type "ClientAPI", variable has type "None")  [assignment]
+app\services\rag\retriever.py:346: error: Argument 1 to "HTMLParser" has incompatible type "str | None"; expected "str"  [arg-type]
+app\services\council\model_selector.py:119: error: Incompatible default for argument "min_models" (default has type "None", argument has type "int")  [assignment]
+app\services\council\model_selector.py:119: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
+app\services\council\model_selector.py:119: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
+app\services\council\model_selector.py:119: error: Incompatible default for argument "max_models" (default has type "None", argument has type "int")  [assignment]
+app\services\council\model_selector.py:221: error: Incompatible default for argument "min_models" (default has type "None", argument has type "int")  [assignment]
+app\services\council\model_selector.py:221: note: PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True
+app\services\council\model_selector.py:221: note: Use https://github.com/hauntsaninja/no_implicit_optional to automatically upgrade your codebase
+app\services\council\model_selector.py:221: error: Incompatible default for argument "max_models" (default has type "None", argument has type "int")  [assignment]
+app\services\benchmark\orchestrator.py:73: error: "Coroutine[Any, Any, AsyncGenerator[str, None]]" has no attribute "__aiter__" (not async iterable)  [attr-defined]
+app\services\benchmark\orchestrator.py:73: note: Maybe you forgot to use "await"?
+app\services\benchmark\orchestrator.py:229: error: Argument 1 to "append" of "list" has incompatible type "dict[str, Any] | BaseException"; expected "dict[str, object]"  [arg-type]
+app\services\benchmark\orchestrator.py:240: error: Argument "key" to "sort" of "list" has incompatible type "Callable[[dict[str, object]], object]"; expected "Callable[[dict[str, object]], SupportsDunderLT[Any] | SupportsDunderGT[Any]]"  [arg-type]
+app\services\benchmark\orchestrator.py:240: error: Incompatible return value type (got "object", expected "SupportsDunderLT[Any] | SupportsDunderGT[Any]")  [return-value]
+app\services\benchmark\orchestrator.py:254: error: Argument "key" to "min" has incompatible type "Callable[[dict[str, object]], object]"; expected "Callable[[dict[str, object]], SupportsDunderLT[Any] | SupportsDunderGT[Any]]"  [arg-type]
+app\services\benchmark\orchestrator.py:254: error: Incompatible return value type (got "object", expected "SupportsDunderLT[Any] | SupportsDunderGT[Any]")  [return-value]
+app\services\benchmark\orchestrator.py:260: error: Argument "key" to "max" has incompatible type "Callable[[dict[str, object]], object]"; expected "Callable[[dict[str, object]], SupportsDunderLT[Any] | SupportsDunderGT[Any]]"  [arg-type]
+app\services\benchmark\orchestrator.py:260: error: Incompatible return value type (got "object", expected "SupportsDunderLT[Any] | SupportsDunderGT[Any]")  [return-value]
+app\services\benchmark\orchestrator.py:374: error: Item "BaseException" of "Any | BaseException" has no attribute "get"  [union-attr]
+app\services\benchmark\orchestrator.py:375: error: Item "BaseException" of "Any | BaseException" has no attribute "get"  [union-attr]
+app\services\benchmark\orchestrator.py:382: error: Value of type "Any | BaseException" is not indexable  [index]
+app\services\benchmark\orchestrator.py:387: error: Item "BaseException" of "Any | BaseException" has no attribute "get"  [union-attr]
+app\api\ws_methods\reka.py:32: error: "Coroutine[Any, Any, AsyncGenerator[str, None]]" has no attribute "__aiter__" (not async iterable)  [attr-defined]
+app\api\ws_methods\reka.py:32: note: Maybe you forgot to use "await"?
+app\api\ws_methods\openrouter.py:33: error: "Coroutine[Any, Any, AsyncGenerator[str, None]]" has no attribute "__aiter__" (not async iterable)  [attr-defined]
+app\api\ws_methods\openrouter.py:33: note: Maybe you forgot to use "await"?
+app\api\ws_methods\hyperbolic.py:36: error: "Coroutine[Any, Any, AsyncGenerator[str, None]]" has no attribute "__aiter__" (not async iterable)  [attr-defined]
+app\api\ws_methods\hyperbolic.py:36: note: Maybe you forgot to use "await"?
+app\api\ws_methods\deepinfra.py:35: error: "Coroutine[Any, Any, AsyncGenerator[str, None]]" has no attribute "__aiter__" (not async iterable)  [attr-defined]
+app\api\ws_methods\deepinfra.py:35: note: Maybe you forgot to use "await"?
+app\api\ws_methods\cerebras.py:42: error: "Coroutine[Any, Any, AsyncGenerator[str, None]]" has no attribute "__aiter__" (not async iterable)  [attr-defined]
+app\api\ws_methods\cerebras.py:42: note: Maybe you forgot to use "await"?
+app\services\rag_chat_service.py:91: error: Item "AsyncGenerator[dict[str, Any], None]" of "dict[str, Any] | AsyncGenerator[dict[str, Any], None]" has no attribute "get"  [union-attr]
+app\services\rag_chat_service.py:92: error: Item "AsyncGenerator[dict[str, Any], None]" of "dict[str, Any] | AsyncGenerator[dict[str, Any], None]" has no attribute "get"  [union-attr]
+app\services\rag_chat_service.py:123: error: "Coroutine[Any, Any, AsyncGenerator[str, None]]" has no attribute "__aiter__" (not async iterable)  [attr-defined]
+app\services\rag_chat_service.py:123: note: Maybe you forgot to use "await"?
+app\agents\seo_agent.py:92: error: Argument 1 to "HTMLParser" has incompatible type "str | None"; expected "str"  [arg-type]
+app\agents\research_agent.py:70: error: Argument 1 to "HTMLParser" has incompatible type "str | None"; expected "str"  [arg-type]
+app\agents\research_agent.py:100: error: Argument 2 to "_build_research_prompt" of "ResearchAgent" has incompatible type "str | None"; expected "str"  [arg-type]
+app\agents\page_analyzer.py:64: error: Argument 1 to "HTMLParser" has incompatible type "str | None"; expected "str"  [arg-type]
+app\agents\content_extractor.py:82: error: Argument 1 to "HTMLParser" has incompatible type "str | None"; expected "str"  [arg-type]
+app\services\document_service.py:95: error: Need type annotation for "all_chunks" (hint: "all_chunks: List[<type>] = ...")  [var-annotated]
+app\api\ws_methods\rag.py:49: error: Value of type "dict[str, Any] | AsyncGenerator[dict[str, Any], None]" is not indexable  [index]
+app\api\ws_methods\rag.py:50: error: Item "AsyncGenerator[dict[str, Any], None]" of "dict[str, Any] | AsyncGenerator[dict[str, Any], None]" has no attribute "get"  [union-attr]
+app\api\ws_methods\rag.py:51: error: Value of type "dict[str, Any] | AsyncGenerator[dict[str, Any], None]" is not indexable  [index]
+app\api\ws_methods\rag.py:52: error: Value of type "dict[str, Any] | AsyncGenerator[dict[str, Any], None]" is not indexable  [index]
+app\api\ws_methods\rag.py:53: error: Value of type "dict[str, Any] | AsyncGenerator[dict[str, Any], None]" is not indexable  [index]
+app\api\ws_methods\rag.py:54: error: Value of type "dict[str, Any] | AsyncGenerator[dict[str, Any], None]" is not indexable  [index]
+app\api\ws_methods\rag.py:128: error: Missing positional argument "document_id" in call to "delete_document" of "ChromaVectorStore"  [call-arg]
+app\services\storage_service.py:74: error: Incompatible types in assignment (expression has type "dict[str, Any]", target has type "str")  [assignment]
+app\database\sqlalchemy.py:38: error: The return type of an async generator function should be "AsyncGenerator" or one of its supertypes  [misc]
+app\agents\router.py:57: error: "str" has no attribute "value"  [attr-defined]
+app\agents\router.py:212: error: "str" has no attribute "value"  [attr-defined]
+app\agents\router.py:212: error: Argument 1 to "BaseAgent" has incompatible type "str"; expected "AgentConfig | None"  [arg-type]
+app\services\memory\conversation.py:353: error: "None" has no attribute "get"  [attr-defined]
+app\services\memory\conversation.py:379: error: "None" has no attribute "setex"  [attr-defined]
+app\services\memory\conversation.py:390: error: "None" has no attribute "delete"  [attr-defined]
+app\services\memory\conversation.py:398: error: "None" has no attribute "keys"  [attr-defined]
+app\services\memory\conversation.py:401: error: "None" has no attribute "get"  [attr-defined]
+app\services\memory\conversation.py:439: error: Argument "id" to "Conversation" has incompatible type "Column[str]"; expected "str"  [arg-type]
+app\services\memory\conversation.py:440: error: Argument "created_at" to "Conversation" has incompatible type "Column[datetime]"; expected "datetime"  [arg-type]
+app\services\memory\conversation.py:441: error: Argument "updated_at" to "Conversation" has incompatible type "Column[datetime]"; expected "datetime"  [arg-type]
+app\services\memory\conversation.py:442: error: Argument "metadata" to "Conversation" has incompatible type "Column[Any] | dict[Never, Never]"; expected "dict[Any, Any]"  [arg-type]
+app\services\memory\conversation.py:449: error: Argument "role" to "Message" has incompatible type "Column[Any]"; expected "str"  [arg-type]
+app\services\memory\conversation.py:453: error: Argument "content" to "Message" has incompatible type "Column[str]"; expected "str"  [arg-type]
+app\services\memory\conversation.py:454: error: Argument "timestamp" to "Message" has incompatible type "Column[datetime]"; expected "datetime"  [arg-type]
+app\services\memory\conversation.py:486: error: Incompatible types in assignment (expression has type "datetime", variable has type "Column[datetime]")  [assignment]
+app\services\memory\conversation.py:488: error: Incompatible types in assignment (expression has type "str", variable has type "Column[str]")  [assignment]
+app\services\memory\conversation.py:543: error: Incompatible types in assignment (expression has type "datetime", variable has type "Column[datetime]")  [assignment]
+app\services\memory\conversation.py:557: error: "Result[Any]" has no attribute "rowcount"  [attr-defined]
+app\graphql\modules\rag\resolvers.py:93: error: Argument 1 to "run_ws" has incompatible type "Callable[[dict[str, Any], dict[str, Any] | None, str | None], AsyncGenerator[dict[str, Any], None]]"; expected "Callable[..., Awaitable[Any]]"  [arg-type]
+app\graphql\modules\metrics\resolvers.py:17: error: Need type annotation for "p" (hint: "p: Dict[<type>, <type>] = ...")  [var-annotated]
+app\graphql\modules\metrics\resolvers.py:17: error: No overload variant of "dict" matches argument type "JSON | None"  [call-overload]
+app\graphql\modules\metrics\resolvers.py:17: note: Possible overload variants:
+app\graphql\modules\metrics\resolvers.py:17: note:     def [_KT, _VT] __init__(self) -> dict[_KT, _VT]
+app\graphql\modules\metrics\resolvers.py:17: note:     def [_KT, _VT] __init__(self, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\metrics\resolvers.py:17: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[_KT, _VT], /) -> dict[_KT, _VT]
+app\graphql\modules\metrics\resolvers.py:17: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[str, _VT], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\metrics\resolvers.py:17: note:     def [_KT, _VT] __init__(self, Iterable[tuple[_KT, _VT]], /) -> dict[_KT, _VT]
+app\graphql\modules\metrics\resolvers.py:17: note:     def [_KT, _VT] __init__(self, Iterable[tuple[str, _VT]], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\metrics\resolvers.py:17: note:     def [_KT, _VT] __init__(self, Iterable[list[str]], /) -> dict[str, str]
+app\graphql\modules\metrics\resolvers.py:17: note:     def [_KT, _VT] __init__(self, Iterable[list[bytes]], /) -> dict[bytes, bytes]
+app\graphql\modules\metrics\resolvers.py:22: error: Need type annotation for "p" (hint: "p: Dict[<type>, <type>] = ...")  [var-annotated]
+app\graphql\modules\metrics\resolvers.py:22: error: No overload variant of "dict" matches argument type "JSON | None"  [call-overload]
+app\graphql\modules\metrics\resolvers.py:22: note: Possible overload variants:
+app\graphql\modules\metrics\resolvers.py:22: note:     def [_KT, _VT] __init__(self) -> dict[_KT, _VT]
+app\graphql\modules\metrics\resolvers.py:22: note:     def [_KT, _VT] __init__(self, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\metrics\resolvers.py:22: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[_KT, _VT], /) -> dict[_KT, _VT]
+app\graphql\modules\metrics\resolvers.py:22: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[str, _VT], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\metrics\resolvers.py:22: note:     def [_KT, _VT] __init__(self, Iterable[tuple[_KT, _VT]], /) -> dict[_KT, _VT]
+app\graphql\modules\metrics\resolvers.py:22: note:     def [_KT, _VT] __init__(self, Iterable[tuple[str, _VT]], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\metrics\resolvers.py:22: note:     def [_KT, _VT] __init__(self, Iterable[list[str]], /) -> dict[str, str]
+app\graphql\modules\metrics\resolvers.py:22: note:     def [_KT, _VT] __init__(self, Iterable[list[bytes]], /) -> dict[bytes, bytes]
+app\graphql\modules\metrics\resolvers.py:27: error: Need type annotation for "p" (hint: "p: Dict[<type>, <type>] = ...")  [var-annotated]
+app\graphql\modules\metrics\resolvers.py:27: error: No overload variant of "dict" matches argument type "JSON | None"  [call-overload]
+app\graphql\modules\metrics\resolvers.py:27: note: Possible overload variants:
+app\graphql\modules\metrics\resolvers.py:27: note:     def [_KT, _VT] __init__(self) -> dict[_KT, _VT]
+app\graphql\modules\metrics\resolvers.py:27: note:     def [_KT, _VT] __init__(self, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\metrics\resolvers.py:27: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[_KT, _VT], /) -> dict[_KT, _VT]
+app\graphql\modules\metrics\resolvers.py:27: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[str, _VT], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\metrics\resolvers.py:27: note:     def [_KT, _VT] __init__(self, Iterable[tuple[_KT, _VT]], /) -> dict[_KT, _VT]
+app\graphql\modules\metrics\resolvers.py:27: note:     def [_KT, _VT] __init__(self, Iterable[tuple[str, _VT]], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\metrics\resolvers.py:27: note:     def [_KT, _VT] __init__(self, Iterable[list[str]], /) -> dict[str, str]
+app\graphql\modules\metrics\resolvers.py:27: note:     def [_KT, _VT] __init__(self, Iterable[list[bytes]], /) -> dict[bytes, bytes]
+app\graphql\modules\health\resolvers.py:17: error: Need type annotation for "p" (hint: "p: Dict[<type>, <type>] = ...")  [var-annotated]
+app\graphql\modules\health\resolvers.py:17: error: No overload variant of "dict" matches argument type "JSON | None"  [call-overload]
+app\graphql\modules\health\resolvers.py:17: note: Possible overload variants:
+app\graphql\modules\health\resolvers.py:17: note:     def [_KT, _VT] __init__(self) -> dict[_KT, _VT]
+app\graphql\modules\health\resolvers.py:17: note:     def [_KT, _VT] __init__(self, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\health\resolvers.py:17: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[_KT, _VT], /) -> dict[_KT, _VT]
+app\graphql\modules\health\resolvers.py:17: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[str, _VT], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\health\resolvers.py:17: note:     def [_KT, _VT] __init__(self, Iterable[tuple[_KT, _VT]], /) -> dict[_KT, _VT]
+app\graphql\modules\health\resolvers.py:17: note:     def [_KT, _VT] __init__(self, Iterable[tuple[str, _VT]], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\health\resolvers.py:17: note:     def [_KT, _VT] __init__(self, Iterable[list[str]], /) -> dict[str, str]
+app\graphql\modules\health\resolvers.py:17: note:     def [_KT, _VT] __init__(self, Iterable[list[bytes]], /) -> dict[bytes, bytes]
+app\graphql\modules\health\resolvers.py:22: error: Need type annotation for "p" (hint: "p: Dict[<type>, <type>] = ...")  [var-annotated]
+app\graphql\modules\health\resolvers.py:22: error: No overload variant of "dict" matches argument type "JSON | None"  [call-overload]
+app\graphql\modules\health\resolvers.py:22: note: Possible overload variants:
+app\graphql\modules\health\resolvers.py:22: note:     def [_KT, _VT] __init__(self) -> dict[_KT, _VT]
+app\graphql\modules\health\resolvers.py:22: note:     def [_KT, _VT] __init__(self, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\health\resolvers.py:22: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[_KT, _VT], /) -> dict[_KT, _VT]
+app\graphql\modules\health\resolvers.py:22: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[str, _VT], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\health\resolvers.py:22: note:     def [_KT, _VT] __init__(self, Iterable[tuple[_KT, _VT]], /) -> dict[_KT, _VT]
+app\graphql\modules\health\resolvers.py:22: note:     def [_KT, _VT] __init__(self, Iterable[tuple[str, _VT]], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\health\resolvers.py:22: note:     def [_KT, _VT] __init__(self, Iterable[list[str]], /) -> dict[str, str]
+app\graphql\modules\health\resolvers.py:22: note:     def [_KT, _VT] __init__(self, Iterable[list[bytes]], /) -> dict[bytes, bytes]
+app\api\ws_gateway.py:36: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\api\ws_gateway.py:37: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\api\ws_gateway.py:121: error: "type[JSONRPCErrorCode]" has no attribute "RATE_LIMIT_EXCEEDED"  [attr-defined]
+app\api\ws_methods\claude_code.py:200: error: Incompatible types in assignment (expression has type "list[PortingModule]", variable has type "tuple[PortingModule, ...]")  [assignment]
+app\api\ws_methods\claude_code.py:202: error: Incompatible types in assignment (expression has type "list[PortingModule]", variable has type "tuple[PortingModule, ...]")  [assignment]
+app\api\ws_methods\claude_code.py:230: error: Incompatible types in assignment (expression has type "list[PortingModule]", variable has type "tuple[PortingModule, ...]")  [assignment]
+app\api\ws_methods\claude_code.py:232: error: Incompatible types in assignment (expression has type "list[PortingModule]", variable has type "tuple[PortingModule, ...]")  [assignment]
+app\api\ws_methods\auth.py:61: error: Incompatible types in assignment (expression has type "dict[str, datetime | dict[str, Any] | str | None]", target has type "bool | None")  [assignment]
+app\api\ws_methods\auth.py:70: error: Incompatible types in assignment (expression has type "dict[str, object]", target has type "bool | None")  [assignment]
+app\api\ws_methods\auth.py:225: error: Argument "headers" to "post" of "Client" has incompatible type "dict[str, str | None]"; expected "Headers | Mapping[str, str] | Mapping[bytes, bytes] | Sequence[tuple[str, str]] | Sequence[tuple[bytes, bytes]] | None"  [arg-type]
+app\api\ws_methods\auth.py:364: error: Incompatible types (expression has type "Any | None", TypedDict item "redirect_to" has type "str")  [typeddict-item]
+app\api\ws_methods\auth.py:409: error: Argument 1 to "verify_otp" of "SyncGoTrueClient" has incompatible type "dict[str, Any]"; expected "VerifyEmailOtpParams | VerifyMobileOtpParams | VerifyTokenHashParams"  [arg-type]
+app\api\ws_methods\auth.py:478: error: Argument 1 to "update_user" of "SyncGoTrueClient" has incompatible type "dict[str, Any]"; expected "UserAttributes"  [arg-type]
+app\api\ws_methods\auth.py:533: error: Incompatible types (expression has type "Any | None", TypedDict item "email_redirect_to" has type "str")  [typeddict-item]
+app\api\ws_methods\auth.py:579: error: Incompatible types (expression has type "Any | None", TypedDict item "redirect_to" has type "str")  [typeddict-item]
+app\graphql\modules\storage\resolvers.py:17: error: Need type annotation for "p" (hint: "p: Dict[<type>, <type>] = ...")  [var-annotated]
+app\graphql\modules\storage\resolvers.py:17: error: No overload variant of "dict" matches argument type "JSON | None"  [call-overload]
+app\graphql\modules\storage\resolvers.py:17: note: Possible overload variants:
+app\graphql\modules\storage\resolvers.py:17: note:     def [_KT, _VT] __init__(self) -> dict[_KT, _VT]
+app\graphql\modules\storage\resolvers.py:17: note:     def [_KT, _VT] __init__(self, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\storage\resolvers.py:17: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[_KT, _VT], /) -> dict[_KT, _VT]
+app\graphql\modules\storage\resolvers.py:17: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[str, _VT], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\storage\resolvers.py:17: note:     def [_KT, _VT] __init__(self, Iterable[tuple[_KT, _VT]], /) -> dict[_KT, _VT]
+app\graphql\modules\storage\resolvers.py:17: note:     def [_KT, _VT] __init__(self, Iterable[tuple[str, _VT]], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\storage\resolvers.py:17: note:     def [_KT, _VT] __init__(self, Iterable[list[str]], /) -> dict[str, str]
+app\graphql\modules\storage\resolvers.py:17: note:     def [_KT, _VT] __init__(self, Iterable[list[bytes]], /) -> dict[bytes, bytes]
+app\graphql\modules\storage\resolvers.py:22: error: Need type annotation for "p" (hint: "p: Dict[<type>, <type>] = ...")  [var-annotated]
+app\graphql\modules\storage\resolvers.py:22: error: No overload variant of "dict" matches argument type "JSON | None"  [call-overload]
+app\graphql\modules\storage\resolvers.py:22: note: Possible overload variants:
+app\graphql\modules\storage\resolvers.py:22: note:     def [_KT, _VT] __init__(self) -> dict[_KT, _VT]
+app\graphql\modules\storage\resolvers.py:22: note:     def [_KT, _VT] __init__(self, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\storage\resolvers.py:22: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[_KT, _VT], /) -> dict[_KT, _VT]
+app\graphql\modules\storage\resolvers.py:22: note:     def [_KT, _VT] __init__(self, SupportsKeysAndGetItem[str, _VT], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\storage\resolvers.py:22: note:     def [_KT, _VT] __init__(self, Iterable[tuple[_KT, _VT]], /) -> dict[_KT, _VT]
+app\graphql\modules\storage\resolvers.py:22: note:     def [_KT, _VT] __init__(self, Iterable[tuple[str, _VT]], /, **kwargs: _VT) -> dict[str, _VT]
+app\graphql\modules\storage\resolvers.py:22: note:     def [_KT, _VT] __init__(self, Iterable[list[str]], /) -> dict[str, str]
+app\graphql\modules\storage\resolvers.py:22: note:     def [_KT, _VT] __init__(self, Iterable[list[bytes]], /) -> dict[bytes, bytes]
+app\graphql\modules\auth\resolvers.py:33: error: Argument "user_metadata" to "GqlUser" has incompatible type "Any | dict[Any, Any]"; expected "JSON"  [arg-type]
+app\graphql\modules\auth\resolvers.py:34: error: Argument "app_metadata" to "GqlUser" has incompatible type "Any | dict[Any, Any]"; expected "JSON"  [arg-type]
+app\graphql\modules\auth\resolvers.py:67: error: Argument "user_metadata" to "GqlUser" has incompatible type "Any | dict[Any, Any]"; expected "JSON"  [arg-type]
+app\graphql\modules\auth\resolvers.py:68: error: Argument "app_metadata" to "GqlUser" has incompatible type "Any | dict[Any, Any]"; expected "JSON"  [arg-type]
+Found 261 errors in 83 files (checked 263 source files)
+   mypy issues (warning only; set MYPY_STRICT=1 to fail)
 
-***
-***
-***
+[4/10] Formatting checks (black)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m black --check app/ scripts/ tests/
+All done! ✨ 🍰 ✨
+269 files would be left unchanged.
+  OK black check passed
 
-***
-***
-***
+[4b/10] Prettier (Markdown, JSON, YAML, etc.)...
+----------------------------------------
+  Complements black (Python); formats Markdown, JSON, YAML, etc.
+  Running: npm run format:check
 
-***
-***
-***
-***
-***
-***
+> format:check
+> prettier --check .
 
-***
-***
-***
-***
-***
+Checking formatting...
+[warn] docker/supabase/volumes/api/kong.yml
+[warn] reports/check_report_bat.json
+[warn] Code style issues found in 2 files. Run Prettier with --write to fix.
+  Prettier issues - running: npm run format
 
-***
-***
-***
-***
+> format
+> prettier --write .
 
-***
-***
-***
-***
-***
+.github/workflows/api-ci.yml 35ms (unchanged)
+.github/workflows/deploy.yml 8ms (unchanged)
+.prettierrc.json 27ms (unchanged)
+app/services/claude_code/reference_data/archive_surface_snapshot.json 3ms (unchanged)
+app/services/claude_code/reference_data/commands_snapshot.json 26ms (unchanged)
+app/services/claude_code/reference_data/tools_snapshot.json 26ms (unchanged)
+ARCHITECTURE.md 27ms (unchanged)
+compose.dev.yaml 2ms (unchanged)
+compose.yaml 1ms (unchanged)
+docker/docker-compose.dev.yml 6ms (unchanged)
+docker/docker-compose.supabase.yml 28ms (unchanged)
+docker/docker-compose.yml 9ms (unchanged)
+docker/README.md 32ms (unchanged)
+docker/supabase/volumes/api/kong.yml 25ms
+docs/⚡ LLM API Latency.postman_collection.json 545ms (unchanged)
+docs/📌 AI21 Labs API.postman_collection.json 124ms (unchanged)
+docs/📌 Alibaba Cloud (Aliyun).postman_collection.json 49ms (unchanged)
+docs/📌 Amazon Bedrock API.postman_collection (1).json 939ms (unchanged)
+docs/📌 Amazon Bedrock API.postman_collection.json 936ms (unchanged)
+docs/📌 Cerebras API ⚡.postman_collection.json 40ms (unchanged)
+docs/📌 Cohere API.postman_collection.json 629ms (unchanged)
+docs/📌 Deep Infra API.postman_collection.json 99ms (unchanged)
+docs/📌 Deepgram API.postman_collection.json 32ms (unchanged)
+docs/📌 DeepSeek API.postman_collection.json 10ms (unchanged)
+docs/📌 Docker Model Runner API (Localhost).postman_collection.json 11ms (unchanged)
+docs/📌 Eden AI API.postman_collection.json 6ms (unchanged)
+docs/📌 ElevenLabs API.postman_collection.json 10ms (unchanged)
+docs/📌 fal.ai API.postman_collection.json 21ms (unchanged)
+docs/📌 Fireworks AI API.postman_collection.json 108ms (unchanged)
+docs/📌 GitHub AI API.postman_collection.json 323ms (unchanged)
+docs/📌 Google Gemini API & Vertex AI API.postman_collection.json 782ms (unchanged)
+docs/📌 Groq API ⚡.postman_collection.json 51ms (unchanged)
+docs/📌 Hugging Face API.postman_collection.json 185ms (unchanged)
+docs/📌 Hyperbolic API.postman_collection.json 461ms (unchanged)
+docs/📌 IBM watsonx.ai API.postman_collection.json 255ms (unchanged)
+docs/📌 kluster.ai API.postman_collection.json 33ms (unchanged)
+docs/📌 Lamini API [OOB].postman_collection.json 15ms (unchanged)
+docs/📌 Lepton AI API [OOB].postman_collection.json 13ms (unchanged)
+docs/📌 Mistral AI API.postman_collection.json 1672ms (unchanged)
+docs/📌 Nebius AI API.postman_collection.json 118ms (unchanged)
+docs/📌 Novita API.postman_collection.json 35ms (unchanged)
+docs/📌 NVIDIA AI API.postman_collection.json 198ms (unchanged)
+docs/📌 OctoAI API [NVIDIA].postman_collection.json 126ms (unchanged)
+docs/📌 Ollama API (Localhost & Cloud).postman_collection (1).json 25ms (unchanged)
+docs/📌 Ollama API (Localhost & Cloud).postman_collection.json 25ms (unchanged)
+docs/📌 OpenAI API.postman_collection.json 1637ms (unchanged)
+docs/📌 OpenRouter API.postman_collection.json 105ms (unchanged)
+docs/📌 Perplexity AI API.postman_collection.json 35ms (unchanged)
+docs/📌 Reka AI API.postman_collection.json 7ms (unchanged)
+docs/📌 Replicate API.postman_collection.json 39ms (unchanged)
+docs/📌 SambaNova API ⚡.postman_collection.json 24ms (unchanged)
+docs/📌 Stability AI API.postman_collection.json 191ms (unchanged)
+docs/📌 Together AI API.postman_collection.json 351ms (unchanged)
+docs/📌 xAI API.postman_collection.json 167ms (unchanged)
+docs/🛠️ Postman Tool Generation API.postman_collection.json 5ms (unchanged)
+docs/API_BENCHMARK.md 30ms (unchanged)
+docs/API_QUICK_REFERENCE.md 13ms (unchanged)
+docs/CHANGELOG.md 6ms (unchanged)
+docs/cohere_api.md 46ms (unchanged)
+docs/COMPLETION_STATUS.md 13ms (unchanged)
+docs/DEEPGRAM_API.md 38ms (unchanged)
+docs/DEEPINFRA_GUIDE.md 47ms (unchanged)
+docs/DOCUMENTATION_INDEX.md 10ms (unchanged)
+docs/EXAMPLES.md 85ms (unchanged)
+docs/GROQ_INTEGRATION.md 57ms (unchanged)
+docs/HUGGINGFACE_API.md 34ms (unchanged)
+docs/HUGGINGFACE_ROUTER.md 25ms (unchanged)
+docs/HYPERBOLIC_API.md 27ms (unchanged)
+docs/IMPLEMENTATION_SUMMARY.md 26ms (unchanged)
+docs/NVIDIA_API_GUIDE.md 20ms (unchanged)
+docs/NVIDIA_EXAMPLES.md 6ms (unchanged)
+docs/NVIDIA_MODELS.md 17ms (unchanged)
+docs/OPENROUTER_API.md 31ms (unchanged)
+docs/OPENROUTER_INTEGRATION.md 15ms (unchanged)
+docs/PROVIDERS.md 23ms (unchanged)
+docs/QUICK_START.md 14ms (unchanged)
+docs/README.md 12ms (unchanged)
+docs/SETUP_REQUIREMENTS.md 30ms (unchanged)
+docs/SETUP_TASKS.md 43ms (unchanged)
+docs/streamlit/Best Practices for Combined FastAPI and Streamlit.md 18ms (unchanged)
+docs/streamlit/FastAPI and Streamlit Combined File Structure with.md 20ms (unchanged)
+docs/streamlit/FastAPI-Streamlit-Structure (1).md 20ms (unchanged)
+docs/streamlit/in fastapi and steamlit combined codebase , give m.md 14ms (unchanged)
+docs/streamlit/in fastapi and steamlit combined codebase , what i (1).md 31ms (unchanged)
+docs/SUPABASE_AUTH.md 26ms (unchanged)
+docs/SUPABASE_SETUP.md 16ms (unchanged)
+docs/SUPABASE_STORAGE.md 33ms (unchanged)
+docs/WEBSOCKET_API.md 54ms (unchanged)
+MIGRATION.md 4ms (unchanged)
+package.json 2ms (unchanged)
+README.md 17ms (unchanged)
+reports/check_report_bat.json 2ms
 
-***
-***
-***
-***
-***
-***
+> format:check
+> prettier --check .
 
-***
-***
+Checking formatting...
+All matched files use Prettier code style!
+  OK Prettier formatted
 
-***
-***
-***
-***
-***
+[5/10] Linting (ruff)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m ruff check app/ scripts/ tests/
+All checks passed!
+  OK ruff passed
 
-***
-***
-***
-***
-***
+[6/10] Running tests (pytest)...
+----------------------------------------
+  ENVIRONMENT=test
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pytest tests/ -q --tb=short
+=================================================================== test session starts ===================================================================
+platform win32 -- Python 3.13.13, pytest-8.0.2, pluggy-1.6.0
+rootdir: E:\durgas_ai\ai.backend
+configfile: pytest.ini
+plugins: anyio-4.12.0, asyncio-0.23.5, cov-4.1.0
+asyncio: mode=Mode.AUTO
+collected 5 items
 
-***
-***
-***
-***
-***
+tests\council\hallucination_eval\test_eval_harness.py .                                                                                              [ 20%]
+tests\council\test_verifier_rag.py ..                                                                                                                [ 60%]
+tests\test_graphql_schema.py ..                                                                                                                      [100%]
 
-***
-***
-***
-***
+=================================================================== 5 passed in 41.46s ====================================================================
+  OK Tests passed
 
-***
-***
-***
-***
-***
-***
-***
-***
-***
-***
-***
-***
-***
-" > .env
-chmod 600 .env || true
+[6b] Coverage skipped (set RUN_TEST_COVERAGE=1 for pytest --cov=app)
 
-echo "" > docker/supabase/supabase.env
-chmod 600 docker/supabase/supabase.env || true
+[7/10] API best-practices checklist...
+----------------------------------------
+  scripts\check_best_practices.py - config .api-checker-config.json
+  Output: reports\check_report_bat.json
+  Running: check_best_practices.py
+Best-practices score: 42.2/100
+  OK Best-practices check passed
 
-bash deploy/remote-deploy.sh
-bash deploy/verify-stack.sh
+[8/10] Final format (black)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m black app/ scripts/ tests/
+All done! ✨ 🍰 ✨
+269 files left unchanged.
+  OK black formatting applied
 
-======END======
-err: From https://github.com/thekoushikdurgas/aibackend
-err:  * branch            main       -> FETCH_HEAD
-err:    5897d43..417d6ba  main       -> origin/main
-out: HEAD is now at 417d6ba Update deploy.yml
-err: bash: line 20: POSTGRES_PASSWORD: unbound variable
-2026/05/09 23:48:48 Process exited with status 1
+[9/10] Install / import integrity...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pip check
+aiohttp 3.9.3 is not supported on this platform
+cffi 2.0.0 is not supported on this platform
+charset-normalizer 3.4.4 is not supported on this platform
+chroma-hnswlib 0.7.3 is not supported on this platform
+frozenlist 1.8.0 is not supported on this platform
+httptools 0.7.1 is not supported on this platform
+lxml 5.1.0 is not supported on this platform
+MarkupSafe 3.0.3 is not supported on this platform
+mmh3 5.2.0 is not supported on this platform
+multidict 6.7.0 is not supported on this platform
+onnxruntime 1.23.2 is not supported on this platform
+pillow 12.0.0 is not supported on this platform
+propcache 0.4.1 is not supported on this platform
+pulsar-client 3.8.0 is not supported on this platform
+PyMuPDF 1.23.8 is not supported on this platform
+PyYAML 6.0.3 is not supported on this platform
+regex 2025.11.3 is not supported on this platform
+scikit-learn 1.8.0 is not supported on this platform
+scipy 1.16.3 is not supported on this platform
+tiktoken 0.5.2 is not supported on this platform
+tokenizers 0.15.2 is not supported on this platform
+torch 2.2.0 is not supported on this platform
+watchfiles 1.1.1 is not supported on this platform
+wrapt 1.17.3 is not supported on this platform
+yarl 1.22.0 is not supported on this platform
+   pip check reported conflicts
+  Import smoke: from app.main import app
+  OK app.main import succeeded
+
+
+========================================
+  SUMMARY
+========================================
+
+Section Status:
+  [0] Source inventory:              PASSED  (reports\api-source-inventory.txt)
+  [1] Pip dependencies:              PASSED
+  [2] Environment validate:          PASSED
+  [3] mypy:                          WARNING
+  [4] black --check:                 PASSED
+  [4b] Prettier:                     WARNING_FIXED
+  [5] ruff check:                    PASSED
+  [6] pytest:                        PASSED
+  [6b] pytest coverage:              SKIPPED
+  [7] Best practices (check_*.py):  PASSED
+  [8] black (apply):                 PASSED
+  [9] pip check + import app:        WARNING
+
+  OK All blocking checks passed
+  Found 3 warning(s)
+
+  Start API server? (Y/N)

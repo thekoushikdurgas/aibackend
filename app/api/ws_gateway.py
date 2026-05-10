@@ -118,7 +118,7 @@ class WebSocketGateway:
                 await self._send_error(
                     websocket,
                     request_id,
-                    JSONRPCErrorCode.RATE_LIMIT_EXCEEDED,
+                    JSONRPCErrorCode.RATE_LIMIT_ERROR,
                     "Rate limit exceeded",
                 )
                 return

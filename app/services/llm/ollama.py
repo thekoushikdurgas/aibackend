@@ -4,7 +4,7 @@ Enhanced with cloud mode support using new OllamaClient
 """
 
 import logging
-from typing import AsyncIterator, Dict, List, Optional
+from typing import Any, AsyncIterator, Dict, List, Optional
 
 
 from app.config import settings
@@ -54,7 +54,9 @@ class OllamaProvider(BaseLLMProvider):
 
         # Keep backward compatibility
         self.base_url = self.client.get_base_url()
-        self.default_model = model or getattr(settings, "ollama_model", "llama3")
+        self.default_model = model or str(
+            getattr(settings, "ollama_model", None) or "llama3"
+        )
         self.timeout = timeout
 
     async def generate(
@@ -62,7 +64,7 @@ class OllamaProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> LLMResponse:
         """Generate a response using Ollama API"""
         config = config or LLMConfig(model=self.default_model)
@@ -73,7 +75,7 @@ class OllamaProvider(BaseLLMProvider):
         )
 
         # Build request payload
-        payload = {
+        payload: Dict[str, Any] = {
             "model": config.model or self.default_model,
             "messages": messages,
             "stream": False,
@@ -116,7 +118,7 @@ class OllamaProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> AsyncIterator[str]:
         """Stream a response using Ollama API"""
         config = config or LLMConfig(model=self.default_model)
@@ -127,7 +129,7 @@ class OllamaProvider(BaseLLMProvider):
         )
 
         # Build request payload
-        payload = {
+        payload: Dict[str, Any] = {
             "model": config.model or self.default_model,
             "messages": messages,
             "stream": True,

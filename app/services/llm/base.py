@@ -3,8 +3,9 @@ Base LLM Provider interface
 """
 
 from abc import ABC, abstractmethod
+from collections.abc import AsyncIterator
 from dataclasses import dataclass, field
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 
 @dataclass
@@ -52,7 +53,7 @@ class BaseLLMProvider(ABC):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> LLMResponse:
         """
         Generate a response from the LLM.
@@ -69,15 +70,18 @@ class BaseLLMProvider(ABC):
         pass
 
     @abstractmethod
-    async def stream(
+    def stream(
         self,
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
-    ) -> AsyncGenerator[str, None]:
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
+    ) -> AsyncIterator[str]:
         """
         Stream a response from the LLM.
+
+        Implementations are async generators (``async def`` with ``yield``);
+        callers use ``async for chunk in provider.stream(...):``.
 
         Args:
             prompt: The user's input prompt
@@ -88,7 +92,7 @@ class BaseLLMProvider(ABC):
         Yields:
             Text chunks as they are generated
         """
-        pass
+        ...
 
     @abstractmethod
     async def health_check(self) -> bool:
@@ -114,9 +118,9 @@ class BaseLLMProvider(ABC):
         self,
         prompt: str,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
         system_prompt: Optional[str] = None,
-    ) -> List[Dict[str, str]]:
+    ) -> List[Dict[str, Any]]:
         """
         Build message list for chat-style APIs.
 
@@ -129,7 +133,7 @@ class BaseLLMProvider(ABC):
         Returns:
             List of message dictionaries
         """
-        messages = []
+        messages: List[Dict[str, Any]] = []
 
         # Build system message
         system_parts = []

@@ -25,7 +25,7 @@ class AgentRouter:
     """
 
     # Registry of available agents
-    _agents: Dict[str, Type[BaseAgent]] = {
+    _agents: Dict[AgentType, Type[BaseAgent]] = {
         AgentType.PAGE_ANALYZER: PageAnalyzerAgent,
         AgentType.CONTENT_EXTRACTOR: ContentExtractorAgent,
         AgentType.SEO: SEOAgent,
@@ -209,7 +209,7 @@ class AgentRouter:
     def list_agents(cls) -> Dict[str, str]:
         """List all available agents with descriptions"""
         return {
-            agent_type.value: cls._agents[agent_type]("").description
+            agent_type.value: cls._agents[agent_type](None).description
             for agent_type in cls._agents.keys()
         }
 

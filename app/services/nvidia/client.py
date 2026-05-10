@@ -4,8 +4,9 @@ Base client for all NVIDIA API interactions with authentication, error handling,
 """
 
 import logging
-from typing import Dict, Optional, Any
+from contextlib import AbstractAsyncContextManager
 from enum import Enum
+from typing import Any, Dict, Optional
 
 import httpx
 
@@ -208,18 +209,15 @@ class NVIDIAClient:
         """Make a GET request"""
         return await self._make_request("GET", endpoint, url_type, model_id, **kwargs)
 
-    async def stream(
+    def stream(
         self,
         endpoint: str,
         url_type: BaseURLType = BaseURLType.INTEGRATE,
         model_id: Optional[str] = None,
         **kwargs,
-    ) -> httpx.AsyncClient:
+    ) -> AbstractAsyncContextManager[httpx.Response]:
         """
-        Create a streaming request context.
-
-        Returns:
-            httpx.AsyncClient context manager for streaming
+        Create a streaming request context (async context manager yielding Response).
         """
         if not self.api_key:
             raise ValueError("NVIDIA API key not configured")

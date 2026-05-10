@@ -32,6 +32,9 @@ config/config.*.json
 error.txt
 **/error.txt
 
+# CI / script generated reports (not hand-edited)
+reports/
+
 # Vendored or nested projects with their own toolchain
 docs/llm-council-master/
 

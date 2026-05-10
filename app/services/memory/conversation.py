@@ -7,7 +7,7 @@ import logging
 import asyncio
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional, cast
 import json
 
 from sqlalchemy import select, delete, func
@@ -349,8 +349,11 @@ class ConversationMemory:
 
     def _get_from_redis(self, conversation_id: str) -> Optional[Conversation]:
         """Get conversation from Redis"""
+        rc = self._redis_client
+        if rc is None:
+            return None
         try:
-            data = self._redis_client.get(f"conversation:{conversation_id}")
+            data = rc.get(f"conversation:{conversation_id}")
             if data:
                 conv_dict = json.loads(data)
                 conv = Conversation(
@@ -375,8 +378,11 @@ class ConversationMemory:
 
     def _save_to_redis(self, conversation: Conversation):
         """Save conversation to Redis"""
+        rc = self._redis_client
+        if rc is None:
+            return
         try:
-            self._redis_client.setex(
+            rc.setex(
                 f"conversation:{conversation.id}",
                 86400 * 7,  # 7 day expiry
                 json.dumps(conversation.to_dict()),
@@ -386,19 +392,25 @@ class ConversationMemory:
 
     def _delete_from_redis(self, conversation_id: str) -> bool:
         """Delete conversation from Redis"""
+        rc = self._redis_client
+        if rc is None:
+            return False
         try:
-            return self._redis_client.delete(f"conversation:{conversation_id}") > 0
+            return rc.delete(f"conversation:{conversation_id}") > 0
         except Exception as e:
             logger.error(f"Redis delete error: {e}")
             return False
 
     def _list_from_redis(self, limit: int) -> List[Dict]:
         """List conversations from Redis"""
+        rc = self._redis_client
+        if rc is None:
+            return []
         try:
-            keys = self._redis_client.keys("conversation:*")[: limit * 2]
+            keys = rc.keys("conversation:*")[: limit * 2]
             results = []
             for key in keys:
-                data = self._redis_client.get(key)
+                data = rc.get(key)
                 if data:
                     conv_dict = json.loads(data)
                     results.append(
@@ -436,22 +448,24 @@ class ConversationMemory:
 
                 # Convert to in-memory format
                 conversation = Conversation(
-                    id=db_conv.id,
-                    created_at=db_conv.created_at,
-                    updated_at=db_conv.updated_at,
-                    metadata=db_conv.extra_metadata or {},
+                    id=str(db_conv.id),
+                    created_at=cast(datetime, db_conv.created_at),
+                    updated_at=cast(datetime, db_conv.updated_at),
+                    metadata=dict(db_conv.extra_metadata or {}),
                 )
 
                 for db_msg in db_messages:
+                    role_raw = db_msg.role
+                    role_str = (
+                        role_raw.value
+                        if isinstance(role_raw, MessageRole)
+                        else str(role_raw)
+                    )
                     conversation.messages.append(
                         Message(
-                            role=(
-                                db_msg.role.value
-                                if isinstance(db_msg.role, MessageRole)
-                                else db_msg.role
-                            ),
-                            content=db_msg.content,
-                            timestamp=db_msg.created_at,
+                            role=role_str,
+                            content=str(db_msg.content),
+                            timestamp=cast(datetime, db_msg.created_at),
                             metadata={
                                 **(db_msg.extra_metadata or {}),
                                 "tokens": db_msg.tokens,
@@ -483,9 +497,9 @@ class ConversationMemory:
 
                 if db_conv:
                     # Update existing
-                    db_conv.updated_at = datetime.utcnow()
+                    db_conv.updated_at = datetime.utcnow()  # type: ignore[assignment]
                     if title:
-                        db_conv.title = title
+                        db_conv.title = title  # type: ignore[assignment]
                 else:
                     # Create new
                     db_conv = DBConversation(
@@ -540,7 +554,7 @@ class ConversationMemory:
                 session.add(db_msg)
 
                 # Update conversation timestamp
-                db_conv.updated_at = datetime.utcnow()
+                db_conv.updated_at = datetime.utcnow()  # type: ignore[assignment]
 
                 await session.commit()
         except Exception as e:
@@ -554,7 +568,7 @@ class ConversationMemory:
                     delete(DBConversation).where(DBConversation.id == conversation_id)
                 )
                 await session.commit()
-                return result.rowcount > 0
+                return int(cast(Any, result).rowcount or 0) > 0
         except Exception as e:
             logger.error(f"Database delete error: {e}", exc_info=True)
             return False

@@ -5,7 +5,7 @@ Fast inference with OpenAI-compatible API
 
 import json
 import logging
-from typing import AsyncIterator, Dict, List, Optional
+from typing import AsyncIterator, Dict, List, Optional, Any
 
 import httpx
 
@@ -50,7 +50,7 @@ class FireworksProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> LLMResponse:
         """Generate a response using Fireworks AI API"""
         if not self.api_key:
@@ -124,7 +124,7 @@ class FireworksProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> AsyncIterator[str]:
         """Stream a response using Fireworks AI API"""
         if not self.api_key:

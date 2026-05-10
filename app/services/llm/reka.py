@@ -57,7 +57,7 @@ class RekaProvider(BaseLLMProvider):
         self,
         prompt: str,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
         system_prompt: Optional[str] = None,
     ) -> List[Dict[str, Any]]:
         """
@@ -126,7 +126,7 @@ class RekaProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> LLMResponse:
         """
         Generate a response using Reka AI API.
@@ -218,7 +218,7 @@ class RekaProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> AsyncIterator[str]:
         """
         Stream a response from Reka AI.

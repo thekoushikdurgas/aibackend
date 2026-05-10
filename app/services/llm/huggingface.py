@@ -5,7 +5,7 @@ Modern implementation using OpenAI-compatible Chat Completions API
 
 import json
 import logging
-from typing import AsyncIterator, Dict, List, Optional
+from typing import AsyncIterator, Dict, List, Optional, Any
 
 import httpx
 
@@ -64,7 +64,7 @@ class HuggingFaceProvider(BaseLLMProvider):
         self,
         prompt: str,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
         system_prompt: Optional[str] = None,
     ) -> List[Dict[str, str]]:
         """
@@ -110,7 +110,7 @@ class HuggingFaceProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> LLMResponse:
         """
         Generate a response using HuggingFace Chat Completions API.
@@ -192,7 +192,7 @@ class HuggingFaceProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> AsyncIterator[str]:
         """
         Stream a response using HuggingFace Chat Completions API.

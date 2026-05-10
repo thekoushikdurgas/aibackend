@@ -24,8 +24,8 @@ async def handle_groq_chat_completions(
     """Handle groq.chat.completions method"""
     messages = params.get("messages", [])
     model = params.get("model")
-    temperature = params.get("temperature", 0.7)
-    max_tokens = params.get("max_tokens")
+    temperature = float(params.get("temperature", 0.7))
+    max_tokens = int(params.get("max_tokens") or 2048)
     stream = params.get("stream", False)
 
     if not messages:

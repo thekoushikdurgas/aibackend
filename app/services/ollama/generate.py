@@ -55,7 +55,9 @@ class OllamaGenerateService(BaseLLMProvider):
             mode=mode,
             timeout=timeout or 120.0,
         )
-        self.default_model = model or getattr(settings, "ollama_model", "llama3")
+        self.default_model = model or str(
+            getattr(settings, "ollama_model", None) or "llama3"
+        )
 
     async def generate(
         self,
@@ -111,7 +113,7 @@ class OllamaGenerateService(BaseLLMProvider):
         self, messages: List[Dict[str, str]], model: str, config: LLMConfig
     ) -> LLMResponse:
         """Generate using chat endpoint"""
-        payload = {
+        payload: Dict[str, Any] = {
             "model": model,
             "messages": messages,
             "stream": False,
@@ -151,7 +153,7 @@ class OllamaGenerateService(BaseLLMProvider):
         self, prompt: str, model: str, config: LLMConfig
     ) -> LLMResponse:
         """Generate using generate endpoint (raw mode)"""
-        payload = {
+        payload: Dict[str, Any] = {
             "model": model,
             "prompt": prompt,
             "raw": False,
@@ -229,7 +231,7 @@ class OllamaGenerateService(BaseLLMProvider):
         self, messages: List[Dict[str, str]], model: str, config: LLMConfig
     ) -> AsyncIterator[str]:
         """Stream using chat endpoint"""
-        payload = {
+        payload: Dict[str, Any] = {
             "model": model,
             "messages": messages,
             "stream": True,
@@ -245,7 +247,7 @@ class OllamaGenerateService(BaseLLMProvider):
             payload["options"]["stop"] = config.stop_sequences
 
         try:
-            async with await self.client.stream("chat", json=payload) as stream:
+            async with self.client.stream("chat", json=payload) as stream:
                 async for line in stream.aiter_lines():
                     if line:
                         try:
@@ -266,7 +268,7 @@ class OllamaGenerateService(BaseLLMProvider):
         self, prompt: str, model: str, config: LLMConfig
     ) -> AsyncIterator[str]:
         """Stream using generate endpoint"""
-        payload = {
+        payload: Dict[str, Any] = {
             "model": model,
             "prompt": prompt,
             "raw": False,
@@ -319,7 +321,7 @@ class OllamaGenerateService(BaseLLMProvider):
         Returns:
             Raw response dictionary
         """
-        payload = {
+        payload: Dict[str, Any] = {
             "model": model,
             "prompt": prompt,
             "raw": True,
@@ -340,3 +342,59 @@ class OllamaGenerateService(BaseLLMProvider):
     async def health_check(self) -> bool:
         """Check if Ollama service is available"""
         return await self.client.health_check()
+
+    async def list_models(self) -> List[str]:
+        """List model names from the Ollama API (BaseLLMProvider contract)."""
+        try:
+            response = await self.client.get("tags")
+            data = response.json()
+            names: List[str] = []
+            for m in data.get("models", []) or []:
+                if isinstance(m, dict):
+                    n = m.get("name", "")
+                    if n:
+                        names.append(str(n))
+            return names
+        except Exception as e:
+            logger.error(f"Ollama list_models error: {e}")
+            raise
+
+    def _normalize_chat_messages(
+        self, messages: List[Dict[str, Any]]
+    ) -> List[Dict[str, str]]:
+        out: List[Dict[str, str]] = []
+        for m in messages:
+            out.append(
+                {
+                    "role": str(m.get("role", "user")),
+                    "content": str(m.get("content", "")),
+                }
+            )
+        return out
+
+    async def chat(
+        self,
+        messages: List[Dict[str, Any]],
+        config: Optional[LLMConfig] = None,
+    ) -> LLMResponse:
+        """Chat completion using the Ollama chat API (OpenAI-style message list)."""
+        if not messages:
+            raise ValueError("messages is required")
+        config = config or LLMConfig(model=self.default_model)
+        model = config.model or self.default_model
+        normalized = self._normalize_chat_messages(messages)
+        return await self._generate_chat(normalized, model, config)
+
+    async def stream_chat(
+        self,
+        messages: List[Dict[str, Any]],
+        config: Optional[LLMConfig] = None,
+    ) -> AsyncIterator[str]:
+        """Stream chat completion using the Ollama chat API."""
+        if not messages:
+            raise ValueError("messages is required")
+        config = config or LLMConfig(model=self.default_model)
+        model = config.model or self.default_model
+        normalized = self._normalize_chat_messages(messages)
+        async for chunk in self._stream_chat(normalized, model, config):
+            yield chunk

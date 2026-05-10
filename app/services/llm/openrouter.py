@@ -89,7 +89,7 @@ class OpenRouterProvider(BaseLLMProvider):
         self,
         prompt: str,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
         system_prompt: Optional[str] = None,
     ) -> List[Dict[str, Any]]:
         """
@@ -147,7 +147,7 @@ class OpenRouterProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig],
         context: Optional[str],
-        conversation_history: Optional[List[Dict[str, str]]],
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> str:
         """Generate cache key for request"""
         cache_data = {
@@ -188,7 +188,7 @@ class OpenRouterProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> LLMResponse:
         """Generate a response using OpenRouter API with enhanced error handling, caching, and monitoring"""
         if not self.api_key:
@@ -430,7 +430,7 @@ class OpenRouterProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> AsyncIterator[str]:
         """Stream a response using OpenRouter API with enhanced error handling"""
         if not self.api_key:

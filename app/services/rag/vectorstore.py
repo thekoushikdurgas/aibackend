@@ -34,13 +34,13 @@ class ChromaVectorStore(VectorDBBase):
         """
         self.persist_dir = persist_dir or settings.chroma_persist_dir
         self.collection_name = collection_name or settings.chroma_collection_name
-        self._client = None
+        self._client: Optional[Any] = None
         self._collection = None
         self._embedding_service = None
         self._initialized = False
 
     @property
-    def client(self) -> chromadb.Client:
+    def client(self) -> Any:
         """Get or create ChromaDB client"""
         if self._client is None:
             self._client = chromadb.PersistentClient(

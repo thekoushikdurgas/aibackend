@@ -144,10 +144,7 @@ class LLMProviderFactory:
         ]
 
         # Remove duplicates while preserving order
-        seen = set()
-        providers_to_try = [
-            p for p in providers_to_try if not (p in seen or seen.add(p))
-        ]
+        providers_to_try = list(dict.fromkeys(providers_to_try))
 
         for provider_name in providers_to_try:
             try:

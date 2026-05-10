@@ -139,7 +139,7 @@ class HuggingFaceClient:
 
     async def chat_completions(
         self,
-        messages: List[Dict[str, str]],
+        messages: List[Dict[str, Any]],
         model: str,
         provider: Union[str, HFInferenceProvider] = HFInferenceProvider.HF,
         max_tokens: int = 500,

@@ -244,7 +244,7 @@ class GroqSafetyService:
             raise Exception(f"Prompt injection check failed: {str(e)}")
 
     async def moderate_conversation(
-        self, messages: List[Dict[str, str]]
+        self, messages: List[Dict[str, Any]]
     ) -> Dict[str, Any]:
         """
         Moderate an entire conversation, checking all messages.

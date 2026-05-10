@@ -5,7 +5,7 @@ Enterprise-grade LLM with RAG connectors
 
 import json
 import logging
-from typing import AsyncIterator, List, Optional, Dict
+from typing import AsyncIterator, List, Optional, Dict, Any
 
 import httpx
 
@@ -62,7 +62,7 @@ class CohereProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> LLMResponse:
         """
         Generate chat completion with optional RAG connectors.
@@ -162,7 +162,7 @@ class CohereProvider(BaseLLMProvider):
         prompt: str,
         config: Optional[LLMConfig] = None,
         context: Optional[str] = None,
-        conversation_history: Optional[List[Dict[str, str]]] = None,
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
     ) -> AsyncIterator[str]:
         """
         Stream chat completion.

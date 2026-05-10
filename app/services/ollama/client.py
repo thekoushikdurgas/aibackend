@@ -4,8 +4,9 @@ Base client for all Ollama API interactions with localhost and cloud support
 """
 
 import logging
-from typing import Dict, Optional
+from contextlib import AbstractAsyncContextManager
 from enum import Enum
+from typing import Dict, Optional, cast
 
 import httpx
 
@@ -62,13 +63,13 @@ class OllamaClient:
         self.api_key = api_key or getattr(settings, "ollama_api_key", None)
         self.timeout = timeout
 
-        # Determine mode
-        mode_str = mode or getattr(settings, "ollama_mode", "localhost")
-        self.mode = (
-            OllamaMode(mode_str.lower())
-            if isinstance(mode_str, str)
-            else mode or OllamaMode.LOCALHOST
-        )
+        # Determine mode (avoid getattr default type mismatch with pydantic-mypy)
+        if isinstance(mode, OllamaMode):
+            self.mode = mode
+        else:
+            raw = cast(Optional[str], getattr(settings, "ollama_mode", None))
+            mode_src = raw if raw is not None else "localhost"
+            self.mode = OllamaMode(str(mode_src).lower())
 
         if self.mode == OllamaMode.CLOUD and not self.api_key:
             logger.warning("Ollama cloud mode requires API key")
@@ -81,9 +82,8 @@ class OllamaClient:
             Base URL string
         """
         if self.mode == OllamaMode.CLOUD:
-            return self.cloud_url
-        else:
-            return self.base_url
+            return self.cloud_url or self.CLOUD_BASE
+        return self.base_url or self.LOCALHOST_BASE
 
     def _get_headers(self) -> Dict[str, str]:
         """Get request headers with authentication if needed"""
@@ -156,12 +156,11 @@ class OllamaClient:
         """Make a DELETE request"""
         return await self._make_request("DELETE", endpoint, **kwargs)
 
-    async def stream(self, endpoint: str, **kwargs) -> httpx.AsyncClient:
+    def stream(
+        self, endpoint: str, **kwargs
+    ) -> AbstractAsyncContextManager[httpx.Response]:
         """
-        Create a streaming request context.
-
-        Returns:
-            httpx.AsyncClient context manager for streaming
+        Create a streaming request context (async context manager yielding Response).
         """
         base_url = self.get_base_url()
         url = f"{base_url.rstrip('/')}/{endpoint.lstrip('/')}"

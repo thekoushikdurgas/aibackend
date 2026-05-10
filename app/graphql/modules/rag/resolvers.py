@@ -7,7 +7,7 @@ from strawberry.scalars import JSON
 from strawberry.types import Info
 
 from app.api.ws_methods import rag as rag_handlers
-from app.graphql.modules.util import run_ws
+from app.graphql.modules.util import graphql_params, run_ws
 
 
 @strawberry.type
@@ -71,7 +71,7 @@ class RagQuery:
 class RagMutation:
     @strawberry.mutation
     async def rag_ingest(self, info: Info, params: JSON) -> JSON:
-        p = dict(params) if isinstance(params, dict) else {}
+        p = graphql_params(params)
         return await run_ws(rag_handlers.handle_rag_ingest, p, info)
 
     @strawberry.mutation
@@ -84,10 +84,10 @@ class RagMutation:
 
     @strawberry.mutation
     async def rag_upload(self, info: Info, params: JSON) -> JSON:
-        p = dict(params) if isinstance(params, dict) else {}
+        p = graphql_params(params)
         return await run_ws(rag_handlers.handle_rag_documents_upload, p, info)
 
     @strawberry.mutation
     async def rag_chat(self, info: Info, params: JSON) -> JSON:
-        p = dict(params) if isinstance(params, dict) else {}
+        p = graphql_params(params)
         return await run_ws(rag_handlers.handle_rag_chat, p, info)

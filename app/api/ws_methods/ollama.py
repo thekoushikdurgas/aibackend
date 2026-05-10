@@ -19,13 +19,13 @@ async def handle_ollama_generate(
     params: Dict[str, Any],
     user: Optional[Dict[str, Any]] = None,
     connection_id: Optional[str] = None,
-) -> Dict[str, Any]:
+) -> Dict[str, Any] | AsyncGenerator[Dict[str, Any], None]:
     """Handle ollama.generate method"""
     model = params.get("model")
     prompt = params.get("prompt", "")
     stream = params.get("stream", False)
-    temperature = params.get("temperature", 0.7)
-    max_tokens = params.get("max_tokens")
+    temperature = float(params.get("temperature", 0.7))
+    max_tokens = int(params.get("max_tokens") or 2048)
 
     if not model:
         raise JSONRPCError(
@@ -68,13 +68,13 @@ async def handle_ollama_chat(
     params: Dict[str, Any],
     user: Optional[Dict[str, Any]] = None,
     connection_id: Optional[str] = None,
-) -> Dict[str, Any]:
+) -> Dict[str, Any] | AsyncGenerator[Dict[str, Any], None]:
     """Handle ollama.chat method"""
     model = params.get("model")
     messages = params.get("messages", [])
     stream = params.get("stream", False)
-    temperature = params.get("temperature", 0.7)
-    max_tokens = params.get("max_tokens")
+    temperature = float(params.get("temperature", 0.7))
+    max_tokens = int(params.get("max_tokens") or 2048)
 
     if not model:
         raise JSONRPCError(

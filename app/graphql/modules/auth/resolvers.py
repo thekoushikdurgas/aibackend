@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any, Optional, cast
 
 import strawberry
 from graphql import GraphQLError
@@ -30,8 +30,8 @@ def _auth_payload_from_dict(raw: dict[str, Any]) -> AuthPayload:
         user_obj = GqlUser(
             id=str(u.get("id", "")),
             email=u.get("email"),
-            user_metadata=u.get("user_metadata") or {},
-            app_metadata=u.get("app_metadata") or {},
+            user_metadata=cast(JSON, u.get("user_metadata") or {}),
+            app_metadata=cast(JSON, u.get("app_metadata") or {}),
             created_at=u.get("created_at"),
         )
     sess_obj: Optional[GqlSession] = None
@@ -64,8 +64,8 @@ class AuthQuery:
         return GqlUser(
             id=str(data.get("sub", "")),
             email=data.get("email"),
-            user_metadata=data.get("user_metadata") or {},
-            app_metadata=data.get("app_metadata") or {},
+            user_metadata=cast(JSON, data.get("user_metadata") or {}),
+            app_metadata=cast(JSON, data.get("app_metadata") or {}),
             created_at=None,
         )
 

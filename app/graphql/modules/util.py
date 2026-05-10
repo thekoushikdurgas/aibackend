@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Awaitable, Callable, Dict, Optional
+from typing import Any, Callable, Dict, Optional
 
 from strawberry.types import Info
 
@@ -10,6 +10,13 @@ from app.core.auth import verify_supabase_token
 from app.core.jsonrpc import JSONRPCError
 from app.graphql.context import GraphQLContext
 from app.graphql.errors import raise_jsonrpc_as_graphql
+
+
+def graphql_params(params: Any) -> Dict[str, Any]:
+    """Normalize Strawberry JSON / optional dict inputs for ws_methods."""
+    if not isinstance(params, dict):
+        return {}
+    return {str(k): v for k, v in params.items()}
 
 
 def user_from_info(info: Info) -> Optional[Dict[str, Any]]:
@@ -31,7 +38,7 @@ def user_from_info(info: Info) -> Optional[Dict[str, Any]]:
 
 
 async def run_ws(
-    handler: Callable[..., Awaitable[Any]],
+    handler: Callable[..., Any],
     params: Dict[str, Any],
     info: Info,
 ) -> Any:
@@ -44,7 +51,7 @@ async def run_ws(
 
 
 async def run_ws_chat_completion(
-    handler: Callable[..., Awaitable[Any]],
+    handler: Callable[..., Any],
     params: Dict[str, Any],
     info: Info,
 ) -> Any:

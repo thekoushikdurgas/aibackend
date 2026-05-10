@@ -39,7 +39,7 @@ REM BEST_PRACTICES_THRESHOLD=N
 REM BEST_PRACTICES_FORMAT=text or json or both
 REM SKIP_FINAL_FORMAT=1        Skip step 8 black write
 REM SKIP_BUILD=1               Skip step 9 pip check / import smoke
-REM SKIP_PIP_CHECK=1           Step 9: skip pip check only (still runs import smoke)
+REM SKIP_PIP_CHECK=1           Step 9: skip pip check only (Python 3.13+ on Windows often reports spurious "not supported on this platform" for wheels with incomplete metadata)
 REM SKIP_PRETTIER=1            Skip step 4b Prettier
 REM
 REM Python: prefer 3.11 (Docker). Use project venv: python -m venv venv
