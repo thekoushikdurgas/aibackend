@@ -1,8 +1,9 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Sun 05/10/2026  8:47:45.38
+Generated: Mon 05/11/2026  8:11:57.45
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
+E:\durgas_ai\ai.backend\app\debug_agent_log.py
 E:\durgas_ai\ai.backend\app\main.py
 E:\durgas_ai\ai.backend\app\__init__.py
 E:\durgas_ai\ai.backend\app\agents\base.py

@@ -285,7 +285,11 @@ services:
     restart: unless-stopped
     networks:
       - durgasai_network
-    command: ['-listen=:9000', '-text=Edge Functions stub; use supabase/edge-runtime for production.']
+    command:
+      [
+        '-listen=:9000',
+        '-text=Edge Functions stub; use supabase/edge-runtime for production.',
+      ]
 
   meta:
     container_name: supabase-meta
