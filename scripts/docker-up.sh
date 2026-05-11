@@ -78,28 +78,42 @@ merge_compose_env_files() {
   echo "$out"
 }
 
+# EXIT trap must not reference locals from run_compose — they are unset after return (set -u → "unbound variable").
+_COMPOSE_ENV_MERGED_TMP=""
+cleanup_compose_env_merged_file() {
+  [[ -n "${_COMPOSE_ENV_MERGED_TMP:-}" ]] && rm -f "${_COMPOSE_ENV_MERGED_TMP}"
+  _COMPOSE_ENV_MERGED_TMP=""
+}
+
 run_compose() {
-  local merged merged_rm
-  merged="$(merge_compose_env_files)"
-  merged_rm() { rm -f "$merged"; }
-  trap merged_rm EXIT
+  cleanup_compose_env_merged_file
+  _COMPOSE_ENV_MERGED_TMP="$(merge_compose_env_files)"
+  trap cleanup_compose_env_merged_file EXIT
 
   if docker compose version >/dev/null 2>&1; then
-    docker compose --env-file "$merged" "$@"
-    return
-  fi
-  if command -v docker-compose >/dev/null 2>&1 && docker-compose version >/dev/null 2>&1; then
+    docker compose --env-file "$_COMPOSE_ENV_MERGED_TMP" "$@"
+  elif command -v docker-compose >/dev/null 2>&1 && docker-compose version >/dev/null 2>&1; then
     if docker-compose --help 2>&1 | grep -qF -- '--env-file'; then
-      docker-compose --env-file "$merged" "$@"
-      return
+      docker-compose --env-file "$_COMPOSE_ENV_MERGED_TMP" "$@"
+    else
+      trap - EXIT
+      cleanup_compose_env_merged_file
+      echo "ERROR: docker-compose is too old (needs --env-file). Install docker-compose-plugin."
+      exit 1
     fi
+  else
+    trap - EXIT
+    cleanup_compose_env_merged_file
+    echo "ERROR: Docker Compose v2 is not available for this user (need 'docker compose')."
+    echo "Install the plugin, then verify with: docker compose version"
+    echo "  sudo apt-get update && sudo apt-get install -y docker-compose-plugin"
+    echo "  sudo systemctl restart docker"
+    echo "If you use sudo, the plugin must be installed system-wide (apt package above), not only under ~/.docker/cli-plugins."
+    exit 1
   fi
-  echo "ERROR: Docker Compose v2 is not available for this user (need 'docker compose')."
-  echo "Install the plugin, then verify with: docker compose version"
-  echo "  sudo apt-get update && sudo apt-get install -y docker-compose-plugin"
-  echo "  sudo systemctl restart docker"
-  echo "If you use sudo, the plugin must be installed system-wide (apt package above), not only under ~/.docker/cli-plugins."
-  exit 1
+
+  trap - EXIT
+  cleanup_compose_env_merged_file
 }
 
 if [[ "${1:-}" == "dev" ]]; then

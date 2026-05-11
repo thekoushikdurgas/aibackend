@@ -62,8 +62,12 @@ services:
           - kong
           - supabase-kong
     healthcheck:
-      # Kong loads a large declarative config + Lua request-transformer expressions; cold starts can exceed 25s (5×5s).
-      test: ['CMD', 'kong', 'health']
+      # Official kong/kong image removes curl after install; prefer TCP probe on proxy port, then kong health.
+      test:
+        [
+          'CMD-SHELL',
+          '/bin/bash -c "exec 3<>/dev/tcp/127.0.0.1/8000 && exec 3<&- && exec 3>&-" || kong health',
+        ]
       interval: 10s
       timeout: 10s
       retries: 18
