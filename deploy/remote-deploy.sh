@@ -96,15 +96,27 @@ validate_supabase_env
 if [[ -f compose.yaml ]]; then
   echo "[deploy] docker compose --env-file … -f compose.yaml up -d --build"
   docker compose "${COMPOSE_ENV[@]}" -f compose.yaml pull || true
+  set +e
   docker compose "${COMPOSE_ENV[@]}" -f compose.yaml up -d --build
-  exit 0
+  up_rc=$?
+  set -e
+  if [[ -f "$ROOT/scripts/agent-kong-debug.sh" ]]; then
+    AGENT_RUN_ID="${AGENT_RUN_ID:-pre-fix}" bash "$ROOT/scripts/agent-kong-debug.sh" "$up_rc" || true
+  fi
+  exit "$up_rc"
 fi
 
 if [[ -f docker/docker-compose.yml ]]; then
   echo "[deploy] docker compose --env-file … -f docker/docker-compose.yml up -d --build"
   docker compose "${COMPOSE_ENV[@]}" -f docker/docker-compose.yml pull || true
+  set +e
   docker compose "${COMPOSE_ENV[@]}" -f docker/docker-compose.yml up -d --build
-  exit 0
+  up_rc=$?
+  set -e
+  if [[ -f "$ROOT/scripts/agent-kong-debug.sh" ]]; then
+    AGENT_RUN_ID="${AGENT_RUN_ID:-pre-fix}" bash "$ROOT/scripts/agent-kong-debug.sh" "$up_rc" || true
+  fi
+  exit "$up_rc"
 fi
 
 echo "[deploy] ERROR: No compose.yaml or docker/docker-compose.yml found under $ROOT"
