@@ -1,4 +1,5 @@
-# Self-hosted Supabase (subset of official stack: DB, Kong, Auth, REST, Realtime, Storage, Meta, Studio, Analytics).
+# Self-hosted Supabase (subset of official stack: DB, Kong, Auth, REST, Realtime, Storage, Meta, Studio, Analytics,
+# plus a minimal `functions` HTTP stub so Kong's /functions/v1 route resolves like upstream compose).
 # Usage from ai.backend:
 #   copy docker\supabase\supabase.env.example → docker\supabase\supabase.env and fill secrets
 #   docker compose -f docker/docker-compose.supabase.yml --env-file docker/supabase/supabase.env up -d
@@ -62,16 +63,13 @@ services:
           - kong
           - supabase-kong
     healthcheck:
-      # Official kong/kong image removes curl after install; prefer TCP probe on proxy port, then kong health.
-      test:
-        [
-          'CMD-SHELL',
-          '/bin/bash -c "exec 3<>/dev/tcp/127.0.0.1/8000 && exec 3<&- && exec 3>&-" || kong health',
-        ]
+      # Match upstream Supabase: https://github.com/supabase/supabase/blob/master/docker/docker-compose.yml
+      # (bash /dev/tcp probes are brittle across shells/images; `kong health` is what Kong ships for.)
+      test: ['CMD', 'kong', 'health']
       interval: 10s
       timeout: 10s
-      retries: 18
-      start_period: 90s
+      retries: 15
+      start_period: 120s
     depends_on:
       studio:
         condition: service_healthy
@@ -277,6 +275,17 @@ services:
       IMGPROXY_USE_ETAG: 'true'
       IMGPROXY_AUTO_WEBP: ${IMGPROXY_AUTO_WEBP:-true}
       IMGPROXY_MAX_SRC_RESOLUTION: 16.8
+
+  # Kong routes /functions/v1/* to hostname `functions` (see volumes/api/kong.yml). Official Supabase
+  # uses supabase/edge-runtime here; this lightweight echo keeps DNS/upstreams consistent when Edge
+  # Functions are not deployed. Swap for edge-runtime + ./volumes/functions when you need real functions.
+  functions:
+    container_name: supabase-edge-functions
+    image: hashicorp/http-echo:1.0.0
+    restart: unless-stopped
+    networks:
+      - durgasai_network
+    command: ['-listen=:9000', '-text=Edge Functions stub; use supabase/edge-runtime for production.']
 
   meta:
     container_name: supabase-meta

@@ -1,697 +1,61 @@
-ubuntu@ip-172-31-46-132:~/aibackend$ curl -fsSL https://get.docker.com | sh
-sudo usermod -aG docker $USER
-newgrp docker
-# Executing docker install script, commit: 2687d91ddeb3bd6aeae37a90947761efdee87030
-Warning: the "docker" command appears to already exist on this system.
-
-If you already have Docker installed, this script can cause trouble, which is
-why we're displaying this warning and provide the opportunity to cancel the
-installation.
-
-If you installed the current Docker package using this script and are using it
-again to update Docker, you can ignore this message, but be aware that the
-script resets any custom changes in the deb and rpm repo configuration
-files to match the parameters passed to the script.
-
-You may press Ctrl+C now to abort this script.
-+ sleep 20
-^C
-ubuntu@ip-172-31-46-132:~/aibackend$ 
-ubuntu@ip-172-31-46-132:~/aibackend$ curl -fsSL https://get.docker.com | sh
-# Executing docker install script, commit: 2687d91ddeb3bd6aeae37a90947761efdee87030
-Warning: the "docker" command appears to already exist on this system.
-
-If you already have Docker installed, this script can cause trouble, which is
-why we're displaying this warning and provide the opportunity to cancel the
-installation.
-
-If you installed the current Docker package using this script and are using it
-again to update Docker, you can ignore this message, but be aware that the
-script resets any custom changes in the deb and rpm repo configuration
-files to match the parameters passed to the script.
-
-You may press Ctrl+C now to abort this script.
-+ sleep 20
-+ sudo -E sh -c apt-get -qq update >/dev/null
-sudo: preserving the entire environment is not supported, '-E' is ignored
-+ sudo -E sh -c DEBIAN_FRONTEND=noninteractive apt-get -y -qq install ca-certificates curl >/dev/null
-sudo: preserving the entire environment is not supported, '-E' is ignored
-Scanning processes...
-Scanning candidates...
-Scanning linux images...
-Warning: The unit file, source configuration file or drop-ins of fwupd.service changed on disk. Run 'systemctl daemon-reload' to reload units.
-Warning: The unit file, source configuration file or drop-ins of packagekit.service changed on disk. Run 'systemctl daemon-reload' to reload units.
-+ sudo -E sh -c install -m 0755 -d /etc/apt/keyrings
-sudo: preserving the entire environment is not supported, '-E' is ignored
-+ sudo -E sh -c curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" -o /etc/apt/keyrings/docker.asc
-sudo: preserving the entire environment is not supported, '-E' is ignored
-+ sudo -E sh -c chmod a+r /etc/apt/keyrings/docker.asc
-sudo: preserving the entire environment is not supported, '-E' is ignored
-+ sudo -E sh -c echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu resolute stable" > /etc/apt/sources.list.d/docker.list
-sudo: preserving the entire environment is not supported, '-E' is ignored
-+ sudo -E sh -c apt-get -qq update >/dev/null
-sudo: preserving the entire environment is not supported, '-E' is ignored
-+ sudo -E sh -c DEBIAN_FRONTEND=noninteractive apt-get -y -qq install docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-ce-rootless-extras docker-buildx-plugin docker-model-plugin >/dev/null
-sudo: preserving the entire environment is not supported, '-E' is ignored
-Scanning processes...
-Scanning linux images...
-Using systemd to manage Docker service
-+ sudo -E sh -c systemctl enable --now docker.service 2>/dev/null
-sudo: preserving the entire environment is not supported, '-E' is ignored
-INFO: Docker daemon enabled and started
-
-+ sudo -E sh -c docker version
-sudo: preserving the entire environment is not supported, '-E' is ignored
-Client: Docker Engine - Community
- Version:           29.4.3
- API version:       1.54
- Go version:        go1.26.2
- Git commit:        055a478
- Built:             Wed May  6 17:07:26 2026
- OS/Arch:           linux/amd64
- Context:           default
-
-Server: Docker Engine - Community
- Engine:
-  Version:          29.4.3
-  API version:      1.54 (minimum version 1.40)
-  Go version:       go1.26.2
-  Git commit:       56be731
-  Built:            Wed May  6 17:07:26 2026
-  OS/Arch:          linux/amd64
-  Experimental:     false
- containerd:
-  Version:          v2.2.3
-  GitCommit:        77c84241c7cbdd9b4eca2591793e3d4f4317c590
- runc:
-  Version:          1.3.5
-  GitCommit:        v1.3.5-0-g488fc13e
- docker-init:
-  Version:          0.19.0
-  GitCommit:        de40ad0
-
-================================================================================
-
-To run Docker as a non-privileged user, consider setting up the
-Docker daemon in rootless mode for your user:
-
-    dockerd-rootless-setuptool.sh install
-
-Visit https://docs.docker.com/go/rootless/ to learn about rootless mode.
-
-
-To run the Docker daemon as a fully privileged service, but granting non-root
-users access, refer to https://docs.docker.com/go/daemon-access/
-
-WARNING: Access to the remote API on a privileged Docker daemon is equivalent
-         to root access on the host. Refer to the 'Docker daemon attack surface'
-         documentation for details: https://docs.docker.com/go/attack-surface/
-
-================================================================================
-
-ubuntu@ip-172-31-46-132:~/aibackend$ sudo usermod -aG docker $USER
-ubuntu@ip-172-31-46-132:~/aibackend$ sudo apt-get install -y docker-compose-plugin
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-docker-compose-plugin is already the newest version (5.1.3-1~ubuntu.26.04~resolute).
-Solving dependencies... Done
-The following packages were automatically installed and are no longer required:
-  bridge-utils dns-root-data dnsmasq-base ubuntu-fan
-Use 'sudo apt autoremove' to remove them.
-0 upgraded, 0 newly installed, 0 to remove and 23 not upgraded.
-ubuntu@ip-172-31-46-132:~/aibackend$ docker --version
-docker compose version
-Docker version 29.4.3, build 055a478
-Docker Compose version v5.1.3
-ubuntu@ip-172-31-46-132:~/aibackend$ sudo apt-get update
-sudo apt-get install -y docker-compose-plugin
-sudo systemctl restart docker   # if needed
-docker compose version          # should print a version (try with and without sudo)
-Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute InRelease
-Hit:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-updates InRelease
-Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-backports InRelease
-Hit:4 https://download.docker.com/linux/ubuntu resolute InRelease
-Hit:5 http://security.ubuntu.com/ubuntu resolute-security InRelease
-Reading package lists... Done
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-docker-compose-plugin is already the newest version (5.1.3-1~ubuntu.26.04~resolute).
-Solving dependencies... Done
-The following packages were automatically installed and are no longer required:
-  bridge-utils dns-root-data dnsmasq-base ubuntu-fan
-Use 'sudo apt autoremove' to remove them.
-0 upgraded, 0 newly installed, 0 to remove and 23 not upgraded.
-Docker Compose version v5.1.3
-ubuntu@ip-172-31-46-132:~/aibackend$
-sudo ./scripts/docker-up.sh
-Created/refilled docker/supabase/supabase.env from supabase.env.example — edit secrets before docker compose.
+ubuntu@ip-172-31-46-132:~/aibackend$ chmod +x scripts/docker-up.sh
+ubuntu@ip-172-31-46-132:~/aibackend$ sudo ./scripts/docker-up.sh
 Starting production-style stack (compose.yaml)...
-[+] up 152/152
- ✔ Image chromadb/chroma:latest                 Pulled                                                                                                                                                                                   72.6s
- ✔ Image postgrest/postgrest:v14.8              Pulled                                                                                                                                                                                    7.0s
- ✔ Image redis:7-alpine                         Pulled                                                                                                                                                                                   12.8s
- ✔ Image supabase/logflare:1.36.1               Pulled                                                                                                                                                                                   77.2s
- ✔ Image supabase/storage-api:v1.48.26          Pulled                                                                                                                                                                                   98.1s
- ✔ Image supabase/realtime:v2.76.5              Pulled                                                                                                                                                                                   64.2s
- ✔ Image supabase/postgres-meta:v0.96.3         Pulled                                                                                                                                                                                   50.8s
- ✔ Image kong/kong:3.9.1                        Pulled                                                                                                                                                                                   55.2s
- ✔ Image darthsim/imgproxy:v3.30.1              Pulled                                                                                                                                                                                   43.7s
- ✔ Image ollama/ollama:latest                   Pulled                                                                                                                                                                                  208.1s
- ✔ Image supabase/gotrue:v2.186.0               Pulled                                                                                                                                                                                   18.4s
- ✔ Image supabase/postgres:15.8.1.085           Pulled                                                                                                                                                                                  141.3s
- ✔ Image supabase/studio:2026.04.27-sha-5f60601 Pulled                                                                                                                                                                                   95.3s
-[+] Building 731.5s (21/21) FINISHED
+[+] Building 0.5s (21/21) FINISHED
  => [internal] load local bake definitions                                                                                                                                                                                               0.0s
  => => reading from stdin 511B                                                                                                                                                                                                           0.0s
  => [internal] load build definition from Dockerfile                                                                                                                                                                                     0.0s
  => => transferring dockerfile: 1.79kB                                                                                                                                                                                                   0.0s
- => [internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                                      0.5s
+ => [internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                                      0.1s
  => [internal] load .dockerignore                                                                                                                                                                                                        0.0s
  => => transferring context: 713B                                                                                                                                                                                                        0.0s
- => [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142                                                                                                        2.6s
+ => [internal] load build context                                                                                                                                                                                                        0.0s
+ => => transferring context: 16.45kB                                                                                                                                                                                                     0.0s
+ => [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142                                                                                                        0.0s
  => => resolve docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142                                                                                                                0.0s
- => => sha256:6f92665ed17afc6850bfbeb3fb681d6e1038fe59e2020ab126b859ec572da21b 250B / 250B                                                                                                                                               0.0s
- => => sha256:01f59aef9b5c2caa2870aa8b9b8b5806ea3c36d893cd6e2467e252fc1b1fea46 1.29MB / 1.29MB                                                                                                                                           0.1s
- => => sha256:fb4c70443787d9baef637d0b257f21b935d5feb6481f1ccdf4d07f48b2e393c1 14.37MB / 14.37MB                                                                                                                                         0.3s
- => => sha256:57fb71246055257a374deb7564ceca10f43c2352572b501efc08add5d24ebb61 29.78MB / 29.78MB                                                                                                                                         0.4s
- => => extracting sha256:57fb71246055257a374deb7564ceca10f43c2352572b501efc08add5d24ebb61                                                                                                                                                1.1s
- => => extracting sha256:01f59aef9b5c2caa2870aa8b9b8b5806ea3c36d893cd6e2467e252fc1b1fea46                                                                                                                                                0.1s
- => => extracting sha256:fb4c70443787d9baef637d0b257f21b935d5feb6481f1ccdf4d07f48b2e393c1                                                                                                                                                0.7s
- => => extracting sha256:6f92665ed17afc6850bfbeb3fb681d6e1038fe59e2020ab126b859ec572da21b                                                                                                                                                0.1s
- => [internal] load build context                                                                                                                                                                                                        0.2s
- => => transferring context: 1.70MB                                                                                                                                                                                                      0.1s
- => [builder 2/6] WORKDIR /app                                                                                                                                                                                                           4.4s
- => [stage-1  3/10] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                                              6.9s
- => [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                                               15.9s
- => [builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                                           6.0s
- => [builder 5/6] COPY requirements.txt .                                                                                                                                                                                                0.1s
- => [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                                   169.4s
- => [stage-1  4/10] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                                             84.7s
- => [stage-1  5/10] COPY app/ ./app/                                                                                                                                                                                                     0.7s
-[+] up 175/1756/10] COPY config/ ./config/                                                                                                                                                                                               0.0s
- ✔ Image chromadb/chroma:latest                 Pulled                                                                                                                                                                                   72.6s
- ✔ Image postgrest/postgrest:v14.8              Pulled                                                                                                                                                                                    7.0s
- ✔ Image redis:7-alpine                         Pulled                                                                                                                                                                                   12.8s
- ✔ Image supabase/logflare:1.36.1               Pulled                                                                                                                                                                                   77.2s
- ✔ Image supabase/storage-api:v1.48.26          Pulled                                                                                                                                                                                   98.1s
- ✔ Image supabase/realtime:v2.76.5              Pulled                                                                                                                                                                                   64.2s
- ✔ Image supabase/postgres-meta:v0.96.3         Pulled                                                                                                                                                                                   50.8s
- ✔ Image kong/kong:3.9.1                        Pulled                                                                                                                                                                                   55.2s
- ✔ Image darthsim/imgproxy:v3.30.1              Pulled                                                                                                                                                                                   43.7s
- ✔ Image ollama/ollama:latest                   Pulled                                                                                                                                                                                  208.1s
- ✔ Image supabase/gotrue:v2.186.0               Pulled                                                                                                                                                                                   18.4s
- ✔ Image supabase/postgres:15.8.1.085           Pulled                                                                                                                                                                                  141.3s
- ✔ Image supabase/studio:2026.04.27-sha-5f60601 Pulled                                                                                                                                                                                   95.3s
- ✔ Image aibackend-backend                      Built                                                                                                                                                                                   731.6s
- ✔ Network aibackend_durgasai_network           Created                                                                                                                                                                                   0.1s
- ✔ Volume aibackend_supabase_db_data            Created                                                                                                                                                                                   0.0s
- ✔ Volume aibackend_db_config                   Created                                                                                                                                                                                   0.0s
- ✔ Volume aibackend_chroma_data                 Created                                                                                                                                                                                   0.0s
- ✔ Volume aibackend_redis_data                  Created                                                                                                                                                                                   0.0s
- ✔ Volume aibackend_storage_data                Created                                                                                                                                                                                   0.0s
- ✔ Volume aibackend_backend_data                Created                                                                                                                                                                                   0.0s
- ✔ Volume aibackend_ollama_data                 Created                                                                                                                                                                                   0.0s
- ✔ Container aibackend-redis-1                  Healthy                                                                                                                                                                                  45.7s
- ✔ Container supabase-db                        Healthy                                                                                                                                                                                  45.7s
- ✔ Container aibackend-ollama-1                 Started                                                                                                                                                                                   6.1s
- ✔ Container supabase-imgproxy                  Started                                                                                                                                                                                   5.9s
- ✔ Container aibackend-chromadb-1               Started                                                                                                                                                                                   6.2s
- ✔ Container supabase-auth                      Started                                                                                                                                                                                  12.4s
- ✔ Container supabase-meta                      Started                                                                                                                                                                                  12.2s
- ✔ Container realtime-dev.supabase-realtime     Started                                                                                                                                                                                  12.4s
- ✔ Container supabase-analytics                 Healthy                                                                                                                                                                                  33.5s
- ✔ Container supabase-rest                      Started                                                                                                                                                                                  12.4s
- ✔ Container supabase-storage                   Started                                                                                                                                                                                  13.2s
- ✔ Container supabase-studio                    Healthy                                                                                                                                                                                  40.1s
- ✘ Container supabase-kong                      Error dependency kong failed to start                                                                                                                                                    43.3s
- ✔ Container aibackend-backend-1                Created                                                                                                                                                                                   0.1s
+ => CACHED [builder 2/6] WORKDIR /app                                                                                                                                                                                                    0.0s
+ => CACHED [stage-1  3/10] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                                       0.0s
+ => CACHED [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                                         0.0s
+ => CACHED [builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                                    0.0s
+ => CACHED [builder 5/6] COPY requirements.txt .                                                                                                                                                                                         0.0s
+ => CACHED [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                              0.0s
+ => CACHED [stage-1  4/10] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                                       0.0s
+ => CACHED [stage-1  5/10] COPY app/ ./app/                                                                                                                                                                                              0.0s
+ => CACHED [stage-1  6/10] COPY config/ ./config/                                                                                                                                                                                        0.0s
+ => CACHED [stage-1  7/10] COPY alembic.ini .                                                                                                                                                                                            0.0s
+ => CACHED [stage-1  8/10] COPY alembic/ ./alembic/                                                                                                                                                                                      0.0s
+ => CACHED [stage-1  9/10] RUN mkdir -p /app/data/chroma /app/data/logs                                                                                                                                                                  0.0s
+ => CACHED [stage-1 10/10] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                                       0.0s
+ => exporting to image                                                                                                                                                                                                                   0.1s
+ => => exporting layers                                                                                                                                                                                                                  0.0s
+ => => exporting manifest sha256:3488a9e05b026088c26de86b82f817a4d0d91df586a6b272348f36892c014ff8                                                                                                                                        0.0s
+ => => exporting config sha256:b71fbc696a96ec28b5a6b385dcaa32aa5f3c75e52978cdb8cdf4a259c2cd0996                                                                                                                                          0.0s
+ => => exporting attestation manifest sha256:e5d66499f8e8f04dc24e346a488247d1f794428dfce7084202e43df8c2ac2a54                                                                                                                            0.0s
+ => => exporting manifest list sha256:e0427b17b7f6e321b7832223aa78dc382d6182628c52f96e771198f3ae583af5                                                                                                                                   0.0s
+ => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                                              0.0s
+ => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                                           0.0s
+ => resolving provenance for metadata file                                                                                                                                                                                               0.0s
+[+] up 16/16
+ ✔ Image aibackend-backend                  Built                                                                                                                                                                                         0.6s
+ ✔ Network aibackend_durgasai_network       Created                                                                                                                                                                                       0.0s
+ ✔ Container supabase-imgproxy              Started                                                                                                                                                                                       1.2s
+ ✔ Container aibackend-redis-1              Healthy                                                                                                                                                                                      30.2s
+ ✔ Container aibackend-ollama-1             Started                                                                                                                                                                                       1.2s
+ ✔ Container supabase-db                    Healthy                                                                                                                                                                                      30.2s
+ ✔ Container aibackend-chromadb-1           Started                                                                                                                                                                                       1.4s
+ ✔ Container supabase-meta                  Started                                                                                                                                                                                       7.5s
+ ✔ Container supabase-analytics             Healthy                                                                                                                                                                                      23.5s
+ ✔ Container realtime-dev.supabase-realtime Started                                                                                                                                                                                       7.5s
+ ✔ Container supabase-auth                  Started                                                                                                                                                                                       7.4s
+ ✔ Container supabase-rest                  Started                                                                                                                                                                                       7.3s
+ ✔ Container supabase-storage               Started                                                                                                                                                                                       8.0s
+ ✔ Container supabase-studio                Healthy                                                                                                                                                                                      29.1s
+ ✘ Container supabase-kong                  Error dependency kong failed to start                                                                                                                                                        35.3s
+ ✔ Container aibackend-backend-1            Created                                                                                                                                                                                       0.1s
 dependency failed to start: container supabase-kong is unhealthy
-/home/ubuntu/aibackend/scripts/docker-up.sh: line 84: merged: unbound variable
-ubuntu@ip-172-31-46-132:~/aibackend$
-##[debug]Evaluating: secrets.ENV_FILE
-##[debug]Evaluating Index:
-##[debug]..Evaluating secrets:
-##[debug]..=> Object
-##[debug]..Evaluating String:
-##[debug]..=> 'ENV_FILE'
-##[debug]=> '***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]'
-##[debug]Result: '***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]'
-##[debug]Evaluating: secrets.SUPABASE_ENV_FILE
-##[debug]Evaluating Index:
-##[debug]..Evaluating secrets:
-##[debug]..=> Object
-##[debug]..Evaluating String:
-##[debug]..=> 'SUPABASE_ENV_FILE'
-##[debug]=> null
-##[debug]Result: null
-##[debug]Evaluating condition for step: 'Deploy and verify via SSH'
-##[debug]Evaluating: success()
-##[debug]Evaluating success:
-##[debug]=> true
-##[debug]Result: true
-##[debug]Starting: Deploy and verify via SSH
-##[debug]Loading inputs
-##[debug]Evaluating: secrets.EC2_HOST
-##[debug]Evaluating Index:
-##[debug]..Evaluating secrets:
-##[debug]..=> Object
-##[debug]..Evaluating String:
-##[debug]..=> 'EC2_HOST'
-##[debug]=> '***'
-##[debug]Result: '***'
-##[debug]Evaluating: secrets.EC2_USER
-##[debug]Evaluating Index:
-##[debug]..Evaluating secrets:
-##[debug]..=> Object
-##[debug]..Evaluating String:
-##[debug]..=> 'EC2_USER'
-##[debug]=> '***'
-##[debug]Result: '***'
-##[debug]Evaluating: secrets.EC2_SSH_KEY
-##[debug]Evaluating Index:
-##[debug]..Evaluating secrets:
-##[debug]..=> Object
-##[debug]..Evaluating String:
-##[debug]..=> 'EC2_SSH_KEY'
-##[debug]=> '***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***'
-##[debug]Result: '***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***
-##[debug]***'
-##[debug]Evaluating: format('set -euo pipefail
-##[debug]export VERIFY_SLEEP_SECONDS="{0}"
-##[debug]export VERIFY_STRICT_READY="{1}"
-##[debug]export VERIFY_REQUIRE_DOCKER="{2}"
-##[debug]
-##[debug]REPO_ROOT="{3}"
-##[debug]REPO_ROOT="${{REPO_ROOT:-/home/***/aibackend}}"
-##[debug]SUB="{4}"
-##[debug]SUB="${{SUB:-}}"
-##[debug]
-##[debug]BACKEND_DIR="$REPO_ROOT"
-##[debug]if [ -n "$SUB" ]; then BACKEND_DIR="$REPO_ROOT/$SUB"; fi
-##[debug]
-##[debug]cd "$REPO_ROOT"
-##[debug]git fetch origin main
-##[debug]git reset --hard origin/main
-##[debug]
-##[debug]mkdir -p "$BACKEND_DIR/docker/supabase"
-##[debug]cd "$BACKEND_DIR"
-##[debug]
-##[debug]# Env passthrough avoids bash expanding ${{…}} inside the secret body (would break with set -u).
-##[debug]printf ''%s\n'' "${{ENV_FILE_CONTENT:-}}" > .env
-##[debug]chmod 600 .env || true
-##[debug]
-##[debug]printf ''%s\n'' "${{SUPABASE_ENV_CONTENT:-}}" > docker/supabase/supabase.env
-##[debug]chmod 600 docker/supabase/supabase.env || true
-##[debug]
-##[debug]bash deploy/remote-deploy.sh
-##[debug]bash deploy/verify-stack.sh
-##[debug]', vars.VERIFY_SLEEP_SECONDS, vars.VERIFY_STRICT_READY, vars.VERIFY_REQUIRE_DOCKER, vars.EC2_REPO_ROOT, vars.DEPLOY_SUBDIR)
-##[debug]Evaluating format:
-##[debug]..Evaluating String:
-##[debug]..=> 'set -euo pipefail
-##[debug]export VERIFY_SLEEP_SECONDS="{0}"
-##[debug]export VERIFY_STRICT_READY="{1}"
-##[debug]export VERIFY_REQUIRE_DOCKER="{2}"
-##[debug]
-##[debug]REPO_ROOT="{3}"
-##[debug]REPO_ROOT="${{REPO_ROOT:-/home/***/aibackend}}"
-##[debug]SUB="{4}"
-##[debug]SUB="${{SUB:-}}"
-##[debug]
-##[debug]BACKEND_DIR="$REPO_ROOT"
-##[debug]if [ -n "$SUB" ]; then BACKEND_DIR="$REPO_ROOT/$SUB"; fi
-##[debug]
-##[debug]cd "$REPO_ROOT"
-##[debug]git fetch origin main
-##[debug]git reset --hard origin/main
-##[debug]
-##[debug]mkdir -p "$BACKEND_DIR/docker/supabase"
-##[debug]cd "$BACKEND_DIR"
-##[debug]
-##[debug]# Env passthrough avoids bash expanding ${{…}} inside the secret body (would break with set -u).
-##[debug]printf ''%s\n'' "${{ENV_FILE_CONTENT:-}}" > .env
-##[debug]chmod 600 .env || true
-##[debug]
-##[debug]printf ''%s\n'' "${{SUPABASE_ENV_CONTENT:-}}" > docker/supabase/supabase.env
-##[debug]chmod 600 docker/supabase/supabase.env || true
-##[debug]
-##[debug]bash deploy/remote-deploy.sh
-##[debug]bash deploy/verify-stack.sh
-##[debug]'
-##[debug]..Evaluating Index:
-##[debug]....Evaluating vars:
-##[debug]....=> Object
-##[debug]....Evaluating String:
-##[debug]....=> 'VERIFY_SLEEP_SECONDS'
-##[debug]..=> null
-##[debug]..Evaluating Index:
-##[debug]....Evaluating vars:
-##[debug]....=> Object
-##[debug]....Evaluating String:
-##[debug]....=> 'VERIFY_STRICT_READY'
-##[debug]..=> null
-##[debug]..Evaluating Index:
-##[debug]....Evaluating vars:
-##[debug]....=> Object
-##[debug]....Evaluating String:
-##[debug]....=> 'VERIFY_REQUIRE_DOCKER'
-##[debug]..=> null
-##[debug]..Evaluating Index:
-##[debug]....Evaluating vars:
-##[debug]....=> Object
-##[debug]....Evaluating String:
-##[debug]....=> 'EC2_REPO_ROOT'
-##[debug]..=> null
-##[debug]..Evaluating Index:
-##[debug]....Evaluating vars:
-##[debug]....=> Object
-##[debug]....Evaluating String:
-##[debug]....=> 'DEPLOY_SUBDIR'
-##[debug]..=> null
-##[debug]=> 'set -euo pipefail
-##[debug]export VERIFY_SLEEP_SECONDS=""
-##[debug]export VERIFY_STRICT_READY=""
-##[debug]export VERIFY_REQUIRE_DOCKER=""
-##[debug]
-##[debug]REPO_ROOT=""
-##[debug]REPO_ROOT="${REPO_ROOT:-/home/***/aibackend}"
-##[debug]SUB=""
-##[debug]SUB="${SUB:-}"
-##[debug]
-##[debug]BACKEND_DIR="$REPO_ROOT"
-##[debug]if [ -n "$SUB" ]; then BACKEND_DIR="$REPO_ROOT/$SUB"; fi
-##[debug]
-##[debug]cd "$REPO_ROOT"
-##[debug]git fetch origin main
-##[debug]git reset --hard origin/main
-##[debug]
-##[debug]mkdir -p "$BACKEND_DIR/docker/supabase"
-##[debug]cd "$BACKEND_DIR"
-##[debug]
-##[debug]# Env passthrough avoids bash expanding ${…} inside the secret body (would break with set -u).
-##[debug]printf ''%s\n'' "${ENV_FILE_CONTENT:-}" > .env
-##[debug]chmod 600 .env || true
-##[debug]
-##[debug]printf ''%s\n'' "${SUPABASE_ENV_CONTENT:-}" > docker/supabase/supabase.env
-##[debug]chmod 600 docker/supabase/supabase.env || true
-##[debug]
-##[debug]bash deploy/remote-deploy.sh
-##[debug]bash deploy/verify-stack.sh
-##[debug]'
-##[debug]Result: 'set -euo pipefail
-##[debug]export VERIFY_SLEEP_SECONDS=""
-##[debug]export VERIFY_STRICT_READY=""
-##[debug]export VERIFY_REQUIRE_DOCKER=""
-##[debug]
-##[debug]REPO_ROOT=""
-##[debug]REPO_ROOT="${REPO_ROOT:-/home/***/aibackend}"
-##[debug]SUB=""
-##[debug]SUB="${SUB:-}"
-##[debug]
-##[debug]BACKEND_DIR="$REPO_ROOT"
-##[debug]if [ -n "$SUB" ]; then BACKEND_DIR="$REPO_ROOT/$SUB"; fi
-##[debug]
-##[debug]cd "$REPO_ROOT"
-##[debug]git fetch origin main
-##[debug]git reset --hard origin/main
-##[debug]
-##[debug]mkdir -p "$BACKEND_DIR/docker/supabase"
-##[debug]cd "$BACKEND_DIR"
-##[debug]
-##[debug]# Env passthrough avoids bash expanding ${…} inside the secret body (would break with set -u).
-##[debug]printf ''%s\n'' "${ENV_FILE_CONTENT:-}" > .env
-##[debug]chmod 600 .env || true
-##[debug]
-##[debug]printf ''%s\n'' "${SUPABASE_ENV_CONTENT:-}" > docker/supabase/supabase.env
-##[debug]chmod 600 docker/supabase/supabase.env || true
-##[debug]
-##[debug]bash deploy/remote-deploy.sh
-##[debug]bash deploy/verify-stack.sh
-##[debug]'
-##[debug]Loading env
+ubuntu@ip-172-31-46-132:~/aibackend$ 
 Run appleboy/ssh-action@v1.0.3
-/usr/bin/docker run --name e45ee7c59845358b71b29aea99b3f1_412120 --label 816601 --workdir /github/workspace --rm -e "ENV_FILE_CONTENT" -e "SUPABASE_ENV_CONTENT" -e "INPUT_HOST" -e "INPUT_USERNAME" -e "INPUT_KEY" -e "INPUT_PORT" -e "INPUT_ENVS" -e "INPUT_SCRIPT" -e "INPUT_PASSPHRASE" -e "INPUT_PASSWORD" -e "INPUT_SYNC" -e "INPUT_USE_INSECURE_CIPHER" -e "INPUT_CIPHER" -e "INPUT_TIMEOUT" -e "INPUT_COMMAND_TIMEOUT" -e "INPUT_KEY_PATH" -e "INPUT_FINGERPRINT" -e "INPUT_PROXY_HOST" -e "INPUT_PROXY_PORT" -e "INPUT_PROXY_USERNAME" -e "INPUT_PROXY_PASSWORD" -e "INPUT_PROXY_PASSPHRASE" -e "INPUT_PROXY_TIMEOUT" -e "INPUT_PROXY_KEY" -e "INPUT_PROXY_KEY_PATH" -e "INPUT_PROXY_FINGERPRINT" -e "INPUT_PROXY_CIPHER" -e "INPUT_PROXY_USE_INSECURE_CIPHER" -e "INPUT_SCRIPT_STOP" -e "INPUT_ENVS_FORMAT" -e "INPUT_DEBUG" -e "INPUT_ALLENVS" -e "INPUT_REQUEST_PTY" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_DEBUG" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_RESULTS_URL" -e "ACTIONS_ORCHESTRATION_ID" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp":"/github/runner_temp" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/aibackend/aibackend":"/github/workspace" 816601:68e45ee7c59845358b71b29aea99b3f1
+/usr/bin/docker run --name e8af1d5a3897f472f979ea3b1d8063935_45f061 --label 42637e --workdir /github/workspace --rm -e "ENV_FILE_CONTENT" -e "SUPABASE_ENV_CONTENT" -e "INPUT_HOST" -e "INPUT_USERNAME" -e "INPUT_KEY" -e "INPUT_PORT" -e "INPUT_ENVS" -e "INPUT_SCRIPT" -e "INPUT_PASSPHRASE" -e "INPUT_PASSWORD" -e "INPUT_SYNC" -e "INPUT_USE_INSECURE_CIPHER" -e "INPUT_CIPHER" -e "INPUT_TIMEOUT" -e "INPUT_COMMAND_TIMEOUT" -e "INPUT_KEY_PATH" -e "INPUT_FINGERPRINT" -e "INPUT_PROXY_HOST" -e "INPUT_PROXY_PORT" -e "INPUT_PROXY_USERNAME" -e "INPUT_PROXY_PASSWORD" -e "INPUT_PROXY_PASSPHRASE" -e "INPUT_PROXY_TIMEOUT" -e "INPUT_PROXY_KEY" -e "INPUT_PROXY_KEY_PATH" -e "INPUT_PROXY_FINGERPRINT" -e "INPUT_PROXY_CIPHER" -e "INPUT_PROXY_USE_INSECURE_CIPHER" -e "INPUT_SCRIPT_STOP" -e "INPUT_ENVS_FORMAT" -e "INPUT_DEBUG" -e "INPUT_ALLENVS" -e "INPUT_REQUEST_PTY" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_RESULTS_URL" -e "ACTIONS_ORCHESTRATION_ID" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp":"/github/runner_temp" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/aibackend/aibackend":"/github/workspace" 42637e:8af1d5a3897f472f979ea3b1d8063935
 ======CMD======
 set -euo pipefail
 export VERIFY_SLEEP_SECONDS=""
@@ -726,36 +90,37 @@ bash deploy/verify-stack.sh
 ======END======
 err: From https://github.com/thekoushikdurgas/aibackend
 err:  * branch            main       -> FETCH_HEAD
-out: HEAD is now at 14fc011 9/5/2026
+err:    14fc011..d4f5f73  main       -> origin/main
+out: HEAD is now at d4f5f73 9/5/2026
 out: [deploy] ROOT=/home/***/aibackend
 out: [deploy] Created/refilled docker/supabase/supabase.env from supabase.env.example (set SUPABASE_ENV_CONTENT for production overrides).
 out: [deploy] docker compose --env-file … -f compose.yaml up -d --build
 err:  backend Skipped No image to be pulled
-err:  Image supabase/realtime:v2.76.5 Pulling 
-err:  Image kong/kong:3.9.1 Pulling 
 err:  Image redis:7-alpine Pulling 
-err:  Image darthsim/imgproxy:v3.30.1 Pulling 
-err:  Image postgrest/postgrest:v14.8 Pulling 
-err:  Image ollama/ollama:latest Pulling 
-err:  Image chromadb/chroma:latest Pulling 
-err:  Image supabase/studio:2026.04.27-sha-5f60601 Pulling 
-err:  Image supabase/postgres:15.8.1.085 Pulling 
-err:  Image supabase/postgres-meta:v0.96.3 Pulling 
-err:  Image supabase/gotrue:v2.186.0 Pulling 
 err:  Image supabase/storage-api:v1.48.26 Pulling 
 err:  Image supabase/logflare:1.36.1 Pulling 
+err:  Image supabase/studio:2026.04.27-sha-5f60601 Pulling 
+err:  Image postgrest/postgrest:v14.8 Pulling 
+err:  Image supabase/gotrue:v2.186.0 Pulling 
+err:  Image supabase/realtime:v2.76.5 Pulling 
+err:  Image supabase/postgres:15.8.1.085 Pulling 
+err:  Image kong/kong:3.9.1 Pulling 
+err:  Image chromadb/chroma:latest Pulling 
+err:  Image ollama/ollama:latest Pulling 
+err:  Image supabase/postgres-meta:v0.96.3 Pulling 
+err:  Image darthsim/imgproxy:v3.30.1 Pulling 
 err:  Image postgrest/postgrest:v14.8 Pulled 
 err:  Image kong/kong:3.9.1 Pulled 
 err:  Image ollama/ollama:latest Pulled 
 err:  Image chromadb/chroma:latest Pulled 
 err:  Image supabase/gotrue:v2.186.0 Pulled 
+err:  Image darthsim/imgproxy:v3.30.1 Pulled 
 err:  Image supabase/realtime:v2.76.5 Pulled 
 err:  Image redis:7-alpine Pulled 
-err:  Image darthsim/imgproxy:v3.30.1 Pulled 
 err:  Image supabase/logflare:1.36.1 Pulled 
+err:  Image supabase/storage-api:v1.48.26 Pulled 
 err:  Image supabase/postgres-meta:v0.96.3 Pulled 
 err:  Image supabase/studio:2026.04.27-sha-5f60601 Pulled 
-err:  Image supabase/storage-api:v1.48.26 Pulled 
 err:  Image supabase/postgres:15.8.1.085 Pulled 
 err:  Image aibackend-backend Building 
 out: #1 [internal] load local bake definitions
@@ -765,39 +130,41 @@ out: #2 [internal] load build definition from Dockerfile
 out: #2 transferring dockerfile: 1.79kB done
 out: #2 DONE 0.0s
 out: #3 [internal] load metadata for docker.io/library/python:3.11-slim
-out: #3 DONE 0.1s
+out: #3 DONE 0.2s
 out: #4 [internal] load .dockerignore
 out: #4 transferring context: 713B done
 out: #4 DONE 0.0s
-out: #5 [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142
-out: #5 resolve docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142 0.0s done
+out: #5 [internal] load build context
 out: #5 DONE 0.0s
-out: #6 [internal] load build context
-out: #6 transferring context: 1.70MB 0.1s done
-out: #6 DONE 0.2s
-out: #7 [stage-1  9/10] RUN mkdir -p /app/data/chroma /app/data/logs
+out: #6 [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142
+out: #6 resolve docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142 0.0s done
+out: #6 DONE 0.0s
+out: #5 [internal] load build context
+out: #5 transferring context: 16.45kB 0.0s done
+out: #5 DONE 0.0s
+out: #7 [stage-1  5/10] COPY app/ ./app/
 out: #7 CACHED
-out: #8 [stage-1  6/10] COPY config/ ./config/
+out: #8 [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt
 out: #8 CACHED
-out: #9 [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt
+out: #9 [stage-1  6/10] COPY config/ ./config/
 out: #9 CACHED
-out: #10 [stage-1  4/10] COPY --from=builder /opt/venv /opt/venv
+out: #10 [builder 4/6] RUN python -m venv /opt/venv
 out: #10 CACHED
 out: #11 [builder 5/6] COPY requirements.txt .
 out: #11 CACHED
-out: #12 [builder 2/6] WORKDIR /app
+out: #12 [stage-1  9/10] RUN mkdir -p /app/data/chroma /app/data/logs
 out: #12 CACHED
-out: #13 [stage-1  5/10] COPY app/ ./app/
+out: #13 [stage-1  3/10] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*
 out: #13 CACHED
-out: #14 [stage-1  7/10] COPY alembic.ini .
+out: #14 [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*
 out: #14 CACHED
-out: #15 [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*
+out: #15 [stage-1  7/10] COPY alembic.ini .
 out: #15 CACHED
-out: #16 [stage-1  3/10] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*
+out: #16 [stage-1  8/10] COPY alembic/ ./alembic/
 out: #16 CACHED
-out: #17 [builder 4/6] RUN python -m venv /opt/venv
+out: #17 [builder 2/6] WORKDIR /app
 out: #17 CACHED
-out: #18 [stage-1  8/10] COPY alembic/ ./alembic/
+out: #18 [stage-1  4/10] COPY --from=builder /opt/venv /opt/venv
 out: #18 CACHED
 out: #19 [stage-1 10/10] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app
 out: #19 CACHED
@@ -805,27 +172,29 @@ out: #20 exporting to image
 out: #20 exporting layers done
 out: #20 exporting manifest sha256:3488a9e05b026088c26de86b82f817a4d0d91df586a6b272348f36892c014ff8 done
 out: #20 exporting config sha256:b71fbc696a96ec28b5a6b385dcaa32aa5f3c75e52978cdb8cdf4a259c2cd0996 done
-out: #20 exporting attestation manifest sha256:84f2a6440aa9c07d112b85f97eecd3d52b515f7cac4b404a0a85c221c446944f 0.0s done
-out: #20 exporting manifest list sha256:fd7a1c755d291653378e48cdcc29857139bb5636d7c2956593e9f8da6cc10ef3
-out: #20 exporting manifest list sha256:fd7a1c755d291653378e48cdcc29857139bb5636d7c2956593e9f8da6cc10ef3 0.0s done
+out: #20 exporting attestation manifest sha256:6a7975e082cf075db0ff19623f473ed6f4836bc3fcc3b10a07ea8da4064917cd 0.0s done
+out: #20 exporting manifest list sha256:edb9dfcc55ee0152c376b7ed6b8966aee3b47eda242b49c45de2f8336f0f22fb
+out: #20 exporting manifest list sha256:edb9dfcc55ee0152c376b7ed6b8966aee3b47eda242b49c45de2f8336f0f22fb 0.0s done
 out: #20 naming to docker.io/library/aibackend-backend:latest done
 out: #20 unpacking to docker.io/library/aibackend-backend:latest 0.0s done
 out: #20 DONE 0.1s
 out: #21 resolving provenance for metadata file
-out: #21 DONE 0.0s
 err:  Image aibackend-backend Built 
+out: #21 DONE 0.0s
 err:  Container supabase-db Running 
-err:  Container realtime-dev.supabase-realtime Running 
-err:  Container aibackend-chromadb-1 Running 
-err:  Container supabase-auth Running 
-err:  Container aibackend-ollama-1 Running 
 err:  Container supabase-imgproxy Running 
-err:  Container supabase-meta Running 
-err:  Container supabase-analytics Running 
 err:  Container aibackend-redis-1 Running 
+err:  Container aibackend-ollama-1 Running 
+err:  Container aibackend-chromadb-1 Running 
+err:  Container supabase-analytics Running 
 err:  Container supabase-rest Running 
 err:  Container supabase-studio Running 
 err:  Container supabase-storage Running 
+err:  Container supabase-kong Recreate 
+err:  Container supabase-auth Running 
+err:  Container realtime-dev.supabase-realtime Running 
+err:  Container supabase-meta Running 
+err:  Container supabase-kong Recreated 
 err:  Container aibackend-backend-1 Recreate 
 err:  Container aibackend-backend-1 Recreated 
 err:  Container supabase-db Waiting 
@@ -834,11 +203,11 @@ err:  Container supabase-db Waiting
 err:  Container supabase-db Waiting 
 err:  Container supabase-db Waiting 
 err:  Container supabase-db Healthy 
+err:  Container supabase-db Healthy 
+err:  Container supabase-db Healthy 
 err:  Container supabase-analytics Waiting 
 err:  Container supabase-db Healthy 
 err:  Container supabase-db Waiting 
-err:  Container supabase-db Healthy 
-err:  Container supabase-db Healthy 
 err:  Container supabase-db Healthy 
 err:  Container supabase-analytics Healthy 
 err:  Container supabase-studio Waiting 
@@ -849,10 +218,8 @@ err:  Container supabase-kong Started
 err:  Container supabase-kong Waiting 
 err:  Container supabase-db Waiting 
 err:  Container aibackend-redis-1 Waiting 
-err:  Container supabase-db Healthy 
 err:  Container aibackend-redis-1 Healthy 
+err:  Container supabase-db Healthy 
 err:  Container supabase-kong Error dependency kong failed to start
 err: dependency failed to start: container supabase-kong is unhealthy
-2026/05/11 01:35:43 Process exited with status 1
-##[debug]Docker Action run completed with exit code 1
-##[debug]Finishing: Deploy and verify via SSH
+2026/05/11 01:40:52 Process exited with status 1
