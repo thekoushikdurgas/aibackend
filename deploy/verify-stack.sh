@@ -14,6 +14,11 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
+if [[ ! -f .env ]] || [[ ! -f docker/supabase/supabase.env ]]; then
+  echo "[verify] ERROR: need .env and docker/supabase/supabase.env (same as docker-up bootstrap)."
+  exit 1
+fi
+
 # Match remote-deploy.sh: SSH shells may omit directories where docker is installed.
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin${PATH:+:$PATH}"
 
@@ -26,20 +31,30 @@ if ! command -v docker >/dev/null 2>&1; then
   exit 0
 fi
 
+if ! docker compose version >/dev/null 2>&1; then
+  echo "[verify] ERROR: 'docker compose' is not available. Install docker-compose-plugin (same as scripts/docker-up.sh)."
+  exit 1
+fi
+
 API_URL="${VERIFY_API_URL:-http://127.0.0.1:8000}"
 KONG_URL="${VERIFY_KONG_URL:-http://127.0.0.1:8080}"
 SLEEP_SEC="${VERIFY_SLEEP_SECONDS:-15}"
 STRICT_READY="${VERIFY_STRICT_READY:-0}"
 
-COMPOSE_ENV=(--env-file .env)
-if [[ -f docker/supabase/supabase.env ]] && [[ -s docker/supabase/supabase.env ]]; then
-  COMPOSE_ENV+=(--env-file docker/supabase/supabase.env)
-fi
+VERIFY_COMPOSE_MERGED=""
+cleanup_verify_compose_env() {
+  [[ -n "${VERIFY_COMPOSE_MERGED:-}" ]] && rm -f "$VERIFY_COMPOSE_MERGED"
+}
+trap cleanup_verify_compose_env EXIT
+
+VERIFY_COMPOSE_MERGED="$(mktemp "${TMPDIR:-/tmp}/aibackend.verify.compose.XXXXXX.env")"
+cat .env docker/supabase/supabase.env >"$VERIFY_COMPOSE_MERGED"
+chmod 600 "$VERIFY_COMPOSE_MERGED" 2>/dev/null || true
 
 if [[ -f compose.yaml ]]; then
-  COMPOSE_ARGS=( "${COMPOSE_ENV[@]}" -f compose.yaml )
+  COMPOSE_ARGS=(--env-file "$VERIFY_COMPOSE_MERGED" -f compose.yaml)
 elif [[ -f docker/docker-compose.yml ]]; then
-  COMPOSE_ARGS=( "${COMPOSE_ENV[@]}" -f docker/docker-compose.yml )
+  COMPOSE_ARGS=(--env-file "$VERIFY_COMPOSE_MERGED" -f docker/docker-compose.yml)
 else
   echo "[verify] ERROR: compose.yaml or docker/docker-compose.yml not found"
   exit 1

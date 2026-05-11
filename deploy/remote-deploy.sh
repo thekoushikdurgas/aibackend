@@ -32,13 +32,19 @@ bootstrap_env_files() {
 }
 
 compose_env_args() {
-  COMPOSE_ENV=(--env-file .env)
-  if [[ -f docker/supabase/supabase.env ]] && [[ -s docker/supabase/supabase.env ]]; then
-    COMPOSE_ENV+=(--env-file docker/supabase/supabase.env)
-  else
-    echo "[deploy] WARNING: docker/supabase/supabase.env missing or empty — Supabase/Kong compose vars may fail."
-  fi
+  local merged
+  merged="$(mktemp "${TMPDIR:-/tmp}/aibackend.deploy.compose.XXXXXX.env")"
+  cat .env docker/supabase/supabase.env >"$merged"
+  chmod 600 "$merged" 2>/dev/null || true
+  COMPOSE_MERGED_ENV="$merged"
+  COMPOSE_ENV=(--env-file "$COMPOSE_MERGED_ENV")
 }
+
+cleanup_compose_merged_env() {
+  [[ -n "${COMPOSE_MERGED_ENV:-}" ]] && rm -f "$COMPOSE_MERGED_ENV"
+}
+
+trap cleanup_compose_merged_env EXIT
 
 validate_supabase_env() {
   local f="docker/supabase/supabase.env"
@@ -69,6 +75,12 @@ if ! command -v docker >/dev/null 2>&1; then
   echo "[deploy] Docker not available — repo updated only."
   echo "[deploy] Start the app with: uvicorn app.main:app --host 0.0.0.0 --port 8000"
   exit 0
+fi
+
+if ! docker compose version >/dev/null 2>&1; then
+  echo "[deploy] ERROR: 'docker compose' is not available (Compose v2 plugin missing)."
+  echo "[deploy] Install: sudo apt-get update && sudo apt-get install -y docker-compose-plugin && sudo systemctl restart docker"
+  exit 1
 fi
 
 bootstrap_env_files

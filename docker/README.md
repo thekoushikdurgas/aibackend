@@ -4,7 +4,10 @@ These files define **production** and **development** stacks. Images use **Pytho
 
 ## Step 1 — Prerequisites
 
-- [Docker Engine](https://docs.docker.com/engine/install/) + Docker Compose v2 (**v2.20+** recommended if you use root `compose.yaml` with `include:`).
+- [Docker Engine](https://docs.docker.com/engine/install/) + **Docker Compose v2** as the **`docker compose`** CLI plugin (**not** optional on Ubuntu minimal installs).
+  - Debian/Ubuntu: `sudo apt-get update && sudo apt-get install -y docker-compose-plugin`  
+    Then confirm: `docker compose version`  
+    **`sudo`** uses root’s CLI plugins — install via **apt** so the plugin lives under `/usr/lib/docker/cli-plugins/`. User-only installs under `~/.docker/cli-plugins/` are invisible to `sudo docker compose` and can produce confusing errors (e.g. `unknown flag: --env-file`).
 - Ports **free on the host**:
   - `8000` — API
   - `8080` — Supabase Kong (REST / Auth / Realtime / Storage API)
@@ -85,7 +88,9 @@ Bootstrap scripts create `.env` from `.env.example` and `docker/supabase/supabas
 
 ```bash
 chmod +x scripts/docker-up.sh
-./scripts/docker-up.sh
+./scripts/docker-up.sh   # preferred if your user is in the `docker` group
+# or:
+sudo ./scripts/docker-up.sh   # requires docker-compose-plugin installed for root (see Step 1)
 ```
 
 Development stack:
