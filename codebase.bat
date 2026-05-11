@@ -40,6 +40,7 @@ REM BEST_PRACTICES_FORMAT=text or json or both
 REM SKIP_FINAL_FORMAT=1        Skip step 8 black write
 REM SKIP_BUILD=1               Skip step 9 pip check / import smoke
 REM SKIP_PIP_CHECK=1           Step 9: skip pip check only (Python 3.13+ on Windows often reports spurious "not supported on this platform" for wheels with incomplete metadata)
+REM FORCE_PIP_CHECK=1          Step 9: run pip check even on Windows Python 3.13+ (otherwise skipped automatically)
 REM SKIP_PRETTIER=1            Skip step 4b Prettier
 REM SKIP_DEV_SERVER=1        Skip interactive "Start API server?" and do not start uvicorn (same idea as codebase.sh)
 REM NO_PROMPT=1              Alias: skip server prompt / uvicorn (non-interactive CI or scripts)
@@ -154,7 +155,8 @@ if /i "%SKIP_CSS_INVENTORY%"=="1" (
 
 call :color_echo "%CYAN%" "[0b] Self-hosted Supabase (optional)"
 echo ----------------------------------------
-call :color_echo "%BLUE%" "  For Docker: copy docker\supabase\supabase.env.example -^> docker\supabase\supabase.env"
+REM Avoid "->" in echo: ">" is a redirect in CMD and "^" stacks badly with call (:color_echo), producing "-^^>" on screen.
+call :color_echo "%BLUE%" "  For Docker: copy docker\supabase\supabase.env.example to docker\supabase\supabase.env"
 call :color_echo "%BLUE%" "  Start stack: docker compose -f docker\docker-compose.yml --env-file docker\supabase\supabase.env up -d"
 call :color_echo "%BLUE%" "  See docker\README.md for ports 8080 (Kong) and 3001 (Studio)."
 echo.
@@ -459,12 +461,24 @@ if /i "%SKIP_FINAL_FORMAT%"=="1" (
 
 call :color_echo "%CYAN%" "[9/10] Install / import integrity..."
 echo ----------------------------------------
+set "PIP_CHECK_AUTO_SKIPPED="
+if not /i "%FORCE_PIP_CHECK%"=="1" if not defined SKIP_PIP_CHECK (
+  "!PY!" !PY_EXTRA! -c "import sys; sys.exit(0 if sys.platform=='win32' and sys.version_info[:2]>=(3,13) else 1)" 2>nul
+  if not errorlevel 1 (
+    set "SKIP_PIP_CHECK=1"
+    set "PIP_CHECK_AUTO_SKIPPED=1"
+  )
+)
 if /i "%SKIP_BUILD%"=="1" (
   call :color_echo "%YELLOW%" "  Skipped (SKIP_BUILD=1)"
   set "SECTION9_STATUS=SKIPPED"
 ) else (
   if /i "%SKIP_PIP_CHECK%"=="1" (
-    call :color_echo "%YELLOW%" "  Skipped pip check (SKIP_PIP_CHECK=1; Windows often reports spurious platform wheels)"
+    if /i "!PIP_CHECK_AUTO_SKIPPED!"=="1" (
+      call :color_echo "%YELLOW%" "  Skipped pip check automatically (Windows Python 3.13+: known false positives from pip check). Set FORCE_PIP_CHECK=1 to run pip check anyway."
+    ) else (
+      call :color_echo "%YELLOW%" "  Skipped pip check (SKIP_PIP_CHECK=1; Windows often reports spurious platform wheels)"
+    )
   ) else (
     call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m pip check"
     call "%PY%" %PY_EXTRA% -m pip check

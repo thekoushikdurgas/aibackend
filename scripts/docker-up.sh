@@ -121,14 +121,5 @@ if [[ "${1:-}" == "dev" ]]; then
   run_compose -f compose.dev.yaml up --build
 else
   echo "Starting production-style stack (compose.yaml)..."
-  set +e
   run_compose -f compose.yaml up -d --build
-  up_rc=$?
-  set -e
-  # region agent log — Kong diagnostics for debug session (no secrets in log file)
-  if [[ -f "$ROOT/scripts/agent-kong-debug.sh" ]]; then
-    AGENT_RUN_ID="${AGENT_RUN_ID:-pre-fix}" bash "$ROOT/scripts/agent-kong-debug.sh" "$up_rc" || true
-  fi
-  # endregion
-  exit "$up_rc"
 fi

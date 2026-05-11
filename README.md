@@ -197,7 +197,7 @@ isort app/
 
 ### Local quality gate (`codebase.bat` / `codebase.sh`)
 
-From `ai.backend`, **`codebase.bat`** (Windows) or **`./codebase.sh`** runs pip install, mypy, black, ruff, pytest, and an import smoke test. On **Windows**, `pip check` often reports many packages as “not supported on this platform” even when imports succeed (binary wheel metadata). To treat a clean gate as success, set **`SKIP_PIP_CHECK=1`** before running the script, or rely on the import smoke test only. In CI (Linux), `pip check` is usually quiet.
+From `ai.backend`, **`codebase.bat`** (Windows) or **`./codebase.sh`** runs pip install, mypy, black, ruff, pytest, and an import smoke test. On **Windows**, `pip check` often reports many packages as “not supported on this platform” even when imports succeed (binary wheel metadata). **`codebase.bat`** skips `pip check` automatically on **Windows with Python 3.13+**; set **`FORCE_PIP_CHECK=1`** to run it anyway, or **`SKIP_PIP_CHECK=1`** to skip on other setups. In CI (Linux), `pip check` is usually quiet.
 
 For **non-interactive** runs (no “Start API server?” prompt), use **`SKIP_DEV_SERVER=1`** or **`NO_PROMPT=1`** with `codebase.bat`, or **`SKIP_DEV_SERVER=1`** / **`NO_PROMPT=1`** with `codebase.sh`, as documented in the script headers.
 

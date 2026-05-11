@@ -100,9 +100,6 @@ if [[ -f compose.yaml ]]; then
   docker compose "${COMPOSE_ENV[@]}" -f compose.yaml up -d --build
   up_rc=$?
   set -e
-  if [[ -f "$ROOT/scripts/agent-kong-debug.sh" ]]; then
-    AGENT_RUN_ID="${AGENT_RUN_ID:-pre-fix}" bash "$ROOT/scripts/agent-kong-debug.sh" "$up_rc" || true
-  fi
   exit "$up_rc"
 fi
 
@@ -113,9 +110,6 @@ if [[ -f docker/docker-compose.yml ]]; then
   docker compose "${COMPOSE_ENV[@]}" -f docker/docker-compose.yml up -d --build
   up_rc=$?
   set -e
-  if [[ -f "$ROOT/scripts/agent-kong-debug.sh" ]]; then
-    AGENT_RUN_ID="${AGENT_RUN_ID:-pre-fix}" bash "$ROOT/scripts/agent-kong-debug.sh" "$up_rc" || true
-  fi
   exit "$up_rc"
 fi
 
