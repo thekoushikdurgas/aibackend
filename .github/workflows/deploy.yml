@@ -3,9 +3,6 @@
 # Secrets:
 #   EC2_HOST, EC2_USER, EC2_SSH_KEY — SSH access
 #   ENV_FILE — full contents of ai.backend/.env (production secrets + Compose interpolation keys)
-#   SUPABASE_ENV_FILE — optional; full contents of docker/supabase/supabase.env (recommended for Supabase stack).
-#     If unset or empty, deploy/remote-deploy.sh bootstraps from supabase.env.example when needed.
-#
 # Repository variables (Settings → Secrets and variables → Actions → Variables):
 #   EC2_REPO_ROOT — git clone root on the server (default below if unset)
 #   DEPLOY_SUBDIR — e.g. ai.backend when the repo is a monorepo and backend lives in a subdirectory (default empty)
@@ -56,13 +53,12 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         env:
           ENV_FILE_CONTENT: ${{ secrets.ENV_FILE }}
-          SUPABASE_ENV_CONTENT: ${{ secrets.SUPABASE_ENV_FILE }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          envs: ENV_FILE_CONTENT,SUPABASE_ENV_CONTENT
+          envs: ENV_FILE_CONTENT
           script: |
             set -euo pipefail
             export VERIFY_SLEEP_SECONDS="${{ vars.VERIFY_SLEEP_SECONDS }}"
@@ -81,15 +77,12 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
 
-            mkdir -p "$BACKEND_DIR/docker/supabase"
+            mkdir -p "$BACKEND_DIR"
             cd "$BACKEND_DIR"
 
             # Env passthrough avoids bash expanding ${…} inside the secret body (would break with set -u).
             printf '%s\n' "${ENV_FILE_CONTENT:-}" > .env
             chmod 600 .env || true
-
-            printf '%s\n' "${SUPABASE_ENV_CONTENT:-}" > docker/supabase/supabase.env
-            chmod 600 docker/supabase/supabase.env || true
 
             bash deploy/remote-deploy.sh
             bash deploy/verify-stack.sh

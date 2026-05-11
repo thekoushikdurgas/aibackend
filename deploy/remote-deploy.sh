@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Remote deploy hook (GitHub Actions SSH step runs this after git reset on EC2).
-# Matches scripts/docker-up.sh: dual env files for Compose variable interpolation (Supabase + app).
+# Matches scripts/docker-up.sh: Compose uses `.env` for variable interpolation.
 
 set -euo pipefail
 
@@ -21,20 +21,12 @@ bootstrap_env_files() {
     cp -f .env.example .env
     echo "[deploy] Created .env from .env.example — replace secrets for production."
   fi
-  # Missing, empty, or newline-only supabase.env (e.g. empty GitHub SUPABASE_ENV_CONTENT) must not skip the template.
-  local f="docker/supabase/supabase.env"
-  local ex="docker/supabase/supabase.env.example"
-  if [[ -f "$ex" ]] && { [[ ! -f "$f" ]] || [[ ! -s "$f" ]] || ! grep -qE '^[A-Za-z_][A-Za-z0-9_]*=.+' "$f" 2>/dev/null; }; then
-    mkdir -p docker/supabase
-    cp -f "$ex" "$f"
-    echo "[deploy] Created/refilled docker/supabase/supabase.env from supabase.env.example (set SUPABASE_ENV_CONTENT for production overrides)."
-  fi
 }
 
 compose_env_args() {
   local merged
   merged="$(mktemp "${TMPDIR:-/tmp}/aibackend.deploy.compose.XXXXXX.env")"
-  cat .env docker/supabase/supabase.env >"$merged"
+  cat .env >"$merged"
   chmod 600 "$merged" 2>/dev/null || true
   COMPOSE_MERGED_ENV="$merged"
   COMPOSE_ENV=(--env-file "$COMPOSE_MERGED_ENV")
@@ -45,31 +37,6 @@ cleanup_compose_merged_env() {
 }
 
 trap cleanup_compose_merged_env EXIT
-
-validate_supabase_env() {
-  local f="docker/supabase/supabase.env"
-  [[ -f "$f" && -s "$f" ]] || {
-    echo "[deploy] ERROR: $f missing or empty. Set SUPABASE_ENV_CONTENT secret or copy supabase.env.example on the server."
-    exit 1
-  }
-  local req=(
-    POSTGRES_PASSWORD JWT_SECRET ANON_KEY SERVICE_ROLE_KEY
-    PG_META_CRYPTO_KEY LOGFLARE_PUBLIC_ACCESS_TOKEN LOGFLARE_PRIVATE_ACCESS_TOKEN
-    SECRET_KEY_BASE DASHBOARD_USERNAME DASHBOARD_PASSWORD
-  )
-  local missing=()
-  local k
-  for k in "${req[@]}"; do
-    if ! grep -qE "^${k}=." "$f" 2>/dev/null; then
-      missing+=("$k")
-    fi
-  done
-  if ((${#missing[@]})); then
-    echo "[deploy] ERROR: $f missing non-empty keys: ${missing[*]}"
-    echo "[deploy] Fix: set GitHub secret SUPABASE_ENV_CONTENT to the full supabase.env body, or edit $f on the server (see supabase.env.example)."
-    exit 1
-  fi
-}
 
 if ! command -v docker >/dev/null 2>&1; then
   echo "[deploy] Docker not available — repo updated only."
@@ -91,8 +58,6 @@ if [[ ! -f .env ]] || [[ ! -s .env ]]; then
 fi
 
 compose_env_args
-validate_supabase_env
-
 if [[ -f compose.yaml ]]; then
   echo "[deploy] docker compose --env-file … -f compose.yaml up -d --build"
   docker compose "${COMPOSE_ENV[@]}" -f compose.yaml pull || true

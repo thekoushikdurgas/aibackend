@@ -124,8 +124,8 @@ fi
 
 color_echo "$CYAN" "[0b] Self-hosted Supabase (optional)"
 echo "----------------------------------------"
-color_echo "$BLUE" "  For Docker: copy docker/supabase/supabase.env.example -> docker/supabase/supabase.env"
-color_echo "$BLUE" "  Start stack: docker compose -f docker/docker-compose.yml --env-file docker/supabase/supabase.env up -d"
+color_echo "$BLUE" "  For Docker: copy .env.example to .env and set POSTGRES_PASSWORD / secrets"
+color_echo "$BLUE" "  Start stack: docker compose --env-file .env -f compose.yaml up -d"
 color_echo "$BLUE" "  See docker/README.md for ports 8080 (Kong) and 3001 (Studio)."
 echo ""
 

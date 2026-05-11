@@ -20,17 +20,7 @@ if not exist ".env" (
   )
 )
 
-REM Empty supabase.env breaks Compose interpolation (warnings + supabase-db unhealthy). Same logic as docker-up.sh / remote-deploy.sh.
-set "SUPABASE_ENV_OK="
-if exist "docker\supabase\supabase.env" for %%I in ("docker\supabase\supabase.env") do if not %%~zI==0 set "SUPABASE_ENV_OK=1"
-if not defined SUPABASE_ENV_OK if exist "docker\supabase\supabase.env.example" (
-  if not exist "docker\supabase" mkdir "docker\supabase"
-  copy /y "docker\supabase\supabase.env.example" "docker\supabase\supabase.env" >nul
-  echo Created docker\supabase\supabase.env from supabase.env.example — edit secrets before docker compose.
-)
-
-REM Compose interpolates ${VAR} from env files here — supabase.env supplies POSTGRES_*, JWT_SECRET, ANON_KEY, etc.
-set "ENV_FILES=--env-file .env --env-file docker\supabase\supabase.env"
+set "ENV_FILES=--env-file .env"
 
 if /i "%~1"=="dev" (
   echo Starting development stack ^(compose.dev.yaml^)...

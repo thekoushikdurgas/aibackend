@@ -25,5 +25,5 @@ The final runtime URL is exposed through `settings.effective_database_url`.
 2. Create PostgreSQL database
 3. Apply schema in PostgreSQL
 4. Migrate data (conversation, metrics, and related entities)
-5. Update `postgresql_url` in `config/config.prod.json`
+5. Set `POSTGRESQL_URL` (and related pool settings) in **`.env`** or your process environment
 6. Restart backend and verify `system.health`

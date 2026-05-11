@@ -28,92 +28,20 @@ if [[ ! -f .env ]]; then
   fi
 fi
 
-# Empty or newline-only supabase.env breaks Compose (CI may write SUPABASE_ENV_CONTENT as blank → file still "non-empty" for -s).
-ensure_supabase_env_template() {
-  local f="docker/supabase/supabase.env"
-  local ex="docker/supabase/supabase.env.example"
-  [[ -f "$ex" ]] || return 0
-  if [[ ! -f "$f" ]] || [[ ! -s "$f" ]] || ! grep -qE '^[A-Za-z_][A-Za-z0-9_]*=.+' "$f" 2>/dev/null; then
-    mkdir -p docker/supabase
-    cp -f "$ex" "$f"
-    echo "Created/refilled $f from supabase.env.example — edit secrets before docker compose."
-  fi
-}
-ensure_supabase_env_template
-
-validate_supabase_env() {
-  local f="docker/supabase/supabase.env"
-  [[ -f "$f" && -s "$f" ]] || {
-    echo "ERROR: $f missing or empty. Copy docker/supabase/supabase.env.example and set secrets."
-    exit 1
-  }
-  local req=(
-    POSTGRES_PASSWORD JWT_SECRET ANON_KEY SERVICE_ROLE_KEY
-    PG_META_CRYPTO_KEY LOGFLARE_PUBLIC_ACCESS_TOKEN LOGFLARE_PRIVATE_ACCESS_TOKEN
-    SECRET_KEY_BASE DASHBOARD_USERNAME DASHBOARD_PASSWORD
-  )
-  local missing=()
-  local k
-  for k in "${req[@]}"; do
-    if ! grep -qE "^${k}=." "$f" 2>/dev/null; then
-      missing+=("$k")
-    fi
-  done
-  if ((${#missing[@]})); then
-    echo "ERROR: $f must define non-empty values for: ${missing[*]}"
-    echo "Copy docker/supabase/supabase.env.example to supabase.env and fill secrets."
-    echo "If the file looks empty but exists, remove it or fix it — newline-only files are refilled from the example automatically on the next run."
-    exit 1
-  fi
-}
-
-validate_supabase_env
-
-# One merged env file for Compose interpolation (same semantics as two --env-files: later lines win).
-merge_compose_env_files() {
-  local out
-  out="$(mktemp "${TMPDIR:-/tmp}/aibackend.compose.XXXXXX.env")"
-  cat .env docker/supabase/supabase.env >"$out"
-  chmod 600 "$out" 2>/dev/null || true
-  echo "$out"
-}
-
-# EXIT trap must not reference locals from run_compose — they are unset after return (set -u → "unbound variable").
-_COMPOSE_ENV_MERGED_TMP=""
-cleanup_compose_env_merged_file() {
-  [[ -n "${_COMPOSE_ENV_MERGED_TMP:-}" ]] && rm -f "${_COMPOSE_ENV_MERGED_TMP}"
-  _COMPOSE_ENV_MERGED_TMP=""
-}
-
 run_compose() {
-  cleanup_compose_env_merged_file
-  _COMPOSE_ENV_MERGED_TMP="$(merge_compose_env_files)"
-  trap cleanup_compose_env_merged_file EXIT
-
   if docker compose version >/dev/null 2>&1; then
-    docker compose --env-file "$_COMPOSE_ENV_MERGED_TMP" "$@"
+    docker compose --env-file .env "$@"
   elif command -v docker-compose >/dev/null 2>&1 && docker-compose version >/dev/null 2>&1; then
     if docker-compose --help 2>&1 | grep -qF -- '--env-file'; then
-      docker-compose --env-file "$_COMPOSE_ENV_MERGED_TMP" "$@"
+      docker-compose --env-file .env "$@"
     else
-      trap - EXIT
-      cleanup_compose_env_merged_file
       echo "ERROR: docker-compose is too old (needs --env-file). Install docker-compose-plugin."
       exit 1
     fi
   else
-    trap - EXIT
-    cleanup_compose_env_merged_file
-    echo "ERROR: Docker Compose v2 is not available for this user (need 'docker compose')."
-    echo "Install the plugin, then verify with: docker compose version"
-    echo "  sudo apt-get update && sudo apt-get install -y docker-compose-plugin"
-    echo "  sudo systemctl restart docker"
-    echo "If you use sudo, the plugin must be installed system-wide (apt package above), not only under ~/.docker/cli-plugins."
+    echo "ERROR: Docker Compose v2 is not available (need 'docker compose')."
     exit 1
   fi
-
-  trap - EXIT
-  cleanup_compose_env_merged_file
 }
 
 if [[ "${1:-}" == "dev" ]]; then

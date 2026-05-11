@@ -130,6 +130,7 @@ jobs:
       POSTGRESQL_URL: postgresql+asyncpg://test:test@localhost:5432/testdb
       SECRET_KEY: ci-test-secret-key-not-for-production
       JWT_SECRET_KEY: ci-test-jwt-secret-not-for-production
+      API_KEY: ci-test-api-key-not-for-production
       ENVIRONMENT: test
       DEBUG: 'false'
       PYTHONPATH: ${{ github.workspace }}
@@ -166,10 +167,6 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt -r requirements-dev.txt
-
-      # config.json is gitignored; app.config loads it at import time (see get_settings).
-      - name: Prepare CI config
-        run: cp -f config/config.example.json config/config.json
 
       - name: Run tests
         run: |

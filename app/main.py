@@ -12,9 +12,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.config import settings
+from app.api.http_auth_session import router as http_auth_session_router
+from app.api.routes.files import router as files_router
 from app.api.ws_gateway import websocket_gateway_router
 from app.core.middleware import RequestLoggingMiddleware, ErrorHandlerMiddleware
 from app.core.rate_limiter import limiter
+from app.core.socketio import mount_socketio
 from strawberry.fastapi import GraphQLRouter
 
 from app.graphql.context import get_graphql_context
@@ -40,32 +43,13 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
 
     # Initialize services
     try:
-        # Initialize database (SQLite + Supabase)
+        # Initialize database (SQLAlchemy / SQLite or Postgres)
         from app.database import init_db
 
         await init_db()
         logger.info("Database initialized successfully")
     except Exception as e:
         logger.warning(f"Database initialization skipped: {e}")
-
-    from app.core.supabase_client import get_supabase_client, is_supabase_configured
-
-    try:
-        # Initialize Supabase client
-        if is_supabase_configured():
-            supabase = get_supabase_client()
-            if supabase:
-                logger.info("Supabase initialized successfully")
-    except Exception as e:
-        logger.warning(f"Supabase initialization skipped: {e}")
-
-    try:
-        if is_supabase_configured() and settings.supabase_enable_realtime:
-            from app.core import realtime as realtime_mod
-
-            await realtime_mod.init_realtime()
-    except Exception as e:
-        logger.warning(f"Supabase Realtime initialization skipped: {e}")
 
     try:
         # Initialize ChromaDB
@@ -113,13 +97,6 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
 
     # Shutdown
     logger.info("Shutting down DurgasAI Backend")
-
-    try:
-        from app.core import realtime as realtime_mod
-
-        await realtime_mod.shutdown_realtime()
-    except Exception as e:
-        logger.warning(f"Supabase Realtime shutdown warning: {e}")
 
     # Cleanup services
     try:
@@ -181,13 +158,18 @@ app = FastAPI(
 # Add rate limiter state
 app.state.limiter = limiter
 
-# Configure CORS - Add Streamlit frontend origin
-cors_origins = settings.cors_origins_list + [
-    "http://localhost:8501",
-    "http://127.0.0.1:8501",
-]
-if settings.debug:
-    cors_origins.append("*")  # Allow all for development
+# Configure CORS — explicit origins only (credentials=True is incompatible with "*").
+cors_origins = list(
+    dict.fromkeys(
+        settings.cors_origins_list
+        + [
+            "http://localhost:8501",
+            "http://127.0.0.1:8501",
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+        ]
+    )
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -202,8 +184,15 @@ app.add_middleware(
 app.add_middleware(ErrorHandlerMiddleware)
 app.add_middleware(RequestLoggingMiddleware)
 
+mount_socketio(app)
+
 # Include WebSocket gateway (replaces all REST endpoints)
 app.include_router(websocket_gateway_router)
+app.include_router(http_auth_session_router)
+app.include_router(
+    files_router,
+    prefix=(settings.storage_url_prefix or "/files").rstrip("/"),
+)
 
 # GraphQL (HTTP) — auth and other typed reads/mutations; AI traffic may stay on WebSocket
 graphql_router = GraphQLRouter(
@@ -227,6 +216,7 @@ async def root():
         "websocket_protocol": "JSON-RPC 2.0",
         "graphql_endpoint": "/graphql",
         "graphql_protocol": "GraphQL over HTTP POST",
+        "session_http": "/api/auth/session",
         "health": "/health",
     }
 

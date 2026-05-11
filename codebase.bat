@@ -126,7 +126,7 @@ set "SECTION8_STATUS=SKIPPED"
 set "SECTION9_STATUS=SKIPPED"
 set "SECTION4P_STATUS=SKIPPED"
 
-if /i "%SKIP_CSS_INVENTORY%"=="1" (
+if /i "x%SKIP_CSS_INVENTORY%"=="x1" (
   call :color_echo "%YELLOW%" "[0] Source inventory skipped (SKIP_CSS_INVENTORY=1)"
   set "SECTION0_STATUS=SKIPPED"
   echo.
@@ -156,25 +156,25 @@ if /i "%SKIP_CSS_INVENTORY%"=="1" (
 call :color_echo "%CYAN%" "[0b] Self-hosted Supabase (optional)"
 echo ----------------------------------------
 REM Avoid "->" in echo: ">" is a redirect in CMD and "^" stacks badly with call (:color_echo), producing "-^^>" on screen.
-call :color_echo "%BLUE%" "  For Docker: copy docker\supabase\supabase.env.example to docker\supabase\supabase.env"
-call :color_echo "%BLUE%" "  Start stack: docker compose -f docker\docker-compose.yml --env-file docker\supabase\supabase.env up -d"
+call :color_echo "%BLUE%" "  For Docker: copy .env.example to .env and set POSTGRES_PASSWORD / secrets"
+call :color_echo "%BLUE%" "  Start stack: docker compose --env-file .env -f compose.yaml up -d"
 call :color_echo "%BLUE%" "  See docker\README.md for ports 8080 (Kong) and 3001 (Studio)."
 echo.
 
 call :color_echo "%CYAN%" "[1/10] Dependencies (pip)..."
 echo ----------------------------------------
-if /i "%SKIP_PIP_INSTALL%"=="1" (
+if /i "x%SKIP_PIP_INSTALL%"=="x1" (
   call :color_echo "%YELLOW%" "  Skipped (SKIP_PIP_INSTALL=1)"
   set "SECTION1_STATUS=SKIPPED"
 ) else (
   call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m pip install --upgrade pip"
-  call "%PY%" %PY_EXTRA% -m pip install --upgrade pip
+  call "!PY!" !PY_EXTRA! -m pip install --upgrade pip
   if errorlevel 1 (
     set /a WARNING_COUNT+=1
     call :color_echo "%YELLOW%" "  ! pip upgrade warning"
   )
   call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m pip install --no-warn-script-location -r requirements.txt -r requirements-dev.txt"
-  call "%PY%" %PY_EXTRA% -m pip install --no-warn-script-location -r requirements.txt -r requirements-dev.txt
+  call "!PY!" !PY_EXTRA! -m pip install --no-warn-script-location -r requirements.txt -r requirements-dev.txt
   if errorlevel 1 (
     set /a ERROR_COUNT+=1
     set "SECTION1_STATUS=FAILED"
@@ -189,15 +189,15 @@ echo.
 
 call :color_echo "%CYAN%" "[2/10] Environment validation (preflight)..."
 echo ----------------------------------------
-if /i "%SKIP_CODEGEN%"=="1" (
+if /i "x%SKIP_CODEGEN%"=="x1" (
   call :color_echo "%YELLOW%" "  Skipped (SKIP_CODEGEN=1)"
   set "SECTION2_STATUS=SKIPPED"
 ) else (
   if exist "scripts\validate_env.py" (
     call :color_echo "%BLUE%" "  Running: !PY! !PY_EXTRA! scripts\validate_env.py"
-    call "%PY%" %PY_EXTRA% scripts\validate_env.py
+    call "!PY!" !PY_EXTRA! scripts\validate_env.py
     if errorlevel 1 (
-      if /i "%ENV_VALIDATE_NO_FAIL%"=="1" (
+      if /i "x%ENV_VALIDATE_NO_FAIL%"=="x1" (
         set /a WARNING_COUNT+=1
         set "SECTION2_STATUS=WARNING"
         call :color_echo "%YELLOW%" "  ! validate_env reported issues (ENV_VALIDATE_NO_FAIL=1)"
@@ -220,14 +220,14 @@ echo.
 
 call :color_echo "%CYAN%" "[3/10] Type checking (mypy)..."
 echo ----------------------------------------
-if /i "%SKIP_MYPY%"=="1" (
+if /i "x%SKIP_MYPY%"=="x1" (
   call :color_echo "%YELLOW%" "  Skipped (SKIP_MYPY=1)"
   set "SECTION3_STATUS=SKIPPED"
 ) else (
   call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m mypy app/"
-  call "%PY%" %PY_EXTRA% -m mypy app/
+  call "!PY!" !PY_EXTRA! -m mypy app/
   if errorlevel 1 (
-    if /i "%MYPY_STRICT%"=="1" (
+    if /i "x%MYPY_STRICT%"=="x1" (
       set /a ERROR_COUNT+=1
       set "SECTION3_STATUS=FAILED"
       call :color_echo "%RED%" "  X mypy failed (MYPY_STRICT=1)"
@@ -245,12 +245,12 @@ echo.
 
 call :color_echo "%CYAN%" "[4/10] Formatting checks (black)..."
 echo ----------------------------------------
-if /i "%SKIP_FORMAT_CHECK%"=="1" (
+if /i "x%SKIP_FORMAT_CHECK%"=="x1" (
   call :color_echo "%YELLOW%" "  Skipped (SKIP_FORMAT_CHECK=1)"
   set "SECTION4_STATUS=SKIPPED"
 ) else (
   call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m black --check app/ scripts/ tests/"
-  call "%PY%" %PY_EXTRA% -m black --check app/ scripts/ tests/
+  call "!PY!" !PY_EXTRA! -m black --check app/ scripts/ tests/
   if errorlevel 1 (
     set /a ERROR_COUNT+=1
     set "SECTION4_STATUS=FAILED"
@@ -264,7 +264,7 @@ echo.
 
 call :color_echo "%CYAN%" "[4b/10] Prettier (Markdown, JSON, YAML, etc.)..."
 echo ----------------------------------------
-if /i "%SKIP_PRETTIER%"=="1" (
+if /i "x%SKIP_PRETTIER%"=="x1" (
   call :color_echo "%YELLOW%" "  Skipped (SKIP_PRETTIER=1)"
   set "SECTION4P_STATUS=SKIPPED"
 ) else (
@@ -323,12 +323,12 @@ echo.
 
 call :color_echo "%CYAN%" "[5/10] Linting (ruff)..."
 echo ----------------------------------------
-if /i "%SKIP_LINT%"=="1" (
+if /i "x%SKIP_LINT%"=="x1" (
   call :color_echo "%YELLOW%" "  Skipped (SKIP_LINT=1)"
   set "SECTION5_STATUS=SKIPPED"
 ) else (
   call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m ruff check app/ scripts/ tests/"
-  call "%PY%" %PY_EXTRA% -m ruff check app/ scripts/ tests/
+  call "!PY!" !PY_EXTRA! -m ruff check app/ scripts/ tests/
   if errorlevel 1 (
     set /a ERROR_COUNT+=1
     set "SECTION5_STATUS=FAILED"
@@ -342,7 +342,7 @@ echo.
 
 call :color_echo "%CYAN%" "[6/10] Running tests (pytest)..."
 echo ----------------------------------------
-if /i "%SKIP_TESTS%"=="1" (
+if /i "x%SKIP_TESTS%"=="x1" (
   call :color_echo "%YELLOW%" "  Skipped (SKIP_TESTS=1)"
   set "SECTION6_STATUS=SKIPPED"
 ) else (
@@ -350,7 +350,7 @@ if /i "%SKIP_TESTS%"=="1" (
   set ENVIRONMENT=test
   call :color_echo "%BLUE%" "  ENVIRONMENT=test"
   call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m pytest tests/ -q --tb=short"
-  call "%PY%" %PY_EXTRA% -m pytest tests/ -q --tb=short
+  call "!PY!" !PY_EXTRA! -m pytest tests/ -q --tb=short
   if errorlevel 1 (
     set /a ERROR_COUNT+=1
     set "SECTION6_STATUS=FAILED"
@@ -363,15 +363,15 @@ if /i "%SKIP_TESTS%"=="1" (
 )
 echo.
 
-if /i "%RUN_TEST_COVERAGE%"=="1" (
-  if /i "%SKIP_TESTS%"=="1" (
+if /i "x%RUN_TEST_COVERAGE%"=="x1" (
+  if /i "x%SKIP_TESTS%"=="x1" (
     call :color_echo "%YELLOW%" "[6b] Coverage skipped (SKIP_TESTS=1)"
   ) else (
     call :color_echo "%CYAN%" "[6b] Pytest coverage (RUN_TEST_COVERAGE=1)..."
     echo ----------------------------------------
     set ENVIRONMENT=test
     call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m pytest tests/ -v --tb=short --cov=app --cov-report=term-missing"
-    call "%PY%" %PY_EXTRA% -m pytest tests/ -v --tb=short --cov=app --cov-report=term-missing
+    call "!PY!" !PY_EXTRA! -m pytest tests/ -v --tb=short --cov=app --cov-report=term-missing
     if errorlevel 1 (
       set /a WARNING_COUNT+=1
       set "SECTION6_COVERAGE_STATUS=WARNING"
@@ -388,7 +388,7 @@ if /i "%RUN_TEST_COVERAGE%"=="1" (
   echo.
 )
 
-if /i "%SKIP_BEST_PRACTICES%"=="1" (
+if /i "x%SKIP_BEST_PRACTICES%"=="x1" (
   call :color_echo "%YELLOW%" "[7/10] Best practices skipped (SKIP_BEST_PRACTICES=1)"
   set "SECTION7_STATUS=SKIPPED"
   echo.
@@ -402,21 +402,22 @@ if /i "%SKIP_BEST_PRACTICES%"=="1" (
     if /i "!BEST_PRACTICES_FORMAT!"=="text" set "BP_FMT=text"
     if /i "!BEST_PRACTICES_FORMAT!"=="json" set "BP_FMT=json"
     if /i "!BEST_PRACTICES_FORMAT!"=="both" set "BP_FMT=both"
-    if /i "%BEST_PRACTICES_NO_FAIL%"=="1" (
+    if "!BP_FMT!"=="" set "BP_FMT=both"
+    if /i "x%BEST_PRACTICES_NO_FAIL%"=="x1" (
       if not "!BEST_PRACTICES_THRESHOLD!"=="" (
         call :color_echo "%YELLOW%" "  Running: check_best_practices.py --no-fail --threshold !BEST_PRACTICES_THRESHOLD!"
-        call "%PY%" %PY_EXTRA% scripts\check_best_practices.py --output reports\check_report_bat.json --format !BP_FMT! --threshold !BEST_PRACTICES_THRESHOLD! --no-fail
+        call "!PY!" !PY_EXTRA! scripts\check_best_practices.py --output reports\check_report_bat.json --format !BP_FMT! --threshold !BEST_PRACTICES_THRESHOLD! --no-fail
       ) else (
         call :color_echo "%YELLOW%" "  Running: check_best_practices.py --no-fail"
-        call "%PY%" %PY_EXTRA% scripts\check_best_practices.py --output reports\check_report_bat.json --format !BP_FMT! --no-fail
+        call "!PY!" !PY_EXTRA! scripts\check_best_practices.py --output reports\check_report_bat.json --format !BP_FMT! --no-fail
       )
     ) else (
       if not "!BEST_PRACTICES_THRESHOLD!"=="" (
         call :color_echo "%YELLOW%" "  Running: check_best_practices.py --threshold !BEST_PRACTICES_THRESHOLD!"
-        call "%PY%" %PY_EXTRA% scripts\check_best_practices.py --output reports\check_report_bat.json --format !BP_FMT! --threshold !BEST_PRACTICES_THRESHOLD!
+        call "!PY!" !PY_EXTRA! scripts\check_best_practices.py --output reports\check_report_bat.json --format !BP_FMT! --threshold !BEST_PRACTICES_THRESHOLD!
       ) else (
         call :color_echo "%YELLOW%" "  Running: check_best_practices.py"
-        call "%PY%" %PY_EXTRA% scripts\check_best_practices.py --output reports\check_report_bat.json --format !BP_FMT!
+        call "!PY!" !PY_EXTRA! scripts\check_best_practices.py --output reports\check_report_bat.json --format !BP_FMT!
       )
     )
     if errorlevel 1 (
@@ -435,7 +436,7 @@ if /i "%SKIP_BEST_PRACTICES%"=="1" (
   echo.
 )
 
-if /i "%SKIP_FINAL_FORMAT%"=="1" (
+if /i "x%SKIP_FINAL_FORMAT%"=="x1" (
   call :color_echo "%YELLOW%" "[8/10] Final format skipped (SKIP_FINAL_FORMAT=1)"
   set "SECTION8_STATUS=SKIPPED"
   echo.
@@ -443,7 +444,7 @@ if /i "%SKIP_FINAL_FORMAT%"=="1" (
   call :color_echo "%CYAN%" "[8/10] Final format (black)..."
   echo ----------------------------------------
   call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m black app/ scripts/ tests/"
-  call "%PY%" %PY_EXTRA% -m black app/ scripts/ tests/
+  call "!PY!" !PY_EXTRA! -m black app/ scripts/ tests/
   if errorlevel 1 (
     set /a WARNING_COUNT+=1
     set "SECTION8_STATUS=WARNING"
@@ -462,26 +463,26 @@ if /i "%SKIP_FINAL_FORMAT%"=="1" (
 call :color_echo "%CYAN%" "[9/10] Install / import integrity..."
 echo ----------------------------------------
 set "PIP_CHECK_AUTO_SKIPPED="
-if not /i "%FORCE_PIP_CHECK%"=="1" if not defined SKIP_PIP_CHECK (
+if /i not "x%FORCE_PIP_CHECK%"=="x1" if not defined SKIP_PIP_CHECK (
   "!PY!" !PY_EXTRA! -c "import sys; sys.exit(0 if sys.platform=='win32' and sys.version_info[:2]>=(3,13) else 1)" 2>nul
   if not errorlevel 1 (
     set "SKIP_PIP_CHECK=1"
     set "PIP_CHECK_AUTO_SKIPPED=1"
   )
 )
-if /i "%SKIP_BUILD%"=="1" (
+if /i "x%SKIP_BUILD%"=="x1" (
   call :color_echo "%YELLOW%" "  Skipped (SKIP_BUILD=1)"
   set "SECTION9_STATUS=SKIPPED"
 ) else (
-  if /i "%SKIP_PIP_CHECK%"=="1" (
-    if /i "!PIP_CHECK_AUTO_SKIPPED!"=="1" (
+  if /i "x%SKIP_PIP_CHECK%"=="x1" (
+    if /i "x!PIP_CHECK_AUTO_SKIPPED!"=="x1" (
       call :color_echo "%YELLOW%" "  Skipped pip check automatically (Windows Python 3.13+: known false positives from pip check). Set FORCE_PIP_CHECK=1 to run pip check anyway."
     ) else (
       call :color_echo "%YELLOW%" "  Skipped pip check (SKIP_PIP_CHECK=1; Windows often reports spurious platform wheels)"
     )
   ) else (
     call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m pip check"
-    call "%PY%" %PY_EXTRA% -m pip check
+    call "!PY!" !PY_EXTRA! -m pip check
     if errorlevel 1 (
       set /a WARNING_COUNT+=1
       set "SECTION9_STATUS=WARNING"
@@ -491,7 +492,7 @@ if /i "%SKIP_BUILD%"=="1" (
     )
   )
   call :color_echo "%BLUE%" "  Import smoke: from app.main import app"
-  call "%PY%" %PY_EXTRA% -c "from app.main import app"
+  call "!PY!" !PY_EXTRA! -c "from app.main import app"
   if errorlevel 1 (
     set /a ERROR_COUNT+=1
     set "SECTION9_STATUS=FAILED"
@@ -531,8 +532,8 @@ if %ERROR_COUNT% EQU 0 (
     call :color_echo "%GREEN%" "  OK All blocking checks passed!"
     if %WARNING_COUNT% GTR 0 call :color_echo "%YELLOW%" "  Found %WARNING_COUNT% warning(s)"
     echo.
-    if /i "%SKIP_DEV_SERVER%"=="1" goto :end
-    if /i "%NO_PROMPT%"=="1" goto :end
+    if /i "x%SKIP_DEV_SERVER%"=="x1" goto :end
+    if /i "x%NO_PROMPT%"=="x1" goto :end
     call :color_echo "%CYAN%" "  Start API server? (Y/N)"
     choice /C YN /N /M ""
     if errorlevel 2 goto :end
@@ -551,7 +552,7 @@ call :color_echo "%CYAN%" "[10/10] Starting uvicorn (reload)..."
 call :color_echo "%BLUE%" "  !PY! !PY_EXTRA! -m uvicorn app.main:app --reload"
 call :color_echo "%BLUE%" "  Press Ctrl+C to stop"
 echo.
-call "%PY%" %PY_EXTRA% -m uvicorn app.main:app --reload
+call "!PY!" !PY_EXTRA! -m uvicorn app.main:app --reload
 
 :end
 echo.

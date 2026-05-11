@@ -8,6 +8,8 @@ from typing import Optional
 from starlette.requests import Request
 from strawberry.fastapi.context import BaseContext
 
+from app.core.session_cookies import ACCESS_TOKEN_COOKIE
+
 
 @dataclass
 class GraphQLContext(BaseContext):
@@ -24,4 +26,6 @@ async def get_graphql_context(request: Request) -> GraphQLContext:
     token: Optional[str] = None
     if raw.lower().startswith("bearer "):
         token = raw[7:].strip() or None
+    if token is None:
+        token = request.cookies.get(ACCESS_TOKEN_COOKIE) or None
     return GraphQLContext(auth_token=token)

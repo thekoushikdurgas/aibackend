@@ -28,9 +28,7 @@
 
 ## Config notes
 
-- Main settings: `app/config.py`
-- Env-specific config files:
-  - `config/config.dev.json`
-  - `config/config.prod.json`
+- Main settings: `app/config.py` (`Settings` as **pydantic-settings** `BaseSettings`)
+- Values from **environment variables** and optional **`.env`** in the `ai.backend` root; see **`.env.example`** and **`config/README.md`**
 - WebSocket module registry:
   - `app/api/ws_methods/registry.py`

@@ -1,5 +1,5 @@
 """
-Pydantic schemas for Supabase data models
+Pydantic schemas for app data models (profiles, conversations, RAG metadata).
 """
 
 from datetime import datetime
@@ -42,7 +42,7 @@ class ProfileBase(BaseModel):
 class ProfileCreate(ProfileBase):
     """Profile creation schema"""
 
-    id: str  # User ID from auth.users
+    id: str  # User ID (same as users.id)
 
 
 class ProfileUpdate(BaseModel):

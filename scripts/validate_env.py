@@ -1,5 +1,5 @@
 """
-Preflight check: ensure app settings load (config.json + env overrides).
+Preflight check: ensure app settings load from environment / .env.
 Run from repository root: python scripts/validate_env.py
 """
 

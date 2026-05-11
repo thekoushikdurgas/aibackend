@@ -1,9 +1,25 @@
-# Self-hosted Supabase (Kong, Auth, PostgREST, Realtime, Storage, Studio, …)
-include:
-  - path: docker-compose.supabase.yml
+# DurgasAI stack: Postgres + backend + Redis + Chroma + Ollama (no Supabase).
 
 services:
-  # Main backend service
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: postgres
+    ports:
+      - "${POSTGRES_EXTERNAL_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+
   backend:
     build:
       context: ..
@@ -12,21 +28,14 @@ services:
       - '8000:8000'
     env_file:
       - ../.env
-      - ./supabase/supabase.env
     environment:
       - ENVIRONMENT=production
-      # Supabase Postgres (service name `db` from included compose). Set POSTGRES_PASSWORD in ai.backend/.env for interpolation.
-      - DATABASE_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
-      - POSTGRESQL_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
-      - SUPABASE_URL=http://kong:8000
-      - SUPABASE_ANON_KEY=${ANON_KEY}
-      - SUPABASE_SERVICE_ROLE_KEY=${SERVICE_ROLE_KEY}
-      - SUPABASE_JWT_SECRET=${JWT_SECRET}
+      - DATABASE_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/postgres
+      - POSTGRESQL_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/postgres
       - REDIS_URL=redis://redis:6379/0
       - USE_REDIS=true
     volumes:
       - backend_data:/app/data
-      - ../config/config.json:/app/config/config.json:ro
     depends_on:
       db:
         condition: service_healthy
@@ -34,8 +43,6 @@ services:
         condition: service_healthy
       chromadb:
         condition: service_started
-      kong:
-        condition: service_healthy
     networks:
       - durgasai_network
     restart: unless-stopped
@@ -45,7 +52,6 @@ services:
       timeout: 10s
       retries: 3
 
-  # Redis for caching and session storage
   redis:
     image: redis:7-alpine
     ports:
@@ -62,7 +68,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # Ollama for local LLM inference (optional)
   ollama:
     image: ollama/ollama:latest
     ports:
@@ -73,7 +78,6 @@ services:
       - durgasai_network
     restart: unless-stopped
 
-  # ChromaDB server (optional - for distributed setup)
   chromadb:
     image: chromadb/chroma:latest
     ports:
@@ -92,6 +96,7 @@ networks:
     driver: bridge
 
 volumes:
+  postgres_data:
   backend_data:
   redis_data:
   ollama_data:

@@ -10,9 +10,8 @@ from strawberry.scalars import JSON
 from strawberry.types import Info
 
 from app.api.ws_methods import auth as auth_handlers
-from app.core.auth import verify_supabase_token
+from app.core.auth import user_claims_from_access_token
 from app.core.jsonrpc import JSONRPCError
-from app.debug_agent_log import agent_ndjson
 from app.graphql.context import GraphQLContext
 from app.graphql.errors import raise_jsonrpc_as_graphql
 from app.graphql.modules.auth.types import (
@@ -59,7 +58,7 @@ class AuthQuery:
         ctx = info.context
         if not isinstance(ctx, GraphQLContext) or not ctx.auth_token:
             return None
-        data = verify_supabase_token(ctx.auth_token)
+        data = user_claims_from_access_token(ctx.auth_token)
         if not data:
             return None
         return GqlUser(
@@ -88,14 +87,6 @@ class AuthMutation:
         try:
             raw = await auth_handlers.handle_auth_signup(params, None)
         except JSONRPCError as e:
-            # #region agent log
-            agent_ndjson(
-                "H5",
-                "resolvers.py:sign_up",
-                "GraphQL sign_up caught JSONRPCError",
-                {"code": int(e.code)},
-            )
-            # #endregion
             raise_jsonrpc_as_graphql(e)
         return _auth_payload_from_dict(raw)
 

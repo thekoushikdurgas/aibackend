@@ -4,7 +4,6 @@
 #
 # Environment:
 #   VERIFY_API_URL          default http://127.0.0.1:8000
-#   VERIFY_KONG_URL         default http://127.0.0.1:8080
 #   VERIFY_SLEEP_SECONDS    wait before checks (default 15)
 #   VERIFY_STRICT_READY     if 1, fail when GraphQL systemReady status is not_ready (default 0)
 #   VERIFY_REQUIRE_DOCKER   if 1, fail when docker is missing instead of skipping (default 0)
@@ -14,8 +13,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-if [[ ! -f .env ]] || [[ ! -f docker/supabase/supabase.env ]]; then
-  echo "[verify] ERROR: need .env and docker/supabase/supabase.env (same as docker-up bootstrap)."
+if [[ ! -f .env ]]; then
+  echo "[verify] ERROR: need .env (same as docker-up bootstrap)."
   exit 1
 fi
 
@@ -37,7 +36,6 @@ if ! docker compose version >/dev/null 2>&1; then
 fi
 
 API_URL="${VERIFY_API_URL:-http://127.0.0.1:8000}"
-KONG_URL="${VERIFY_KONG_URL:-http://127.0.0.1:8080}"
 SLEEP_SEC="${VERIFY_SLEEP_SECONDS:-15}"
 STRICT_READY="${VERIFY_STRICT_READY:-0}"
 
@@ -48,7 +46,7 @@ cleanup_verify_compose_env() {
 trap cleanup_verify_compose_env EXIT
 
 VERIFY_COMPOSE_MERGED="$(mktemp "${TMPDIR:-/tmp}/aibackend.verify.compose.XXXXXX.env")"
-cat .env docker/supabase/supabase.env >"$VERIFY_COMPOSE_MERGED"
+cat .env >"$VERIFY_COMPOSE_MERGED"
 chmod 600 "$VERIFY_COMPOSE_MERGED" 2>/dev/null || true
 
 if [[ -f compose.yaml ]]; then
@@ -110,13 +108,11 @@ if strict:
 sys.exit(0)
 PY
 
-echo "[verify] Kong / Supabase gateway ${KONG_URL}"
-code=$(curl -sS -o /dev/null -w "%{http_code}" "${KONG_URL}/" || echo "000")
-if [[ "$code" == "000" ]] || [[ -z "$code" ]]; then
-  echo "[verify] ERROR: Kong unreachable (connection failed)"
+echo "[verify] Postgres (docker compose exec db pg_isready)"
+if ! dc exec -T db pg_isready -U postgres >/dev/null 2>&1; then
+  echo "[verify] ERROR: Postgres not ready (is service name still 'db'?)"
   exit 1
 fi
-echo "[verify] Kong HTTP status: $code"
 
 echo "[verify] Redis (docker compose exec redis redis-cli ping)"
 out=$(dc exec -T redis redis-cli ping 2>/dev/null || true)
@@ -125,4 +121,4 @@ if [[ "$out" != "PONG" ]]; then
   exit 1
 fi
 
-echo "[verify] OK — FastAPI, GraphQL, Kong, Redis checks passed."
+echo "[verify] OK — FastAPI, GraphQL, Postgres, Redis checks passed."

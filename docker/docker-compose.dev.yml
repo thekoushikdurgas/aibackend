@@ -1,8 +1,25 @@
-include:
-  - path: docker-compose.supabase.yml
+# Development stack (hot reload) — Postgres + backend + Redis + Chroma + Ollama.
 
 services:
-  # Development backend with hot reload
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: postgres
+    ports:
+      - "${POSTGRES_EXTERNAL_PORT:-5432}:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+
   backend:
     build:
       context: ..
@@ -11,19 +28,13 @@ services:
       - '8000:8000'
     env_file:
       - ../.env
-      - ./supabase/supabase.env
     environment:
       - ENVIRONMENT=development
-      - DATABASE_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
-      - POSTGRESQL_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
-      - SUPABASE_URL=http://kong:8000
-      - SUPABASE_ANON_KEY=${ANON_KEY}
-      - SUPABASE_SERVICE_ROLE_KEY=${SERVICE_ROLE_KEY}
-      - SUPABASE_JWT_SECRET=${JWT_SECRET}
+      - DATABASE_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/postgres
+      - POSTGRESQL_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/postgres
     volumes:
       - ../app:/app/app:cached
       - backend_data:/app/data
-      - ../config/config.json:/app/config/config.json:ro
     depends_on:
       db:
         condition: service_healthy
@@ -31,8 +42,6 @@ services:
         condition: service_healthy
       chromadb:
         condition: service_started
-      kong:
-        condition: service_healthy
     networks:
       - durgasai_network
     restart: unless-stopped
@@ -81,6 +90,7 @@ networks:
     driver: bridge
 
 volumes:
+  postgres_dev_data:
   backend_data:
   redis_dev_data:
   chroma_dev_data:

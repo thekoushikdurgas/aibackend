@@ -2,6 +2,7 @@
 SQLAlchemy database connection and session management
 """
 
+import errno
 import logging
 from collections.abc import AsyncGenerator
 
@@ -10,10 +11,10 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 from app.config import settings
 from app.models.metrics import Base
 
-# Import conversation models to register them with Base
+# Import conversation + app user models to register tables on Base.metadata
 from app.models import conversation  # noqa: F401
 from app.models import claude_code_session  # noqa: F401
-from app.core.supabase_client import get_supabase_client, is_supabase_configured
+from app.models import user as app_user_models  # noqa: F401
 
 logger = logging.getLogger(__name__)
 
@@ -49,20 +50,41 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
             await session.close()
 
 
-async def init_db():
-    """Initialize database tables and Supabase"""
-    # Initialize SQLAlchemy tables for the active database URL.
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+def _root_cause_is_unreachable_postgres(exc: BaseException) -> bool:
+    """True when the failure chain ends in refused, timeout, or unreachable host."""
+    cur: BaseException | None = exc
+    while cur is not None:
+        if isinstance(cur, ConnectionRefusedError):
+            return True
+        if isinstance(cur, OSError):
+            code = getattr(cur, "errno", None)
+            if code in (
+                errno.ECONNREFUSED,
+                errno.ENETUNREACH,
+                errno.ETIMEDOUT,
+                10061,  # WSAECONNREFUSED (Windows)
+                10060,  # WSAETIMEDOUT (Windows)
+            ):
+                return True
+        cur = cur.__cause__
+    return False
 
-    # Initialize Supabase if configured
-    if is_supabase_configured():
-        try:
-            supabase = get_supabase_client()
-            if supabase:
-                logger.info("Supabase client initialized for database operations")
-        except Exception as e:
-            logger.warning(f"Supabase initialization skipped: {e}")
+
+async def init_db():
+    """Initialize database tables (SQLAlchemy / SQLite or Postgres)."""
+    # Initialize SQLAlchemy tables for the active database URL.
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+    except Exception as e:
+        if _root_cause_is_unreachable_postgres(e):
+            raise RuntimeError(
+                "Cannot reach PostgreSQL at DATABASE_URL (refused, timeout, or "
+                "unreachable). Open firewall/security groups for the host and port, "
+                "start local Postgres (e.g. Compose with POSTGRES_EXTERNAL_PORT), "
+                "or set DATABASE_URL=sqlite+aiosqlite:///./data/durgasai.db in .env."
+            ) from e
+        raise
 
 
 async def close_db():

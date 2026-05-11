@@ -6,7 +6,7 @@ from typing import Any, Callable, Dict, Optional
 
 from strawberry.types import Info
 
-from app.core.auth import verify_supabase_token
+from app.core.auth import user_claims_from_access_token
 from app.core.jsonrpc import JSONRPCError
 from app.graphql.context import GraphQLContext
 from app.graphql.errors import raise_jsonrpc_as_graphql
@@ -24,7 +24,7 @@ def user_from_info(info: Info) -> Optional[Dict[str, Any]]:
     ctx = info.context
     if not isinstance(ctx, GraphQLContext) or not ctx.auth_token:
         return None
-    data = verify_supabase_token(ctx.auth_token)
+    data = user_claims_from_access_token(ctx.auth_token)
     if not data:
         return None
     sub = data.get("sub")

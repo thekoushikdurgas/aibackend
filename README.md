@@ -46,8 +46,8 @@ pip install -r requirements.txt
 4. Copy and configure environment:
 
 ```bash
-cp config/config.example.json config/config.json
-# Edit config/config.json with your settings
+cp .env.example .env
+# Edit .env with your API keys, DATABASE_URL, JWT_SECRET_KEY, etc.
 ```
 
 5. Run the server:
@@ -64,8 +64,7 @@ Full reference: **[docker/README.md](./docker/README.md)**.
 
 1. **`cd ai.backend`**
 2. **`cp .env.example .env`** and fill secrets (Compose expects `.env` here). On Linux/macOS you can use **`./scripts/docker-up.sh`** instead of manual `docker compose` — it copies env templates and runs the stack (see [docker/README.md](./docker/README.md)).
-3. Ensure **`config/config.json`** exists (copy from `config/config.example.json` if your tree uses that layout).
-4. **Production-style stack** (Postgres + Redis + ChromaDB + Ollama + API):
+3. **Production-style stack** (Postgres + Redis + ChromaDB + Ollama + API):
 
    ```bash
    docker compose up -d --build
@@ -73,13 +72,13 @@ Full reference: **[docker/README.md](./docker/README.md)**.
 
    Same as `docker compose -f docker/docker-compose.yml up -d --build` (root [`compose.yaml`](./compose.yaml) includes `docker/docker-compose.yml`; requires **Compose v2.20+** for `include:`).
 
-5. **Development stack** (bind-mount `app/`, `--reload`, Redis + ChromaDB + Ollama):
+4. **Development stack** (bind-mount `app/`, `--reload`, Redis + ChromaDB + Ollama):
 
    ```bash
    docker compose -f compose.dev.yaml up --build
    ```
 
-6. Check **`curl http://localhost:8000/health`**.
+5. Check **`curl http://localhost:8000/health`**.
 
 On **Linux/macOS**, [`scripts/docker-up.sh`](./scripts/docker-up.sh) wraps the same Compose commands as `scripts\docker-up.bat`. For a full local quality gate (same steps as [`codebase.bat`](./codebase.bat)), run **`./codebase.sh`** from `ai.backend`; use **`SKIP_DEV_SERVER=1`** in CI or SSH so the script does not prompt to start uvicorn.
 
@@ -175,11 +174,9 @@ Use the `agents.list` method to get all available agents with descriptions.
 
 ## Configuration
 
-See `config/config.example.json` for all configuration options. The application will automatically load environment-specific configs:
+All options are defined on the **`Settings`** model in [`app/config.py`](./app/config.py). At runtime, values come from **environment variables** and an optional **`.env`** file in this directory (see [`.env.example`](./.env.example)). Use **UPPER_SNAKE** names that match each field (for example `GROQ_API_KEY`, `DATABASE_URL`, `ENVIRONMENT`).
 
-- `config/config.dev.json` when `ENVIRONMENT=development`
-- `config/config.prod.json` when `ENVIRONMENT=production`
-- `config/config.json` as fallback
+Legacy `config/*.json` files are no longer used; see [`config/README.md`](./config/README.md) for a short migration note.
 
 ## Development
 

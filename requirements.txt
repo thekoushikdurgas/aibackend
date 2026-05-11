@@ -3,7 +3,7 @@ fastapi==0.109.2
 uvicorn[standard]==0.27.1
 strawberry-graphql[fastapi]==0.315.3
 python-multipart==0.0.9
-# realtime (via supabase) requires websockets 13+ API but <16
+# websockets 13+ API but <16 (Socket.IO / WS clients)
 websockets>=13,<16
 
 # AI/ML Libraries (RAG chunking uses app-local text splitters; no langchain dependency)
@@ -34,7 +34,7 @@ python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 slowapi==0.1.9
 
-# HTTP Client (chromadb 1.x + supabase 2.30+ expect httpx 0.26–0.28)
+# HTTP Client (chromadb 1.x expects httpx 0.26–0.28)
 httpx>=0.26,<0.29
 aiohttp==3.9.3
 
@@ -42,6 +42,7 @@ aiohttp==3.9.3
 redis==5.0.1
 
 # Configuration (pydantic-core pins help Python 3.13+ Windows wheels / avoid broken _pydantic_core)
+python-dotenv>=1.0.0
 pydantic>=2.10.0,<3
 pydantic-core>=2.27.0,<3
 pydantic-settings>=2.6.0
@@ -58,11 +59,13 @@ lxml==5.1.0
 tenacity==8.2.3
 structlog==24.1.0
 
+# Realtime / async file I/O
+python-socketio[asyncio_client]>=5.11.0
+aiofiles>=24.1.0
+Pillow>=10.0.0
+
 # AWS SDK
 boto3>=1.35.0
-
-# Supabase (2.30+ aligns with httpx 0.28; replaces legacy gotrue/supafunc packages)
-supabase==2.30.0
 
 # Testing — prefer requirements-dev.txt for CI; kept here for minimal installs
 pytest==8.0.2

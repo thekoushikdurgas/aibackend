@@ -1,6 +1,6 @@
-# Preferred: scripts/docker-up.sh (Linux/macOS) or scripts\docker-up.bat (Windows) — loads .env + docker/supabase/supabase.env for ${VAR} interpolation.
+# Compose entrypoint — uses `docker/docker-compose.yml` (Postgres + backend + deps).
 #
-# Manual: docker compose --env-file .env --env-file docker/supabase/supabase.env -f compose.yaml up -d
+# Manual: docker compose --env-file .env -f compose.yaml up -d
 #
 # Requires Docker Compose v2.20+ (include). Paths under docker/ stay relative to docker/.
 

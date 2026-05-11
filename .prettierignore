@@ -25,8 +25,6 @@ coverage.xml
 # Secrets & local config (match .gitignore)
 .env
 .env.*
-config/config.json
-config/config.*.json
 
 # Large / generated logs (not source)
 error.txt
