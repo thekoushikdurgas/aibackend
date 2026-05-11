@@ -70,9 +70,10 @@ def issue_access_token(
         "tv": token_version,
         "exp": expire,
     }
-    return jwt.encode(
-        payload, settings.jwt_secret_key, algorithm=settings.jwt_algorithm
-    ), expire
+    return (
+        jwt.encode(payload, settings.jwt_secret_key, algorithm=settings.jwt_algorithm),
+        expire,
+    )
 
 
 def issue_refresh_token(user_id: str, token_version: int) -> str:
@@ -240,9 +241,7 @@ def user_claims_from_access_token(token: str) -> Optional[dict]:
 def session_dict_from_user_row(
     user_id: str, email: str, access: str, refresh: str, expires_at: datetime
 ) -> Dict[str, Any]:
-    expires_in = max(
-        1, int((expires_at - datetime.utcnow()).total_seconds())
-    )
+    expires_in = max(1, int((expires_at - datetime.utcnow()).total_seconds()))
     return {
         "access_token": access,
         "refresh_token": refresh,

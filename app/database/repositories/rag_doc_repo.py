@@ -53,7 +53,9 @@ class RAGDocumentRepository:
         )
         return list(r.scalars().all())
 
-    async def update(self, document_id: str, updates: Dict[str, Any]) -> Optional[RAGDocument]:
+    async def update(
+        self, document_id: str, updates: Dict[str, Any]
+    ) -> Optional[RAGDocument]:
         row = await self.get(document_id)
         if row is None:
             return None

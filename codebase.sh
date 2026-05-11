@@ -2,7 +2,17 @@
 # DURGASAI BACKEND (FASTAPI) — codebase state check (Linux/macOS).
 # Run from ai.backend: ./codebase.sh
 #
-# Same steps as codebase.bat:
+# Pattern follows contact360.io API codebase.bat (multi-step local gate, summary, optional uvicorn).
+# Tooling and paths aim for parity with .github/workflows/api-ci.yml (same repo root as this script).
+#
+# Intentional differences vs Contact360 reference:
+#   - pip: requirements.txt + requirements-dev.txt (CI installs both).
+#   - black / ruff: include tests/ (CI does).
+#   - Prettier: prefer npm run format:check when node_modules exists (matches CI npm ci + format:check).
+#   - [0b] optional Docker / self-hosted Supabase hints (this repo only).
+#   - codebase.bat only: auto-skip pip check on Windows Python 3.13+ unless FORCE_PIP_CHECK=1 (false positives).
+#
+# Steps (same order as codebase.bat):
 #   0 Source inventory
 #   1 pip install (requirements.txt + requirements-dev.txt)
 #   2 Environment validation (scripts/validate_env.py if present)
@@ -12,7 +22,7 @@
 #   5 ruff check
 #   6 pytest
 #   6b coverage if RUN_TEST_COVERAGE=1
-#   7 scripts/check_best_practices.py (if present)
+#   7 scripts/check_best_practices.py (if present); output reports/check_report_bat.json
 #   8 black app/ scripts/ tests/
 #   9 pip check + import smoke
 #
@@ -21,8 +31,8 @@
 # SKIP_MYPY=1, MYPY_STRICT=1, SKIP_FORMAT_CHECK=1, SKIP_LINT=1, SKIP_TESTS=1,
 # RUN_TEST_COVERAGE=1, SKIP_BEST_PRACTICES=1, BEST_PRACTICES_NO_FAIL=1,
 # BEST_PRACTICES_THRESHOLD=N, BEST_PRACTICES_FORMAT=text|json|both,
-# SKIP_FINAL_FORMAT=1, SKIP_BUILD=1, SKIP_PIP_CHECK=1, SKIP_PRETTIER=1,
-# SKIP_DEV_SERVER=1, NO_PROMPT=1 — skip interactive uvicorn prompt / server start
+# SKIP_FINAL_FORMAT=1, SKIP_BUILD=1, SKIP_PIP_CHECK=1, FORCE_PIP_CHECK=1 (Windows .bat auto-skip only),
+# SKIP_PRETTIER=1, SKIP_DEV_SERVER=1, NO_PROMPT=1 — skip interactive uvicorn prompt / server start
 
 set +e
 
@@ -372,12 +382,12 @@ if ! $goto_summary; then
     color_echo "$CYAN" "[7/10] API best-practices checklist..."
     echo "----------------------------------------"
     color_echo "$BLUE" "  scripts/check_best_practices.py - config .api-checker-config.json"
-    color_echo "$BLUE" "  Output: reports/check_report.json"
+    color_echo "$BLUE" "  Output: reports/check_report_bat.json"
     BP_FMT="${BEST_PRACTICES_FORMAT:-both}"
     [[ "$BP_FMT" != "text" && "$BP_FMT" != "json" && "$BP_FMT" != "both" ]] && BP_FMT="both"
 
     if [[ -f scripts/check_best_practices.py ]]; then
-      BP_ARGS=(scripts/check_best_practices.py --output reports/check_report.json --format "$BP_FMT")
+      BP_ARGS=(scripts/check_best_practices.py --output reports/check_report_bat.json --format "$BP_FMT")
       if [[ -n "${BEST_PRACTICES_THRESHOLD:-}" ]]; then
         BP_ARGS+=(--threshold "$BEST_PRACTICES_THRESHOLD")
       fi

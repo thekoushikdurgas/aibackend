@@ -1,9 +1,8 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Mon 05/11/2026 10:10:05.28
+Generated: Mon 05/11/2026 15:28:11.85
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
-E:\durgas_ai\ai.backend\app\debug_agent_log.py
 E:\durgas_ai\ai.backend\app\main.py
 E:\durgas_ai\ai.backend\app\__init__.py
 E:\durgas_ai\ai.backend\app\agents\base.py
@@ -16,8 +15,10 @@ E:\durgas_ai\ai.backend\app\agents\router.py
 E:\durgas_ai\ai.backend\app\agents\seo_agent.py
 E:\durgas_ai\ai.backend\app\agents\website_scraper.py
 E:\durgas_ai\ai.backend\app\agents\__init__.py
+E:\durgas_ai\ai.backend\app\api\http_auth_session.py
 E:\durgas_ai\ai.backend\app\api\ws_gateway.py
 E:\durgas_ai\ai.backend\app\api\__init__.py
+E:\durgas_ai\ai.backend\app\api\routes\files.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\agents.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\ai21.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\auth.py
@@ -56,14 +57,17 @@ E:\durgas_ai\ai.backend\app\core\connection_manager.py
 E:\durgas_ai\ai.backend\app\core\jsonrpc.py
 E:\durgas_ai\ai.backend\app\core\middleware.py
 E:\durgas_ai\ai.backend\app\core\rate_limiter.py
-E:\durgas_ai\ai.backend\app\core\realtime.py
+E:\durgas_ai\ai.backend\app\core\session_cookies.py
+E:\durgas_ai\ai.backend\app\core\socketio.py
 E:\durgas_ai\ai.backend\app\core\streaming_processor.py
-E:\durgas_ai\ai.backend\app\core\supabase_client.py
 E:\durgas_ai\ai.backend\app\core\ws_auth.py
 E:\durgas_ai\ai.backend\app\core\__init__.py
 E:\durgas_ai\ai.backend\app\database\sqlalchemy.py
-E:\durgas_ai\ai.backend\app\database\supabase.py
 E:\durgas_ai\ai.backend\app\database\__init__.py
+E:\durgas_ai\ai.backend\app\database\repositories\profile_repo.py
+E:\durgas_ai\ai.backend\app\database\repositories\rag_doc_repo.py
+E:\durgas_ai\ai.backend\app\database\repositories\user_repo.py
+E:\durgas_ai\ai.backend\app\database\repositories\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\context.py
 E:\durgas_ai\ai.backend\app\graphql\errors.py
 E:\durgas_ai\ai.backend\app\graphql\schema.py
@@ -97,15 +101,16 @@ E:\durgas_ai\ai.backend\app\graphql\modules\tools\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\tools\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\vision\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\vision\__init__.py
+E:\durgas_ai\ai.backend\app\models\app_schemas.py
 E:\durgas_ai\ai.backend\app\models\claude_code_session.py
 E:\durgas_ai\ai.backend\app\models\conversation.py
 E:\durgas_ai\ai.backend\app\models\metrics.py
 E:\durgas_ai\ai.backend\app\models\schemas.py
-E:\durgas_ai\ai.backend\app\models\supabase_schemas.py
+E:\durgas_ai\ai.backend\app\models\user.py
 E:\durgas_ai\ai.backend\app\models\__init__.py
 E:\durgas_ai\ai.backend\app\services\ai_service.py
 E:\durgas_ai\ai.backend\app\services\document_service.py
-E:\durgas_ai\ai.backend\app\services\migration_service.py
+E:\durgas_ai\ai.backend\app\services\local_storage_service.py
 E:\durgas_ai\ai.backend\app\services\rag_chat_service.py
 E:\durgas_ai\ai.backend\app\services\s3_storage_adapter.py
 E:\durgas_ai\ai.backend\app\services\storage_service.py
@@ -269,7 +274,6 @@ E:\durgas_ai\ai.backend\app\utils\__init__.py
 
 === scripts ===
 E:\durgas_ai\ai.backend\scripts\check_best_practices.py
-E:\durgas_ai\ai.backend\scripts\migrate_to_supabase.py
 E:\durgas_ai\ai.backend\scripts\validate_env.py
 
 === tests ===

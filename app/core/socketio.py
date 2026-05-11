@@ -52,7 +52,9 @@ def mount_socketio(app: Any) -> None:
     app.mount(path, get_socketio_asgi_app())
 
 
-async def emit_event(event: str, data: Dict[str, Any], room: Optional[str] = None) -> None:
+async def emit_event(
+    event: str, data: Dict[str, Any], room: Optional[str] = None
+) -> None:
     sio = get_socketio_server()
     if room:
         await sio.emit(event, data, room=room)

@@ -8,7 +8,17 @@ REM DURGASAI BACKEND (FASTAPI) - CODEBASE STATE CHECK
 REM ========================================
 REM Run from ai.backend folder: double-click or run codebase.bat from this directory.
 REM
-REM Same structure as contact360 API codebase.bat:
+REM Pattern follows contact360.io API codebase.bat (multi-step local gate, summary, optional uvicorn).
+REM Tooling and paths aim for parity with .github/workflows/api-ci.yml (same repo root as this script).
+REM
+REM Intentional differences vs Contact360 reference:
+REM   - pip: requirements.txt + requirements-dev.txt (CI installs both).
+REM   - black / ruff: include tests/ (CI does).
+REM   - Prettier: prefer npm run format:check when node_modules exists (matches CI npm ci + format:check).
+REM   - [0b] optional Docker / self-hosted Supabase hints (this repo only).
+REM   - Windows only: auto-skip pip check on Python 3.13+ unless FORCE_PIP_CHECK=1 (known false positives).
+REM
+REM Steps:
 REM   0 Source inventory
 REM   1 pip install (requirements.txt + requirements-dev.txt)
 REM   2 Environment validation (scripts\validate_env.py if present)
@@ -18,7 +28,7 @@ REM   4b Prettier: npm run format:check / format (pinned); npx if node_modules m
 REM   5 ruff check (lint)
 REM   6 pytest
 REM   6b coverage if RUN_TEST_COVERAGE=1
-REM   7 scripts\check_best_practices.py (if present)
+REM   7 scripts\check_best_practices.py (if present); output reports\check_report_bat.json
 REM   8 black app/ scripts/ tests/ (final format)
 REM   9 pip check + import smoke (build / install integrity)
 REM

@@ -67,13 +67,9 @@ async def handle_auth_signup(
             await session.commit()
             await session.refresh(u)
 
-            access, exp_at = issue_access_token(
-                u.id, u.email, u.token_version or 0
-            )
+            access, exp_at = issue_access_token(u.id, u.email, u.token_version or 0)
             refresh = issue_refresh_token(u.id, u.token_version or 0)
-            sess = session_dict_from_user_row(
-                u.id, u.email, access, refresh, exp_at
-            )
+            sess = session_dict_from_user_row(u.id, u.email, access, refresh, exp_at)
             return {
                 "success": True,
                 "user": user_dict_from_claims_and_db(
@@ -157,9 +153,7 @@ async def handle_auth_refresh(
     """auth.refresh — exchange refresh JWT for new session."""
     refresh_token = params.get("refresh_token")
     if not refresh_token:
-        raise JSONRPCError(
-            JSONRPCErrorCode.INVALID_PARAMS, "refresh_token is required"
-        )
+        raise JSONRPCError(JSONRPCErrorCode.INVALID_PARAMS, "refresh_token is required")
 
     try:
         claims = verify_refresh_token(refresh_token)
@@ -186,9 +180,7 @@ async def handle_auth_refresh(
 
         access, exp_at = issue_access_token(u.id, u.email, u.token_version or 0)
         new_refresh = issue_refresh_token(u.id, u.token_version or 0)
-        sess = session_dict_from_user_row(
-            u.id, u.email, access, new_refresh, exp_at
-        )
+        sess = session_dict_from_user_row(u.id, u.email, access, new_refresh, exp_at)
         await session.commit()
         return {"success": True, "session": sess}
 
@@ -249,12 +241,13 @@ async def handle_auth_reset_password_request(
         if u:
             tok = issue_password_reset_token(u.id)
             if settings.debug:
-                logger.info(
-                    "[debug] password reset token for %s: %s", email, tok
-                )
+                logger.info("[debug] password reset token for %s: %s", email, tok)
         await session.commit()
 
-    return {"success": True, "message": "If that email exists, reset instructions were sent"}
+    return {
+        "success": True,
+        "message": "If that email exists, reset instructions were sent",
+    }
 
 
 async def handle_auth_reset_password(
@@ -286,7 +279,11 @@ async def handle_auth_reset_password(
         await ur.increment_token_version(uid)
         await session.commit()
 
-    return {"success": True, "message": "Password reset successfully", "user": {"id": uid}}
+    return {
+        "success": True,
+        "message": "Password reset successfully",
+        "user": {"id": uid},
+    }
 
 
 async def handle_auth_update_user(
