@@ -7,6 +7,8 @@
 #
 # Environment:
 #   SKIP_VALIDATE_ENV=1  — do not run python scripts/validate_env.py before compose.
+#   If system Python lacks pydantic-settings, validation is skipped with a WARNING (Compose still runs).
+#   Prefer creating venv and pip install -r requirements.txt for full host-side checks.
 #   SKIP_COMPOSE_VERSION_CHECK=1 — skip Compose v2.20+ warning (root compose.yaml uses include:).
 #
 # Requires Docker Compose v2.20+ for compose.yaml (include). See compose.yaml header.
@@ -69,18 +71,40 @@ if [[ ! -f .env ]]; then
   fi
 fi
 
-if [[ "${SKIP_VALIDATE_ENV:-}" != "1" ]]; then
-  _py=""
+# validate_env.py imports app.config → needs pydantic-settings (requirements.txt).
+# Prefer project venv so host validation matches CI; on bare servers without venv, skip with a warning.
+_resolve_validate_python() {
+  local c
+  for c in "$ROOT/venv/bin/python" "$ROOT/.venv/bin/python"; do
+    if [[ -x "$c" ]]; then
+      echo "$c"
+      return 0
+    fi
+  done
   if command -v python3 >/dev/null 2>&1; then
-    _py="python3"
-  elif command -v python >/dev/null 2>&1; then
-    _py="python"
+    echo "python3"
+    return 0
   fi
+  if command -v python >/dev/null 2>&1; then
+    echo "python"
+    return 0
+  fi
+  echo ""
+}
+
+if [[ "${SKIP_VALIDATE_ENV:-}" != "1" ]]; then
+  _py="$(_resolve_validate_python)"
   if [[ -n "$_py" ]]; then
-    "$_py" scripts/validate_env.py --docker || true
-    if ! "$_py" scripts/validate_env.py; then
-      echo "ERROR: validate_env.py failed — fix .env or run with SKIP_VALIDATE_ENV=1."
-      exit 1
+    if ! "$_py" -c "import pydantic_settings" 2>/dev/null; then
+      echo "WARNING: ${_py} cannot import pydantic-settings — skipping validate_env.py."
+      echo "         Install deps for host checks: python3 -m venv venv && ./venv/bin/pip install -r requirements.txt"
+      echo "         Or use SKIP_VALIDATE_ENV=1. Compose still builds the backend image with dependencies."
+    else
+      "$_py" scripts/validate_env.py --docker || true
+      if ! "$_py" scripts/validate_env.py; then
+        echo "ERROR: validate_env.py failed — fix .env or run with SKIP_VALIDATE_ENV=1."
+        exit 1
+      fi
     fi
   fi
 fi
