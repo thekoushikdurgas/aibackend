@@ -15,7 +15,7 @@ REM Intentional differences vs Contact360 reference:
 REM   - pip: requirements.txt + requirements-dev.txt (CI installs both).
 REM   - black / ruff: include tests/ (CI does).
 REM   - Prettier: prefer npm run format:check when node_modules exists (matches CI npm ci + format:check).
-REM   - [0b] optional Docker / self-hosted Supabase hints (this repo only).
+REM   - [0b] optional Docker Compose hints (this repo only).
 REM   - Windows only: auto-skip pip check on Python 3.13+ unless FORCE_PIP_CHECK=1 (known false positives).
 REM
 REM Steps:
@@ -163,12 +163,12 @@ if /i "x%SKIP_CSS_INVENTORY%"=="x1" (
   echo.
 )
 
-call :color_echo "%CYAN%" "[0b] Self-hosted Supabase (optional)"
+call :color_echo "%CYAN%" "[0b] Docker Compose (optional)"
 echo ----------------------------------------
 REM Avoid "->" in echo: ">" is a redirect in CMD and "^" stacks badly with call (:color_echo), producing "-^^>" on screen.
 call :color_echo "%BLUE%" "  For Docker: copy .env.example to .env and set POSTGRES_PASSWORD / secrets"
 call :color_echo "%BLUE%" "  Start stack: docker compose --env-file .env -f compose.yaml up -d"
-call :color_echo "%BLUE%" "  See docker\README.md for ports 8080 (Kong) and 3001 (Studio)."
+call :color_echo "%BLUE%" "  See docker\README.md for services (Postgres, Redis, Chroma, Ollama, API) and ports."
 echo.
 
 call :color_echo "%CYAN%" "[1/10] Dependencies (pip)..."

@@ -1,16 +1,25 @@
 # Deploy backend Docker stack on EC2 after tests pass locally / on CI.
 #
-# Secrets:
+# Secrets (GitHub → Settings → Secrets and variables → Actions):
 #   EC2_HOST, EC2_USER, EC2_SSH_KEY — SSH access
-#   ENV_FILE — full contents of ai.backend/.env (production secrets + Compose interpolation keys)
+#   ENV_FILE — full contents of ai.backend/.env on the server, including at least:
+#              POSTGRES_PASSWORD (Compose db service interpolation),
+#              JWT_SECRET_KEY, API_KEY.
+#              Optional: STORAGE_*, SOCKETIO_*, provider keys (see .env.example).
+#              Compose overrides DATABASE_URL / POSTGRESQL_URL / REDIS_URL inside the container.
+#
 # Repository variables (Settings → Secrets and variables → Actions → Variables):
 #   EC2_REPO_ROOT — git clone root on the server (default below if unset)
-#   DEPLOY_SUBDIR — e.g. ai.backend when the repo is a monorepo and backend lives in a subdirectory (default empty)
+#   DEPLOY_SUBDIR — e.g. ai.backend when the repo is a monorepo (default empty = clone root is backend)
 #   VERIFY_SLEEP_SECONDS — seconds to wait before health checks (optional)
 #   VERIFY_STRICT_READY — set to 1 to fail deploy if GraphQL systemReady is not_ready (optional)
 #   VERIFY_REQUIRE_DOCKER — set to 1 to fail verify when docker is missing (default 0 = skip verify)
+#   SKIP_VALIDATE_DEPLOY — set to 1 to skip python validate_env in remote-deploy.sh (not recommended)
+#   SKIP_COMPOSE_VERSION_CHECK — set to 1 on the server to silence Compose v2.20+ include: warnings
 #
 # Optional: EC2_SSH_KEY_PASSPHRASE for encrypted keys (extend appleboy/ssh-action if needed).
+#
+# Requires Docker Compose v2.20+ on the host (root compose.yaml uses include:).
 
 name: Deploy API to EC2
 
@@ -28,6 +37,7 @@ on:
       - 'docker/**'
       - 'compose.yaml'
       - 'compose.dev.yaml'
+      - '.env.example'
       - '.github/workflows/deploy.yml'
       - 'ai.backend/app/**'
       - 'ai.backend/scripts/**'
@@ -39,6 +49,7 @@ on:
       - 'ai.backend/docker/**'
       - 'ai.backend/compose.yaml'
       - 'ai.backend/compose.dev.yaml'
+      - 'ai.backend/.env.example'
       - 'ai.backend/.github/workflows/deploy.yml'
   workflow_dispatch:
 
@@ -64,6 +75,8 @@ jobs:
             export VERIFY_SLEEP_SECONDS="${{ vars.VERIFY_SLEEP_SECONDS }}"
             export VERIFY_STRICT_READY="${{ vars.VERIFY_STRICT_READY }}"
             export VERIFY_REQUIRE_DOCKER="${{ vars.VERIFY_REQUIRE_DOCKER }}"
+            export SKIP_VALIDATE_DEPLOY="${{ vars.SKIP_VALIDATE_DEPLOY }}"
+            export SKIP_COMPOSE_VERSION_CHECK="${{ vars.SKIP_COMPOSE_VERSION_CHECK }}"
 
             REPO_ROOT="${{ vars.EC2_REPO_ROOT }}"
             REPO_ROOT="${REPO_ROOT:-/home/ubuntu/aibackend}"

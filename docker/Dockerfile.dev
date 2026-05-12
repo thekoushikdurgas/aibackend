@@ -21,8 +21,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt requirements-dev.txt ./
 RUN pip install --no-cache-dir -r requirements-dev.txt
 
-# Create data directories
-RUN mkdir -p /app/data/chroma
+# Create data directories (Chroma + local file storage)
+RUN mkdir -p /app/data/chroma /app/data/storage
 
 # Expose port
 EXPOSE 8000

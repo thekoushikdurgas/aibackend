@@ -1,10 +1,9 @@
 """
 Optional S3 storage adapter.
 
-The current production storage implementation is Supabase Storage
-(`StorageService` in `storage_service.py`). This adapter provides
-AWS S3 access using boto3 with blocking I/O offloaded via `asyncio.to_thread`
-when the async API is used.
+Primary storage is local filesystem + signed URLs (`StorageService` in
+`storage_service.py`). This adapter provides AWS S3 access using boto3 with
+blocking I/O offloaded via `asyncio.to_thread` when the async API is used.
 """
 
 from __future__ import annotations

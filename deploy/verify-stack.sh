@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 # Post-deploy verification on the EC2 host (localhost services).
-# Run from ai.backend root after docker compose is up.
+# Run from ai.backend root after docker compose is up (see deploy/remote-deploy.sh).
 #
 # Environment:
-#   VERIFY_API_URL          default http://127.0.0.1:8000
+#   VERIFY_API_URL          default http://127.0.0.1:8000 (same port as HTTP + WebSocket gateway)
 #   VERIFY_SLEEP_SECONDS    wait before checks (default 15)
 #   VERIFY_STRICT_READY     if 1, fail when GraphQL systemReady status is not_ready (default 0)
 #   VERIFY_REQUIRE_DOCKER   if 1, fail when docker is missing instead of skipping (default 0)
+#
+# Checks: /health, GraphQL systemHealth / systemReady, Postgres db, Redis.
+# App push channel: Socket.IO on SOCKETIO_MOUNT_PATH (default /realtime) — not probed here.
 
 set -euo pipefail
 
@@ -39,20 +42,20 @@ API_URL="${VERIFY_API_URL:-http://127.0.0.1:8000}"
 SLEEP_SEC="${VERIFY_SLEEP_SECONDS:-15}"
 STRICT_READY="${VERIFY_STRICT_READY:-0}"
 
-VERIFY_COMPOSE_MERGED=""
+VERIFY_COMPOSE_ENV_COPY=""
 cleanup_verify_compose_env() {
-  [[ -n "${VERIFY_COMPOSE_MERGED:-}" ]] && rm -f "$VERIFY_COMPOSE_MERGED"
+  [[ -n "${VERIFY_COMPOSE_ENV_COPY:-}" ]] && rm -f "$VERIFY_COMPOSE_ENV_COPY"
 }
 trap cleanup_verify_compose_env EXIT
 
-VERIFY_COMPOSE_MERGED="$(mktemp "${TMPDIR:-/tmp}/aibackend.verify.compose.XXXXXX.env")"
-cat .env >"$VERIFY_COMPOSE_MERGED"
-chmod 600 "$VERIFY_COMPOSE_MERGED" 2>/dev/null || true
+VERIFY_COMPOSE_ENV_COPY="$(mktemp "${TMPDIR:-/tmp}/aibackend.verify.compose.XXXXXX.env")"
+cat .env >"$VERIFY_COMPOSE_ENV_COPY"
+chmod 600 "$VERIFY_COMPOSE_ENV_COPY" 2>/dev/null || true
 
 if [[ -f compose.yaml ]]; then
-  COMPOSE_ARGS=(--env-file "$VERIFY_COMPOSE_MERGED" -f compose.yaml)
+  COMPOSE_ARGS=(--env-file "$VERIFY_COMPOSE_ENV_COPY" -f compose.yaml)
 elif [[ -f docker/docker-compose.yml ]]; then
-  COMPOSE_ARGS=(--env-file "$VERIFY_COMPOSE_MERGED" -f docker/docker-compose.yml)
+  COMPOSE_ARGS=(--env-file "$VERIFY_COMPOSE_ENV_COPY" -f docker/docker-compose.yml)
 else
   echo "[verify] ERROR: compose.yaml or docker/docker-compose.yml not found"
   exit 1
@@ -66,6 +69,9 @@ if [[ "${SLEEP_SEC}" != "0" ]]; then
   echo "[verify] Waiting ${SLEEP_SEC}s for containers to become healthy..."
   sleep "${SLEEP_SEC}"
 fi
+
+echo "[verify] docker compose ps"
+dc ps
 
 echo "[verify] FastAPI GET ${API_URL}/health"
 curl -fsS "${API_URL}/health" >/dev/null

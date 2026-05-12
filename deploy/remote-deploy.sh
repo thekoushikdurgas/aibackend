@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 # Remote deploy hook (GitHub Actions SSH step runs this after git reset on EC2).
-# Matches scripts/docker-up.sh: Compose uses `.env` for variable interpolation.
+# Matches scripts/docker-up.sh: Compose uses .env for variable interpolation.
+#
+# Environment:
+#   SKIP_VALIDATE_DEPLOY=1 — skip python scripts/validate_env.py (not recommended).
+#   SKIP_COMPOSE_VERSION_CHECK=1 — skip warning when Compose is older than v2.20
+#     (root compose.yaml uses include:).
 
 set -euo pipefail
 
@@ -50,11 +55,53 @@ if ! docker compose version >/dev/null 2>&1; then
   exit 1
 fi
 
+compose_min_major=2
+compose_min_minor=20
+_check_compose_version() {
+  if [[ "${SKIP_COMPOSE_VERSION_CHECK:-}" == "1" ]]; then
+    return 0
+  fi
+  local short major minor rest
+  short="$(docker compose version --short 2>/dev/null || true)"
+  short="${short#v}"
+  if [[ -z "$short" ]]; then
+    echo "[deploy] WARNING: could not read docker compose version --short; need v${compose_min_major}.${compose_min_minor}+ for compose.yaml (include:)."
+    return 0
+  fi
+  major="${short%%.*}"
+  rest="${short#*.}"
+  minor="${rest%%.*}"
+  if ! [[ "$major" =~ ^[0-9]+$ && "$minor" =~ ^[0-9]+$ ]]; then
+    echo "[deploy] WARNING: unexpected Compose version '${short}'; need v${compose_min_major}.${compose_min_minor}+ for compose.yaml (include:)."
+    return 0
+  fi
+  if [[ "$major" -lt $compose_min_major ]] || { [[ "$major" -eq $compose_min_major ]] && [[ "$minor" -lt $compose_min_minor ]]; }; then
+    echo "[deploy] WARNING: Docker Compose is ${short}; compose.yaml uses include: (needs v${compose_min_major}.${compose_min_minor}+)."
+  fi
+}
+_check_compose_version
+
 bootstrap_env_files
 
 if [[ ! -f .env ]] || [[ ! -s .env ]]; then
   echo "[deploy] ERROR: .env is missing or empty. Set ENV_FILE secret or add .env on the server."
   exit 1
+fi
+
+if [[ "${SKIP_VALIDATE_DEPLOY:-}" != "1" ]]; then
+  _py=""
+  if command -v python3 >/dev/null 2>&1; then
+    _py="python3"
+  elif command -v python >/dev/null 2>&1; then
+    _py="python"
+  fi
+  if [[ -n "$_py" ]]; then
+    echo "[deploy] validate_env ($_py)"
+    "$_py" scripts/validate_env.py --docker 1>&2 || true
+    "$_py" scripts/validate_env.py || exit 1
+  else
+    echo "[deploy] WARNING: python not on PATH — skipping validate_env (install python3 or set SKIP_VALIDATE_DEPLOY=1)."
+  fi
 fi
 
 compose_env_args

@@ -9,7 +9,7 @@
 #   - pip: requirements.txt + requirements-dev.txt (CI installs both).
 #   - black / ruff: include tests/ (CI does).
 #   - Prettier: prefer npm run format:check when node_modules exists (matches CI npm ci + format:check).
-#   - [0b] optional Docker / self-hosted Supabase hints (this repo only).
+#   - [0b] optional Docker Compose hints (this repo only).
 #   - codebase.bat only: auto-skip pip check on Windows Python 3.13+ unless FORCE_PIP_CHECK=1 (false positives).
 #
 # Steps (same order as codebase.bat):
@@ -132,11 +132,11 @@ else
   echo ""
 fi
 
-color_echo "$CYAN" "[0b] Self-hosted Supabase (optional)"
+color_echo "$CYAN" "[0b] Docker Compose (optional)"
 echo "----------------------------------------"
 color_echo "$BLUE" "  For Docker: copy .env.example to .env and set POSTGRES_PASSWORD / secrets"
 color_echo "$BLUE" "  Start stack: docker compose --env-file .env -f compose.yaml up -d"
-color_echo "$BLUE" "  See docker/README.md for ports 8080 (Kong) and 3001 (Studio)."
+color_echo "$BLUE" "  See docker/README.md for services (Postgres, Redis, Chroma, Ollama, API) and ports."
 echo ""
 
 color_echo "$CYAN" "[1/10] Dependencies (pip)..."

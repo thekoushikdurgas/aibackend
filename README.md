@@ -25,7 +25,7 @@ FastAPI backend with AI agents for the DurgasAI Chrome extension.
 1. Clone and navigate to the backend directory:
 
 ```bash
-cd backend
+cd ai.backend
 ```
 
 2. Create virtual environment:
@@ -67,22 +67,22 @@ Full reference: **[docker/README.md](./docker/README.md)**.
 3. **Production-style stack** (Postgres + Redis + ChromaDB + Ollama + API):
 
    ```bash
-   docker compose up -d --build
+   docker compose --env-file .env -f compose.yaml up -d --build
    ```
 
-   Same as `docker compose -f docker/docker-compose.yml up -d --build` (root [`compose.yaml`](./compose.yaml) includes `docker/docker-compose.yml`; requires **Compose v2.20+** for `include:`).
+   Root [`compose.yaml`](./compose.yaml) includes [`docker/docker-compose.yml`](./docker/docker-compose.yml); requires **Compose v2.20+** for `include:`.
 
 4. **Development stack** (bind-mount `app/`, `--reload`, Redis + ChromaDB + Ollama):
 
    ```bash
-   docker compose -f compose.dev.yaml up --build
+   docker compose --env-file .env -f compose.dev.yaml up --build
    ```
 
 5. Check **`curl http://localhost:8000/health`**.
 
 On **Linux/macOS**, [`scripts/docker-up.sh`](./scripts/docker-up.sh) wraps the same Compose commands as `scripts\docker-up.bat`. For a full local quality gate (same steps as [`codebase.bat`](./codebase.bat)), run **`./codebase.sh`** from `ai.backend`; use **`SKIP_DEV_SERVER=1`** in CI or SSH so the script does not prompt to start uvicorn.
 
-**Endpoints:** HTTP GraphQL `POST http://localhost:8000/graphql`. WebSocket JSON-RPC `ws://localhost:8000/ws/gateway`.
+**Endpoints:** HTTP GraphQL `POST http://localhost:8000/graphql`. WebSocket JSON-RPC `ws://localhost:8000/ws/gateway`. Signed file downloads: HTTP `GET` under `STORAGE_URL_PREFIX` (default `/files/...`). Socket.IO (app push): same host and port as the API, path `SOCKETIO_MOUNT_PATH` (default `/realtime`). Published ports are summarized in [docker/README.md](./docker/README.md).
 
 Build context excludes `venv/` and tests via [`.dockerignore`](./.dockerignore).
 
@@ -90,7 +90,7 @@ Build context excludes `venv/` and tests via [`.dockerignore`](./.dockerignore).
 
 | Workflow   | File                                                             | Purpose                                                                                                                                                                                                                                                       |
 | ---------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **API CI** | [`.github/workflows/api-ci.yml`](./.github/workflows/api-ci.yml) | On push/PR: **ruff**, **black**, **mypy** (non-blocking), optional `scripts/check_best_practices.py`, **pytest** + coverage with **Postgres 16** service. Installs `requirements.txt` + [`requirements-dev.txt`](./requirements-dev.txt).                     |
+| **API CI** | [`.github/workflows/api-ci.yml`](./.github/workflows/api-ci.yml) | On push/PR: **ruff**, **black**, **mypy** (non-blocking), optional `scripts/check_best_practices.py`, **`validate_env`**, **pytest** + coverage with **Postgres 15** service. Installs `requirements.txt` + [`requirements-dev.txt`](./requirements-dev.txt).                     |
 | **Deploy** | [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) | On push to `main`: SSH to EC2 (secrets `EC2_*`, `ENV_FILE`), `git reset`, run [`deploy/remote-deploy.sh`](./deploy/remote-deploy.sh). Edit `APP_ROOT` in the workflow and on the server to match your clone path (monorepo: e.g. `.../durgas_ai/ai.backend`). |
 
 ## API Documentation

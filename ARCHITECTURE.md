@@ -23,7 +23,7 @@
 - Vector store:
   - ChromaDB persisted under `./data/chroma`
 - Object/file storage:
-  - Supabase Storage (`StorageService`)
+  - Local filesystem + HMAC-signed URLs (`StorageService` → `local_storage_service`)
   - Optional AWS integration hook: `S3StorageAdapter` stub
 
 ## Config notes

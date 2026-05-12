@@ -1,5 +1,8 @@
 # CI for DurgasAI Backend (FastAPI + Strawberry GraphQL + WebSocket JSON-RPC).
-# Repo root = ai.backend (standalone). Monorepo: set defaults.run.working-directory to ai.backend.
+# Repo root = ai.backend (standalone). In a monorepo, point the workflow at this directory
+# (defaults.run.working-directory) or keep a copy of this file under ai.backend/.
+#
+# Test job uses Postgres 15 to match docker/docker-compose.yml (db service).
 
 name: API CI
 
@@ -16,7 +19,9 @@ on:
       - 'alembic/**'
       - 'pytest.ini'
       - 'docker/**'
+      - 'deploy/**'
       - 'docs/**'
+      - '.env.example'
       - 'compose.yaml'
       - 'compose.dev.yaml'
       - 'package.json'
@@ -36,7 +41,9 @@ on:
       - 'alembic/**'
       - 'pytest.ini'
       - 'docker/**'
+      - 'deploy/**'
       - 'docs/**'
+      - '.env.example'
       - 'compose.yaml'
       - 'compose.dev.yaml'
       - 'package.json'
@@ -71,6 +78,9 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Validate settings load (no .env in CI)
+        run: python scripts/validate_env.py
 
       - name: Lint (ruff)
         run: ruff check app/ scripts/ tests/ --output-format=github
@@ -128,8 +138,7 @@ jobs:
     env:
       DATABASE_URL: postgresql+asyncpg://test:test@localhost:5432/testdb
       POSTGRESQL_URL: postgresql+asyncpg://test:test@localhost:5432/testdb
-      SECRET_KEY: ci-test-secret-key-not-for-production
-      JWT_SECRET_KEY: ci-test-jwt-secret-not-for-production
+      JWT_SECRET_KEY: ci-test-jwt-secret-not-for-production-min-32-chars
       API_KEY: ci-test-api-key-not-for-production
       ENVIRONMENT: test
       DEBUG: 'false'
@@ -137,7 +146,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:16
+        image: postgres:15
         env:
           POSTGRES_USER: test
           POSTGRES_PASSWORD: test

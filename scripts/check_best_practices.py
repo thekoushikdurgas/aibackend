@@ -1,6 +1,8 @@
 """
 Lightweight API best-practices report for codebase.bat step [7/10].
 Optional config: .api-checker-config.json (reserved for future rules).
+
+For environment / .env load checks, use scripts/validate_env.py (also run optionally from docker-up.*).
 """
 
 from __future__ import annotations

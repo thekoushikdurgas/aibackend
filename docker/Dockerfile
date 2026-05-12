@@ -55,8 +55,8 @@ COPY config/ ./config/
 COPY alembic.ini .
 COPY alembic/ ./alembic/
 
-# Create data directories
-RUN mkdir -p /app/data/chroma /app/data/logs
+# Create data directories (Chroma, logs, local file storage under STORAGE_ROOT)
+RUN mkdir -p /app/data/chroma /app/data/logs /app/data/storage
 
 # Create non-root user for security
 RUN adduser --disabled-password --gecos "" appuser && \
