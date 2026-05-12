@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, cast
 
 from sqlalchemy import select, update, delete
+from sqlalchemy.engine import CursorResult
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.user import RAGDocument
@@ -81,7 +82,10 @@ class RAGDocumentRepository:
         return await self.get(document_id)
 
     async def delete(self, document_id: str) -> bool:
-        r = await self.session.execute(
-            delete(RAGDocument).where(RAGDocument.id == document_id)
+        r = cast(
+            CursorResult[Any],
+            await self.session.execute(
+                delete(RAGDocument).where(RAGDocument.id == document_id)
+            ),
         )
-        return r.rowcount > 0
+        return (r.rowcount or 0) > 0

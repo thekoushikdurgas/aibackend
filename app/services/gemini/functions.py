@@ -15,7 +15,7 @@ class FunctionCallHandler:
     Handler for executing function calls from Gemini API responses.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize function call handler"""
         self.functions: Dict[str, _FunctionRegistration] = {}
 

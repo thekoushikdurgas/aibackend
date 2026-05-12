@@ -32,7 +32,7 @@ class CacheEntry:
 class SimpleCache:
     """Simple in-memory cache"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._cache: Dict[str, CacheEntry] = {}
 
     def get(self, key: str) -> Optional[Any]:

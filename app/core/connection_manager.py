@@ -19,7 +19,7 @@ class ConnectionManager:
     and health monitoring. Compatible with JSON-RPC 2.0 architecture.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.active_connections: Dict[str, WebSocket] = {}
         self.connection_metadata: Dict[str, Dict[str, Any]] = {}
         self.message_queues: Dict[str, asyncio.Queue] = {}

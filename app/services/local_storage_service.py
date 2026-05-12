@@ -209,8 +209,7 @@ class LocalFileStorage:
 
     def list_buckets(self) -> List[Dict[str, Any]]:
         out: List[Dict[str, Any]] = []
-        for _, name in self.buckets.items():
-            p = _bucket_dir(name)
+        for logical, name in self.buckets.items():
             out.append(
                 {
                     "id": name,

@@ -18,7 +18,7 @@ class WebSocketMetrics:
     Collect and track WebSocket-specific metrics.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.active_connections = 0
         self.total_connections = 0
         self.total_disconnections = 0

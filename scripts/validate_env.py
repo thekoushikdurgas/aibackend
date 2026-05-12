@@ -81,14 +81,23 @@ def _strict_preflight(settings: object) -> list[str]:
     api = (getattr(settings, "api_key", "") or "").strip()
 
     if not jwt or len(jwt) < 32:
-        issues.append("production: JWT_SECRET_KEY must be set and at least 32 characters.")
-    elif "change-in-production" in jwt.lower() or jwt == "your-super-secret-jwt-key-change-in-production":
-        issues.append("production: JWT_SECRET_KEY still looks like a development placeholder.")
+        issues.append(
+            "production: JWT_SECRET_KEY must be set and at least 32 characters."
+        )
+    elif (
+        "change-in-production" in jwt.lower()
+        or jwt == "your-super-secret-jwt-key-change-in-production"
+    ):
+        issues.append(
+            "production: JWT_SECRET_KEY still looks like a development placeholder."
+        )
 
     if not api or api == "your-api-key-for-extension":
         issues.append("production: API_KEY must be set to a non-default value.")
     elif "generate_a_random" in api.lower():
-        issues.append("production: API_KEY still looks like a template from .env.example.")
+        issues.append(
+            "production: API_KEY still looks like a template from .env.example."
+        )
 
     return issues
 
@@ -102,7 +111,12 @@ def main(argv: list[str] | None = None) -> int:
             "use --docker to lint them from .env. Root compose.yaml needs Docker Compose v2.20+ (include:)."
         ),
     )
-    parser.add_argument("-v", "--verbose", action="store_true", help="Print non-secret resolved paths and URLs.")
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Print non-secret resolved paths and URLs.",
+    )
     parser.add_argument(
         "--docker",
         action="store_true",

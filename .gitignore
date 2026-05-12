@@ -23,6 +23,11 @@ wheels/
 # Node (Prettier and other JS tooling)
 node_modules/
 
+# Secrets (never commit real credentials)
+.env
+.env.local
+.env.*.local
+
 # Virtual Environment
 venv/
 env/

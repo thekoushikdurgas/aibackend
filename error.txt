@@ -1,240 +1,442 @@
-INFO:     Will watch for changes in these directories: ['E:\\durgas_ai\\ai.backend']
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [14440] using StatReload
-INFO:     Started server process [17836]
-INFO:     Waiting for application startup.
-2026-05-11 13:00:13,037 - app.main - INFO - Starting DurgasAI Backend v1.0.0
-2026-05-11 13:00:13,038 - app.main - INFO - Environment: development
-2026-05-11 13:00:13,038 - app.main - INFO - Default LLM Provider: ollama
-2026-05-11 13:00:34,097 - app.main - WARNING - Database initialization skipped: [Errno 10060] Connect call failed ('54.167.242.75', 5432)
-2026-05-11 13:00:35,365 - app.core.supabase_client - INFO - Supabase client initialized successfully
-2026-05-11 13:00:35,375 - app.main - INFO - Supabase initialized successfully
-2026-05-11 13:00:36,541 - app.core.supabase_client - INFO - Async Supabase client initialized successfully (service_role)
-2026-05-11 13:00:37,093 - realtime._async.client - ERROR - Connection attempt failed: server rejected WebSocket connection: HTTP 401
-2026-05-11 13:00:38,661 - realtime._async.client - ERROR - Connection attempt failed: server rejected WebSocket connection: HTTP 401
-2026-05-11 13:00:41,242 - realtime._async.client - ERROR - Connection attempt failed: server rejected WebSocket connection: HTTP 401
-2026-05-11 13:00:45,814 - realtime._async.client - ERROR - Connection attempt failed: server rejected WebSocket connection: HTTP 401
-2026-05-11 13:00:54,414 - realtime._async.client - ERROR - Connection attempt failed: server rejected WebSocket connection: HTTP 401
-2026-05-11 13:00:54,414 - realtime._async.client - ERROR - Connection failed permanently after 5 attempts. Error: server rejected WebSocket connection: HTTP 401
-2026-05-11 13:00:54,414 - app.core.realtime - WARNING - Supabase Realtime init skipped: server rejected WebSocket connection: HTTP 401
-2026-05-11 13:00:55,047 - app.services.rag.vectorstore - INFO - ChromaDB client initialized at ./data/chroma
-2026-05-11 13:00:55,063 - app.services.rag.vectorstore - INFO - Using collection: durgasai_pages
-2026-05-11 13:00:55,063 - app.services.rag.vectorstore - INFO - ChromaDB initialized
-2026-05-11 13:00:55,064 - app.main - INFO - ChromaDB initialized successfully
-2026-05-11 13:00:55,064 - app.services.llm.factory - INFO - Created LLM provider instance: ollama
-2026-05-11 13:00:55,065 - app.main - INFO - LLM Provider (ollama) initialized
-2026-05-11 13:00:55,297 - app.services.rag.vectorstore - INFO - ChromaDB client initialized at ./data/chroma
-2026-05-11 13:00:55,302 - app.services.rag.vectorstore - INFO - Using collection: durgasai_pages
-2026-05-11 13:00:55,302 - app.services.rag.vectorstore - INFO - ChromaDB initialized
-2026-05-11 13:00:55,303 - app.services.rag.pipeline - INFO - RAG Pipeline initialized
-2026-05-11 13:00:55,303 - app.main - INFO - RAG Pipeline initialized successfully
-INFO:     Application startup complete.
-2026-05-11 13:01:43,983 - app.core.middleware - INFO - Request: OPTIONS /graphql
-2026-05-11 13:01:43,994 - app.core.middleware - INFO - Response: OPTIONS /graphql - Status: 200 - Duration: 0.011s
-INFO:     127.0.0.1:12849 - "OPTIONS /graphql HTTP/1.1" 200 OK
-2026-05-11 13:01:44,033 - app.core.middleware - INFO - Request: POST /graphql
-2026-05-11 13:01:44,638 - httpx - INFO - HTTP Request: POST http://54.167.242.75:8080/auth/v1/signup "HTTP/1.1 401 Unauthorized"
-2026-05-11 13:01:44,639 - app.api.ws_methods.auth - ERROR - Signup error: Unauthorized
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\supabase_auth\_sync\gotrue_base_api.py", line 73, in _request
-    response.raise_for_status()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
-    raise HTTPStatusError(message, request=request, response=self)
-httpx.HTTPStatusError: Client error '401 Unauthorized' for url 'http://54.167.242.75:8080/auth/v1/signup'
-For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
 
-During handling of the above exception, another exception occurred:
+E:\durgas_ai\ai.backend>docker compose down
 
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\app\api\ws_methods\auth.py", line 96, in handle_auth_signup
-    response = supabase.auth.sign_up(
-        {"email": email, "password": password, "options": {"data": metadata}}
-    )
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\supabase_auth\_sync\gotrue_client.py", line 247, in sign_up
-    response = self._request(
-        "POST",
-    ...<9 lines>...
-        redirect_to=redirect_to,
-    )
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\supabase_auth\_sync\gotrue_base_api.py", line 76, in _request
-    raise handle_exception(e)  # noqa
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-supabase_auth.errors.AuthApiError: Unauthorized
-2026-05-11 13:01:45,002 - strawberry.execution - ERROR - Signup failed: Unauthorized
+E:\durgas_ai\ai.backend>docker compose build --no-cache
+#1 [internal] load local bake definitions
+#1 reading from stdin 543B done
+#1 DONE 0.0s
 
-GraphQL request:2:3
-1 | mutation SignUp($email: String!, $password: String!, $metadata: JSON) {
-2 |   signUp(email: $email, password: $password, metadata: $metadata) {
-  |   ^
-3 |     success
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\supabase_auth\_sync\gotrue_base_api.py", line 73, in _request
-    response.raise_for_status()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
-    raise HTTPStatusError(message, request=request, response=self)
-httpx.HTTPStatusError: Client error '401 Unauthorized' for url 'http://54.167.242.75:8080/auth/v1/signup'
-For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.94kB 0.0s done
+#2 DONE 0.0s
 
-During handling of the above exception, another exception occurred:
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 ...
 
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\app\api\ws_methods\auth.py", line 96, in handle_auth_signup
-    response = supabase.auth.sign_up(
-        {"email": email, "password": password, "options": {"data": metadata}}
-    )
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\supabase_auth\_sync\gotrue_client.py", line 247, in sign_up
-    response = self._request(
-        "POST",
-    ...<9 lines>...
-        redirect_to=redirect_to,
-    )
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\supabase_auth\_sync\gotrue_base_api.py", line 76, in _request
-    raise handle_exception(e)  # noqa
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-supabase_auth.errors.AuthApiError: Unauthorized
+#4 [auth] library/python:pull token for registry-1.docker.io
+#4 DONE 0.0s
 
-During handling of the above exception, another exception occurred:
+#3 [internal] load metadata for docker.io/library/python:3.11-slim
+#3 DONE 2.1s
 
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\app\graphql\modules\auth\resolvers.py", line 88, in sign_up
-    raw = await auth_handlers.handle_auth_signup(params, None)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\durgas_ai\ai.backend\app\api\ws_methods\auth.py", line 138, in handle_auth_signup
-    raise JSONRPCError(JSONRPCErrorCode.INTERNAL_ERROR, f"Signup failed: {str(e)}")
-app.core.jsonrpc.JSONRPCError: JSON-RPC Error -32603: Signup failed: Unauthorized
+#5 [internal] load .dockerignore
+#5 transferring context: 782B 0.0s done
+#5 DONE 0.0s
 
-The above exception was the direct cause of the following exception:
+#6 [internal] load build context
+#6 DONE 0.0s
 
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\graphql\execution\execute.py", line 530, in await_result
-    return_type, field_nodes, info, path, await result
-                                          ^^^^^^^^^^^^
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\strawberry\schema\schema_converter.py", line 789, in _async_resolver
-    return await await_maybe(
-           ^^^^^^^^^^^^^^^^^^
-    ...<5 lines>...
-    )
-    ^
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\strawberry\utils\await_maybe.py", line 13, in await_maybe
-    return await value
-           ^^^^^^^^^^^
-  File "E:\durgas_ai\ai.backend\app\graphql\modules\auth\resolvers.py", line 90, in sign_up
-    raise_jsonrpc_as_graphql(e)
-    ~~~~~~~~~~~~~~~~~~~~~~~~^^^
-  File "E:\durgas_ai\ai.backend\app\graphql\errors.py", line 9, in raise_jsonrpc_as_graphql
-    raise GraphQLError(
-    ...<5 lines>...
-    ) from exc
-  File "E:\durgas_ai\ai.backend\app\graphql\modules\auth\resolvers.py", line 88, in sign_up
-    raw = await auth_handlers.handle_auth_signup(params, None)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\durgas_ai\ai.backend\app\api\ws_methods\auth.py", line 138, in handle_auth_signup
-    raise JSONRPCError(JSONRPCErrorCode.INTERNAL_ERROR, f"Signup failed: {str(e)}")
-graphql.error.graphql_error.GraphQLError: Signup failed: Unauthorized
-2026-05-11 13:01:45,210 - app.core.middleware - INFO - Response: POST /graphql - Status: 200 - Duration: 1.177s
-INFO:     127.0.0.1:12700 - "POST /graphql HTTP/1.1" 200 OK
-2026-05-11 13:01:51,187 - app.core.middleware - INFO - Request: POST /graphql
-2026-05-11 13:01:51,771 - httpx - INFO - HTTP Request: POST http://54.167.242.75:8080/auth/v1/signup "HTTP/1.1 401 Unauthorized"
-2026-05-11 13:01:51,775 - app.api.ws_methods.auth - ERROR - Signup error: Unauthorized
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\supabase_auth\_sync\gotrue_base_api.py", line 73, in _request
-    response.raise_for_status()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
-    raise HTTPStatusError(message, request=request, response=self)
-httpx.HTTPStatusError: Client error '401 Unauthorized' for url 'http://54.167.242.75:8080/auth/v1/signup'
-For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+#7 [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142
+#7 resolve docker.io/library/python:3.11-slim@sha256:a5b427ace4900267d93db34138e512325c6fa6af84ad5e4ed5f3b36258cc4142 0.1s done
+#7 DONE 0.1s
 
-During handling of the above exception, another exception occurred:
+#8 [builder 2/6] WORKDIR /app
+#8 CACHED
 
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\app\api\ws_methods\auth.py", line 96, in handle_auth_signup
-    response = supabase.auth.sign_up(
-        {"email": email, "password": password, "options": {"data": metadata}}
-    )
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\supabase_auth\_sync\gotrue_client.py", line 247, in sign_up
-    response = self._request(
-        "POST",
-    ...<9 lines>...
-        redirect_to=redirect_to,
-    )
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\supabase_auth\_sync\gotrue_base_api.py", line 76, in _request
-    raise handle_exception(e)  # noqa
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-supabase_auth.errors.AuthApiError: Unauthorized
-2026-05-11 13:01:51,799 - strawberry.execution - ERROR - Signup failed: Unauthorized
+#6 [internal] load build context
+#6 transferring context: 1.82MB 0.9s done
+#6 DONE 0.9s
 
-GraphQL request:2:3
-1 | mutation SignUp($email: String!, $password: String!, $metadata: JSON) {
-2 |   signUp(email: $email, password: $password, metadata: $metadata) {
-  |   ^
-3 |     success
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\supabase_auth\_sync\gotrue_base_api.py", line 73, in _request
-    response.raise_for_status()
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\httpx\_models.py", line 829, in raise_for_status
-    raise HTTPStatusError(message, request=request, response=self)
-httpx.HTTPStatusError: Client error '401 Unauthorized' for url 'http://54.167.242.75:8080/auth/v1/signup'
-For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+#9 [stage-1  5/10] COPY app/ ./app/
+#9 CACHED
 
-During handling of the above exception, another exception occurred:
+#10 [builder 5/6] COPY requirements.txt .
+#10 CACHED
 
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\app\api\ws_methods\auth.py", line 96, in handle_auth_signup
-    response = supabase.auth.sign_up(
-        {"email": email, "password": password, "options": {"data": metadata}}
-    )
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\supabase_auth\_sync\gotrue_client.py", line 247, in sign_up
-    response = self._request(
-        "POST",
-    ...<9 lines>...
-        redirect_to=redirect_to,
-    )
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\supabase_auth\_sync\gotrue_base_api.py", line 76, in _request
-    raise handle_exception(e)  # noqa
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-supabase_auth.errors.AuthApiError: Unauthorized
+#11 [stage-1  4/10] COPY --from=builder /opt/venv /opt/venv
+#11 CACHED
 
-During handling of the above exception, another exception occurred:
+#12 [builder 4/6] RUN python -m venv /opt/venv
+#12 CACHED
 
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\app\graphql\modules\auth\resolvers.py", line 88, in sign_up
-    raw = await auth_handlers.handle_auth_signup(params, None)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\durgas_ai\ai.backend\app\api\ws_methods\auth.py", line 138, in handle_auth_signup
-    raise JSONRPCError(JSONRPCErrorCode.INTERNAL_ERROR, f"Signup failed: {str(e)}")
-app.core.jsonrpc.JSONRPCError: JSON-RPC Error -32603: Signup failed: Unauthorized
+#13 [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt
+#13 CACHED
 
-The above exception was the direct cause of the following exception:
+#14 [stage-1  6/10] COPY config/ ./config/
+#14 ERROR: failed to calculate checksum of ref h49uj2mlfe489qdwa7h00k2r9::jai3hc4fz2221qdrx9sifv6ok: "/config": not found
 
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\graphql\execution\execute.py", line 530, in await_result
-    return_type, field_nodes, info, path, await result
-                                          ^^^^^^^^^^^^
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\strawberry\schema\schema_converter.py", line 789, in _async_resolver
-    return await await_maybe(
-           ^^^^^^^^^^^^^^^^^^
-    ...<5 lines>...
-    )
-    ^
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\strawberry\utils\await_maybe.py", line 13, in await_maybe
-    return await value
-           ^^^^^^^^^^^
-  File "E:\durgas_ai\ai.backend\app\graphql\modules\auth\resolvers.py", line 90, in sign_up
-    raise_jsonrpc_as_graphql(e)
-    ~~~~~~~~~~~~~~~~~~~~~~~~^^^
-  File "E:\durgas_ai\ai.backend\app\graphql\errors.py", line 9, in raise_jsonrpc_as_graphql
-    raise GraphQLError(
-    ...<5 lines>...
-    ) from exc
-  File "E:\durgas_ai\ai.backend\app\graphql\modules\auth\resolvers.py", line 88, in sign_up
-    raw = await auth_handlers.handle_auth_signup(params, None)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\durgas_ai\ai.backend\app\api\ws_methods\auth.py", line 138, in handle_auth_signup
-    raise JSONRPCError(JSONRPCErrorCode.INTERNAL_ERROR, f"Signup failed: {str(e)}")
-graphql.error.graphql_error.GraphQLError: Signup failed: Unauthorized
-2026-05-11 13:01:51,819 - app.core.middleware - INFO - Response: POST /graphql - Status: 200 - Duration: 0.631s
-INFO:     127.0.0.1:12569 - "POST /graphql HTTP/1.1" 200 OK
+#15 [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*
+#15 CANCELED
+
+#16 [stage-1  3/10] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*
+#16 CANCELED
+------
+ > [stage-1  6/10] COPY config/ ./config/:
+------
+[+] build 0/1
+ - Image aibackend-backend Building                                                                                                                     4.3s
+Dockerfile:54
+
+--------------------
+
+  52 |     # Copy application code
+
+  53 |     COPY app/ ./app/
+
+  54 | >>> COPY config/ ./config/
+
+  55 |     COPY alembic.ini .
+
+  56 |     COPY alembic/ ./alembic/
+
+--------------------
+
+failed to solve: failed to compute cache key: failed to calculate checksum of ref h49uj2mlfe489qdwa7h00k2r9::jai3hc4fz2221qdrx9sifv6ok: "/config": not found
+
+
+
+View build details: docker-desktop://dashboard/build/default/default/x51cvassm99wxzlrfv70otxbu
+
+
+What's next:
+    Debug this Compose error with Gordon → docker ai "help me fix this compose error"
+
+E:\durgas_ai\ai.backend>docker compose up -d
+[+] up 19/20
+ ✔ Image postgres:15-alpine           Pulled                                                                                                           15.1s
+ ✔ Network aibackend_durgasai_network Created                                                                                                           0.1s
+ ✔ Volume aibackend_postgres_data     Created                                                                                                           0.0s
+ - Container aibackend-redis-1        Starting                                                                                                          1.4s
+ ✔ Container aibackend-ollama-1       Started                                                                                                           1.4s
+ ✔ Container aibackend-db-1           Started                                                                                                           1.4s
+ ✔ Container aibackend-chromadb-1     Started                                                                                                           1.4s
+ ✔ Container aibackend-backend-1      Created                                                                                                           0.2s
+Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint aibackend-redis-1 (ce8a872f258bc3c06963b21bb39b46d23c5d36cd94fd32dc234f4581fcccf248): Bind for 0.0.0.0:6379 failed: port is already allocated
+
+What's next:
+    Debug this Compose error with Gordon → docker ai "help me fix this compose error"
+    Filter, search, and stream logs from all your Compose services
+    in one place with Docker Desktop's Logs view. docker-desktop://dashboard/logs
+
+E:\durgas_ai\ai.backend>codebase.bat
+
+========================================
+  DURGASAI BACKEND (FASTAPI) STATE CHECK
+========================================
+
+Current directory: E:\durgas_ai\ai.backend
+Using venv Python: E:\durgas_ai\ai.backend\venv\Scripts\python.exe
+
+[0] Python source inventory (app / scripts / tests)...
+----------------------------------------
+  Output: reports\durgasai-source-inventory.txt
+  OK Inventory written
+
+[0b] Docker Compose (optional)
+----------------------------------------
+  Copy .env.example to .env; set POSTGRES_PASSWORD, JWT_SECRET_KEY, API_KEY.
+  Start: docker compose --env-file .env -f compose.yaml up -d --build
+  See docker\README.md and scripts\docker-up.bat
+
+[1/10] Dependencies (pip)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pip install --upgrade pip
+Requirement already satisfied: pip in .\venv\Lib\site-packages (26.1.1)
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pip install --no-warn-script-location -r requirements.txt -r requirements-dev.txt
+Requirement already satisfied: fastapi==0.109.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 2)) (0.109.2)
+Requirement already satisfied: uvicorn==0.27.1 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.27.1)
+Requirement already satisfied: strawberry-graphql==0.315.3 in .\venv\Lib\site-packages (from strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (0.315.3)
+Requirement already satisfied: python-multipart==0.0.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 5)) (0.0.9)
+Requirement already satisfied: websockets<16,>=13 in .\venv\Lib\site-packages (from -r requirements.txt (line 7)) (15.0.1)
+Requirement already satisfied: sentence-transformers==2.5.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 10)) (2.5.1)
+Requirement already satisfied: transformers==4.38.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 11)) (4.38.1)
+Requirement already satisfied: torch==2.2.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 12)) (2.2.0)
+Requirement already satisfied: huggingface-hub==0.21.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 13)) (0.21.2)
+Requirement already satisfied: chromadb==1.5.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 16)) (1.5.9)
+Requirement already satisfied: PyMuPDF==1.23.8 in .\venv\Lib\site-packages (from -r requirements.txt (line 19)) (1.23.8)
+Requirement already satisfied: python-docx==1.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 20)) (1.1.0)
+Requirement already satisfied: tiktoken==0.5.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 21)) (0.5.2)
+Requirement already satisfied: pandas==2.2.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 22)) (2.2.3)
+Requirement already satisfied: openpyxl==3.1.5 in .\venv\Lib\site-packages (from -r requirements.txt (line 23)) (3.1.5)
+Requirement already satisfied: sqlalchemy==2.0.49 in .\venv\Lib\site-packages (from -r requirements.txt (line 26)) (2.0.49)
+Requirement already satisfied: asyncpg<0.31,>=0.29 in .\venv\Lib\site-packages (from -r requirements.txt (line 27)) (0.30.0)
+Requirement already satisfied: greenlet<4,>=3.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 28)) (3.5.0)
+Requirement already satisfied: aiosqlite==0.20.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 29)) (0.20.0)
+Requirement already satisfied: alembic==1.13.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 30)) (1.13.1)
+Requirement already satisfied: python-jose==3.3.0 in .\venv\Lib\site-packages (from python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (3.3.0)
+Requirement already satisfied: passlib==1.7.4 in .\venv\Lib\site-packages (from passlib[bcrypt]==1.7.4->-r requirements.txt (line 34)) (1.7.4)
+Requirement already satisfied: slowapi==0.1.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 35)) (0.1.9)
+Requirement already satisfied: httpx<0.29,>=0.26 in .\venv\Lib\site-packages (from -r requirements.txt (line 38)) (0.28.1)
+Requirement already satisfied: aiohttp==3.9.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 39)) (3.9.3)
+Requirement already satisfied: redis==5.0.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 42)) (5.0.1)
+Requirement already satisfied: python-dotenv>=1.0.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 45)) (1.0.1)
+Requirement already satisfied: pydantic<3,>=2.10.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 46)) (2.13.4)
+Requirement already satisfied: pydantic-core<3,>=2.27.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 47)) (2.46.4)
+Requirement already satisfied: pydantic-settings>=2.6.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 48)) (2.14.1)
+Requirement already satisfied: numpy<3,>=2.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 51)) (2.4.4)
+Requirement already satisfied: grpcio<2,>=1.68 in .\venv\Lib\site-packages (from -r requirements.txt (line 52)) (1.80.0)
+Requirement already satisfied: beautifulsoup4==4.12.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 55)) (4.12.3)
+Requirement already satisfied: lxml==5.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 56)) (5.1.0)
+Requirement already satisfied: tenacity==8.2.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 59)) (8.2.3)
+Requirement already satisfied: structlog==24.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 60)) (24.1.0)
+Requirement already satisfied: python-socketio>=5.11.0 in .\venv\Lib\site-packages (from python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 63)) (5.16.1)
+Requirement already satisfied: aiofiles>=24.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 64)) (25.1.0)
+Requirement already satisfied: Pillow>=10.0.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 65)) (12.0.0)
+Requirement already satisfied: boto3>=1.35.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 68)) (1.42.14)
+Requirement already satisfied: pytest==8.0.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 71)) (8.0.2)
+Requirement already satisfied: pytest-asyncio==0.23.5 in .\venv\Lib\site-packages (from -r requirements.txt (line 72)) (0.23.5)
+Requirement already satisfied: pytest-cov==4.1.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 7)) (4.1.0)
+Requirement already satisfied: black==24.2.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 10)) (24.2.0)
+Requirement already satisfied: isort==5.13.2 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 11)) (5.13.2)
+Requirement already satisfied: flake8==7.0.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 12)) (7.0.0)
+Requirement already satisfied: mypy==1.8.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 13)) (1.8.0)
+Requirement already satisfied: ruff==0.8.4 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 14)) (0.8.4)
+Requirement already satisfied: mkdocs==1.5.3 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 17)) (1.5.3)
+Requirement already satisfied: mkdocs-material==9.5.9 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 18)) (9.5.9)
+Requirement already satisfied: starlette<0.37.0,>=0.36.3 in .\venv\Lib\site-packages (from fastapi==0.109.2->-r requirements.txt (line 2)) (0.36.3)
+Requirement already satisfied: typing-extensions>=4.8.0 in .\venv\Lib\site-packages (from fastapi==0.109.2->-r requirements.txt (line 2)) (4.15.0)
+Requirement already satisfied: click>=7.0 in .\venv\Lib\site-packages (from uvicorn==0.27.1->uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (8.3.1)
+Requirement already satisfied: h11>=0.8 in .\venv\Lib\site-packages (from uvicorn==0.27.1->uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.16.0)
+Requirement already satisfied: graphql-core<3.4.0,>=3.2.0 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (3.2.8)
+Requirement already satisfied: python-dateutil>=2.7 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (2.9.0.post0)
+Requirement already satisfied: packaging>=23 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (23.2)
+Requirement already satisfied: cross-web>=0.6.0 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (0.6.0)
+Requirement already satisfied: tqdm in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (4.67.1)
+Requirement already satisfied: scikit-learn in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.8.0)
+Requirement already satisfied: scipy in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.16.3)
+Requirement already satisfied: filelock in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (3.20.0)
+Requirement already satisfied: pyyaml>=5.1 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (6.0.3)
+Requirement already satisfied: regex!=2019.12.17 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (2025.11.3)
+Requirement already satisfied: requests in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (2.32.5)
+Requirement already satisfied: tokenizers<0.19,>=0.14 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (0.15.2)
+Requirement already satisfied: safetensors>=0.4.1 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (0.7.0)
+Requirement already satisfied: fsspec>=2023.5.0 in .\venv\Lib\site-packages (from huggingface-hub==0.21.2->-r requirements.txt (line 13)) (2025.12.0)
+Requirement already satisfied: sympy in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 12)) (1.14.0)
+Requirement already satisfied: networkx in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 12)) (3.6.1)
+Requirement already satisfied: jinja2 in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 12)) (3.1.6)
+Requirement already satisfied: build>=1.0.3 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.3.0)
+Requirement already satisfied: pybase64>=1.4.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.4.3)
+Requirement already satisfied: onnxruntime>=1.14.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.23.2)
+Requirement already satisfied: opentelemetry-api>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
+Requirement already satisfied: opentelemetry-exporter-otlp-proto-grpc>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
+Requirement already satisfied: opentelemetry-sdk>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
+Requirement already satisfied: pypika>=0.48.9 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (0.48.9)
+Requirement already satisfied: overrides>=7.3.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (7.7.0)
+Requirement already satisfied: importlib-resources in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (6.5.2)
+Requirement already satisfied: bcrypt>=4.0.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (5.0.0)
+Requirement already satisfied: typer>=0.9.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (0.20.0)
+Requirement already satisfied: kubernetes>=28.1.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (34.1.0)
+Requirement already satisfied: mmh3>=4.0.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (5.2.0)
+Requirement already satisfied: orjson>=3.9.12 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (3.11.9)
+Requirement already satisfied: rich>=10.11.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (14.2.0)
+Requirement already satisfied: jsonschema>=4.19.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (4.26.0)
+Requirement already satisfied: PyMuPDFb==1.23.7 in .\venv\Lib\site-packages (from PyMuPDF==1.23.8->-r requirements.txt (line 19)) (1.23.7)
+Requirement already satisfied: pytz>=2020.1 in .\venv\Lib\site-packages (from pandas==2.2.3->-r requirements.txt (line 22)) (2025.2)
+Requirement already satisfied: tzdata>=2022.7 in .\venv\Lib\site-packages (from pandas==2.2.3->-r requirements.txt (line 22)) (2026.2)
+Requirement already satisfied: et-xmlfile in .\venv\Lib\site-packages (from openpyxl==3.1.5->-r requirements.txt (line 23)) (2.0.0)
+Requirement already satisfied: Mako in .\venv\Lib\site-packages (from alembic==1.13.1->-r requirements.txt (line 30)) (1.3.10)
+Requirement already satisfied: ecdsa!=0.15 in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (0.19.1)
+Requirement already satisfied: rsa in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (4.9.1)
+Requirement already satisfied: pyasn1 in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (0.6.1)
+Requirement already satisfied: limits>=2.3 in .\venv\Lib\site-packages (from slowapi==0.1.9->-r requirements.txt (line 35)) (5.6.0)
+Requirement already satisfied: aiosignal>=1.1.2 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 39)) (1.4.0)
+Requirement already satisfied: attrs>=17.3.0 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 39)) (25.4.0)
+Requirement already satisfied: frozenlist>=1.1.1 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 39)) (1.8.0)
+Requirement already satisfied: multidict<7.0,>=4.5 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 39)) (6.7.0)
+Requirement already satisfied: yarl<2.0,>=1.0 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 39)) (1.22.0)
+Requirement already satisfied: soupsieve>1.2 in .\venv\Lib\site-packages (from beautifulsoup4==4.12.3->-r requirements.txt (line 55)) (2.8)
+Requirement already satisfied: iniconfig in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 71)) (2.3.0)
+Requirement already satisfied: pluggy<2.0,>=1.3.0 in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 71)) (1.6.0)
+Requirement already satisfied: colorama in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 71)) (0.4.6)
+Requirement already satisfied: coverage>=5.2.1 in .\venv\Lib\site-packages (from coverage[toml]>=5.2.1->pytest-cov==4.1.0->-r requirements-dev.txt (line 7)) (7.13.5)
+Requirement already satisfied: mypy-extensions>=0.4.3 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (1.1.0)
+Requirement already satisfied: pathspec>=0.9.0 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (1.1.1)
+Requirement already satisfied: platformdirs>=2 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (4.9.6)
+Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (0.7.0)
+Requirement already satisfied: pycodestyle<2.12.0,>=2.11.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (2.11.1)
+Requirement already satisfied: pyflakes<3.3.0,>=3.2.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (3.2.0)
+Requirement already satisfied: ghp-import>=1.0 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (2.1.0)
+Requirement already satisfied: markdown>=3.2.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (3.10.2)
+Requirement already satisfied: markupsafe>=2.0.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (3.0.3)
+Requirement already satisfied: mergedeep>=1.3.4 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (1.3.4)
+Requirement already satisfied: pyyaml-env-tag>=0.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (1.1)
+Requirement already satisfied: watchdog>=2.0 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 17)) (6.0.0)
+Requirement already satisfied: babel~=2.10 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (2.18.0)
+Requirement already satisfied: mkdocs-material-extensions~=1.3 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (1.3.1)
+Requirement already satisfied: paginate~=0.5 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (0.5.7)
+Requirement already satisfied: pygments~=2.16 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (2.19.2)
+Requirement already satisfied: pymdown-extensions~=10.2 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 18)) (10.21.2)
+Requirement already satisfied: cryptography>=3.4.0 in .\venv\Lib\site-packages (from python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (46.0.3)
+Requirement already satisfied: httptools>=0.5.0 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.7.1)
+Requirement already satisfied: watchfiles>=0.13 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (1.1.1)
+Requirement already satisfied: anyio in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 38)) (4.12.0)
+Requirement already satisfied: certifi in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 38)) (2025.11.12)
+Requirement already satisfied: httpcore==1.* in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 38)) (1.0.9)
+Requirement already satisfied: idna in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 38)) (3.11)
+Requirement already satisfied: annotated-types>=0.6.0 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 46)) (0.7.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 46)) (0.4.2)
+Requirement already satisfied: charset_normalizer<4,>=2 in .\venv\Lib\site-packages (from requests->transformers==4.38.1->-r requirements.txt (line 11)) (3.4.4)
+Requirement already satisfied: urllib3<3,>=1.21.1 in .\venv\Lib\site-packages (from requests->transformers==4.38.1->-r requirements.txt (line 11)) (2.3.0)
+Requirement already satisfied: propcache>=0.2.1 in .\venv\Lib\site-packages (from yarl<2.0,>=1.0->aiohttp==3.9.3->-r requirements.txt (line 39)) (0.4.1)
+Requirement already satisfied: bidict>=0.21.0 in .\venv\Lib\site-packages (from python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 63)) (0.23.1)
+Requirement already satisfied: python-engineio>=4.11.0 in .\venv\Lib\site-packages (from python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 63)) (4.13.1)
+Requirement already satisfied: botocore<1.43.0,>=1.42.14 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 68)) (1.42.14)
+Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 68)) (1.0.1)
+Requirement already satisfied: s3transfer<0.17.0,>=0.16.0 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 68)) (0.16.0)
+Requirement already satisfied: six>=1.5 in .\venv\Lib\site-packages (from python-dateutil>=2.7->strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (1.17.0)
+Requirement already satisfied: pyproject_hooks in .\venv\Lib\site-packages (from build>=1.0.3->chromadb==1.5.9->-r requirements.txt (line 16)) (1.2.0)
+Requirement already satisfied: cffi>=2.0.0 in .\venv\Lib\site-packages (from cryptography>=3.4.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (2.0.0)
+Requirement already satisfied: pycparser in .\venv\Lib\site-packages (from cffi>=2.0.0->cryptography>=3.4.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (2.23)
+Requirement already satisfied: jsonschema-specifications>=2023.03.6 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 16)) (2025.9.1)
+Requirement already satisfied: referencing>=0.28.4 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.37.0)
+Requirement already satisfied: rpds-py>=0.25.0 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.30.0)
+Requirement already satisfied: google-auth>=1.0.1 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (2.43.0)
+Requirement already satisfied: websocket-client!=0.40.0,!=0.41.*,!=0.42.*,>=0.32.0 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.9.0)
+Requirement already satisfied: requests-oauthlib in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (2.0.0)
+Requirement already satisfied: durationpy>=0.7 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.10)
+Requirement already satisfied: cachetools<7.0,>=2.0.0 in .\venv\Lib\site-packages (from google-auth>=1.0.1->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (6.2.3)
+Requirement already satisfied: pyasn1-modules>=0.2.1 in .\venv\Lib\site-packages (from google-auth>=1.0.1->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.4.2)
+Requirement already satisfied: deprecated>=1.2 in .\venv\Lib\site-packages (from limits>=2.3->slowapi==0.1.9->-r requirements.txt (line 35)) (1.3.1)
+Requirement already satisfied: wrapt<3,>=1.10 in .\venv\Lib\site-packages (from deprecated>=1.2->limits>=2.3->slowapi==0.1.9->-r requirements.txt (line 35)) (1.17.3)
+Requirement already satisfied: coloredlogs in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (15.0.1)
+Requirement already satisfied: flatbuffers in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (25.9.23)
+Requirement already satisfied: protobuf in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (6.33.6)
+Requirement already satisfied: importlib-metadata<8.8.0,>=6.0 in .\venv\Lib\site-packages (from opentelemetry-api>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (8.7.0)
+Requirement already satisfied: zipp>=3.20 in .\venv\Lib\site-packages (from importlib-metadata<8.8.0,>=6.0->opentelemetry-api>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (3.23.0)
+Requirement already satisfied: googleapis-common-protos~=1.57 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.75.0)
+Requirement already satisfied: opentelemetry-exporter-otlp-proto-common==1.39.1 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
+Requirement already satisfied: opentelemetry-proto==1.39.1 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
+Requirement already satisfied: opentelemetry-semantic-conventions==0.60b1 in .\venv\Lib\site-packages (from opentelemetry-sdk>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.60b1)
+Requirement already satisfied: simple-websocket>=0.10.0 in .\venv\Lib\site-packages (from python-engineio>=4.11.0->python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 63)) (1.1.0)
+Requirement already satisfied: markdown-it-py>=2.2.0 in .\venv\Lib\site-packages (from rich>=10.11.0->chromadb==1.5.9->-r requirements.txt (line 16)) (4.0.0)
+Requirement already satisfied: mdurl~=0.1 in .\venv\Lib\site-packages (from markdown-it-py>=2.2.0->rich>=10.11.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.1.2)
+Requirement already satisfied: wsproto in .\venv\Lib\site-packages (from simple-websocket>=0.10.0->python-engineio>=4.11.0->python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 63)) (1.3.2)
+Requirement already satisfied: shellingham>=1.3.0 in .\venv\Lib\site-packages (from typer>=0.9.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.5.4)
+Requirement already satisfied: humanfriendly>=9.1 in .\venv\Lib\site-packages (from coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (10.0)
+Requirement already satisfied: pyreadline3 in .\venv\Lib\site-packages (from humanfriendly>=9.1->coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (3.5.4)
+Requirement already satisfied: oauthlib>=3.0.0 in .\venv\Lib\site-packages (from requests-oauthlib->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (3.3.1)
+Requirement already satisfied: joblib>=1.3.0 in .\venv\Lib\site-packages (from scikit-learn->sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.5.2)
+Requirement already satisfied: threadpoolctl>=3.2.0 in .\venv\Lib\site-packages (from scikit-learn->sentence-transformers==2.5.1->-r requirements.txt (line 10)) (3.6.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in .\venv\Lib\site-packages (from sympy->torch==2.2.0->-r requirements.txt (line 12)) (1.3.0)
+  OK Dependencies installed
+
+[2/10] Environment validation (preflight)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  scripts\validate_env.py
+validate_env: OK - settings load successfully
+  OK Environment validation passed
+
+[3/10] Type checking (mypy)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m mypy app/
+app\services\gemini\functions.py:20: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\core\streaming_processor.py:162: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\core\streaming_processor.py:163: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\core\connection_manager.py:23: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\core\connection_manager.py:24: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\core\connection_manager.py:25: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\core\connection_manager.py:27: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\services\metrics\websocket_metrics.py:26: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\services\metrics\websocket_metrics.py:27: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\services\metrics\websocket_metrics.py:28: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\api\ws_gateway.py:36: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\api\ws_gateway.py:37: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+app\services\multimodal\elevenlabs_tts.py:36: note: By default the bodies of untyped functions are not checked, consider using --check-untyped-defs  [annotation-unchecked]
+Success: no issues found in 269 source files
+  OK mypy passed
+
+[4/10] Formatting checks (black)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m black --check app/ scripts/ tests/
+All done! ✨ 🍰 ✨
+274 files would be left unchanged.
+  OK black check passed
+
+[4b/10] Prettier (Markdown, JSON, YAML)...
+----------------------------------------
+  Running: npm ci (or npm install) then npm run format:check
+
+added 1 package, and audited 2 packages in 1s
+
+1 package is looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> format:check
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+  OK Prettier check passed
+
+[5/10] Linting (ruff)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m ruff check app/ scripts/ tests/
+All checks passed!
+  OK ruff passed
+
+[6/10] Running tests (pytest)...
+----------------------------------------
+  ENVIRONMENT=test
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pytest tests/
+=================================================================== test session starts ===================================================================
+platform win32 -- Python 3.13.13, pytest-8.0.2, pluggy-1.6.0 -- E:\durgas_ai\ai.backend\venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: E:\durgas_ai\ai.backend
+configfile: pytest.ini
+plugins: anyio-4.12.0, asyncio-0.23.5, cov-4.1.0
+asyncio: mode=Mode.AUTO
+collected 5 items
+
+tests/council/hallucination_eval/test_eval_harness.py::test_eval_harness_smoke PASSED                                                                [ 20%]
+tests/council/test_verifier_rag.py::test_verify_unsupported_empty_hits PASSED                                                                        [ 40%]
+tests/council/test_verifier_rag.py::test_verify_supported_with_strong_match PASSED                                                                   [ 60%]
+tests/test_graphql_schema.py::test_schema_introspection_has_auth_mutations PASSED                                                                    [ 80%]
+tests/test_graphql_schema.py::test_schema_has_chat_query_fields PASSED                                                                               [100%]
+
+==================================================================== 5 passed in 3.56s ====================================================================
+  OK Tests passed
+
+[6b] Coverage skipped (set RUN_TEST_COVERAGE=1 for pytest --cov=app)
+
+[7/10] API best-practices checklist...
+----------------------------------------
+  Output: reports\check_report_bat.json
+Best-practices score: 43.0/100
+  OK Best-practices check passed
+
+[8/10] Final format (black)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m black app/ scripts/ tests/
+All done! ✨ 🍰 ✨
+274 files left unchanged.
+  OK black formatting applied
+
+[9/10] Install / import integrity...
+----------------------------------------
+  Skipping pip check (Windows Python 3.13+; set FORCE_PIP_CHECK=1 to run)
+  Import smoke: from app.main import app
+  OK app.main import succeeded
+
+
+========================================
+  SUMMARY
+========================================
+
+Section Status:
+  [0] Source inventory:              PASSED
+  [0b] Docker hint:                   DONE
+  [1] Pip dependencies:              PASSED
+  [2] Environment validate:          PASSED
+  [3] mypy:                          PASSED
+  [4] black --check:                 PASSED
+  [4b] Prettier:                     PASSED
+  [5] ruff check:                    PASSED
+  [6] pytest:                        PASSED
+  [6b] pytest coverage:              SKIPPED
+  [7] Best practices:               PASSED
+  [8] black (apply):                 PASSED
+  [9] pip check + import app:        PASSED
+
+  OK All blocking checks passed
+
+  Start API server? (Y/N)
+ Terminate batch job (Y/N)?
+^C
+========================================
+  CHECK COMPLETE
+========================================
+
+
+E:\durgas_ai\ai.backend>

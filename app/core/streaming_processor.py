@@ -154,7 +154,7 @@ class TokenCounter:
     Count tokens and track statistics in streaming responses.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.token_count = 0
         self.char_count = 0
         self.word_count = 0

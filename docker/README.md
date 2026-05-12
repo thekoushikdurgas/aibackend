@@ -28,6 +28,7 @@ docker compose --env-file .env -f compose.yaml up -d --build
 
 ## Notes
 
+- If Redis fails to start with **port 6379 already allocated** on the host, set **`REDIS_EXTERNAL_PORT`** in `.env` (for example `6380`). Containers still talk to Redis at `redis:6379` on the internal network.
 - Set `DATABASE_URL` / `POSTGRESQL_URL` in `.env` for local (non-Docker) runs; Compose overrides these for the backend container to point at the `db` service.
 - Local file uploads use `STORAGE_ROOT` (default `./data/storage`); ensure the `backend_data` volume or bind mount includes that path.
 - Socket.IO is mounted at `SOCKETIO_MOUNT_PATH` (default `/realtime`) for push events.

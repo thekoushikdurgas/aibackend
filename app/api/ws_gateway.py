@@ -32,7 +32,7 @@ router = APIRouter()
 class WebSocketGateway:
     """Main WebSocket gateway with JSON-RPC 2.0 routing"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.methods: Dict[str, Callable] = {}
         self._rate_windows: Dict[str, deque] = defaultdict(deque)
         self.register_all_methods()

@@ -5,6 +5,7 @@ Authentication WebSocket Methods (local JWT + SQLAlchemy users).
 from __future__ import annotations
 
 import logging
+from datetime import datetime
 from typing import Any, Dict, Optional, cast
 
 from fastapi import HTTPException
@@ -31,8 +32,31 @@ from app.core.ws_auth import require_auth
 from app.database.repositories.profile_repo import ProfileRepository
 from app.database.repositories.user_repo import UserRepository
 from app.database.sqlalchemy import AsyncSessionLocal
+from app.models.user import User
 
 logger = logging.getLogger(__name__)
+
+
+def _user_plain(
+    u: User,
+) -> tuple[str, str, int, Optional[str], Optional[Dict[str, Any]], Optional[datetime]]:
+    """Narrow classic SQLAlchemy ``Column`` types to runtime values for JWT helpers."""
+    raw_meta = u.user_metadata
+    meta: Optional[Dict[str, Any]]
+    if raw_meta is None:
+        meta = None
+    elif isinstance(raw_meta, dict):
+        meta = raw_meta
+    else:
+        meta = None
+    return (
+        cast(str, u.id),
+        cast(str, u.email),
+        int(cast(int, u.token_version or 0)),
+        cast(Optional[str], u.hashed_password),
+        meta,
+        cast(Optional[datetime], u.created_at),
+    )
 
 
 async def handle_auth_signup(
@@ -63,18 +87,18 @@ async def handle_auth_signup(
                 is_verified=True,
             )
             pr = ProfileRepository(session)
-            await pr.create_for_user(u.id)
+            uid, em, tv, _, meta, created = _user_plain(u)
+            await pr.create_for_user(uid)
             await session.commit()
             await session.refresh(u)
+            uid, em, tv, _, meta, created = _user_plain(u)
 
-            access, exp_at = issue_access_token(u.id, u.email, u.token_version or 0)
-            refresh = issue_refresh_token(u.id, u.token_version or 0)
-            sess = session_dict_from_user_row(u.id, u.email, access, refresh, exp_at)
+            access, exp_at = issue_access_token(uid, em, tv)
+            refresh = issue_refresh_token(uid, tv)
+            sess = session_dict_from_user_row(uid, em, access, refresh, exp_at)
             return {
                 "success": True,
-                "user": user_dict_from_claims_and_db(
-                    u.id, u.email, u.user_metadata, u.created_at
-                ),
+                "user": user_dict_from_claims_and_db(uid, em, meta, created),
                 "session": sess,
                 "requires_confirmation": False,
             }
@@ -104,7 +128,12 @@ async def handle_auth_signin(
     async with AsyncSessionLocal() as session:
         ur = UserRepository(session)
         u = await ur.get_by_email(email)
-        if not u or not verify_password(password, u.hashed_password):
+        if not u:
+            raise JSONRPCError(
+                JSONRPCErrorCode.AUTHENTICATION_ERROR, "Invalid email or password"
+            )
+        _, _, _, hashed_pw, _, _ = _user_plain(u)
+        if not verify_password(password, hashed_pw):
             raise JSONRPCError(
                 JSONRPCErrorCode.AUTHENTICATION_ERROR, "Invalid email or password"
             )
@@ -113,14 +142,13 @@ async def handle_auth_signin(
                 JSONRPCErrorCode.AUTHENTICATION_ERROR, "Account is disabled"
             )
 
-        access, exp_at = issue_access_token(u.id, u.email, u.token_version or 0)
-        refresh = issue_refresh_token(u.id, u.token_version or 0)
-        sess = session_dict_from_user_row(u.id, u.email, access, refresh, exp_at)
+        uid, em, tv, _, meta, created = _user_plain(u)
+        access, exp_at = issue_access_token(uid, em, tv)
+        refresh = issue_refresh_token(uid, tv)
+        sess = session_dict_from_user_row(uid, em, access, refresh, exp_at)
         return {
             "success": True,
-            "user": user_dict_from_claims_and_db(
-                u.id, u.email, u.user_metadata, u.created_at
-            ),
+            "user": user_dict_from_claims_and_db(uid, em, meta, created),
             "session": sess,
         }
 
@@ -178,9 +206,10 @@ async def handle_auth_refresh(
                 JSONRPCErrorCode.AUTHENTICATION_ERROR, "Session has been revoked"
             )
 
-        access, exp_at = issue_access_token(u.id, u.email, u.token_version or 0)
-        new_refresh = issue_refresh_token(u.id, u.token_version or 0)
-        sess = session_dict_from_user_row(u.id, u.email, access, new_refresh, exp_at)
+        uid, em, tv, _, _, _ = _user_plain(u)
+        access, exp_at = issue_access_token(uid, em, tv)
+        new_refresh = issue_refresh_token(uid, tv)
+        sess = session_dict_from_user_row(uid, em, access, new_refresh, exp_at)
         await session.commit()
         return {"success": True, "session": sess}
 
@@ -239,7 +268,8 @@ async def handle_auth_reset_password_request(
         ur = UserRepository(session)
         u = await ur.get_by_email(email)
         if u:
-            tok = issue_password_reset_token(u.id)
+            uid, _, _, _, _, _ = _user_plain(u)
+            tok = issue_password_reset_token(uid)
             if settings.debug:
                 logger.info("[debug] password reset token for %s: %s", email, tok)
         await session.commit()
@@ -311,12 +341,11 @@ async def handle_auth_update_user(
         await session.commit()
         u2 = await ur.get_by_id(uid)
         assert u2 is not None
+        row_uid, em, _, _, meta, created = _user_plain(u2)
 
         return {
             "success": True,
-            "user": user_dict_from_claims_and_db(
-                u2.id, u2.email, u2.user_metadata, u2.created_at
-            ),
+            "user": user_dict_from_claims_and_db(row_uid, em, meta, created),
         }
 
 
