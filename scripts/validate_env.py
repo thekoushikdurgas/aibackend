@@ -129,7 +129,17 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    from app.config import get_settings
+    try:
+        from app.config import get_settings
+    except ModuleNotFoundError as exc:
+        name = getattr(exc, "name", None) or str(exc)
+        print(
+            "validate_env: missing dependency module "
+            f"'{name}'. Install the project first, e.g.\n"
+            "  python3 -m venv venv && ./venv/bin/pip install -r requirements.txt",
+            file=sys.stderr,
+        )
+        return 1
 
     get_settings.cache_clear()
     try:
