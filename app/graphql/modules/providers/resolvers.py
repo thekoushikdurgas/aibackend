@@ -62,7 +62,10 @@ class ProvidersMutation:
         handlers = _provider_chat_handlers()
         handler = handlers.get(key)
         if handler is None:
-            raise GraphQLError(f"Unknown provider for providerChat: {provider_name}")
+            raise GraphQLError(
+                f"Unknown provider for providerChat: {provider_name}",
+                extensions={"code": "NOT_FOUND"},
+            )
         p = dict(params) if isinstance(params, dict) else {}
         if key in (
             "groq",

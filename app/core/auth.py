@@ -8,10 +8,10 @@ import logging
 from datetime import datetime, timedelta
 from typing import Any, Dict, Optional
 
+import bcrypt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, APIKeyHeader
 from jose import JWTError, jwt
-from passlib.context import CryptContext
 
 from app.config import settings
 
@@ -20,7 +20,8 @@ logger = logging.getLogger(__name__)
 bearer_scheme = HTTPBearer(auto_error=False)
 api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# bcrypt rejects secrets longer than 72 bytes (UTF-8); align with prior passlib/bcrypt behavior.
+_BCRYPT_MAX_PASSWORD_BYTES = 72
 
 JWT_TYP_ACCESS = "access"
 JWT_TYP_REFRESH = "refresh"
@@ -29,13 +30,28 @@ JWT_TYP_MAGIC_LOGIN = "magic_login"
 
 
 def hash_password(plain: str) -> str:
-    return pwd_context.hash(plain)
+    raw = plain.encode("utf-8")
+    if len(raw) > _BCRYPT_MAX_PASSWORD_BYTES:
+        raise ValueError(
+            f"Password is too long (max {_BCRYPT_MAX_PASSWORD_BYTES} bytes in UTF-8)."
+        )
+    return bcrypt.hashpw(raw, bcrypt.gensalt(rounds=12)).decode("ascii")
 
 
 def verify_password(plain: str, hashed: Optional[str]) -> bool:
     if not hashed:
         return False
-    return pwd_context.verify(plain, hashed)
+    raw = plain.encode("utf-8")
+    # Legacy bcrypt (and older passlib) truncated at 72 bytes; match that on verify.
+    if len(raw) > _BCRYPT_MAX_PASSWORD_BYTES:
+        raw = raw[:_BCRYPT_MAX_PASSWORD_BYTES]
+    try:
+        return bcrypt.checkpw(
+            raw,
+            hashed.encode("utf-8"),
+        )
+    except (ValueError, TypeError):
+        return False
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:

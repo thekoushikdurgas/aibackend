@@ -79,7 +79,7 @@ Write-Host ""
 Install-Packages "Database" @("sqlalchemy==2.0.27", "aiosqlite==0.20.0", "alembic==1.13.1")
 
 # Batch 8: Authentication
-Install-Packages "Authentication" @("python-jose[cryptography]==3.3.0", "passlib[bcrypt]==1.7.4", "slowapi==0.1.9")
+Install-Packages "Authentication" @("python-jose[cryptography]==3.3.0", "bcrypt>=4.1.0,<5", "slowapi==0.1.9")
 
 # Batch 9: HTTP Clients
 Install-Packages "HTTP Clients" @("httpx==0.27.0", "aiohttp==3.9.3")

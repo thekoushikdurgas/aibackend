@@ -31,7 +31,8 @@ alembic==1.13.1
 
 # Authentication & Security
 python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
+# passlib 1.7.4 is incompatible with bcrypt 4.1+ (__about__ removed, strict 72-byte checks in init)
+bcrypt>=4.1.0,<5
 slowapi==0.1.9
 
 # HTTP Client (chromadb 1.x expects httpx 0.26–0.28)

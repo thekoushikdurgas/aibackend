@@ -114,7 +114,13 @@ class WebSocketGateway:
             rate_key = connection_id
             if user and user.get("sub"):
                 rate_key = f"user:{user['sub']}"
-            if not self._allow_request(rate_key):
+            limit = settings.rate_limit_per_minute_anonymous
+            if user:
+                if user.get("type") == "api_key":
+                    limit = settings.rate_limit_per_minute_api_key
+                else:
+                    limit = settings.rate_limit_per_minute_authenticated
+            if not self._allow_request(rate_key, limit=limit):
                 await self._send_error(
                     websocket,
                     request_id,
@@ -182,13 +188,13 @@ class WebSocketGateway:
             response = create_error_response(request_id, code, message, data)
             await websocket.send_json(response)
 
-    def _allow_request(self, key: str) -> bool:
+    def _allow_request(self, key: str, *, limit: int) -> bool:
         now = time.time()
         one_minute_ago = now - 60
         window = self._rate_windows[key]
         while window and window[0] < one_minute_ago:
             window.popleft()
-        if len(window) >= settings.rate_limit_per_minute:
+        if len(window) >= limit:
             return False
         window.append(now)
         return True

@@ -17,6 +17,9 @@ from app.graphql.modules.rag.resolvers import RagMutation, RagQuery
 from app.graphql.modules.storage.resolvers import StorageMutation, StorageQuery
 from app.graphql.modules.tools.resolvers import ToolsMutation
 from app.graphql.modules.vision.resolvers import VisionMutation
+from app.graphql.modules.weather.resolvers import WeatherQuery
+from app.graphql.modules.workflows.resolvers import WorkflowsMutation, WorkflowsQuery
+from app.graphql.modules.widgets.resolvers import WidgetsMutation, WidgetsQuery
 
 
 @strawberry.type
@@ -29,6 +32,9 @@ class Query(
     MetricsQuery,
     ProvidersQuery,
     HealthQuery,
+    WeatherQuery,
+    WorkflowsQuery,
+    WidgetsQuery,
 ):
     """Root GraphQL query (modular mix-ins)."""
 
@@ -46,6 +52,8 @@ class Mutation(
     ProvidersMutation,
     MediaMutation,
     ToolsMutation,
+    WorkflowsMutation,
+    WidgetsMutation,
 ):
     """Root GraphQL mutation (modular mix-ins)."""
 

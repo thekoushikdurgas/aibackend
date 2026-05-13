@@ -5,19 +5,28 @@ Alembic environment configuration
 from logging.config import fileConfig
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
-from sqlalchemy.ext.asyncio import async_engine_from_config
+from sqlalchemy.ext.asyncio import create_async_engine
 
 from alembic import context
 
 # Import your models' Base
 from app.models.metrics import Base
 from app.config import settings
+from app.database.sqlalchemy import _root_cause_is_unreachable_postgres
 
 # this is the Alembic Config object
 config = context.config
 
-# Set the database URL from settings
-config.set_main_option("sqlalchemy.url", settings.database_url)
+
+def _escape_url_for_ini(url: str) -> str:
+    """Alembic stores sqlalchemy.url in ConfigParser; % starts interpolation."""
+    return url.replace("%", "%%")
+
+
+# Set the database URL from settings (passwords may contain URL-encoded %2F, %3D, etc.)
+config.set_main_option(
+    "sqlalchemy.url", _escape_url_for_ini(settings.effective_database_url)
+)
 
 # Interpret the config file for Python logging.
 if config.config_file_name is not None:
@@ -63,6 +72,18 @@ def do_run_migrations(connection: Connection) -> None:
         context.run_migrations()
 
 
+def _connect_args_for_url(url: str) -> dict:
+    """Driver-specific connect args (timeouts, SQLite thread check)."""
+    if "sqlite" in url.lower():
+        return {"check_same_thread": False}
+    if "+asyncpg" in url or (
+        "postgresql" in url.lower() and "async" in url.lower()
+    ):
+        # Avoid indefinite hangs on Windows (e.g. WinError 121) when host is unreachable.
+        return {"timeout": 45}
+    return {}
+
+
 async def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
 
@@ -70,19 +91,26 @@ async def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
-    configuration = config.get_section(config.config_ini_section, {})
-    configuration["sqlalchemy.url"] = settings.database_url
-    
-    connectable = async_engine_from_config(
-        configuration,
-        prefix="sqlalchemy.",
+    url = settings.effective_database_url
+    connectable = create_async_engine(
+        url,
         poolclass=pool.NullPool,
+        connect_args=_connect_args_for_url(url),
     )
 
-    async with connectable.connect() as connection:
-        await connection.run_sync(do_run_migrations)
-
-    await connectable.dispose()
+    try:
+        async with connectable.connect() as connection:
+            await connection.run_sync(do_run_migrations)
+    except Exception as e:
+        if _root_cause_is_unreachable_postgres(e):
+            raise RuntimeError(
+                "Alembic cannot connect to PostgreSQL (timeout, refused, or unreachable). "
+                "Check VPN/firewall/security groups for the host:port in DATABASE_URL, "
+                "or use sqlite+aiosqlite:///./data/durgasai.db for local migrations."
+            ) from e
+        raise
+    finally:
+        await connectable.dispose()
 
 
 if context.is_offline_mode():

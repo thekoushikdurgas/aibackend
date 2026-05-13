@@ -14,8 +14,13 @@ from fastapi.responses import JSONResponse
 from app.config import settings
 from app.api.http_auth_session import router as http_auth_session_router
 from app.api.routes.files import router as files_router
+from app.api.routes.readiness import router as readiness_router
 from app.api.ws_gateway import websocket_gateway_router
-from app.core.middleware import RequestLoggingMiddleware, ErrorHandlerMiddleware
+from app.core.middleware import (
+    CorrelationIdMiddleware,
+    RequestLoggingMiddleware,
+    ErrorHandlerMiddleware,
+)
 from app.core.rate_limiter import limiter
 from app.core.socketio import mount_socketio
 from strawberry.fastapi import GraphQLRouter
@@ -171,6 +176,11 @@ cors_origins = list(
     )
 )
 
+# Middleware: last added = outermost (runs first on incoming request).
+# Target order: CORS -> CorrelationId -> RequestLogging -> ErrorHandler -> routes
+app.add_middleware(ErrorHandlerMiddleware)
+app.add_middleware(RequestLoggingMiddleware)
+app.add_middleware(CorrelationIdMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=cors_origins,
@@ -180,14 +190,11 @@ app.add_middleware(
     expose_headers=["*"],
 )
 
-# Add custom middleware
-app.add_middleware(ErrorHandlerMiddleware)
-app.add_middleware(RequestLoggingMiddleware)
-
 mount_socketio(app)
 
 # Include WebSocket gateway (replaces all REST endpoints)
 app.include_router(websocket_gateway_router)
+app.include_router(readiness_router)
 app.include_router(http_auth_session_router)
 app.include_router(
     files_router,

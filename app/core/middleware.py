@@ -4,6 +4,8 @@ Custom middleware for DurgasAI Backend
 
 import time
 import logging
+import uuid
+from contextvars import ContextVar
 from typing import Callable, List, Optional
 
 from fastapi import Request, Response
@@ -12,6 +14,30 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import JSONResponse
 
 logger = logging.getLogger(__name__)
+
+CORRELATION_ID_HEADER = "X-Request-ID"
+correlation_id_ctx: ContextVar[Optional[str]] = ContextVar(
+    "correlation_id", default=None
+)
+
+
+class CorrelationIdMiddleware(BaseHTTPMiddleware):
+    """Propagate or generate X-Request-ID for request/response tracing."""
+
+    async def dispatch(self, request: Request, call_next: Callable) -> Response:
+        cid = request.headers.get(CORRELATION_ID_HEADER)
+        if not cid or not str(cid).strip():
+            cid = str(uuid.uuid4())
+        else:
+            cid = str(cid).strip()[:128]
+        request.state.correlation_id = cid
+        token = correlation_id_ctx.set(cid)
+        try:
+            response = await call_next(request)
+            response.headers[CORRELATION_ID_HEADER] = cid
+            return response
+        finally:
+            correlation_id_ctx.reset(token)
 
 
 class RequestLoggingMiddleware(BaseHTTPMiddleware):
@@ -22,8 +48,11 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next: Callable) -> Response:
         start_time = time.time()
 
+        cid = getattr(request.state, "correlation_id", None)
+        cid_part = f" [{cid}]" if cid else ""
+
         # Log request
-        logger.info(f"Request: {request.method} {request.url.path}")
+        logger.info(f"Request{cid_part}: {request.method} {request.url.path}")
 
         # Process request
         response = await call_next(request)
@@ -33,7 +62,7 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
 
         # Log response
         logger.info(
-            f"Response: {request.method} {request.url.path} "
+            f"Response{cid_part}: {request.method} {request.url.path} "
             f"- Status: {response.status_code} "
             f"- Duration: {duration:.3f}s"
         )

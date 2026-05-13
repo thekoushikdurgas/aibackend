@@ -198,11 +198,22 @@ class Settings(BaseSettings):
     api_key: str = "your-api-key-for-extension"
 
     # Rate Limiting
-    rate_limit_per_minute: int = 100
+    rate_limit_per_minute: int = 100  # legacy default; HTTP limiter uses *_anonymous below
     rate_limit_burst: int = 20
+    rate_limit_per_minute_anonymous: int = 60
+    rate_limit_per_minute_authenticated: int = 200
+    rate_limit_per_minute_api_key: int = 500
+
+    # Kafka (optional; producer no-ops when unset)
+    kafka_bootstrap_servers: Optional[str] = None
 
     # CORS
     cors_origins: str = "chrome-extension://,http://localhost:3000"
+
+    # Weather (Open-Meteo; used by DurgasOS desktop widget when coords omitted)
+    weather_default_latitude: float = 40.7128
+    weather_default_longitude: float = -74.006
+    weather_http_timeout_seconds: float = 12.0
 
     # Session cookies (JWT access/refresh for durgasos; shared with GraphQL when using cookies)
     session_cookie_domain: Optional[str] = None

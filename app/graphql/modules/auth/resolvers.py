@@ -12,6 +12,8 @@ from strawberry.types import Info
 from app.api.ws_methods import auth as auth_handlers
 from app.core.auth import user_claims_from_access_token
 from app.core.jsonrpc import JSONRPCError
+from app.database.repositories.user_repo import UserRepository
+from app.database.sqlalchemy import AsyncSessionLocal
 from app.graphql.context import GraphQLContext
 from app.graphql.errors import raise_jsonrpc_as_graphql
 from app.graphql.modules.auth.types import (
@@ -69,6 +71,17 @@ class AuthQuery:
             created_at=None,
         )
 
+    @strawberry.field
+    async def email_registered(self, email: str) -> bool:
+        """Whether an account exists for this email (welcome flow; enables enumeration)."""
+        normalized = email.strip().lower()
+        if not normalized:
+            return False
+        async with AsyncSessionLocal() as session:
+            ur = UserRepository(session)
+            u = await ur.get_by_email(normalized)
+            return u is not None
+
 
 @strawberry.type
 class AuthMutation:
@@ -112,7 +125,10 @@ class AuthMutation:
             raise_jsonrpc_as_graphql(e)
         sess = raw.get("session")
         if not sess:
-            raise GraphQLError("No session returned from refresh")
+            raise GraphQLError(
+                "No session returned from refresh",
+                extensions={"code": "INTERNAL"},
+            )
         return RefreshPayload(
             success=bool(raw.get("success")),
             session=GqlSession(

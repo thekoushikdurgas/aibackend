@@ -1,5 +1,5 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Tue 05/12/2026 16:02:01.99
+Generated: Tue 05/12/2026 21:37:14.81
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
@@ -101,6 +101,8 @@ E:\durgas_ai\ai.backend\app\graphql\modules\tools\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\tools\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\vision\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\vision\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\weather\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\weather\__init__.py
 E:\durgas_ai\ai.backend\app\models\app_schemas.py
 E:\durgas_ai\ai.backend\app\models\claude_code_session.py
 E:\durgas_ai\ai.backend\app\models\conversation.py
@@ -267,6 +269,8 @@ E:\durgas_ai\ai.backend\app\services\scraper\generic_extractor.py
 E:\durgas_ai\ai.backend\app\services\scraper\page_detector.py
 E:\durgas_ai\ai.backend\app\services\scraper\structured_data.py
 E:\durgas_ai\ai.backend\app\services\scraper\__init__.py
+E:\durgas_ai\ai.backend\app\services\weather\open_meteo.py
+E:\durgas_ai\ai.backend\app\services\weather\__init__.py
 E:\durgas_ai\ai.backend\app\utils\file_handler.py
 E:\durgas_ai\ai.backend\app\utils\helpers.py
 E:\durgas_ai\ai.backend\app\utils\html_parser.py
@@ -278,5 +282,6 @@ E:\durgas_ai\ai.backend\scripts\validate_env.py
 
 === tests ===
 E:\durgas_ai\ai.backend\tests\test_graphql_schema.py
+E:\durgas_ai\ai.backend\tests\test_open_meteo_weather.py
 E:\durgas_ai\ai.backend\tests\council\test_verifier_rag.py
 E:\durgas_ai\ai.backend\tests\council\hallucination_eval\test_eval_harness.py

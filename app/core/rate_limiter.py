@@ -28,26 +28,27 @@ def get_identifier(request):
     return get_remote_address(request)
 
 
-# Create limiter instance
+# Create limiter instance (anonymous baseline; route decorators may tighten/loosen).
 limiter = Limiter(
-    key_func=get_identifier, default_limits=[f"{settings.rate_limit_per_minute}/minute"]
+    key_func=get_identifier,
+    default_limits=[f"{settings.rate_limit_per_minute_anonymous}/minute"],
 )
 
 
 # Rate limit decorators for different endpoints
 def rate_limit_chat():
     """Rate limit for chat endpoints - higher limit"""
-    return limiter.limit(f"{settings.rate_limit_per_minute * 2}/minute")
+    return limiter.limit(f"{settings.rate_limit_per_minute_authenticated * 2}/minute")
 
 
 def rate_limit_agents():
     """Rate limit for agent endpoints - standard limit"""
-    return limiter.limit(f"{settings.rate_limit_per_minute}/minute")
+    return limiter.limit(f"{settings.rate_limit_per_minute_authenticated}/minute")
 
 
 def rate_limit_rag():
     """Rate limit for RAG endpoints - lower limit for writes"""
-    return limiter.limit(f"{settings.rate_limit_per_minute // 2}/minute")
+    return limiter.limit(f"{max(1, settings.rate_limit_per_minute_authenticated // 2)}/minute")
 
 
 def rate_limit_auth():

@@ -15,16 +15,25 @@ from app.models.metrics import Base
 from app.models import conversation  # noqa: F401
 from app.models import claude_code_session  # noqa: F401
 from app.models import user as app_user_models  # noqa: F401
+from app.models import durgasos_desktop  # noqa: F401
 
 logger = logging.getLogger(__name__)
 
 # Create async engine
 database_url = settings.effective_database_url
+_connect_args: dict = {}
+if "sqlite" in database_url.lower():
+    _connect_args = {"check_same_thread": False}
+elif "+asyncpg" in database_url or (
+    "postgresql" in database_url.lower() and "async" in database_url
+):
+    _connect_args = {"timeout": 45}
+
 engine = create_async_engine(
     database_url,
     echo=False,
     future=True,
-    connect_args={"check_same_thread": False} if "sqlite" in database_url else {},
+    connect_args=_connect_args,
 )
 
 # Create async session factory
@@ -57,6 +66,9 @@ def _root_cause_is_unreachable_postgres(exc: BaseException) -> bool:
         if isinstance(cur, ConnectionRefusedError):
             return True
         if isinstance(cur, OSError):
+            # Windows: WinError 121 (semaphore timeout) during TCP connect — unreachable or blocked host.
+            if getattr(cur, "winerror", None) == 121:
+                return True
             code = getattr(cur, "errno", None)
             if code in (
                 errno.ECONNREFUSED,

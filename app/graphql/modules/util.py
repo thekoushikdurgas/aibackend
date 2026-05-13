@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Callable, Dict, Optional
 
+from graphql import GraphQLError
 from strawberry.types import Info
 
 from app.core.auth import user_claims_from_access_token
@@ -35,6 +36,17 @@ def user_from_info(info: Info) -> Optional[Dict[str, Any]]:
         "user_metadata": data.get("user_metadata") or {},
         "app_metadata": data.get("app_metadata") or {},
     }
+
+
+def require_authenticated_sub(info: Info) -> str:
+    """Require a valid JWT subject for desktop persistence mutations."""
+    user = user_from_info(info)
+    if not user or not user.get("sub"):
+        raise GraphQLError(
+            "Authentication required",
+            extensions={"code": "UNAUTHENTICATED"},
+        )
+    return str(user["sub"])
 
 
 async def run_ws(

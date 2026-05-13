@@ -34,6 +34,13 @@ from .metrics import BenchmarkRun, ProviderMetric, LatencyHistory, ErrorLog, Bas
 from .conversation import Conversation, Message, MessageRole
 from .claude_code_session import ClaudeCodeSessionModel
 
+# Import DurgasOS desktop persistence
+from .durgasos_desktop import (
+    WorkflowDefinitionModel,
+    WorkflowRunModel,
+    WidgetLayoutModel,
+)
+
 __all__ = [
     "ChatRequest",
     "ChatResponse",
@@ -66,4 +73,7 @@ __all__ = [
     "Message",
     "MessageRole",
     "ClaudeCodeSessionModel",
+    "WorkflowDefinitionModel",
+    "WorkflowRunModel",
+    "WidgetLayoutModel",
 ]

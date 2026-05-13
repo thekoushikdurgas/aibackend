@@ -34,4 +34,5 @@ WS_METHOD_MODULES = [
     "veo",
     "auth",
     "storage",
+    "workflow_runner",
 ]
