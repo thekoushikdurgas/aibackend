@@ -48,7 +48,9 @@ def rate_limit_agents():
 
 def rate_limit_rag():
     """Rate limit for RAG endpoints - lower limit for writes"""
-    return limiter.limit(f"{max(1, settings.rate_limit_per_minute_authenticated // 2)}/minute")
+    return limiter.limit(
+        f"{max(1, settings.rate_limit_per_minute_authenticated // 2)}/minute"
+    )
 
 
 def rate_limit_auth():

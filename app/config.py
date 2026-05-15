@@ -198,7 +198,9 @@ class Settings(BaseSettings):
     api_key: str = "your-api-key-for-extension"
 
     # Rate Limiting
-    rate_limit_per_minute: int = 100  # legacy default; HTTP limiter uses *_anonymous below
+    rate_limit_per_minute: int = (
+        100  # legacy default; HTTP limiter uses *_anonymous below
+    )
     rate_limit_burst: int = 20
     rate_limit_per_minute_anonymous: int = 60
     rate_limit_per_minute_authenticated: int = 200

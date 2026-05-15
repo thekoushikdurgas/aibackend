@@ -66,6 +66,14 @@ class RagQuery:
             info,
         )
 
+    @strawberry.field
+    async def rag_stats(self, info: Info, collection_name: str | None = None) -> JSON:
+        return await run_ws(
+            rag_handlers.handle_rag_documents_stats,
+            {"collection_name": collection_name},
+            info,
+        )
+
 
 @strawberry.type
 class RagMutation:

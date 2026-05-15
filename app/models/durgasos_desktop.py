@@ -17,7 +17,9 @@ class WorkflowDefinitionModel(Base):
     name = Column(String(255), nullable=False)
     spec = Column(JSON, nullable=False, default=dict)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    updated_at = Column(
+        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
+    )
 
 
 class WorkflowRunModel(Base):
@@ -29,7 +31,9 @@ class WorkflowRunModel(Base):
     status = Column(String(32), nullable=False, default="pending")
     events = Column(JSON, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    updated_at = Column(
+        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
+    )
 
 
 class WidgetLayoutModel(Base):
@@ -38,4 +42,6 @@ class WidgetLayoutModel(Base):
     id = Column(String(36), primary_key=True)
     owner_id = Column(String(255), nullable=False, unique=True, index=True)
     layout_json = Column(JSON, nullable=False, default=list)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    updated_at = Column(
+        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
+    )

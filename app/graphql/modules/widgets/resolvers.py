@@ -40,7 +40,9 @@ class WidgetsQuery:
         return WidgetLayout(
             id=strawberry.ID(r.id),
             owner_id=r.owner_id,
-            layout_json=r.layout_json if isinstance(r.layout_json, (list, dict)) else [],
+            layout_json=(
+                r.layout_json if isinstance(r.layout_json, (list, dict)) else []
+            ),
             updated_at=r.updated_at.isoformat() if r.updated_at else "",
         )
 

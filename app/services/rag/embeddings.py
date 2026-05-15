@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 class EmbeddingService:
     """
     Service for generating text embeddings.
-    Supports local (sentence-transformers) and HuggingFace API embeddings.
+    Supports local (sentence-transformers), HuggingFace API, Gemini, Cohere, and Ollama.
     """
 
     def __init__(
@@ -23,7 +23,7 @@ class EmbeddingService:
         Initialize embedding service.
 
         Args:
-            provider: Embedding provider (local or huggingface)
+            provider: Embedding provider (local, huggingface, gemini, cohere, ollama)
             model_name: Model to use for embeddings
         """
         self.provider = provider or settings.embedding_provider
@@ -57,6 +57,8 @@ class EmbeddingService:
             self._load_gemini_model()
         elif self.provider == "cohere":
             self._load_cohere_model()
+        elif self.provider == "ollama":
+            self._load_ollama_model()
         else:
             raise ValueError(f"Unknown embedding provider: {self.provider}")
 
@@ -113,6 +115,60 @@ class EmbeddingService:
             f"Using Cohere API for embeddings: {self.model_name or settings.cohere_embed_model}"
         )
 
+    @staticmethod
+    def _ollama_embed_url() -> str:
+        """POST target for Ollama embeddings (/api/embed)."""
+        base = (settings.ollama_base_url or "").rstrip("/")
+        if not base:
+            base = "http://127.0.0.1:11434/api"
+        if base.endswith("/api"):
+            return f"{base}/embed"
+        return f"{base}/api/embed"
+
+    def _load_ollama_model(self) -> None:
+        """Ollama serves embeddings remotely; no local weight load."""
+        self._model = "ollama_embed"
+        logger.info(f"Using Ollama for embeddings: {self.model_name}")
+
+    def _embed_ollama_request(self, input_payload: Any) -> List[List[float]]:
+        import httpx
+
+        url = self._ollama_embed_url()
+        body: dict[str, Any] = {"model": self.model_name, "input": input_payload}
+        try:
+            response = httpx.post(url, json=body, timeout=120.0)
+            response.raise_for_status()
+            data = response.json()
+        except Exception as e:
+            logger.error(f"Ollama embedding API error: {e}")
+            raise
+
+        embeddings = data.get("embeddings")
+        if isinstance(embeddings, list) and len(embeddings) > 0:
+            out: List[List[float]] = []
+            for row in embeddings:
+                if isinstance(row, list):
+                    out.append([float(x) for x in row])
+                else:
+                    out.append([])
+            return out
+
+        # Some responses may use singular "embedding"
+        single = data.get("embedding")
+        if isinstance(single, list) and single and isinstance(single[0], (int, float)):
+            return [[float(x) for x in single]]
+
+        raise ValueError(f"Unexpected Ollama embed response shape: {data.keys()}")
+
+    def _embed_ollama(self, text: str) -> List[float]:
+        rows = self._embed_ollama_request(text)
+        if not rows or not rows[0]:
+            raise ValueError("Ollama returned empty embedding")
+        return rows[0]
+
+    def _embed_ollama_batch(self, texts: List[str]) -> List[List[float]]:
+        return self._embed_ollama_request(texts)
+
     def embed_text(self, text: str) -> List[float]:
         """
         Generate embedding for a single text.
@@ -131,6 +187,8 @@ class EmbeddingService:
             return self._embed_gemini(text)
         elif self.provider == "cohere":
             return self._embed_cohere(text)
+        elif self.provider == "ollama":
+            return self._embed_ollama(text)
         else:
             raise ValueError(f"Unknown provider: {self.provider}")
 
@@ -152,6 +210,8 @@ class EmbeddingService:
             return self._embed_gemini_batch(texts)
         elif self.provider == "cohere":
             return self._embed_cohere_batch(texts)
+        elif self.provider == "ollama":
+            return self._embed_ollama_batch(texts)
         else:
             raise ValueError(f"Unknown provider: {self.provider}")
 

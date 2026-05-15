@@ -51,16 +51,14 @@ async def handle_chat_completions(
         max_tokens=max_tokens,
     )
 
-    # Get conversation history
+    # Get conversation history (async API required inside asyncio event loop)
     memory = get_conversation_memory()
     history = []
     if conversation_id:
-        # Use sync version for backward compatibility
-        history = memory.get_history_sync(conversation_id, max_messages=10)
-        # Convert to format expected by provider
+        raw_history = await memory.get_history(conversation_id, max_messages=10)
         history = [
             {"role": msg.get("role", "user"), "content": msg.get("content", "")}
-            for msg in history
+            for msg in raw_history
         ]
 
     # Get RAG context if requested
@@ -87,9 +85,8 @@ async def handle_chat_completions(
 
         # Store in memory if conversation_id provided
         if conversation_id:
-            # Use sync version for backward compatibility
-            memory.add_message_sync(conversation_id, "user", message)
-            memory.add_message_sync(
+            await memory.add_message(conversation_id, "user", message)
+            await memory.add_message(
                 conversation_id,
                 "assistant",
                 response.text,
@@ -154,9 +151,8 @@ async def _stream_chat_response_enhanced(
                 model = chunk_data.get("model")
 
                 if conversation_id and full_response:
-                    # Use sync version for backward compatibility
-                    memory.add_message_sync(conversation_id, "user", message)
-                    memory.add_message_sync(
+                    await memory.add_message(conversation_id, "user", message)
+                    await memory.add_message(
                         conversation_id,
                         "assistant",
                         full_response,
@@ -211,13 +207,12 @@ async def _stream_chat_response(
 
         # Store in memory
         if conversation_id:
-            # Use sync version for backward compatibility
-            memory.add_message_sync(conversation_id, "user", message)
+            await memory.add_message(conversation_id, "user", message)
             # Extract provider/model from last chunk if available
             provider = None
             model = None
             # Note: full_response already contains the complete message
-            memory.add_message_sync(
+            await memory.add_message(
                 conversation_id,
                 "assistant",
                 full_response,

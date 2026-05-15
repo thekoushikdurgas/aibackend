@@ -1,5 +1,5 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Tue 05/12/2026 21:37:14.81
+Generated: Wed 05/13/2026 23:10:39.59
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
@@ -19,6 +19,7 @@ E:\durgas_ai\ai.backend\app\api\http_auth_session.py
 E:\durgas_ai\ai.backend\app\api\ws_gateway.py
 E:\durgas_ai\ai.backend\app\api\__init__.py
 E:\durgas_ai\ai.backend\app\api\routes\files.py
+E:\durgas_ai\ai.backend\app\api\routes\readiness.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\agents.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\ai21.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\auth.py
@@ -51,6 +52,7 @@ E:\durgas_ai\ai.backend\app\api\ws_methods\scraper.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\storage.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\veo.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\vision.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\workflow_runner.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\__init__.py
 E:\durgas_ai\ai.backend\app\core\auth.py
 E:\durgas_ai\ai.backend\app\core\connection_manager.py
@@ -103,9 +105,14 @@ E:\durgas_ai\ai.backend\app\graphql\modules\vision\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\vision\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\weather\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\weather\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\widgets\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\widgets\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\workflows\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\workflows\__init__.py
 E:\durgas_ai\ai.backend\app\models\app_schemas.py
 E:\durgas_ai\ai.backend\app\models\claude_code_session.py
 E:\durgas_ai\ai.backend\app\models\conversation.py
+E:\durgas_ai\ai.backend\app\models\durgasos_desktop.py
 E:\durgas_ai\ai.backend\app\models\metrics.py
 E:\durgas_ai\ai.backend\app\models\schemas.py
 E:\durgas_ai\ai.backend\app\models\user.py
@@ -187,6 +194,9 @@ E:\durgas_ai\ai.backend\app\services\hyperbolic\vision.py
 E:\durgas_ai\ai.backend\app\services\hyperbolic\__init__.py
 E:\durgas_ai\ai.backend\app\services\image\deepinfra_image.py
 E:\durgas_ai\ai.backend\app\services\image\__init__.py
+E:\durgas_ai\ai.backend\app\services\kafka\producer.py
+E:\durgas_ai\ai.backend\app\services\kafka\topics.py
+E:\durgas_ai\ai.backend\app\services\kafka\__init__.py
 E:\durgas_ai\ai.backend\app\services\llm\ai21.py
 E:\durgas_ai\ai.backend\app\services\llm\anyscale.py
 E:\durgas_ai\ai.backend\app\services\llm\base.py

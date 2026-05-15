@@ -46,3 +46,4 @@ def test_schema_has_chat_query_fields():
     assert "chatProviders" in names
     assert "systemHealth" in names
     assert "weatherForecast" in names
+    assert "ragStats" in names

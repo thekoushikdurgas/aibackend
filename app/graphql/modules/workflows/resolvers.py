@@ -65,10 +65,15 @@ class WorkflowsQuery:
         user = user_from_info(info)
         sub = user.get("sub") if user else None
         async with AsyncSessionLocal() as db:
-            stmt = select(WorkflowDefinitionModel).order_by(WorkflowDefinitionModel.created_at.desc())
+            stmt = select(WorkflowDefinitionModel).order_by(
+                WorkflowDefinitionModel.created_at.desc()
+            )
             if sub:
                 stmt = stmt.where(
-                    or_(WorkflowDefinitionModel.owner_id == sub, WorkflowDefinitionModel.owner_id.is_(None))
+                    or_(
+                        WorkflowDefinitionModel.owner_id == sub,
+                        WorkflowDefinitionModel.owner_id.is_(None),
+                    )
                 )
             else:
                 stmt = stmt.where(WorkflowDefinitionModel.owner_id.is_(None))
@@ -76,7 +81,9 @@ class WorkflowsQuery:
         return [_wf_row(r) for r in rows]
 
     @strawberry.field
-    async def workflow_runs(self, info: Info, workflow_id: Optional[str] = None) -> List[WorkflowRun]:
+    async def workflow_runs(
+        self, info: Info, workflow_id: Optional[str] = None
+    ) -> List[WorkflowRun]:
         owner = require_authenticated_sub(info)
         async with AsyncSessionLocal() as db:
             stmt = select(WorkflowRunModel).where(WorkflowRunModel.owner_id == owner)
@@ -90,7 +97,9 @@ class WorkflowsQuery:
 @strawberry.type
 class WorkflowsMutation:
     @strawberry.mutation
-    async def create_workflow_definition(self, info: Info, name: str, spec: JSON) -> WorkflowDefinition:
+    async def create_workflow_definition(
+        self, info: Info, name: str, spec: JSON
+    ) -> WorkflowDefinition:
         owner = require_authenticated_sub(info)
         wid = str(uuid.uuid4())
         now = datetime.utcnow()

@@ -9,7 +9,9 @@ from typing import Any, Dict, Optional
 logger = logging.getLogger(__name__)
 
 
-async def publish_json(topic: str, payload: Dict[str, Any], key: Optional[str] = None) -> None:
+async def publish_json(
+    topic: str, payload: Dict[str, Any], key: Optional[str] = None
+) -> None:
     """Publish JSON to Kafka when a client is configured; otherwise DEBUG log (stub)."""
     logger.debug(
         "kafka stub topic=%s key=%s payload=%s",

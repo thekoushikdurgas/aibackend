@@ -9,7 +9,11 @@ from uuid import uuid4
 
 from app.core.jsonrpc import JSONRPCError, JSONRPCErrorCode
 from app.services.kafka import publish_json
-from app.services.kafka.topics import SYSTEM_FEED, WORKFLOW_RUN_EVENT, WORKFLOW_RUN_REQUESTED
+from app.services.kafka.topics import (
+    SYSTEM_FEED,
+    WORKFLOW_RUN_EVENT,
+    WORKFLOW_RUN_REQUESTED,
+)
 
 logger = logging.getLogger(__name__)
 
