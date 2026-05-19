@@ -5,10 +5,10 @@ Tracks connections, throughput, latency, and token usage.
 
 import logging
 from typing import Dict, Any
-from datetime import datetime
 from collections import defaultdict, deque
 
 from app.core.connection_manager import connection_manager
+from app.utils.helpers import utc_now
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ class WebSocketMetrics:
         self.token_usage: Dict[str, int] = defaultdict(int)  # provider -> tokens
         self.latency_history: deque = deque(maxlen=100)  # Last 100 latencies
         self.error_count = 0
-        self.start_time = datetime.utcnow()
+        self.start_time = utc_now()
 
     def record_connection(self):
         """Record a new connection"""
@@ -42,9 +42,7 @@ class WebSocketMetrics:
     def record_message(self, size_bytes: int = 0):
         """Record a message"""
         self.message_count += 1
-        self.message_history.append(
-            {"timestamp": datetime.utcnow(), "size_bytes": size_bytes}
-        )
+        self.message_history.append({"timestamp": utc_now(), "size_bytes": size_bytes})
 
     def record_tokens(self, provider: str, tokens: int):
         """Record token usage"""
@@ -52,9 +50,7 @@ class WebSocketMetrics:
 
     def record_latency(self, latency_ms: float):
         """Record latency in milliseconds"""
-        self.latency_history.append(
-            {"timestamp": datetime.utcnow(), "latency_ms": latency_ms}
-        )
+        self.latency_history.append({"timestamp": utc_now(), "latency_ms": latency_ms})
 
     def record_error(self):
         """Record an error"""
@@ -67,7 +63,7 @@ class WebSocketMetrics:
         Returns:
             Dictionary with metrics
         """
-        now = datetime.utcnow()
+        now = utc_now()
         uptime_seconds = (now - self.start_time).total_seconds()
 
         # Calculate message throughput (messages per second)
@@ -142,7 +138,7 @@ class WebSocketMetrics:
         self.token_usage.clear()
         self.latency_history.clear()
         self.error_count = 0
-        self.start_time = datetime.utcnow()
+        self.start_time = utc_now()
 
 
 # Global metrics instance

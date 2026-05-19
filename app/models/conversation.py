@@ -2,9 +2,10 @@
 Conversation and Message Database Models
 """
 
+from __future__ import annotations
+
 import uuid
 import enum
-from datetime import datetime
 from typing import Dict, Any
 
 from sqlalchemy import (
@@ -19,9 +20,10 @@ from sqlalchemy import (
     Enum as SQLEnum,
     Index,
 )
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 from app.models.metrics import Base
+from app.utils.helpers import utc_now
 
 
 class MessageRole(str, enum.Enum):
@@ -46,11 +48,11 @@ class Conversation(Base):
     max_tokens = Column(Integer, default=2048)
     system_prompt = Column(Text, nullable=True)
     extra_metadata = Column(
-        JSON, default={}
+        JSON, default=dict
     )  # Additional metadata (renamed from 'metadata' - reserved in SQLAlchemy 2.0)
     is_archived = Column(Boolean, default=False)
-    created_at = Column(DateTime, default=datetime.utcnow, index=True)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=utc_now, index=True)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now)
 
     # Relationships
     messages = relationship(
@@ -93,7 +95,7 @@ class Message(Base):
         nullable=False,
         index=True,
     )
-    role = Column(  # type: ignore[var-annotated]
+    role: Mapped[MessageRole] = mapped_column(
         SQLEnum(MessageRole), default=MessageRole.USER, nullable=False
     )
     content = Column(Text, nullable=False)
@@ -101,9 +103,9 @@ class Message(Base):
     provider = Column(String(50), nullable=True)  # LLM provider used
     model = Column(String(100), nullable=True)  # Model used
     extra_metadata = Column(
-        JSON, default={}
+        JSON, default=dict
     )  # Store timing, usage stats, etc. (renamed from 'metadata' - reserved in SQLAlchemy 2.0)
-    created_at = Column(DateTime, default=datetime.utcnow, index=True)
+    created_at = Column(DateTime, default=utc_now, index=True)
 
     # Relationships
     conversation = relationship("Conversation", back_populates="messages")

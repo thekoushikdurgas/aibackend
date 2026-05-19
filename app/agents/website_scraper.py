@@ -223,9 +223,12 @@ Provide comprehensive, actionable analysis."""
                 },
             }
 
-            # Build summary
-            summary = ai_analysis.get(
+            # Build summary (normalize to str — AI payload may use list/dict)
+            _raw_summary = ai_analysis.get(
                 "summary", f"Analyzed {page_type} page: {page_data.url}"
+            )
+            summary = (
+                _raw_summary if isinstance(_raw_summary, str) else str(_raw_summary)
             )
             if len(summary) > 500:
                 summary = summary[:500] + "..."

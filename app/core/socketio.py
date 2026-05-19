@@ -26,11 +26,13 @@ def get_socketio_server() -> socketio.AsyncServer:
         )
 
         @_sio.event
-        async def connect(sid, environ, auth):  # type: ignore[no-untyped-def]
+        async def connect(
+            sid: str, _environ: Dict[str, Any], _auth: Any = None
+        ) -> None:
             logger.debug("socket.io connect sid=%s", sid)
 
         @_sio.event
-        async def disconnect(sid):  # type: ignore[no-untyped-def]
+        async def disconnect(sid: str) -> None:
             logger.debug("socket.io disconnect sid=%s", sid)
 
     return _sio

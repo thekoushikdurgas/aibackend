@@ -122,7 +122,7 @@ class CerebrasProvider(BaseLLMProvider):
         )
 
         # Build request payload (OpenAI-compatible format)
-        payload = {
+        payload: dict[str, Any] = {
             "model": model,
             "messages": messages,
             "temperature": config.temperature,
@@ -230,7 +230,7 @@ class CerebrasProvider(BaseLLMProvider):
         )
 
         # Build request payload with streaming enabled
-        payload = {
+        payload: dict[str, Any] = {
             "model": model,
             "messages": messages,
             "temperature": config.temperature,
@@ -327,7 +327,7 @@ class CerebrasProvider(BaseLLMProvider):
         model = config.model or self.default_model
 
         # Build request payload for completions endpoint
-        payload = {
+        payload: dict[str, Any] = {
             "prompt": prompt,
             "model": model,
             "max_tokens": config.max_tokens,

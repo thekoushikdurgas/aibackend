@@ -4,8 +4,12 @@ Generic Content Extractor - Extracts common page elements
 
 import re
 import logging
-from typing import Dict, List, Any
+from typing import Any, Dict, List
+
 from bs4 import BeautifulSoup
+from bs4.element import Tag
+
+from app.utils.bs4_attrs import soup_attr_list, soup_attr_str
 
 logger = logging.getLogger(__name__)
 
@@ -110,21 +114,23 @@ class GenericExtractor:
 
         for form in self.soup.find_all("form"):
             try:
-                form_data = {
-                    "action": form.get("action", ""),
-                    "method": form.get("method", "GET").upper(),
+                form_data: Dict[str, Any] = {
+                    "action": soup_attr_str(form.get("action")),
+                    "method": soup_attr_str(form.get("method"), "GET").upper(),
                     "fields": [],
                 }
 
                 # Extract input fields
                 inputs = form.find_all(["input", "textarea", "select"])
                 for input_elem in inputs:
-                    field_info = {
-                        "type": input_elem.get("type", input_elem.name),
-                        "name": input_elem.get("name", ""),
-                        "id": input_elem.get("id", ""),
+                    field_info: Dict[str, Any] = {
+                        "type": soup_attr_str(
+                            input_elem.get("type"), input_elem.name or ""
+                        ),
+                        "name": soup_attr_str(input_elem.get("name")),
+                        "id": soup_attr_str(input_elem.get("id")),
                         "label": None,
-                        "placeholder": input_elem.get("placeholder", ""),
+                        "placeholder": soup_attr_str(input_elem.get("placeholder")),
                         "required": input_elem.has_attr("required"),
                     }
 
@@ -141,13 +147,13 @@ class GenericExtractor:
                         options = input_elem.find_all("option")
                         field_info["options"] = [
                             {
-                                "value": opt.get("value", ""),
+                                "value": soup_attr_str(opt.get("value")),
                                 "text": opt.get_text(strip=True),
                             }
                             for opt in options
                         ]
                     else:
-                        field_info["value"] = input_elem.get("value", "")
+                        field_info["value"] = soup_attr_str(input_elem.get("value"))
 
                     form_data["fields"].append(field_info)
 
@@ -187,9 +193,9 @@ class GenericExtractor:
 
         return lists
 
-    def _extract_list_items(self, list_elem) -> List[Any]:
+    def _extract_list_items(self, list_elem: Tag) -> List[Any]:
         """Recursively extract list items, handling nested lists"""
-        items = []
+        items: List[Any] = []
 
         for li in list_elem.find_all("li", recursive=False):
             item_text = li.get_text(strip=True, separator=" ")
@@ -300,8 +306,9 @@ class GenericExtractor:
                 cite_elem = blockquote.find("cite")
                 if cite_elem:
                     citation = cite_elem.get_text(strip=True)
-                elif blockquote.get("cite"):
-                    citation = blockquote.get("cite")
+                else:
+                    cite_attr = soup_attr_str(blockquote.get("cite"))
+                    citation = cite_attr if cite_attr else ""
 
                 quotes.append(
                     {
@@ -332,10 +339,12 @@ class GenericExtractor:
                 code_elem = pre.find("code")
                 if code_elem:
                     code_text = code_elem.get_text()
-                    language = code_elem.get("class", [])
-                    if language:
-                        # Extract language from class (e.g., 'language-python')
-                        lang_class = [c for c in language if c.startswith("language-")]
+                    class_tokens = soup_attr_list(code_elem.get("class"))
+                    language: str | None
+                    if class_tokens:
+                        lang_class = [
+                            c for c in class_tokens if c.startswith("language-")
+                        ]
                         language = (
                             lang_class[0].replace("language-", "")
                             if lang_class
@@ -350,7 +359,7 @@ class GenericExtractor:
                 code_blocks.append(
                     {
                         "code": code_text,
-                        "language": language,
+                        "language": language if language is not None else "",
                     }
                 )
 

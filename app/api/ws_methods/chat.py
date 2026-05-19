@@ -12,6 +12,7 @@ from app.services.ai_service import ai_service
 from app.services.memory import get_conversation_memory
 from app.services.rag import RAGRetriever
 from app.core.jsonrpc import JSONRPCError, JSONRPCErrorCode
+from app.utils.helpers import utc_now
 
 logger = logging.getLogger(__name__)
 
@@ -318,10 +319,14 @@ async def handle_chat_conversations_get(
     conversation = await memory.get_conversation(conversation_id)
 
     if conversation is None:
-        raise JSONRPCError(
-            JSONRPCErrorCode.INVALID_PARAMS,
-            f"Conversation '{conversation_id}' not found",
-        )
+        now = utc_now().isoformat()
+        return {
+            "id": conversation_id,
+            "messages": [],
+            "created_at": now,
+            "updated_at": now,
+            "metadata": {},
+        }
 
     return conversation.to_dict()
 

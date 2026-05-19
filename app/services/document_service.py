@@ -7,11 +7,16 @@ import logging
 import uuid
 from pathlib import Path
 from typing import List, Dict, Any, Optional
-from datetime import datetime
-
-from app.services.rag import ChromaVectorStore, DocumentChunker, get_embedding_service
-from app.services.rag.document_loader import DocumentLoader
 from app.config import settings
+from app.utils.helpers import utc_now
+
+from app.services.rag import (
+    ChromaVectorStore,
+    DocumentChunker,
+    get_embedding_service,
+    get_shared_chroma_vector_store,
+)
+from app.services.rag.document_loader import DocumentLoader
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +38,7 @@ class DocumentService:
             vector_store: Vector store instance (uses default if None)
             chunker: Document chunker instance (uses default if None)
         """
-        self.vector_store = vector_store or ChromaVectorStore()
+        self.vector_store = vector_store or get_shared_chroma_vector_store()
         self.chunker = chunker or DocumentChunker()
         self.embedding_service = get_embedding_service()
         # Get upload directory from settings or use default
@@ -84,8 +89,8 @@ class DocumentService:
         # Prepare metadata
         doc_metadata = {
             "filename": filename,
-            "file_path": str(file_path),
-            "uploaded_at": datetime.utcnow().isoformat(),
+            "file_path": file_path,
+            "uploaded_at": utc_now().isoformat(),
             "total_pages": len(pages),
             "file_type": pages[0].get("type", "unknown") if pages else "unknown",
             **(metadata or {}),

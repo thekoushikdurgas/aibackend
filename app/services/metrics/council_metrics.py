@@ -27,7 +27,7 @@ class CouncilMetrics:
         logger.info("council_abstain reason=%s", reason or "unspecified")
 
     def record_coverage(self, coverage: float) -> None:
-        c = max(0.0, min(1.0, float(coverage)))
+        c = max(0.0, min(1.0, coverage))
         self.coverage_samples.append(c)
         if len(self.coverage_samples) > self._max_samples:
             self.coverage_samples = self.coverage_samples[-self._max_samples :]

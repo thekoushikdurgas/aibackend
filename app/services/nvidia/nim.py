@@ -95,11 +95,13 @@ class NVIDIANIMService:
 
             # Handle different response formats
             if isinstance(data, dict):
-                return data.get("data", data.get("models", []))
-            elif isinstance(data, list):
-                return data
-            else:
+                raw = data.get("data", data.get("models", []))
+                if isinstance(raw, list):
+                    return [x for x in raw if isinstance(x, dict)]
                 return []
+            if isinstance(data, list):
+                return [x for x in data if isinstance(x, dict)]
+            return []
 
         except Exception as e:
             logger.error(f"NIM list models error: {e}")

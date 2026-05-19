@@ -11,9 +11,13 @@ from typing import Any, Dict, Optional
 import bcrypt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, APIKeyHeader
+
 from jose import JWTError, jwt
+from starlette.requests import Request
 
 from app.config import settings
+from app.core.session_cookies import ACCESS_TOKEN_COOKIE
+from app.utils.helpers import utc_now
 
 logger = logging.getLogger(__name__)
 
@@ -59,11 +63,9 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     to_encode = data.copy()
 
     if expires_delta:
-        expire = datetime.utcnow() + expires_delta
+        expire = utc_now() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(
-            minutes=settings.jwt_access_token_expire_minutes
-        )
+        expire = utc_now() + timedelta(minutes=settings.jwt_access_token_expire_minutes)
 
     to_encode.setdefault("exp", expire)
 
@@ -76,9 +78,7 @@ def issue_access_token(
     user_id: str, email: str, token_version: int
 ) -> tuple[str, datetime]:
     """Return (jwt, expiry datetime)."""
-    expire = datetime.utcnow() + timedelta(
-        minutes=settings.jwt_access_token_expire_minutes
-    )
+    expire = utc_now() + timedelta(minutes=settings.jwt_access_token_expire_minutes)
     payload = {
         "sub": user_id,
         "email": email,
@@ -93,7 +93,7 @@ def issue_access_token(
 
 
 def issue_refresh_token(user_id: str, token_version: int) -> str:
-    expire = datetime.utcnow() + timedelta(days=settings.jwt_refresh_token_expire_days)
+    expire = utc_now() + timedelta(days=settings.jwt_refresh_token_expire_days)
     payload = {
         "sub": user_id,
         "typ": JWT_TYP_REFRESH,
@@ -106,7 +106,7 @@ def issue_refresh_token(user_id: str, token_version: int) -> str:
 
 
 def issue_password_reset_token(user_id: str) -> str:
-    expire = datetime.utcnow() + timedelta(hours=1)
+    expire = utc_now() + timedelta(hours=1)
     payload = {
         "sub": user_id,
         "typ": JWT_TYP_PASSWORD_RESET,
@@ -118,7 +118,7 @@ def issue_password_reset_token(user_id: str) -> str:
 
 
 def issue_magic_login_token(email: str) -> str:
-    expire = datetime.utcnow() + timedelta(minutes=15)
+    expire = utc_now() + timedelta(minutes=15)
     payload = {
         "email": email.strip().lower(),
         "typ": JWT_TYP_MAGIC_LOGIN,
@@ -155,6 +155,19 @@ def try_decode_token(token: Optional[str]) -> Optional[dict]:
         return None
 
 
+def access_payload_if_valid(token: Optional[str]) -> Optional[dict]:
+    """Return access-token payload if JWT is valid and typ is access (or legacy typ omitted)."""
+    if not token or not token.strip():
+        return None
+    p = try_decode_token(token.strip())
+    if not p:
+        return None
+    typ = p.get("typ")
+    if typ is not None and typ != JWT_TYP_ACCESS:
+        return None
+    return p
+
+
 def verify_token(token: str) -> dict:
     """
     Verify access JWT (or legacy tokens without ``typ``).
@@ -186,11 +199,15 @@ def verify_api_key(api_key: str) -> bool:
 
 
 async def get_current_user(
+    request: Request,
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(bearer_scheme),
     api_key: Optional[str] = Depends(api_key_header),
 ) -> dict:
     """
-    API key first (extension), then Bearer JWT access token.
+    API key first (extension), then JWT access token from Bearer or httpOnly cookie.
+
+    Cookie fallback matches GraphQL context behavior when Apollo uses credentials-only
+    and localStorage Bearer is stale.
     """
     if api_key:
         if verify_api_key(api_key):
@@ -199,8 +216,24 @@ async def get_current_user(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid API key"
         )
 
-    if credentials:
-        return verify_token(credentials.credentials)
+    bearer_t = (
+        credentials.credentials.strip()
+        if credentials and credentials.credentials
+        else None
+    )
+    cookie_t = (request.cookies.get(ACCESS_TOKEN_COOKIE) or "").strip() or None
+
+    bp = access_payload_if_valid(bearer_t)
+    cp = access_payload_if_valid(cookie_t)
+
+    if bp:
+        return bp
+    if cp:
+        return cp
+    if bearer_t:
+        return verify_token(bearer_t)
+    if cookie_t:
+        return verify_token(cookie_t)
 
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -210,11 +243,12 @@ async def get_current_user(
 
 
 async def get_optional_user(
+    request: Request,
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(bearer_scheme),
     api_key: Optional[str] = Depends(api_key_header),
 ) -> Optional[dict]:
     try:
-        return await get_current_user(credentials, api_key)
+        return await get_current_user(request, credentials, api_key)
     except HTTPException:
         return None
 
@@ -227,12 +261,13 @@ class AuthRequired:
 
     async def __call__(
         self,
+        request: Request,
         credentials: Optional[HTTPAuthorizationCredentials] = Depends(bearer_scheme),
         api_key: Optional[str] = Depends(api_key_header),
     ) -> Optional[dict]:
         if self.required:
-            return await get_current_user(credentials, api_key)
-        return await get_optional_user(credentials, api_key)
+            return await get_current_user(request, credentials, api_key)
+        return await get_optional_user(request, credentials, api_key)
 
 
 def user_claims_from_access_token(token: str) -> Optional[dict]:
@@ -257,7 +292,7 @@ def user_claims_from_access_token(token: str) -> Optional[dict]:
 def session_dict_from_user_row(
     user_id: str, email: str, access: str, refresh: str, expires_at: datetime
 ) -> Dict[str, Any]:
-    expires_in = max(1, int((expires_at - datetime.utcnow()).total_seconds()))
+    expires_in = max(1, int((expires_at - utc_now()).total_seconds()))
     return {
         "access_token": access,
         "refresh_token": refresh,

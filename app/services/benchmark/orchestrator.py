@@ -6,14 +6,13 @@ Handles execution of benchmark tests across providers
 import asyncio
 import logging
 import time
-from datetime import datetime
 from typing import Any, Dict, List, Optional, cast
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.services.llm import get_llm_provider, LLMConfig
 from app.services.metrics.collector import MetricsCollector
-from app.utils.helpers import generate_id
+from app.utils.helpers import generate_id, utc_now
 
 logger = logging.getLogger(__name__)
 
@@ -275,7 +274,7 @@ class BenchmarkOrchestrator:
             "fastest_provider": fastest_provider,
             "highest_throughput": highest_throughput,
             "rankings": rankings,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": utc_now().isoformat(),
         }
 
     async def run_stress_test(
@@ -346,7 +345,7 @@ class BenchmarkOrchestrator:
                         error_info = {
                             "error": str(e),
                             "response_time": request_time,
-                            "timestamp": datetime.utcnow().isoformat(),
+                            "timestamp": utc_now().isoformat(),
                         }
                         errors.append(error_info)
                         return {
@@ -419,7 +418,7 @@ class BenchmarkOrchestrator:
                 "requests_per_second": round(requests_per_second, 2),
                 "error_rate": round(error_rate, 2),
                 "errors": errors[:10],  # Limit to first 10 errors
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": utc_now().isoformat(),
             }
 
         except Exception as e:

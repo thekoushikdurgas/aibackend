@@ -17,10 +17,14 @@ async def test_answer_single_document():
         "/api/v1/ai21/answer/single-document",
         json={
             "context": "The quick brown fox jumps over the lazy dog. This is a test sentence.",
-            "question": "What jumps over the lazy dog?"
-        }
+            "question": "What jumps over the lazy dog?",
+        },
     )
-    assert response.status_code in [200, 401, 500]  # 401 if no auth, 500 if API key missing
+    assert response.status_code in [
+        200,
+        401,
+        500,
+    ]  # 401 if no auth, 500 if API key missing
 
 
 @pytest.mark.asyncio
@@ -28,12 +32,13 @@ async def test_answer_rag():
     """Test RAG answer endpoint"""
     response = client.post(
         "/api/v1/ai21/answer/rag",
-        json={
-            "question": "What is GPT-4?",
-            "documentIds": ["test-doc-id-123"]
-        }
+        json={"question": "What is GPT-4?", "documentIds": ["test-doc-id-123"]},
     )
-    assert response.status_code in [200, 401, 500]  # 401 if no auth, 500 if API key missing
+    assert response.status_code in [
+        200,
+        401,
+        500,
+    ]  # 401 if no auth, 500 if API key missing
 
 
 @pytest.mark.asyncio
@@ -43,7 +48,7 @@ async def test_answer_single_document_validation():
         "/api/v1/ai21/answer/single-document",
         json={
             "context": "",  # Empty context should fail validation
-            "question": "Test question"
-        }
+            "question": "Test question",
+        },
     )
     assert response.status_code == 422  # Validation error

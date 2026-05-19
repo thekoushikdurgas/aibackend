@@ -8,6 +8,8 @@ from typing import AsyncGenerator, Optional, Dict, Any, Callable
 from datetime import datetime
 import json
 
+from app.utils.helpers import utc_now
+
 logger = logging.getLogger(__name__)
 
 
@@ -49,7 +51,7 @@ class StreamingProcessor:
             Processed chunks
         """
         buffer = ""
-        last_flush = datetime.utcnow()
+        last_flush = utc_now()
 
         try:
             async for chunk in stream:
@@ -57,7 +59,7 @@ class StreamingProcessor:
                     continue
 
                 buffer += chunk
-                now = datetime.utcnow()
+                now = utc_now()
                 elapsed = (now - last_flush).total_seconds()
 
                 # Flush if buffer is large enough, or timeout reached, or newline found
@@ -80,30 +82,53 @@ class StreamingProcessor:
         except Exception as e:
             logger.error(f"Error processing stream: {e}")
             # Yield any remaining buffer before raising
-            if buffer:
+            if len(buffer) > 0:
                 yield buffer
             raise
 
     async def stream_with_timeout(
-        self, stream: AsyncGenerator[str, None], timeout: int = 60
+        self,
+        stream: AsyncGenerator[str, None],
+        timeout: int = 120,
+        first_chunk_timeout: Optional[int] = None,
     ) -> AsyncGenerator[str, None]:
         """
-        Stream with timeout protection.
+        Timeouts while reading the upstream stream (per ``wait_for`` on ``__anext__``).
 
-        Args:
-            stream: Input stream
-            timeout: Timeout in seconds
-
-        Yields:
-            Chunks from stream
+        - **First chunk:** slow CPU / remote Ollama can take minutes before the first
+          token. Use ``first_chunk_timeout`` (defaults to ``timeout`` if omitted).
+        - **Later chunks:** ``timeout`` is the max idle gap between consecutive chunks.
         """
+        first_wait = float(
+            first_chunk_timeout if first_chunk_timeout is not None else timeout
+        )
+        idle_wait = float(timeout)
+        got_first = False
         try:
-            async with asyncio.timeout(timeout):
-                async for chunk in stream:
-                    yield chunk
+            while True:
+                try:
+                    cur = idle_wait if got_first else first_wait
+                    chunk = await asyncio.wait_for(stream.__anext__(), timeout=cur)
+                except StopAsyncIteration:
+                    break
+                got_first = True
+                yield chunk
         except asyncio.TimeoutError:
-            logger.error(f"Stream timeout after {timeout} seconds")
-            yield "\n[Stream timeout - request took too long]"
+            if not got_first:
+                logger.error(
+                    "Stream timed out waiting for first chunk (%s s); model may be cold or overloaded",
+                    int(first_wait),
+                )
+                yield (
+                    "\n[Stream timeout - model took too long to start responding. "
+                    "Try again, use a smaller prompt, or pick a faster model.]"
+                )
+            else:
+                logger.error(
+                    "Stream idle timeout: no chunk within %s seconds (provider stalled)",
+                    int(idle_wait),
+                )
+                yield "\n[Stream timeout - request took too long]"
         except Exception as e:
             logger.error(f"Stream error: {e}")
             raise
@@ -174,7 +199,7 @@ class TokenCounter:
         Yields:
             Chunks from stream
         """
-        self.start_time = datetime.utcnow()
+        self.start_time = utc_now()
 
         try:
             async for chunk in stream:
@@ -186,7 +211,7 @@ class TokenCounter:
                 self.chunk_count += 1
                 yield chunk
         finally:
-            self.end_time = datetime.utcnow()
+            self.end_time = utc_now()
 
     def get_stats(self) -> Dict[str, Any]:
         """
@@ -243,7 +268,7 @@ class ResponseFormatter:
             yield {
                 "type": "chunk",
                 "content": chunk,
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": utc_now().isoformat(),
                 "format": "markdown",
             }
 
@@ -325,7 +350,7 @@ class ResponseFormatter:
                     "content": chunk,
                     "index": chunk_index,
                     "full_content": full_content,
-                    "timestamp": datetime.utcnow().isoformat(),
+                    "timestamp": utc_now().isoformat(),
                 },
             }
 
@@ -337,7 +362,7 @@ class ResponseFormatter:
                 "type": "complete",
                 "full_content": full_content,
                 "total_chunks": chunk_index,
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": utc_now().isoformat(),
             },
         }
 

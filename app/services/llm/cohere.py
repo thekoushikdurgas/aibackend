@@ -97,7 +97,7 @@ class CohereProvider(BaseLLMProvider):
                     history.append({"role": cohere_role, "message": content})
 
         # Build request payload
-        payload = {
+        payload: dict[str, Any] = {
             "model": config.model or self.default_model,
             "message": prompt,
             "temperature": config.temperature,
@@ -196,7 +196,7 @@ class CohereProvider(BaseLLMProvider):
                     history.append({"role": cohere_role, "message": content})
 
         # Build request payload
-        payload = {
+        payload: dict[str, Any] = {
             "model": config.model or self.default_model,
             "message": prompt,
             "temperature": config.temperature,

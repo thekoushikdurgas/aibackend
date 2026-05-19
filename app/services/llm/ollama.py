@@ -6,6 +6,7 @@ Enhanced with cloud mode support using new OllamaClient
 import logging
 from typing import Any, AsyncIterator, Dict, List, Optional
 
+import httpx
 
 from app.config import settings
 from .base import BaseLLMProvider, LLMConfig, LLMResponse
@@ -91,8 +92,16 @@ class OllamaProvider(BaseLLMProvider):
             payload["options"]["stop"] = config.stop_sequences
 
         try:
+            chat_timeout = httpx.Timeout(
+                connect=30.0,
+                read=float(settings.ollama_completion_timeout_seconds),
+                write=120.0,
+                pool=30.0,
+            )
             # Use new client for cloud/localhost support
-            response = await self.client.post("chat", json=payload)
+            response = await self.client.post(
+                "chat", json=payload, timeout=chat_timeout
+            )
             data = response.json()
 
             return LLMResponse(
@@ -145,8 +154,16 @@ class OllamaProvider(BaseLLMProvider):
             payload["options"]["stop"] = config.stop_sequences
 
         try:
+            stream_timeout = httpx.Timeout(
+                connect=30.0,
+                read=float(settings.ollama_completion_timeout_seconds),
+                write=120.0,
+                pool=30.0,
+            )
             # Use new client for cloud/localhost support
-            async with self.client.stream("chat", json=payload) as stream:
+            async with self.client.stream(
+                "chat", json=payload, timeout=stream_timeout
+            ) as stream:
                 async for line in stream.aiter_lines():
                     if line:
                         import json

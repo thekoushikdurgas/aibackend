@@ -22,15 +22,8 @@ def mock_httpx_response():
     response = MagicMock()
     response.status_code = 200
     response.json.return_value = {
-        "choices": [{
-            "message": {"content": "Test response"},
-            "finish_reason": "stop"
-        }],
-        "usage": {
-            "prompt_tokens": 10,
-            "completion_tokens": 20,
-            "total_tokens": 30
-        }
+        "choices": [{"message": {"content": "Test response"}, "finish_reason": "stop"}],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 20, "total_tokens": 30},
     }
     response.raise_for_status = MagicMock()
     return response
@@ -110,12 +103,12 @@ async def test_fireworks_generate(mock_client_class, mock_httpx_response):
     mock_client.__aexit__.return_value = None
     mock_client.post.return_value = mock_httpx_response
     mock_client_class.return_value = mock_client
-    
+
     provider = FireworksProvider(api_key="test_key")
     config = LLMConfig(model="test-model", max_tokens=100)
-    
+
     response = await provider.generate("Test prompt", config=config)
-    
+
     assert response.text == "Test response"
     assert response.provider == "fireworks"
     assert response.usage["total_tokens"] == 30
@@ -132,9 +125,9 @@ async def test_provider_list_models():
         OctoAIProvider(api_key="test"),
         TogetherProvider(api_key="test"),
         MistralProvider(api_key="test"),
-        PerplexityProvider(api_key="test")
+        PerplexityProvider(api_key="test"),
     ]
-    
+
     for provider in providers:
         models = await provider.list_models()
         assert isinstance(models, list)

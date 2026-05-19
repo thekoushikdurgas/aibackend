@@ -62,7 +62,7 @@ class AnyscaleProvider(BaseLLMProvider):
             prompt, context, conversation_history, config.system_prompt
         )
 
-        payload = {
+        payload: dict[str, Any] = {
             "messages": messages,
             "model": model,
             "temperature": config.temperature,
@@ -136,7 +136,7 @@ class AnyscaleProvider(BaseLLMProvider):
             prompt, context, conversation_history, config.system_prompt
         )
 
-        payload = {
+        payload: dict[str, Any] = {
             "messages": messages,
             "model": model,
             "temperature": config.temperature,
@@ -205,7 +205,7 @@ class AnyscaleProvider(BaseLLMProvider):
                 "Authorization": f"Bearer {self.api_key}",
                 "Content-Type": "application/json",
             }
-            payload = {
+            payload: dict[str, Any] = {
                 "messages": [{"role": "user", "content": "test"}],
                 "model": self.default_model,
                 "max_tokens": 1,

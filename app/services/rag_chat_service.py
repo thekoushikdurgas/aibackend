@@ -5,11 +5,15 @@ Integrates RAG retrieval with LLM chat for context-aware responses
 
 import logging
 from typing import Dict, Any, Optional, AsyncGenerator, List
-from datetime import datetime
 
-from app.services.rag import rag_pipeline, ChromaVectorStore
+from app.services.rag import (
+    rag_pipeline,
+    ChromaVectorStore,
+    get_shared_chroma_vector_store,
+)
 from app.services.llm import get_llm_provider, LLMConfig
 from app.config import settings
+from app.utils.helpers import utc_now
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +30,7 @@ class RAGChatService:
         Args:
             vector_store: Vector store instance (uses default if None)
         """
-        self.vector_store = vector_store or ChromaVectorStore()
+        self.vector_store = vector_store or get_shared_chroma_vector_store()
         self.rag_pipeline = rag_pipeline
         self._initialized = False
 
@@ -74,7 +78,7 @@ class RAGChatService:
         yield {
             "type": "retrieving",
             "message": "Searching knowledge base...",
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": utc_now().isoformat(),
         }
 
         try:
@@ -101,7 +105,7 @@ class RAGChatService:
             yield {
                 "type": "streaming",
                 "message": "Generating response...",
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": utc_now().isoformat(),
             }
 
             # Get LLM provider
@@ -133,7 +137,7 @@ class RAGChatService:
                     yield {
                         "type": "chunk",
                         "content": chunk,
-                        "timestamp": datetime.utcnow().isoformat(),
+                        "timestamp": utc_now().isoformat(),
                     }
 
             # Step 4: Send retrieved documents metadata
@@ -191,7 +195,7 @@ class RAGChatService:
                     "type": "sources",
                     "documents": doc_metadata,
                     "count": len(doc_metadata),
-                    "timestamp": datetime.utcnow().isoformat(),
+                    "timestamp": utc_now().isoformat(),
                 }
 
             # Step 5: Send completion
@@ -199,7 +203,7 @@ class RAGChatService:
                 "type": "complete",
                 "total_tokens": len(full_response.split()),
                 "documents_used": len(retrieved_docs),
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": utc_now().isoformat(),
             }
 
         except Exception as e:
@@ -207,7 +211,7 @@ class RAGChatService:
             yield {
                 "type": "error",
                 "message": str(e),
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": utc_now().isoformat(),
             }
 
     def _build_system_prompt(self) -> str:

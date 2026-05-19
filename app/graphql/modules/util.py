@@ -57,9 +57,16 @@ async def run_ws(
     """Run a ws_methods handler with GraphQL auth context."""
     user = user_from_info(info)
     try:
-        return await handler(params, user, None)
+        return await handler(params, user=user, connection_id=None)
     except JSONRPCError as e:
         raise_jsonrpc_as_graphql(e)
+    except GraphQLError:
+        raise
+    except Exception as e:
+        raise GraphQLError(
+            str(e) if str(e) else "Internal error",
+            extensions={"code": "INTERNAL"},
+        ) from e
 
 
 async def run_ws_chat_completion(

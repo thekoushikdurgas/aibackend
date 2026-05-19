@@ -8,6 +8,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 
+from app.utils.helpers import utc_now
 from app.services.llm import BaseLLMProvider, LLMConfig, get_llm_provider
 from app.models.schemas import PageData
 
@@ -23,7 +24,7 @@ class AgentResponse:
     summary: str
     recommendations: List[str] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(default_factory=utc_now)
     success: bool = True
     error: Optional[str] = None
 

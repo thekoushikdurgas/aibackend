@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, cast
 
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from app.models.user import User
 
@@ -16,6 +17,12 @@ class UserRepository:
 
     async def get_by_id(self, user_id: str) -> Optional[User]:
         r = await self.session.execute(select(User).where(User.id == user_id))
+        return r.scalar_one_or_none()
+
+    async def get_by_id_with_profile(self, user_id: str) -> Optional[User]:
+        r = await self.session.execute(
+            select(User).options(selectinload(User.profile)).where(User.id == user_id)
+        )
         return r.scalar_one_or_none()
 
     async def get_by_email(self, email: str) -> Optional[User]:
@@ -71,7 +78,8 @@ class UserRepository:
         u = await self.get_by_id(user_id)
         if u is None:
             return None
-        merged = {**(u.user_metadata or {}), **metadata}
+        base = cast(Any, u.user_metadata)
+        merged = {**(base if isinstance(base, dict) else {}), **metadata}
         await self.session.execute(
             update(User).where(User.id == user_id).values(user_metadata=merged)
         )

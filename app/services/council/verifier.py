@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 
 from app.config import settings
 from app.services.rag.retriever import RAGRetriever
+from app.utils.bs4_attrs import soup_attr_str
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +52,7 @@ async def verify_claim_web(claim: str) -> Optional[VerifiedClaim]:
     """
     if not getattr(settings, "council_enable_web_verifier", False):
         return None
-    if not (claim and str(claim).strip()):
+    if not (claim and claim.strip()):
         return None
     q = (claim or "").strip()[:300]
     url = (getattr(settings, "council_web_search_url", None) or "").strip() or (
@@ -80,9 +81,12 @@ async def verify_claim_web(claim: str) -> Optional[VerifiedClaim]:
     for sel in (".result", ".result__body", ".web-result", "div.links_main"):
         for el in soup.select(sel)[:12]:
             a = el.find("a", href=True)
-            if not a or not a["href"] or a["href"].startswith("//duckduckgo.com"):
+            if not a:
                 continue
-            href = a["href"].strip()
+            href_raw = soup_attr_str(a.get("href"))
+            if not href_raw or href_raw.startswith("//duckduckgo.com"):
+                continue
+            href = href_raw.strip()
             if not href.startswith("http"):
                 continue
             title = a.get_text(" ", strip=True) or ""
@@ -90,13 +94,13 @@ async def verify_claim_web(claim: str) -> Optional[VerifiedClaim]:
             candidates.append((href, title, snippet))
     if not candidates:
         for a in soup.find_all("a", href=True, limit=40):
-            href = a["href"].strip()
-            if not href.startswith("http") or "duckduckgo" in href:
+            href_raw = soup_attr_str(a.get("href")).strip()
+            if not href_raw.startswith("http") or "duckduckgo" in href_raw:
                 continue
             t = a.get_text(" ", strip=True)
             if len(t) < 5:
                 continue
-            candidates.append((href, t, t[:500]))
+            candidates.append((href_raw, t, t[:500]))
     if not candidates:
         return None
     # Pick best Jaccard overlap with claim or question terms

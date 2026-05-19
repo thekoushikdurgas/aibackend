@@ -3,8 +3,7 @@
 from __future__ import annotations
 
 import uuid
-from datetime import datetime
-from typing import List, Optional
+from typing import Any, List, Optional, cast
 
 import strawberry
 from sqlalchemy import or_, select
@@ -14,6 +13,7 @@ from strawberry.types import Info
 from app.database import AsyncSessionLocal
 from app.graphql.modules.util import require_authenticated_sub, user_from_info
 from app.models.durgasos_desktop import WorkflowDefinitionModel, WorkflowRunModel
+from app.utils.helpers import utc_now
 
 
 @strawberry.type
@@ -37,11 +37,13 @@ class WorkflowRun:
 
 
 def _wf_row(r: WorkflowDefinitionModel) -> WorkflowDefinition:
+    spec_raw: Any = r.spec or {}
+    spec_json = spec_raw if isinstance(spec_raw, (dict, list)) else {}
     return WorkflowDefinition(
-        id=strawberry.ID(r.id),
-        name=r.name,
-        owner_id=r.owner_id,
-        spec=r.spec or {},
+        id=strawberry.ID(str(r.id)),
+        name=str(r.name),
+        owner_id=str(r.owner_id) if r.owner_id is not None else None,
+        spec=cast(JSON, spec_json),
         created_at=r.created_at.isoformat() if r.created_at else "",
         updated_at=r.updated_at.isoformat() if r.updated_at else "",
     )
@@ -49,10 +51,10 @@ def _wf_row(r: WorkflowDefinitionModel) -> WorkflowDefinition:
 
 def _run_row(r: WorkflowRunModel) -> WorkflowRun:
     return WorkflowRun(
-        id=strawberry.ID(r.id),
-        workflow_id=r.workflow_id,
-        owner_id=r.owner_id,
-        status=r.status,
+        id=strawberry.ID(str(r.id)),
+        workflow_id=str(r.workflow_id),
+        owner_id=str(r.owner_id) if r.owner_id is not None else None,
+        status=str(r.status),
         created_at=r.created_at.isoformat() if r.created_at else "",
         updated_at=r.updated_at.isoformat() if r.updated_at else "",
     )
@@ -102,7 +104,7 @@ class WorkflowsMutation:
     ) -> WorkflowDefinition:
         owner = require_authenticated_sub(info)
         wid = str(uuid.uuid4())
-        now = datetime.utcnow()
+        now = utc_now()
         spec_dict = dict(spec) if isinstance(spec, dict) else {}
         row = WorkflowDefinitionModel(
             id=wid,
@@ -122,7 +124,7 @@ class WorkflowsMutation:
     async def start_workflow_run(self, info: Info, workflow_id: str) -> WorkflowRun:
         owner = require_authenticated_sub(info)
         rid = str(uuid.uuid4())
-        now = datetime.utcnow()
+        now = utc_now()
         row = WorkflowRunModel(
             id=rid,
             workflow_id=workflow_id.strip(),

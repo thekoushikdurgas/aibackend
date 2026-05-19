@@ -12,14 +12,14 @@ import logging
 import shutil
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, cast
 
 from app.config import settings
 
 logger = logging.getLogger(__name__)
 
 try:
-    from PIL import Image  # type: ignore[import-untyped]
+    from PIL import Image
 
     _HAS_PIL = True
 except ImportError:
@@ -33,6 +33,23 @@ def _root() -> Path:
 def _bucket_dir(bucket_name: str) -> Path:
     safe = Path(bucket_name).name
     return _root() / safe
+
+
+def resolve_signed_storage_file(bucket_name: str, file_path: str) -> Optional[Path]:
+    """
+    Resolve ``file_path`` under ``bucket_name`` for signed GET reads.
+    Returns ``None`` if the path is unsafe or not an existing file.
+    """
+    rel = Path(file_path)
+    if rel.is_absolute() or ".." in rel.parts:
+        return None
+    base = _bucket_dir(bucket_name)
+    target = (base / rel).resolve()
+    if not str(target).startswith(str(base.resolve())):
+        return None
+    if not target.is_file():
+        return None
+    return target
 
 
 def ensure_buckets_exist(bucket_names: List[str]) -> None:
@@ -57,7 +74,25 @@ def build_signed_token(bucket: str, object_path: str, expires_at: int) -> str:
     return base64.urlsafe_b64encode(raw.encode()).decode().rstrip("=")
 
 
-def verify_signed_token(token: str) -> Optional[dict]:
+def absolute_signed_file_url(
+    request_base_url: str, bucket: str, file_path: str, expires_in: int = 3600
+) -> Optional[str]:
+    """
+    Build a same-origin absolute URL for a signed storage read (replaces GET /files/... route).
+    ``request_base_url`` should be e.g. ``str(request.base_url).rstrip("/")``.
+    """
+    target = resolve_signed_storage_file(bucket, file_path)
+    if target is None:
+        return None
+    exp = int(time.time()) + expires_in
+    tok = build_signed_token(bucket, file_path, exp)
+    prefix = settings.storage_url_prefix.rstrip("/")
+    rel = f"{prefix}/{bucket}/{file_path}?token={tok}"
+    root = request_base_url.rstrip("/")
+    return f"{root}{rel}"
+
+
+def verify_signed_token(token: str) -> Optional[Dict[str, Any]]:
     try:
         pad = "=" * (-len(token) % 4)
         raw = base64.urlsafe_b64decode(token + pad).decode()
@@ -65,9 +100,11 @@ def verify_signed_token(token: str) -> Optional[dict]:
         if _sign_message(body) != sig:
             return None
         payload = json.loads(body)
+        if not isinstance(payload, dict):
+            return None
         if int(payload.get("exp", 0)) < int(time.time()):
             return None
-        return payload
+        return cast(Dict[str, Any], payload)
     except Exception as e:
         logger.debug("signed token verify failed: %s", e)
         return None
@@ -144,7 +181,7 @@ class LocalFileStorage:
     ) -> Optional[str]:
         try:
             bucket_name, _ = self._resolve(bucket_type, file_path)
-            exp = int(time.time()) + int(expires_in)
+            exp = int(time.time()) + expires_in
             tok = build_signed_token(bucket_name, file_path, exp)
             prefix = settings.storage_url_prefix.rstrip("/")
             return f"{prefix}/{bucket_name}/{file_path}?token={tok}"
@@ -183,17 +220,39 @@ class LocalFileStorage:
             dir_path = base / sub
             if not dir_path.is_dir():
                 return []
-            files: List[Path] = []
-            for p in sorted(dir_path.iterdir()):
-                if p.is_file() and not p.name.startswith("."):
-                    files.append(p)
-            slice_ = files[offset : offset + limit]
+            children: List[Path] = []
+            for p in sorted(dir_path.iterdir(), key=lambda x: x.name.lower()):
+                if p.name.startswith("."):
+                    continue
+                # Skip auto-generated image thumbnails (e.g. photo.jpg.thumb.jpg)
+                if p.is_file() and p.name.endswith(".thumb.jpg"):
+                    continue
+                children.append(p)
+            dirs = [p for p in children if p.is_dir()]
+            files_only = [p for p in children if p.is_file()]
+            combined = dirs + files_only
+            slice_ = combined[offset : offset + limit]
             out: List[Dict[str, Any]] = []
             for p in slice_:
                 rel = str(p.relative_to(base)).replace("\\", "/")
-                if folder_path:
-                    rel = f"{folder_path.strip('/')}/{rel}"
-                out.append({"name": p.name, "path": rel, "size": p.stat().st_size})
+                if p.is_dir():
+                    out.append(
+                        {
+                            "name": p.name,
+                            "path": rel,
+                            "size": 0,
+                            "is_directory": True,
+                        }
+                    )
+                else:
+                    out.append(
+                        {
+                            "name": p.name,
+                            "path": rel,
+                            "size": p.stat().st_size,
+                            "is_directory": False,
+                        }
+                    )
             return out
         except Exception as e:
             logger.error("list error: %s", e)

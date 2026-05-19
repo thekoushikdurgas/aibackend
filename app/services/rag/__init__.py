@@ -3,7 +3,7 @@ RAG Service module - Embeddings, Vector Store, Chunking, and Pipeline
 """
 
 from .embeddings import EmbeddingService, get_embedding_service
-from .vectorstore import ChromaVectorStore
+from .vectorstore import ChromaVectorStore, get_shared_chroma_vector_store
 from .retriever import RAGRetriever
 from .chunking import DocumentChunker, chunker
 from .pipeline import RAGPipeline, rag_pipeline
@@ -14,6 +14,7 @@ __all__ = [
     "EmbeddingService",
     "get_embedding_service",
     "ChromaVectorStore",
+    "get_shared_chroma_vector_store",
     "RAGRetriever",
     "DocumentChunker",
     "chunker",

@@ -8,7 +8,7 @@ import re
 
 from app.models.schemas import PageData
 from app.utils.helpers import generate_hash
-from .vectorstore import ChromaVectorStore
+from .vectorstore import ChromaVectorStore, get_shared_chroma_vector_store
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +26,7 @@ class RAGRetriever:
         Args:
             vector_store: Vector store instance (creates default if not provided)
         """
-        self.vector_store = vector_store or ChromaVectorStore()
+        self.vector_store = vector_store or get_shared_chroma_vector_store()
 
     def ingest_page(
         self,

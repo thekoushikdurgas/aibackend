@@ -67,23 +67,11 @@ def sample_page_data_dict(sample_html):
         "protocol": "https:",
         "pathname": "/test-page",
         "html": sample_html,
-        "meta": [
-            {"name": "description", "content": "This is a test page description"}
-        ],
-        "structure": {
-            "totalElements": 15,
-            "links": 2,
-            "images": 2,
-            "forms": 0
-        },
-        "semantic": {
-            "header": True,
-            "nav": True,
-            "main": True,
-            "footer": True
-        },
+        "meta": [{"name": "description", "content": "This is a test page description"}],
+        "structure": {"totalElements": 15, "links": 2, "images": 2, "forms": 0},
+        "semantic": {"header": True, "nav": True, "main": True, "footer": True},
         "images": [
             {"src": "image1.jpg", "alt": "First image", "has_alt": True},
-            {"src": "image2.jpg", "alt": "", "has_alt": False}
-        ]
+            {"src": "image2.jpg", "alt": "", "has_alt": False},
+        ],
     }

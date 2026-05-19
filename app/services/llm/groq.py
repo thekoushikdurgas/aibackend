@@ -126,7 +126,7 @@ class GroqProvider(BaseLLMProvider):
         )
 
         # Build request payload (OpenAI-compatible format)
-        payload = {
+        payload: dict[str, Any] = {
             "messages": messages,
             "model": model,
             "temperature": config.temperature,
@@ -210,7 +210,7 @@ class GroqProvider(BaseLLMProvider):
         )
 
         # Build request payload with streaming enabled
-        payload = {
+        payload: dict[str, Any] = {
             "messages": messages,
             "model": model,
             "temperature": config.temperature,
@@ -289,7 +289,7 @@ class GroqProvider(BaseLLMProvider):
                 "Authorization": f"Bearer {self.api_key}",
                 "Content-Type": "application/json",
             }
-            payload = {
+            payload: dict[str, Any] = {
                 "messages": [{"role": "user", "content": "test"}],
                 "model": self.default_model,
                 "max_tokens": 1,
@@ -457,7 +457,7 @@ class GroqProvider(BaseLLMProvider):
         messages.append({"role": "user", "content": content_items})
 
         # Build request payload
-        payload = {
+        payload: dict[str, Any] = {
             "messages": messages,
             "model": model,
             "temperature": config.temperature,

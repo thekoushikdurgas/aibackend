@@ -21,7 +21,11 @@ def test_schema_introspection_has_auth_mutations():
     names = {f["name"] for f in result.data["__schema"]["mutationType"]["fields"]}
     assert "signUp" in names
     assert "signIn" in names
+    assert "saveFileAssociations" in names
     assert "refreshSession" in names
+    assert "establishSession" in names
+    assert "clearSession" in names
+    assert "updateAiProviderSettings" in names
     assert "chatCompletion" in names
 
 
@@ -47,3 +51,34 @@ def test_schema_has_chat_query_fields():
     assert "systemHealth" in names
     assert "weatherForecast" in names
     assert "ragStats" in names
+    assert "aiProviderSettings" in names
+    assert "websocketGatewayStatus" in names
+    assert "storageSignedHttpUrl" in names
+
+
+def test_gql_user_type_exposes_profile_fields():
+    result = schema.execute_sync(
+        """
+        query {
+          gqlUser: __type(name: "GqlUser") {
+            fields {
+              name
+            }
+          }
+          gqlUserProfile: __type(name: "GqlUserProfile") {
+            fields {
+              name
+            }
+          }
+        }
+        """
+    )
+    assert result.errors is None
+    user_fields = {f["name"] for f in result.data["gqlUser"]["fields"]}
+    assert "profile" in user_fields
+    assert "isActive" in user_fields
+    assert "isVerified" in user_fields
+    assert "updatedAt" in user_fields
+    prof_fields = {f["name"] for f in result.data["gqlUserProfile"]["fields"]}
+    assert "username" in prof_fields
+    assert "avatarUrl" in prof_fields

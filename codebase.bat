@@ -15,13 +15,14 @@ REM   0b Optional Docker Compose hints
 REM   1 pip install (requirements.txt + requirements-dev.txt)
 REM   2 Environment validation (scripts\validate_env.py)
 REM   3 mypy (typecheck) app/
-REM   4 black --check app/ scripts/ tests/
+REM   3b pyrefly check --summarize-errors (Meta static analysis)
+REM   4 black --check
 REM   4b Prettier via npm run format:check (matches CI)
-REM   5 ruff check app/ scripts/ tests/
+REM   5 ruff check
 REM   6 pytest tests/
 REM   6b coverage if RUN_TEST_COVERAGE=1
 REM   7 scripts\check_best_practices.py (.api-checker-config.json optional)
-REM   8 black app/ scripts/ tests/ (final format write)
+REM   8 black (final format write)
 REM   9 pip check + import smoke (pip check skipped on Windows Python 3.13+ unless FORCE_PIP_CHECK=1)
 REM
 REM Optional environment variables:
@@ -32,6 +33,8 @@ REM SKIP_CODEGEN=1             Skip step 2 (validate_env.py)
 REM ENV_VALIDATE_NO_FAIL=1     validate_env failures -> warning only (no ERROR_COUNT / no goto summary)
 REM SKIP_MYPY=1                Skip step 3
 REM MYPY_STRICT=1              mypy failure increments ERROR_COUNT (default: warning only)
+REM SKIP_PYREFLY=1             Skip step 3b (pyrefly)
+REM PYREFLY_NO_FAIL=1         pyrefly failure -> warning only (default: counts as error)
 REM SKIP_FORMAT_CHECK=1        Skip step 4 black --check
 REM SKIP_LINT=1                Skip step 5 ruff
 REM SKIP_TESTS=1               Skip step 6
@@ -119,6 +122,7 @@ set "SECTION0B_STATUS=SKIPPED"
 set "SECTION1_STATUS=SKIPPED"
 set "SECTION2_STATUS=SKIPPED"
 set "SECTION3_STATUS=SKIPPED"
+set "SECTION_PYREFLY_STATUS=SKIPPED"
 set "SECTION4_STATUS=SKIPPED"
 set "SECTION5_STATUS=SKIPPED"
 set "SECTION6_STATUS=SKIPPED"
@@ -250,18 +254,51 @@ if /i "%SKIP_MYPY%"=="1" (
 )
 echo.
 
+call :color_echo "%CYAN%" "[3b/10] Pyrefly (static analysis)..."
+echo ----------------------------------------
+if /i "%SKIP_PYREFLY%"=="1" (
+  call :color_echo "%YELLOW%" "  Skipped (SKIP_PYREFLY=1)"
+  set "SECTION_PYREFLY_STATUS=SKIPPED"
+) else (
+  call :color_echo "%BLUE%" "  Checking for pyrefly module..."
+  call "%PY%" %PY_EXTRA% -c "import pyrefly" 2>nul
+  if errorlevel 1 (
+    set /a WARNING_COUNT+=1
+    set "SECTION_PYREFLY_STATUS=WARNING"
+    call :color_echo "%YELLOW%" "  ! pyrefly not installed — pip install pyrefly (or set SKIP_PYREFLY=1)"
+  ) else (
+    call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m pyrefly check --summarize-errors"
+    call "%PY%" %PY_EXTRA% -m pyrefly check --summarize-errors
+    if errorlevel 1 (
+      if /i "%PYREFLY_NO_FAIL%"=="1" (
+        set /a WARNING_COUNT+=1
+        set "SECTION_PYREFLY_STATUS=WARNING"
+        call :color_echo "%YELLOW%" "  ! pyrefly reported issues (PYREFLY_NO_FAIL=1)"
+      ) else (
+        set /a ERROR_COUNT+=1
+        set "SECTION_PYREFLY_STATUS=FAILED"
+        call :color_echo "%RED%" "  X pyrefly check failed — fix errors or set PYREFLY_NO_FAIL=1 for warning-only"
+      )
+    ) else (
+      set "SECTION_PYREFLY_STATUS=PASSED"
+      call :color_echo "%GREEN%" "  OK pyrefly passed"
+    )
+  )
+)
+echo.
+
 call :color_echo "%CYAN%" "[4/10] Formatting checks (black)..."
 echo ----------------------------------------
 if /i "%SKIP_FORMAT_CHECK%"=="1" (
   call :color_echo "%YELLOW%" "  Skipped (SKIP_FORMAT_CHECK=1)"
   set "SECTION4_STATUS=SKIPPED"
 ) else (
-  call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m black --check app/ scripts/ tests/"
-  call "%PY%" %PY_EXTRA% -m black --check app/ scripts/ tests/
+  call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m black --check app scripts tests docs\tests"
+  call "%PY%" %PY_EXTRA% -m black --check app scripts tests docs\tests
   if errorlevel 1 (
     set /a ERROR_COUNT+=1
     set "SECTION4_STATUS=FAILED"
-    call :color_echo "%RED%" "  X black --check failed - run: black app/ scripts/ tests/"
+    call :color_echo "%RED%" "  X black --check failed - run: black"
   ) else (
     set "SECTION4_STATUS=PASSED"
     call :color_echo "%GREEN%" "  OK black check passed"
@@ -318,8 +355,8 @@ if /i "%SKIP_LINT%"=="1" (
   call :color_echo "%YELLOW%" "  Skipped (SKIP_LINT=1)"
   set "SECTION5_STATUS=SKIPPED"
 ) else (
-  call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m ruff check app/ scripts/ tests/"
-  call "%PY%" %PY_EXTRA% -m ruff check app/ scripts/ tests/
+  call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m ruff check"
+  call "%PY%" %PY_EXTRA% -m ruff check
   if errorlevel 1 (
     set /a ERROR_COUNT+=1
     set "SECTION5_STATUS=FAILED"
@@ -430,8 +467,8 @@ if /i "%SKIP_FINAL_FORMAT%"=="1" (
 ) else (
   call :color_echo "%CYAN%" "[8/10] Final format (black)..."
   echo ----------------------------------------
-  call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m black app/ scripts/ tests/"
-  call "%PY%" %PY_EXTRA% -m black app/ scripts/ tests/
+  call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m black app scripts tests docs\tests"
+  call "%PY%" %PY_EXTRA% -m black app scripts tests docs\tests
   if errorlevel 1 (
     set /a WARNING_COUNT+=1
     set "SECTION8_STATUS=WARNING"
@@ -505,6 +542,7 @@ echo   [0b] Docker hint:                   !SECTION0B_STATUS!
 echo   [1] Pip dependencies:              !SECTION1_STATUS!
 echo   [2] Environment validate:          !SECTION2_STATUS!
 echo   [3] mypy:                          !SECTION3_STATUS!
+echo   [3b] pyrefly:                      !SECTION_PYREFLY_STATUS!
 echo   [4] black --check:                 !SECTION4_STATUS!
 echo   [4b] Prettier:                     !SECTION4P_STATUS!
 echo   [5] ruff check:                    !SECTION5_STATUS!

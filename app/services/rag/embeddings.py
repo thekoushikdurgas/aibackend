@@ -28,7 +28,7 @@ class EmbeddingService:
         """
         self.provider = provider or settings.embedding_provider
         self.model_name = model_name or settings.embedding_model
-        self._model = None
+        self._model: Any = None
         self._dimension: Optional[int] = None
 
     @property
@@ -351,6 +351,12 @@ class EmbeddingService:
 
 # Global embedding service instance
 _embedding_service: Optional[EmbeddingService] = None
+
+
+def reset_embedding_service_singleton() -> None:
+    """Clear cached embedding service after AI provider settings change."""
+    global _embedding_service
+    _embedding_service = None
 
 
 def get_embedding_service() -> EmbeddingService:

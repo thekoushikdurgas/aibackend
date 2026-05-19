@@ -3,8 +3,7 @@
 from __future__ import annotations
 
 import uuid
-from datetime import datetime
-from typing import Optional
+from typing import Any, Optional, cast
 
 import strawberry
 from sqlalchemy import select
@@ -14,6 +13,7 @@ from strawberry.types import Info
 from app.database import AsyncSessionLocal
 from app.graphql.modules.util import require_authenticated_sub, user_from_info
 from app.models.durgasos_desktop import WidgetLayoutModel
+from app.utils.helpers import utc_now
 
 
 @strawberry.type
@@ -37,12 +37,13 @@ class WidgetsQuery:
             r = (await db.execute(stmt)).scalar_one_or_none()
         if not r:
             return None
+        layout_data: Any = (
+            r.layout_json if isinstance(r.layout_json, (list, dict)) else []
+        )
         return WidgetLayout(
-            id=strawberry.ID(r.id),
-            owner_id=r.owner_id,
-            layout_json=(
-                r.layout_json if isinstance(r.layout_json, (list, dict)) else []
-            ),
+            id=strawberry.ID(str(r.id)),
+            owner_id=str(r.owner_id),
+            layout_json=cast(JSON, layout_data),
             updated_at=r.updated_at.isoformat() if r.updated_at else "",
         )
 
@@ -52,14 +53,16 @@ class WidgetsMutation:
     @strawberry.mutation
     async def save_widget_layout(self, info: Info, layout_json: JSON) -> WidgetLayout:
         owner = require_authenticated_sub(info)
-        payload: JSON = layout_json if isinstance(layout_json, (list, dict)) else []
-        now = datetime.utcnow()
+        payload = cast(
+            JSON, layout_json if isinstance(layout_json, (list, dict)) else []
+        )
+        now = utc_now()
         async with AsyncSessionLocal() as db:
             stmt = select(WidgetLayoutModel).where(WidgetLayoutModel.owner_id == owner)
             existing = (await db.execute(stmt)).scalar_one_or_none()
             if existing:
-                existing.layout_json = payload
-                existing.updated_at = now
+                setattr(existing, "layout_json", payload)
+                setattr(existing, "updated_at", now)
                 await db.commit()
                 await db.refresh(existing)
                 row = existing
@@ -74,8 +77,8 @@ class WidgetsMutation:
                 await db.commit()
                 await db.refresh(row)
         return WidgetLayout(
-            id=strawberry.ID(row.id),
-            owner_id=row.owner_id,
-            layout_json=row.layout_json,
+            id=strawberry.ID(str(row.id)),
+            owner_id=str(row.owner_id),
+            layout_json=cast(JSON, row.layout_json),
             updated_at=row.updated_at.isoformat() if row.updated_at else "",
         )

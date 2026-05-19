@@ -4,13 +4,13 @@ Handles recording and retrieving benchmark metrics
 """
 
 import logging
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any
-from sqlalchemy import select, and_, desc
+from datetime import timedelta
+from typing import Dict, List, Optional, Any, cast
+from sqlalchemy import select, and_, desc, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.metrics import BenchmarkRun, ProviderMetric, LatencyHistory, ErrorLog
-from app.utils.helpers import generate_id
+from app.utils.helpers import generate_id, utc_now
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +70,7 @@ class MetricsCollector:
                 error_message=error,
                 response_data=response_data,
                 extra_metadata=extra_metadata,
-                created_at=datetime.utcnow(),
+                created_at=utc_now(),
             )
 
             self.db.add(provider_metric)
@@ -86,8 +86,8 @@ class MetricsCollector:
                 tokens_per_second=tokens_per_second,
                 success=success,
                 period="point",
-                period_start=datetime.utcnow(),
-                created_at=datetime.utcnow(),
+                period_start=utc_now(),
+                created_at=utc_now(),
             )
 
             self.db.add(latency_history)
@@ -101,7 +101,7 @@ class MetricsCollector:
                     benchmark_run_id=benchmark_run_id,
                     error_type=error_type or "unknown",
                     error_message=error,
-                    created_at=datetime.utcnow(),
+                    created_at=utc_now(),
                 )
                 self.db.add(error_log)
 
@@ -133,7 +133,7 @@ class MetricsCollector:
                 config=config or {},
                 streaming=streaming,
                 status="running",
-                created_at=datetime.utcnow(),
+                created_at=utc_now(),
             )
             self.db.add(benchmark_run)
             await self.db.commit()
@@ -156,10 +156,17 @@ class MetricsCollector:
             )
             benchmark_run = result.scalar_one_or_none()
             if benchmark_run:
-                benchmark_run.status = status  # type: ignore[assignment]
-                benchmark_run.completed_at = datetime.utcnow()  # type: ignore[assignment]
+                values: Dict[str, Any] = {
+                    "status": status,
+                    "completed_at": utc_now(),
+                }
                 if error_message:
-                    benchmark_run.error_message = error_message  # type: ignore[assignment]
+                    values["error_message"] = error_message
+                await self.db.execute(
+                    update(BenchmarkRun)
+                    .where(BenchmarkRun.id == run_id)
+                    .values(**values)
+                )
                 await self.db.commit()
         except Exception as e:
             await self.db.rollback()
@@ -176,7 +183,7 @@ class MetricsCollector:
             Dictionary with aggregated metrics
         """
         try:
-            cutoff_date = datetime.utcnow() - timedelta(days=days)
+            cutoff_date = utc_now() - timedelta(days=days)
 
             # Build query
             query = select(ProviderMetric).where(
@@ -210,10 +217,14 @@ class MetricsCollector:
             successful_runs = sum(1 for m in metrics if m.success)
             success_rate = (successful_runs / total_runs) * 100 if total_runs > 0 else 0
 
-            ttft_values = [float(m.ttft) for m in metrics if m.ttft is not None]
-            total_time_values = [float(m.total_time) for m in metrics if m.total_time]
+            ttft_values = [
+                float(cast(Any, m.ttft)) for m in metrics if m.ttft is not None
+            ]
+            total_time_values = [
+                float(cast(Any, m.total_time)) for m in metrics if m.total_time
+            ]
             tps_values = [
-                float(m.tokens_per_second)
+                float(cast(Any, m.tokens_per_second))
                 for m in metrics
                 if m.tokens_per_second is not None
             ]
@@ -270,7 +281,7 @@ class MetricsCollector:
             List of provider stats for the model
         """
         try:
-            cutoff_date = datetime.utcnow() - timedelta(days=days)
+            cutoff_date = utc_now() - timedelta(days=days)
 
             # Get all providers that have used this model
             query = (
@@ -326,7 +337,7 @@ class MetricsCollector:
             List of daily aggregated metrics
         """
         try:
-            cutoff_date = datetime.utcnow() - timedelta(days=days)
+            cutoff_date = utc_now() - timedelta(days=days)
 
             query = select(LatencyHistory).where(
                 and_(
@@ -411,23 +422,22 @@ class MetricsCollector:
             result = await self.db.execute(query)
             runs = result.scalars().all()
 
-            return [
-                {
-                    "id": run.id,
-                    "run_type": run.run_type,
-                    "prompt": (
-                        run.prompt[:100] + "..."
-                        if len(run.prompt) > 100
-                        else run.prompt
-                    ),
-                    "status": run.status,
-                    "created_at": run.created_at.isoformat(),
-                    "completed_at": (
-                        run.completed_at.isoformat() if run.completed_at else None
-                    ),
-                }
-                for run in runs
-            ]
+            out: List[Dict[str, Any]] = []
+            for run in runs:
+                p = cast(str, getattr(run, "prompt", "") or "")
+                out.append(
+                    {
+                        "id": run.id,
+                        "run_type": run.run_type,
+                        "prompt": (p[:100] + "..." if len(p) > 100 else p),
+                        "status": run.status,
+                        "created_at": run.created_at.isoformat(),
+                        "completed_at": (
+                            run.completed_at.isoformat() if run.completed_at else None
+                        ),
+                    }
+                )
+            return out
 
         except Exception as e:
             logger.error(f"Error getting recent benchmarks: {e}", exc_info=True)

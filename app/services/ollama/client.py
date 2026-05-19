@@ -22,6 +22,25 @@ class OllamaMode(str, Enum):
     CLOUD = "cloud"  # https://ollama.com/api
 
 
+def _normalize_ollama_api_base(url: str) -> str:
+    """
+    Ensure Ollama REST base ends with /api.
+
+    Misconfigured env often sets OLLAMA_BASE_URL to http://host:11434 without /api,
+    which yields 404 on POST .../chat instead of POST .../api/chat.
+    """
+    u = (url or "").strip().rstrip("/")
+    if not u:
+        return OllamaClient.LOCALHOST_BASE
+    lower = u.lower()
+    if lower.endswith("/api"):
+        return u
+    # Ollama Cloud host already includes path; do not append twice
+    if "ollama.com" in lower and "/api" in lower:
+        return u
+    return f"{u}/api"
+
+
 class OllamaClient:
     """
     Unified client for Ollama API interactions.
@@ -69,7 +88,7 @@ class OllamaClient:
         else:
             raw = cast(Optional[str], getattr(settings, "ollama_mode", None))
             mode_src = raw if raw is not None else "localhost"
-            self.mode = OllamaMode(str(mode_src).lower())
+            self.mode = OllamaMode(mode_src.lower())
 
         if self.mode == OllamaMode.CLOUD and not self.api_key:
             logger.warning("Ollama cloud mode requires API key")
@@ -82,8 +101,10 @@ class OllamaClient:
             Base URL string
         """
         if self.mode == OllamaMode.CLOUD:
-            return self.cloud_url or self.CLOUD_BASE
-        return self.base_url or self.LOCALHOST_BASE
+            return (self.cloud_url or self.CLOUD_BASE).rstrip("/")
+        raw = self.base_url or self.LOCALHOST_BASE
+        normalized = _normalize_ollama_api_base(raw)
+        return normalized
 
     def _get_headers(self) -> Dict[str, str]:
         """Get request headers with authentication if needed"""
@@ -128,8 +149,10 @@ class OllamaClient:
             logger.error(f"Ollama API error ({e.response.status_code}): {error_msg}")
             raise Exception(f"Ollama API error: {error_msg}")
         except httpx.RequestError as e:
-            logger.error(f"Ollama API request error: {e}")
-            raise Exception(f"Ollama API request error: {str(e)}")
+            logger.error(f"Ollama API request error: {type(e).__name__}: {e!r}")
+            raise Exception(
+                f"Ollama API request error: {type(e).__name__}: {e!s}"
+            ) from e
 
     def _extract_error_message(self, error: httpx.HTTPStatusError) -> str:
         """Extract error message from HTTP error response"""

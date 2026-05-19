@@ -12,6 +12,11 @@ isort==5.13.2
 flake8==7.0.0
 mypy==1.8.0
 ruff==0.8.4
+pyrefly==1.0.0
+
+# Typing stubs (Pyrefly / mypy)
+types-openpyxl>=3.1.0
+types-python-jose>=3.3.0
 
 # Documentation
 mkdocs==1.5.3

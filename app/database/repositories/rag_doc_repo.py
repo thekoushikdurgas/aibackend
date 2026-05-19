@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import uuid
-from datetime import datetime
 from typing import Any, Dict, List, Optional, cast
 
 from sqlalchemy import select, update, delete
@@ -11,6 +10,7 @@ from sqlalchemy.engine import CursorResult
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.user import RAGDocument
+from app.utils.helpers import utc_now
 
 
 class RAGDocumentRepository:
@@ -60,7 +60,7 @@ class RAGDocumentRepository:
         row = await self.get(document_id)
         if row is None:
             return None
-        vals: Dict[str, Any] = {"updated_at": datetime.utcnow()}
+        vals: Dict[str, Any] = {"updated_at": utc_now()}
         for k in (
             "title",
             "file_path",

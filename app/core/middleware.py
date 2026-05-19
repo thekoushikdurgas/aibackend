@@ -10,7 +10,10 @@ from typing import Callable, List, Optional
 
 from fastapi import Request, Response
 from fastapi.exceptions import RequestValidationError
+from graphql import GraphQLError
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.requests import ClientDisconnect
 from starlette.responses import JSONResponse
 
 logger = logging.getLogger(__name__)
@@ -26,10 +29,10 @@ class CorrelationIdMiddleware(BaseHTTPMiddleware):
 
     async def dispatch(self, request: Request, call_next: Callable) -> Response:
         cid = request.headers.get(CORRELATION_ID_HEADER)
-        if not cid or not str(cid).strip():
+        if not cid or not cid.strip():
             cid = str(uuid.uuid4())
         else:
-            cid = str(cid).strip()[:128]
+            cid = cid.strip()[:128]
         request.state.correlation_id = cid
         token = correlation_id_ctx.set(cid)
         try:
@@ -57,6 +60,17 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
         # Process request
         response = await call_next(request)
 
+        if response.status_code == 400 and request.url.path.rstrip("/").endswith(
+            "graphql"
+        ):
+            logger.warning(
+                "GraphQL HTTP 400%s: content_type=%r content_length=%r user_agent=%r",
+                cid_part,
+                request.headers.get("content-type"),
+                request.headers.get("content-length"),
+                request.headers.get("user-agent"),
+            )
+
         # Calculate duration
         duration = time.time() - start_time
 
@@ -83,6 +97,21 @@ class ErrorHandlerMiddleware(BaseHTTPMiddleware):
             return await call_next(request)
         except RequestValidationError as exc:
             logger.error(f"Validation error on {request.url.path}: {exc.errors()}")
+            raise
+        except ClientDisconnect:
+            # Client closed the socket while the body was still streaming (common for
+            # large GraphQL uploads). Do not return JSON — the connection is gone and
+            # doing so triggers RuntimeError("No response returned.") in BaseHTTPMiddleware.
+            logger.info(
+                "Client disconnected during %s %s",
+                request.method,
+                request.url.path,
+            )
+            raise
+        except StarletteHTTPException:
+            raise
+        except GraphQLError:
+            # Let Strawberry/GraphQL format resolver errors (do not return generic JSON 500).
             raise
         except Exception as exc:
             logger.error(f"Error processing request: {exc}", exc_info=True)

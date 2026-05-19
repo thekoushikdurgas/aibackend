@@ -5,14 +5,15 @@ Health check method handlers.
 import asyncio
 import logging
 import time
-from datetime import datetime
 from typing import Any, Dict, Optional
 
 from sqlalchemy import text
 
 from app.config import settings
+from app.utils.helpers import utc_now
+from app.services.ollama.client import _normalize_ollama_api_base
 from app.database.sqlalchemy import engine
-from app.services.rag import ChromaVectorStore
+from app.services.rag import get_shared_chroma_vector_store
 from app.services.llm.factory import LLMProviderFactory
 
 logger = logging.getLogger(__name__)
@@ -41,7 +42,7 @@ async def handle_system_health(
         "version": "1.0.0",
         "environment": settings.environment,
         "services": services,
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": utc_now().isoformat(),
     }
 
 
@@ -64,7 +65,7 @@ async def handle_system_ready(
     except Exception as exc:
         details["database_error"] = str(exc)
     try:
-        store = ChromaVectorStore()
+        store = get_shared_chroma_vector_store()
         await store.initialize()
         checks["chromadb"] = True
     except Exception as exc:
@@ -114,7 +115,9 @@ async def _check_ollama_health() -> Dict[str, Any]:
 
         start = time.time()
         async with httpx.AsyncClient(timeout=5.0) as client:
-            response = await client.get(f"{settings.ollama_base_url}/api/tags")
+            base = _normalize_ollama_api_base(settings.ollama_base_url or "")
+            tags_url = f"{base.rstrip('/')}/tags"
+            response = await client.get(tags_url)
             latency = (time.time() - start) * 1000
             if response.status_code == 200:
                 return {
@@ -138,10 +141,10 @@ async def _check_chromadb_health() -> Dict[str, Any]:
         loop = asyncio.get_event_loop()
 
         def _check_sync():
-            from app.services.rag import ChromaVectorStore
+            from app.services.rag import get_shared_chroma_vector_store
 
             start = time.time()
-            vector_store = ChromaVectorStore()
+            vector_store = get_shared_chroma_vector_store()
             collection = vector_store.get_collection()
             count = collection.count()
             latency = (time.time() - start) * 1000

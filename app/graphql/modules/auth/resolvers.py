@@ -15,12 +15,19 @@ from app.core.jsonrpc import JSONRPCError
 from app.database.repositories.user_repo import UserRepository
 from app.database.sqlalchemy import AsyncSessionLocal
 from app.graphql.context import GraphQLContext
+from app.core.graphql_cookie_middleware import queue_graphql_cookie_applier
+from app.core.http_session_cookies import (
+    attach_session_cookies_to_response,
+    clear_session_cookies_on_response,
+)
 from app.graphql.errors import raise_jsonrpc_as_graphql
 from app.graphql.modules.auth.types import (
     AuthPayload,
     GqlSession,
     GqlUser,
+    GqlUserProfile,
     RefreshPayload,
+    SessionCookieMutationResult,
 )
 
 
@@ -35,6 +42,10 @@ def _auth_payload_from_dict(raw: dict[str, Any]) -> AuthPayload:
             user_metadata=cast(JSON, u.get("user_metadata") or {}),
             app_metadata=cast(JSON, u.get("app_metadata") or {}),
             created_at=u.get("created_at"),
+            updated_at=u.get("updated_at"),
+            is_active=bool(u.get("is_active", True)),
+            is_verified=bool(u.get("is_verified", False)),
+            profile=None,
         )
     sess_obj: Optional[GqlSession] = None
     if s:
@@ -56,19 +67,57 @@ def _auth_payload_from_dict(raw: dict[str, Any]) -> AuthPayload:
 @strawberry.type
 class AuthQuery:
     @strawberry.field
-    def me(self, info: Info) -> Optional[GqlUser]:
+    async def me(self, info: Info) -> Optional[GqlUser]:
         ctx = info.context
         if not isinstance(ctx, GraphQLContext) or not ctx.auth_token:
             return None
         data = user_claims_from_access_token(ctx.auth_token)
         if not data:
             return None
+        sub = str(data.get("sub", ""))
+        jwt_email = data.get("email")
+        jwt_user_meta = cast(JSON, data.get("user_metadata") or {})
+        jwt_app_meta = cast(JSON, data.get("app_metadata") or {})
+
+        async with AsyncSessionLocal() as session:
+            ur = UserRepository(session)
+            row = await ur.get_by_id_with_profile(sub)
+
+        if row is None:
+            return GqlUser(
+                id=sub,
+                email=jwt_email,
+                user_metadata=jwt_user_meta,
+                app_metadata=jwt_app_meta,
+                created_at=None,
+                updated_at=None,
+                is_active=True,
+                is_verified=False,
+                profile=None,
+            )
+
+        prof: Optional[GqlUserProfile] = None
+        if row.profile is not None:
+            p = row.profile
+            prof = GqlUserProfile(
+                username=p.username,
+                avatar_url=p.avatar_url,
+                bio=p.bio,
+                preferences=cast(JSON, p.preferences or {}),
+                created_at=p.created_at.isoformat() if p.created_at else None,
+                updated_at=p.updated_at.isoformat() if p.updated_at else None,
+            )
+
         return GqlUser(
-            id=str(data.get("sub", "")),
-            email=data.get("email"),
-            user_metadata=cast(JSON, data.get("user_metadata") or {}),
-            app_metadata=cast(JSON, data.get("app_metadata") or {}),
-            created_at=None,
+            id=str(row.id),
+            email=str(row.email) if row.email is not None else None,
+            user_metadata=cast(JSON, row.user_metadata or {}),
+            app_metadata=jwt_app_meta,
+            created_at=row.created_at.isoformat() if row.created_at else None,
+            updated_at=row.updated_at.isoformat() if row.updated_at else None,
+            is_active=bool(row.is_active),
+            is_verified=bool(row.is_verified),
+            profile=prof,
         )
 
     @strawberry.field
@@ -139,3 +188,42 @@ class AuthMutation:
                 token_type=str(sess.get("token_type") or "bearer"),
             ),
         )
+
+    @strawberry.mutation
+    async def establish_session(
+        self,
+        info: Info,
+        access_token: str,
+        refresh_token: str,
+        expires_in: Optional[int] = None,
+    ) -> SessionCookieMutationResult:
+        """Persist httpOnly session cookies (replaces ``POST /api/auth/session``)."""
+        ctx = info.context
+        if not isinstance(ctx, GraphQLContext):
+            return SessionCookieMutationResult(ok=False, error="Invalid context")
+        access = access_token.strip()
+        refresh = refresh_token.strip()
+        if not access or not refresh:
+            return SessionCookieMutationResult(
+                ok=False, error="accessToken and refreshToken required"
+            )
+        max_age = max(60, expires_in or 3600)
+        queue_graphql_cookie_applier(
+            ctx.request,
+            lambda resp: attach_session_cookies_to_response(
+                resp, access, refresh, max_age
+            ),
+        )
+        return SessionCookieMutationResult(ok=True)
+
+    @strawberry.mutation
+    async def clear_session(self, info: Info) -> SessionCookieMutationResult:
+        """Clear httpOnly session cookies (replaces ``DELETE /api/auth/session``)."""
+        ctx = info.context
+        if not isinstance(ctx, GraphQLContext):
+            return SessionCookieMutationResult(ok=False, error="Invalid context")
+        queue_graphql_cookie_applier(
+            ctx.request,
+            clear_session_cookies_on_response,
+        )
+        return SessionCookieMutationResult(ok=True)

@@ -5,9 +5,9 @@ RAG (Retrieval-Augmented Generation) method handlers
 from __future__ import annotations
 
 import logging
-from typing import Dict, Any, Optional, AsyncGenerator, cast
+from typing import Dict, Any, Optional, AsyncGenerator
 
-from app.services.rag import ChromaVectorStore
+from app.services.rag import get_shared_chroma_vector_store
 from app.config import settings
 from app.services.rag.pipeline import rag_pipeline
 from app.services.document_service import document_service
@@ -51,15 +51,13 @@ async def handle_rag_query(
                 JSONRPCErrorCode.INVALID_PARAMS,
                 "Streaming RAG is not supported for rag.query; omit stream or use the streaming gateway",
             )
-        r = cast(dict[str, Any], result)
-
         return {
-            "query": r["query"],
-            "processed_query": r.get("processed_query", query),
-            "context": r["context"],
-            "sources": r["sources"],
-            "num_sources": r["num_sources"],
-            "context_length": r["context_length"],
+            "query": result["query"],
+            "processed_query": result.get("processed_query", query),
+            "context": result["context"],
+            "sources": result["sources"],
+            "num_sources": result["num_sources"],
+            "context_length": result["context_length"],
             "k": k,
         }
     except Exception as e:
@@ -132,7 +130,7 @@ async def handle_rag_delete(
         )
 
     try:
-        vector_store = ChromaVectorStore()
+        vector_store = get_shared_chroma_vector_store()
         collection = params.get("collection_name") or settings.chroma_collection_name
         deleted = await vector_store.delete_document(collection, document_id)
         return {"document_id": document_id, "deleted": deleted}

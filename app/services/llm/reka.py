@@ -146,7 +146,11 @@ class RekaProvider(BaseLLMProvider):
         )
 
         # Build request payload
-        payload = {"messages": messages, "model": model, "stream": False}
+        payload: dict[str, Any] = {
+            "messages": messages,
+            "model": model,
+            "stream": False,
+        }
 
         # Add optional parameters if supported
         if config.temperature is not None:
@@ -238,7 +242,7 @@ class RekaProvider(BaseLLMProvider):
         )
 
         # Build request payload
-        payload = {"messages": messages, "model": model, "stream": True}
+        payload: dict[str, Any] = {"messages": messages, "model": model, "stream": True}
 
         # Add optional parameters
         if config.temperature is not None:

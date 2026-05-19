@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any, Optional, cast
 
 import strawberry
 from graphql import GraphQLError
@@ -55,6 +55,6 @@ class WeatherQuery:
             )
 
         try:
-            return await fetch_weather_forecast(lat, lon)
+            return cast(JSON, await fetch_weather_forecast(lat, lon))
         except RuntimeError as e:
             raise GraphQLError(str(e), extensions={"code": "INTERNAL"}) from e

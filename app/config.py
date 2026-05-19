@@ -19,6 +19,8 @@ try:
 except ImportError:
     pass
 
+from app.config_runtime_overlay import SettingsOverlayProxy  # noqa: E402
+
 
 class Settings(BaseSettings):
     """Application settings from environment and optional .env file."""
@@ -183,6 +185,9 @@ class Settings(BaseSettings):
     chroma_persist_dir: str = "./data/chroma"
     chroma_collection_name: str = "durgasai_pages"
 
+    # Runtime AI provider overrides (JSON); see SettingsOverlayProxy
+    ai_provider_overrides_path: str = "./data/ai_provider_overrides.json"
+
     # Database
     database_url: str = "sqlite+aiosqlite:///./data/durgasai.db"
 
@@ -232,6 +237,9 @@ class Settings(BaseSettings):
     ollama_api_key: Optional[str] = None
     ollama_mode: str = "localhost"  # "localhost" or "cloud"
     ollama_model: str = "llama3"
+    # Max time to wait for Ollama /api/chat (non-streaming) to finish reading the body.
+    # Large prompts (e.g. resume + job description) on remote CPUs often exceed 120s; see error.txt ReadTimeout.
+    ollama_completion_timeout_seconds: float = 600.0
 
     # Council Configuration
     council_min_models: int = 3
@@ -305,7 +313,12 @@ class Settings(BaseSettings):
     streaming_chunk_size: int = 50  # characters
     streaming_buffer_time: float = 0.1  # seconds
     streaming_max_buffer_size: int = 1000  # characters
-    streaming_timeout: int = 60  # seconds
+    streaming_timeout: int = (
+        120  # seconds — max idle gap between chunks after first chunk
+    )
+    streaming_first_chunk_timeout: int = (
+        600  # seconds — TTFT / cold CPU Ollama; see error.txt idle @ 120s with no first token
+    )
     streaming_max_retries: int = 3
     streaming_retry_delay: float = 1.0  # seconds
     streaming_enable_exponential_backoff: bool = True
@@ -376,10 +389,20 @@ class Settings(BaseSettings):
 
 
 @lru_cache()
-def get_settings() -> Settings:
-    """Cached settings from process environment and optional .env (see Settings.model_config)."""
+def _base_settings_singleton() -> Settings:
+    """Underlying pydantic Settings (env + .env); wrapped by runtime overlay."""
     return Settings()
 
 
-# Global settings instance
-settings = get_settings()
+def clear_base_settings_cache() -> None:
+    """Clear cached pydantic Settings (e.g. after changing process env in scripts)."""
+    _base_settings_singleton.cache_clear()
+
+
+def get_settings():
+    """Process settings including runtime AI provider JSON overrides."""
+    return settings
+
+
+# Single stable object so imports of `settings` see overlay updates.
+settings: SettingsOverlayProxy = SettingsOverlayProxy(_base_settings_singleton())

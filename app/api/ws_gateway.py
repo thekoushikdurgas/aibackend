@@ -6,7 +6,6 @@ import logging
 import time
 from collections import defaultdict, deque
 from typing import Dict, Any, Optional, Callable
-from datetime import datetime
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Query
 
@@ -21,7 +20,7 @@ from app.core.jsonrpc import (
 )
 from app.core.ws_auth import authenticate_message
 from app.core.connection_manager import connection_manager
-from app.utils.helpers import generate_id
+from app.utils.helpers import generate_id, utc_now
 from app.api.ws_methods.registry import WS_METHOD_MODULES
 from app.config import settings
 
@@ -260,7 +259,7 @@ async def websocket_gateway(
                 "result": {
                     "type": "connected",
                     "connection_id": connection_id,
-                    "timestamp": datetime.utcnow().isoformat(),
+                    "timestamp": utc_now().isoformat(),
                     "authenticated": user is not None,
                 },
             }
@@ -285,16 +284,6 @@ async def websocket_gateway(
     except Exception as e:
         logger.error(f"WebSocket error: {e}", exc_info=True)
         connection_manager.disconnect(connection_id)
-
-
-@router.get("/ws/status")
-async def websocket_status():
-    """Get WebSocket gateway status"""
-    return {
-        "active_connections": connection_manager.get_connection_count(),
-        "registered_methods": len(gateway.methods),
-        "status": "running",
-    }
 
 
 # Export router

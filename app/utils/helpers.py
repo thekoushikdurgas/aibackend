@@ -6,13 +6,18 @@ import re
 import uuid
 import hashlib
 from typing import Dict, Optional
-from datetime import datetime
+from datetime import datetime, timezone
+
+
+def utc_now() -> datetime:
+    """Naive UTC datetime, equivalent to historical datetime.utcnow()."""
+    return datetime.now(timezone.utc).replace(tzinfo=None)
 
 
 def generate_id(prefix: str = "") -> str:
     """Generate a unique ID with optional prefix"""
     unique_id = str(uuid.uuid4())[:8]
-    timestamp = datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    timestamp = utc_now().strftime("%Y%m%d%H%M%S")
     if prefix:
         return f"{prefix}_{timestamp}_{unique_id}"
     return f"{timestamp}_{unique_id}"

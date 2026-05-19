@@ -10,10 +10,11 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, cast
 import json
 
-from sqlalchemy import select, delete, func
+from sqlalchemy import select, delete, func, update
 
 from app.config import settings
 from app.database import AsyncSessionLocal
+from app.utils.helpers import utc_now
 from app.models.conversation import (
     Conversation as DBConversation,
     Message as DBMessage,
@@ -29,7 +30,7 @@ class Message:
 
     role: str  # user, assistant, system
     content: str
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(default_factory=utc_now)
     metadata: Optional[Dict] = None
 
 
@@ -39,14 +40,14 @@ class Conversation:
 
     id: str
     messages: List[Message] = field(default_factory=list)
-    created_at: datetime = field(default_factory=datetime.utcnow)
-    updated_at: datetime = field(default_factory=datetime.utcnow)
+    created_at: datetime = field(default_factory=utc_now)
+    updated_at: datetime = field(default_factory=utc_now)
     metadata: Dict = field(default_factory=dict)
 
     def add_message(self, role: str, content: str, metadata: Optional[Dict] = None):
         """Add a message to the conversation"""
         self.messages.append(Message(role=role, content=content, metadata=metadata))
-        self.updated_at = datetime.utcnow()
+        self.updated_at = utc_now()
 
     def get_history(self, max_messages: int = 20) -> List[Dict[str, str]]:
         """Get conversation history for LLM context"""
@@ -451,7 +452,11 @@ class ConversationMemory:
                     id=str(db_conv.id),
                     created_at=cast(datetime, db_conv.created_at),
                     updated_at=cast(datetime, db_conv.updated_at),
-                    metadata=dict(db_conv.extra_metadata or {}),
+                    metadata=dict(
+                        cast(Any, db_conv.extra_metadata)
+                        if isinstance(cast(Any, db_conv.extra_metadata), dict)
+                        else {}
+                    ),
                 )
 
                 for db_msg in db_messages:
@@ -461,13 +466,15 @@ class ConversationMemory:
                         if isinstance(role_raw, MessageRole)
                         else str(role_raw)
                     )
+                    msg_extra = cast(Any, db_msg.extra_metadata)
+                    msg_meta = dict(msg_extra) if isinstance(msg_extra, dict) else {}
                     conversation.messages.append(
                         Message(
                             role=role_str,
                             content=str(db_msg.content),
                             timestamp=cast(datetime, db_msg.created_at),
                             metadata={
-                                **(db_msg.extra_metadata or {}),
+                                **msg_meta,
                                 "tokens": db_msg.tokens,
                                 "provider": db_msg.provider,
                                 "model": db_msg.model,
@@ -496,10 +503,14 @@ class ConversationMemory:
                 db_conv = result.scalar_one_or_none()
 
                 if db_conv:
-                    # Update existing
-                    db_conv.updated_at = datetime.utcnow()  # type: ignore[assignment]
+                    values: Dict[str, Any] = {"updated_at": utc_now()}
                     if title:
-                        db_conv.title = title  # type: ignore[assignment]
+                        values["title"] = title
+                    await session.execute(
+                        update(DBConversation)
+                        .where(DBConversation.id == conversation.id)
+                        .values(**values)
+                    )
                 else:
                     # Create new
                     db_conv = DBConversation(
@@ -553,8 +564,11 @@ class ConversationMemory:
                 )
                 session.add(db_msg)
 
-                # Update conversation timestamp
-                db_conv.updated_at = datetime.utcnow()  # type: ignore[assignment]
+                await session.execute(
+                    update(DBConversation)
+                    .where(DBConversation.id == conversation_id)
+                    .values(updated_at=utc_now())
+                )
 
                 await session.commit()
         except Exception as e:
@@ -602,7 +616,7 @@ class ConversationMemory:
                     rows.append(
                         {
                             "id": conv.id,
-                            "message_count": int(count_result.scalar() or 0),
+                            "message_count": count_result.scalar() or 0,
                             "created_at": (
                                 conv.created_at.isoformat() if conv.created_at else None
                             ),

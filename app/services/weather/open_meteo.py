@@ -98,7 +98,7 @@ def normalize_open_meteo_payload(
         ct = _parse_time(str(cur_time))
         if ct:
             for i, t in enumerate(times):
-                ht = _parse_time(str(t))
+                ht = _parse_time(t)
                 if ht and ht >= ct:
                     start_idx = i
                     break
@@ -132,7 +132,7 @@ def normalize_open_meteo_payload(
         mn = d_min[i] if i < len(d_min) else None
         dc = d_codes[i] if i < len(d_codes) else None
         icode = int(dc) if isinstance(dc, (int, float)) else None
-        row: Dict[str, Any] = {
+        day_row: Dict[str, Any] = {
             "date": d_times[i],
             "minC": None,
             "maxC": None,
@@ -142,12 +142,12 @@ def normalize_open_meteo_payload(
             "summary": wmo_weather_summary(icode),
         }
         if isinstance(mx, (int, float)):
-            row["maxC"] = round(float(mx), 1)
-            row["maxF"] = c_to_f(float(mx))
+            day_row["maxC"] = round(float(mx), 1)
+            day_row["maxF"] = c_to_f(float(mx))
         if isinstance(mn, (int, float)):
-            row["minC"] = round(float(mn), 1)
-            row["minF"] = c_to_f(float(mn))
-        daily.append(row)
+            day_row["minC"] = round(float(mn), 1)
+            day_row["minF"] = c_to_f(float(mn))
+        daily.append(day_row)
 
     return {
         "latitude": latitude,
@@ -167,7 +167,7 @@ async def fetch_weather_forecast(
     client: Optional[httpx.AsyncClient] = None,
 ) -> Dict[str, Any]:
     """Fetch forecast from Open-Meteo and return normalized camelCase JSON."""
-    params = {
+    params: dict[str, str | int | float] = {
         "latitude": latitude,
         "longitude": longitude,
         "timezone": "auto",

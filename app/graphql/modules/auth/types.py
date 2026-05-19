@@ -18,12 +18,28 @@ class GqlSession:
 
 
 @strawberry.type
+class GqlUserProfile:
+    """1:1 `profiles` row for the authenticated user."""
+
+    username: Optional[str] = None
+    avatar_url: Optional[str] = None
+    bio: Optional[str] = None
+    preferences: Optional[JSON] = None
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+
+
+@strawberry.type
 class GqlUser:
     id: str
     email: Optional[str]
     user_metadata: JSON
     app_metadata: JSON
     created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+    is_active: bool = True
+    is_verified: bool = False
+    profile: Optional[GqlUserProfile] = None
 
 
 @strawberry.type
@@ -38,3 +54,9 @@ class AuthPayload:
 class RefreshPayload:
     success: bool
     session: Optional[GqlSession] = None
+
+
+@strawberry.type
+class SessionCookieMutationResult:
+    ok: bool
+    error: Optional[str] = None

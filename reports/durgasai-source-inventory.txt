@@ -1,8 +1,9 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Wed 05/13/2026 23:10:39.59
+Generated: Tue 05/19/2026 12:09:24.34
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
+E:\durgas_ai\ai.backend\app\config_runtime_overlay.py
 E:\durgas_ai\ai.backend\app\main.py
 E:\durgas_ai\ai.backend\app\__init__.py
 E:\durgas_ai\ai.backend\app\agents\base.py
@@ -15,11 +16,12 @@ E:\durgas_ai\ai.backend\app\agents\router.py
 E:\durgas_ai\ai.backend\app\agents\seo_agent.py
 E:\durgas_ai\ai.backend\app\agents\website_scraper.py
 E:\durgas_ai\ai.backend\app\agents\__init__.py
-E:\durgas_ai\ai.backend\app\api\http_auth_session.py
+E:\durgas_ai\ai.backend\app\api\auth_session.py
+E:\durgas_ai\ai.backend\app\api\storage_signed_files.py
 E:\durgas_ai\ai.backend\app\api\ws_gateway.py
 E:\durgas_ai\ai.backend\app\api\__init__.py
-E:\durgas_ai\ai.backend\app\api\routes\files.py
-E:\durgas_ai\ai.backend\app\api\routes\readiness.py
+E:\durgas_ai\ai.backend\app\api\schemas\ai_provider_settings.py
+E:\durgas_ai\ai.backend\app\api\schemas\__init__.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\agents.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\ai21.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\auth.py
@@ -35,9 +37,17 @@ E:\durgas_ai\ai.backend\app\api\ws_methods\deepinfra.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\elevenlabs.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\embeddings.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\fal.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\gmail.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\google_calendar.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\google_drive.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\google_people.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\google_photos.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\google_tasks.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\google_ws_util.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\groq.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\health.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\hyperbolic.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\ide.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\imagen.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\metrics.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\multimodal.py
@@ -56,6 +66,8 @@ E:\durgas_ai\ai.backend\app\api\ws_methods\workflow_runner.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\__init__.py
 E:\durgas_ai\ai.backend\app\core\auth.py
 E:\durgas_ai\ai.backend\app\core\connection_manager.py
+E:\durgas_ai\ai.backend\app\core\graphql_cookie_middleware.py
+E:\durgas_ai\ai.backend\app\core\http_session_cookies.py
 E:\durgas_ai\ai.backend\app\core\jsonrpc.py
 E:\durgas_ai\ai.backend\app\core\middleware.py
 E:\durgas_ai\ai.backend\app\core\rate_limiter.py
@@ -72,6 +84,7 @@ E:\durgas_ai\ai.backend\app\database\repositories\user_repo.py
 E:\durgas_ai\ai.backend\app\database\repositories\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\context.py
 E:\durgas_ai\ai.backend\app\graphql\errors.py
+E:\durgas_ai\ai.backend\app\graphql\http_user.py
 E:\durgas_ai\ai.backend\app\graphql\schema.py
 E:\durgas_ai\ai.backend\app\graphql\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\util.py
@@ -85,8 +98,24 @@ E:\durgas_ai\ai.backend\app\graphql\modules\chat\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\chat\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\council\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\council\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\gmail\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\gmail\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\google_calendar\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\google_calendar\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\google_drive\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\google_drive\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\google_people\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\google_people\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\google_photos\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\google_photos\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\google_tasks\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\google_tasks\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\health\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\health\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\installed_apps\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\installed_apps\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\linked_accounts\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\linked_accounts\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\media\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\media\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\metrics\resolvers.py
@@ -97,8 +126,11 @@ E:\durgas_ai\ai.backend\app\graphql\modules\providers\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\providers\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\rag\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\rag\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\runtime_settings\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\storage\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\storage\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\todos\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\todos\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\tools\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\tools\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\vision\resolvers.py
@@ -123,6 +155,7 @@ E:\durgas_ai\ai.backend\app\services\local_storage_service.py
 E:\durgas_ai\ai.backend\app\services\rag_chat_service.py
 E:\durgas_ai\ai.backend\app\services\s3_storage_adapter.py
 E:\durgas_ai\ai.backend\app\services\storage_service.py
+E:\durgas_ai\ai.backend\app\services\user_provisioning.py
 E:\durgas_ai\ai.backend\app\services\__init__.py
 E:\durgas_ai\ai.backend\app\services\ai21\answer.py
 E:\durgas_ai\ai.backend\app\services\ai21\completion.py
@@ -281,6 +314,7 @@ E:\durgas_ai\ai.backend\app\services\scraper\structured_data.py
 E:\durgas_ai\ai.backend\app\services\scraper\__init__.py
 E:\durgas_ai\ai.backend\app\services\weather\open_meteo.py
 E:\durgas_ai\ai.backend\app\services\weather\__init__.py
+E:\durgas_ai\ai.backend\app\utils\bs4_attrs.py
 E:\durgas_ai\ai.backend\app\utils\file_handler.py
 E:\durgas_ai\ai.backend\app\utils\helpers.py
 E:\durgas_ai\ai.backend\app\utils\html_parser.py

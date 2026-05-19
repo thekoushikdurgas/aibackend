@@ -82,4 +82,3 @@ async def test_agents_analyze_missing_params():
     with pytest.raises(JSONRPCError) as e:
         await agents.handle_agents_analyze({})
     assert e.value.code == JSONRPCErrorCode.INVALID_PARAMS
-

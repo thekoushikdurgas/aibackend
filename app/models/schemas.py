@@ -8,6 +8,8 @@ from enum import Enum
 
 from pydantic import BaseModel, ConfigDict, Field
 
+from app.utils.helpers import utc_now
+
 
 # ===================
 # Enums
@@ -97,7 +99,7 @@ class ChatResponse(BaseModel):
     model: str
     usage: Optional[Dict[str, int]] = None
     finish_reason: Optional[str] = None
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=utc_now)
 
 
 # ===================
@@ -141,7 +143,7 @@ class AgentResponse(BaseModel):
     summary: str
     recommendations: Optional[List[str]] = None
     metadata: Optional[Dict[str, Any]] = None
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=utc_now)
 
 
 # ===================
@@ -239,7 +241,7 @@ class HealthResponse(BaseModel):
     version: str
     environment: str
     services: List[ServiceStatus]
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=utc_now)
 
 
 # ===================
@@ -252,7 +254,7 @@ class WSMessage(BaseModel):
 
     type: str
     data: Dict[str, Any]
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=utc_now)
 
 
 class WSChatMessage(BaseModel):
@@ -895,7 +897,7 @@ class BatchRequestItem(BaseModel):
 class BatchCreateRequest(BaseModel):
     """Create batch request"""
 
-    requests: List[BatchRequestItem] = Field(..., min_items=1)
+    requests: List[BatchRequestItem] = Field(..., min_length=1)
     display_name: Optional[str] = None
     model: Optional[str] = None
 
@@ -1134,7 +1136,10 @@ class OpenRouterEmbeddingRequest(BaseModel):
         None, min_length=1, max_length=100000, description="Single text to embed"
     )
     texts: Optional[List[str]] = Field(
-        None, min_items=1, max_items=100, description="Multiple texts to embed (batch)"
+        None,
+        min_length=1,
+        max_length=100,
+        description="Multiple texts to embed (batch)",
     )
     model: Optional[str] = Field(
         default="openai/text-embedding-3-small", description="Embedding model to use"
@@ -1217,14 +1222,14 @@ class BenchmarkResult(BaseModel):
     success: bool
     error: Optional[str] = None
     error_type: Optional[str] = None
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=utc_now)
     response_preview: Optional[str] = None  # First 200 chars of response
 
 
 class CompareBenchmarkRequest(BaseModel):
     """Request to compare multiple providers"""
 
-    providers: List[LLMProvider] = Field(..., min_items=1, max_items=10)
+    providers: List[LLMProvider] = Field(..., min_length=1, max_length=10)
     prompt: str = Field(
         default="Explain the importance of low latency LLMs",
         min_length=1,
@@ -1246,7 +1251,7 @@ class ComparativeBenchmarkResult(BaseModel):
     fastest_provider: Optional[str] = None
     highest_throughput: Optional[str] = None
     rankings: Dict[str, int] = Field(default_factory=dict)  # Provider -> rank
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=utc_now)
 
 
 class StressTestRequest(BaseModel):
@@ -1280,7 +1285,7 @@ class StressTestResult(BaseModel):
     requests_per_second: float
     error_rate: float  # Percentage
     errors: List[Dict[str, Any]] = Field(default_factory=list)
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: datetime = Field(default_factory=utc_now)
 
 
 class BenchmarkHistoryItem(BaseModel):
@@ -1383,8 +1388,8 @@ class GroqVisionBatchRequest(BaseModel):
 
     images: List[str] = Field(
         ...,
-        min_items=1,
-        max_items=10,
+        min_length=1,
+        max_length=10,
         description="List of image URLs or base64-encoded images",
     )
     prompt: str = Field(..., min_length=1, max_length=5000)
@@ -1470,7 +1475,9 @@ class GroqConversationModerationRequest(BaseModel):
     """Groq conversation moderation request"""
 
     messages: List[Dict[str, str]] = Field(
-        ..., min_items=1, description="List of messages with 'role' and 'content' keys"
+        ...,
+        min_length=1,
+        description="List of messages with 'role' and 'content' keys",
     )
 
 
@@ -1652,7 +1659,7 @@ class CohereSummarizeResponse(BaseModel):
 class CohereEmbedRequest(BaseModel):
     """Cohere embed request"""
 
-    texts: List[str] = Field(..., min_items=1, max_items=96)
+    texts: List[str] = Field(..., min_length=1, max_length=96)
     model: str = "embed-english-v3.0"
     input_type: str = Field(
         ...,
@@ -1680,9 +1687,9 @@ class CohereClassifyExample(BaseModel):
 class CohereClassifyRequest(BaseModel):
     """Cohere classify request"""
 
-    inputs: List[str] = Field(..., min_items=1, max_items=96)
+    inputs: List[str] = Field(..., min_length=1, max_length=96)
     model: str = "embed-english-v3.0"
-    examples: List[CohereClassifyExample] = Field(..., min_items=2)
+    examples: List[CohereClassifyExample] = Field(..., min_length=2)
     truncate: Optional[str] = Field("END", pattern="^(NONE|START|END)$")
 
 
@@ -1707,7 +1714,7 @@ class CohereRerankRequest(BaseModel):
     """Cohere rerank request"""
 
     query: str = Field(..., min_length=1)
-    documents: List[str] = Field(..., min_items=1)
+    documents: List[str] = Field(..., min_length=1)
     model: str = "rerank-english-v3.0"
     top_n: Optional[int] = Field(None, ge=1)
     return_documents: bool = True

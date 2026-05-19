@@ -54,7 +54,7 @@ class AgentRouter:
         """
         # Get agent class
         if agent_type not in cls._agents:
-            available = ", ".join(str(t.value) for t in cls._agents.keys())
+            available = ", ".join(t.value for t in cls._agents.keys())
             raise ValueError(
                 f"Unknown agent type: {agent_type}. Available: {available}"
             )

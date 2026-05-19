@@ -79,11 +79,13 @@ class SummarizationService:
             elif isinstance(response, str):
                 summary = response
 
+            summary_str = summary if isinstance(summary, str) else str(summary or "")
+
             return {
-                "summary": summary,
+                "summary": summary_str,
                 "model": model,
                 "original_length": len(text),
-                "summary_length": len(summary),
+                "summary_length": len(summary_str),
             }
 
         except Exception as e:

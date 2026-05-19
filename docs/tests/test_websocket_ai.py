@@ -4,13 +4,8 @@ Tests connection lifecycle, streaming, authentication, and error handling.
 """
 
 import pytest
-import asyncio
-import json
-from typing import AsyncGenerator
 
 from fastapi.testclient import TestClient
-from websockets.client import connect
-import websockets
 
 from app.main import app
 from app.core.connection_manager import connection_manager
@@ -47,11 +42,10 @@ async def test_websocket_streaming():
 @pytest.mark.asyncio
 async def test_connection_manager():
     """Test enhanced ConnectionManager functionality"""
-    from fastapi import WebSocket
-    
+
     # Test connection tracking
     assert connection_manager.get_connection_count() == 0
-    
+
     # Note: Full WebSocket testing requires actual WebSocket connections
     # These tests would need to be run with a real WebSocket server
 
@@ -69,7 +63,7 @@ def test_connection_manager_state():
     """Test connection state management"""
     # Test get_client_state, update_client_state
     connection_id = "test_conn_123"
-    
+
     # State should be None for non-existent connection
     state = connection_manager.get_client_state(connection_id)
     assert state is None
@@ -89,4 +83,3 @@ async def test_websocket_rate_limiting():
     """Test rate limiting on WebSocket connections"""
     # Test rate limit enforcement
     pass
-

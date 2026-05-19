@@ -1,0 +1,21 @@
+python-version = "3.13.0"
+preset = "legacy"
+ignore-missing-imports = ["*"]
+
+[[sub-config]]
+matches = "app/models/schemas"
+
+[sub-config.errors]
+no-matching-overload = "ignore"
+
+[[sub-config]]
+matches = "app/core/auth.py"
+
+[sub-config.errors]
+untyped-import = "ignore"
+
+[[sub-config]]
+matches = "app/services/scraper/export_handler.py"
+
+[sub-config.errors]
+untyped-import = "ignore"

@@ -5,7 +5,7 @@ Supports PDF, TXT, MD, and DOCX file formats
 
 import logging
 from pathlib import Path
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, cast
 import mimetypes
 
 logger = logging.getLogger(__name__)
@@ -65,7 +65,7 @@ class DocumentLoader:
     async def load_pdf(file_path: str) -> Tuple[str, List[Dict[str, Any]]]:
         """Load PDF document using PyMuPDF"""
         try:
-            import fitz  # PyMuPDF
+            fitz = cast(Any, __import__("fitz", fromlist=[""]))
 
             doc = fitz.open(file_path)
             pages = []

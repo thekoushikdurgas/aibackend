@@ -70,7 +70,7 @@ class DeepInfraProvider(BaseLLMProvider):
             prompt, context, conversation_history, config.system_prompt
         )
 
-        payload = {
+        payload: dict[str, Any] = {
             "messages": messages,
             "model": model,
             "temperature": config.temperature,
@@ -144,7 +144,7 @@ class DeepInfraProvider(BaseLLMProvider):
             prompt, context, conversation_history, config.system_prompt
         )
 
-        payload = {
+        payload: dict[str, Any] = {
             "messages": messages,
             "model": model,
             "temperature": config.temperature,
@@ -239,7 +239,7 @@ class DeepInfraProvider(BaseLLMProvider):
         config = config or LLMConfig(model=self.default_model)
         model = config.model or self.default_model
 
-        payload = {
+        payload: dict[str, Any] = {
             "model": model,
             "prompt": prompt,
             "temperature": config.temperature,

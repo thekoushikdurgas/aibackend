@@ -4,9 +4,9 @@ Unified AI Service Layer - Abstraction over Multi-Provider LLM Support
 
 import logging
 from typing import List, Dict, Optional, AsyncGenerator, Any
-from datetime import datetime
 
 from app.config import settings
+from app.utils.helpers import utc_now
 from app.services.llm import (
     get_llm_provider,
     LLMProviderFactory,
@@ -98,11 +98,13 @@ class AIService:
 
             # Stream with timeout protection
             stream = self.streaming_processor.stream_with_timeout(
-                stream, timeout=settings.streaming_timeout
+                stream,
+                timeout=settings.streaming_timeout,
+                first_chunk_timeout=settings.streaming_first_chunk_timeout,
             )
 
             # Yield formatted chunks
-            start_time = datetime.utcnow()
+            start_time = utc_now()
             chunk_index = 0
             full_content = ""
 
@@ -117,11 +119,11 @@ class AIService:
                     "full_content": full_content,
                     "provider": provider.provider_name,
                     "model": config.model or provider.default_model,
-                    "timestamp": datetime.utcnow().isoformat(),
+                    "timestamp": utc_now().isoformat(),
                 }
 
             # Final completion message with stats
-            elapsed = (datetime.utcnow() - start_time).total_seconds()
+            elapsed = (utc_now() - start_time).total_seconds()
             stats = self.token_counter.get_stats() if enable_token_counting else {}
 
             yield {
@@ -132,7 +134,7 @@ class AIService:
                 "model": config.model or provider.default_model,
                 "elapsed_seconds": elapsed,
                 "stats": stats,
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": utc_now().isoformat(),
             }
 
             # Reset token counter for next request
@@ -145,7 +147,7 @@ class AIService:
                 "type": "error",
                 "error": str(e),
                 "provider": provider.provider_name,
-                "timestamp": datetime.utcnow().isoformat(),
+                "timestamp": utc_now().isoformat(),
             }
             raise
 

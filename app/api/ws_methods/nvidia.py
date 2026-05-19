@@ -101,20 +101,23 @@ async def handle_nvidia_vision_analyze(
     max_tokens = params.get("max_tokens")
     temperature = params.get("temperature", 0.7)
 
-    # Handle base64 file
-    if image and isinstance(image, dict):
-        file_result = handle_file_param({"file": image}, "file")
+    nvidia_image: str | bytes | None = None
+    img_in = image
+    if img_in and isinstance(img_in, dict):
+        file_result = handle_file_param({"file": img_in}, "file")
         if file_result:
             import base64
 
             image_bytes, _ = file_result
-            image = base64.b64encode(image_bytes).decode("utf-8")
+            nvidia_image = base64.b64encode(image_bytes).decode("utf-8")
+    elif isinstance(img_in, (str, bytes)):
+        nvidia_image = img_in
 
     try:
         service = NVIDIAVisionService()
         result = await service.analyze(
             prompt=prompt,
-            image=image,
+            image=nvidia_image,
             image_url=image_url,
             model=model,
             max_tokens=max_tokens,

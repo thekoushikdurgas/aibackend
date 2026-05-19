@@ -4,7 +4,7 @@ Provides text completion functionality with support for j2-ultra, j2-mid, j2-lig
 """
 
 import logging
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import httpx
 
@@ -91,7 +91,7 @@ class AI21CompletionService:
             # Default to j2-mid if model format is unexpected
             url = f"{self.base_url}/j2-mid/complete"
 
-        payload = {
+        payload: dict[str, Any] = {
             "prompt": prompt,
             "numResults": num_results,
             "maxTokens": max_tokens,

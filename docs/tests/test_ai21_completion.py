@@ -19,10 +19,14 @@ async def test_complete():
             "prompt": "The future of AI is",
             "model": "j2-mid",
             "numResults": 1,
-            "maxTokens": 50
-        }
+            "maxTokens": 50,
+        },
     )
-    assert response.status_code in [200, 401, 500]  # 401 if no auth, 500 if API key missing
+    assert response.status_code in [
+        200,
+        401,
+        500,
+    ]  # 401 if no auth, 500 if API key missing
 
 
 @pytest.mark.asyncio
@@ -41,9 +45,9 @@ async def test_complete_with_penalties():
                 "applyToPunctuations": True,
                 "applyToNumbers": True,
                 "applyToStopwords": True,
-                "applyToEmojis": True
-            }
-        }
+                "applyToEmojis": True,
+            },
+        },
     )
     assert response.status_code in [200, 401, 500]
 
@@ -53,9 +57,6 @@ async def test_complete_validation():
     """Test completion validation"""
     response = client.post(
         "/api/v1/ai21/complete",
-        json={
-            "prompt": "",  # Empty prompt should fail validation
-            "model": "j2-mid"
-        }
+        json={"prompt": "", "model": "j2-mid"},  # Empty prompt should fail validation
     )
     assert response.status_code == 422  # Validation error

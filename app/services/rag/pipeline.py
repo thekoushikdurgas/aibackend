@@ -8,7 +8,7 @@ import re
 
 from app.config import settings
 from .base import VectorDBBase, VectorSearchResult
-from .vectorstore import ChromaVectorStore
+from .vectorstore import ChromaVectorStore, get_shared_chroma_vector_store
 from .chunking import DocumentChunker
 from .embeddings import get_embedding_service
 
@@ -36,7 +36,7 @@ class RAGPipeline:
             vector_store: Vector database instance (uses ChromaDB default if None)
             chunker: Document chunker instance (uses default if None)
         """
-        self.vector_store = vector_store or ChromaVectorStore()
+        self.vector_store = vector_store or get_shared_chroma_vector_store()
         self.chunker = chunker or DocumentChunker()
         self.embedding_service = get_embedding_service()
         self._initialized = False

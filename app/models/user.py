@@ -3,9 +3,9 @@ Application user, profile, and RAG document ORM models (replaces Supabase auth.u
 """
 
 import uuid
-from datetime import datetime
 from typing import Any, Dict
 
+from app.utils.helpers import utc_now
 from sqlalchemy import (
     Boolean,
     Column,
@@ -35,10 +35,8 @@ class User(Base):
     is_verified = Column(Boolean, default=False, nullable=False)
     token_version = Column(Integer, default=0, nullable=False)
     user_metadata = Column(JSON, default=dict)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(
-        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
-    )
+    created_at = Column(DateTime, default=utc_now, nullable=False)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
 
     profile = relationship(
         "Profile", back_populates="user", uselist=False, cascade="all, delete-orphan"
@@ -68,10 +66,8 @@ class Profile(Base):
     avatar_url = Column(String(1024), nullable=True)
     bio = Column(Text, nullable=True)
     preferences = Column(JSON, default=dict)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(
-        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
-    )
+    created_at = Column(DateTime, default=utc_now, nullable=False)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
 
     user = relationship("User", back_populates="profile")
 
@@ -104,10 +100,8 @@ class RAGDocument(Base):
     vector_ids = Column(JSON, default=list)
     extra_metadata = Column(JSON, default=dict)
     indexed = Column(Boolean, default=False, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(
-        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
-    )
+    created_at = Column(DateTime, default=utc_now, nullable=False)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
 
     user = relationship("User", back_populates="rag_documents")
 

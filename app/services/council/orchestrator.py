@@ -415,7 +415,7 @@ class CouncilOrchestrator:
         page_data: Optional[PageData] = None,
     ) -> Tuple[List[Dict], List[Dict], Dict[str, Any], Dict[str, Any]]:
         opts = self.council_options
-        sources, retriever = self._resolve_sources(query, page_data)  # type: ignore
+        sources, retriever = self._resolve_sources(query, page_data)
         if not sources:
             council_metrics.record_abstain("no_sources")
             return (
@@ -498,7 +498,7 @@ class CouncilOrchestrator:
             "council_v2": {
                 "schema_version": opts.schema_version,
                 "policy": opts.policy.value,
-                "abstained": bool(abstain),
+                "abstained": abstain,
                 "claims": all_claims,
                 "coverage": round(coverage, 4),
                 "sources": self._source_summary(sources),

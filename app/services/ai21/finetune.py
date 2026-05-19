@@ -4,7 +4,7 @@ Provides dataset and custom model management functionality
 """
 
 import logging
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import httpx
 
@@ -326,7 +326,7 @@ class AI21FinetuneService:
             raise Exception("AI21 API key not configured")
 
         url = f"{self.base_url}/{model_type}/{model_id}/complete"
-        payload = {
+        payload: dict[str, Any] = {
             "prompt": prompt,
             "numResults": num_results,
             "maxTokens": max_tokens,

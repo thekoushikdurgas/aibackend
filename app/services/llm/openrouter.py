@@ -218,7 +218,7 @@ class OpenRouterProvider(BaseLLMProvider):
         )
 
         # Build request payload (OpenAI-compatible format)
-        payload = {
+        payload: dict[str, Any] = {
             "model": model,
             "messages": messages,
             "temperature": config.temperature,
@@ -446,7 +446,7 @@ class OpenRouterProvider(BaseLLMProvider):
         )
 
         # Build request payload with streaming enabled
-        payload = {
+        payload: dict[str, Any] = {
             "model": model,
             "messages": messages,
             "temperature": config.temperature,

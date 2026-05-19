@@ -5,17 +5,19 @@ DurgasAI Backend - FastAPI Application Entry Point
 import logging
 import inspect
 from contextlib import asynccontextmanager
-from typing import AsyncGenerator
+from typing import AsyncGenerator, Awaitable, Callable, cast
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
+from starlette.requests import ClientDisconnect
+from strawberry.fastapi.context import CustomContext
 
 from app.config import settings
-from app.api.http_auth_session import router as http_auth_session_router
-from app.api.routes.files import router as files_router
-from app.api.routes.readiness import router as readiness_router
+from app.api.auth_session import router as auth_session_router
+from app.api.storage_signed_files import router as storage_signed_files_router
 from app.api.ws_gateway import websocket_gateway_router
+from app.core.graphql_cookie_middleware import GraphqlResponseCookieMiddleware
 from app.core.middleware import (
     CorrelationIdMiddleware,
     RequestLoggingMiddleware,
@@ -58,9 +60,9 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
 
     try:
         # Initialize ChromaDB
-        from app.services.rag import ChromaVectorStore
+        from app.services.rag import get_shared_chroma_vector_store
 
-        vector_store = ChromaVectorStore()
+        vector_store = get_shared_chroma_vector_store()
         await vector_store.initialize()
         app.state.vector_store = vector_store
         logger.info("ChromaDB initialized successfully")
@@ -144,19 +146,23 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
     try:
         if hasattr(app.state, "redis"):
             await app.state.redis.close()
-            logger.info("Redis connection closed")
+            logger.info("Redis connections closed")
     except Exception as e:
         logger.warning(f"Redis cleanup error: {e}")
 
+
+_docs = "/docs" if settings.debug else None
+_redoc = "/redoc" if settings.debug else None
+_openapi = "/openapi.json" if settings.debug else None
 
 # Create FastAPI application
 app = FastAPI(
     title="DurgasAI Backend",
     description="FastAPI backend with AI agents for the DurgasAI Chrome extension",
     version="1.0.0",
-    docs_url="/docs",
-    redoc_url="/redoc",
-    openapi_url="/openapi.json",
+    docs_url=_docs,
+    redoc_url=_redoc,
+    openapi_url=_openapi,
     lifespan=lifespan,
 )
 
@@ -192,51 +198,45 @@ app.add_middleware(
 
 mount_socketio(app)
 
-# Include WebSocket gateway (replaces all REST endpoints)
-app.include_router(websocket_gateway_router)
-app.include_router(readiness_router)
-app.include_router(http_auth_session_router)
-app.include_router(
-    files_router,
-    prefix=(settings.storage_url_prefix or "/files").rstrip("/"),
-)
+app.include_router(auth_session_router)
 
-# GraphQL (HTTP) — auth and other typed reads/mutations; AI traffic may stay on WebSocket
+_files_prefix = (settings.storage_url_prefix or "/files").rstrip("/") or "/files"
+app.include_router(storage_signed_files_router, prefix=_files_prefix)
+
+# Include WebSocket gateway (JSON-RPC)
+app.include_router(websocket_gateway_router)
+
+# GraphQL (HTTP) — single application HTTP API surface
 graphql_router = GraphQLRouter(
     graphql_schema,
-    # Strawberry FastAPI stubs expect Callable[..., Awaitable[None]]; runtime accepts async context factories.
-    context_getter=get_graphql_context,  # type: ignore[arg-type]
+    context_getter=cast(
+        Callable[..., CustomContext | None | Awaitable[CustomContext | None]],
+        get_graphql_context,
+    ),
     graphql_ide="graphiql" if settings.debug else None,
 )
 app.include_router(graphql_router, prefix="/graphql")
 
-
-@app.get("/", tags=["Root"])
-async def root():
-    """Root endpoint"""
-    return {
-        "name": "DurgasAI Backend",
-        "version": "1.0.0",
-        "status": "running",
-        "architecture": "websocket-jsonrpc-and-graphql-http",
-        "websocket_endpoint": "/ws/gateway",
-        "websocket_protocol": "JSON-RPC 2.0",
-        "graphql_endpoint": "/graphql",
-        "graphql_protocol": "GraphQL over HTTP POST",
-        "session_http": "/api/auth/session",
-        "health": "/health",
-    }
+# Apply cookies queued by GraphQL session mutations (outermost on response)
+app.add_middleware(GraphqlResponseCookieMiddleware)
 
 
-@app.get("/health")
+@app.get("/health", tags=["Health"])
 async def health():
-    """Simple HTTP health check for load balancers"""
+    """Minimal liveness for load balancers (GET-only exception to GraphQL HTTP API)."""
     return {"status": "healthy"}
 
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     """Global exception handler"""
+    if isinstance(exc, ClientDisconnect):
+        logger.info(
+            "Client disconnected: %s %s",
+            request.method,
+            request.url.path,
+        )
+        return Response(status_code=499)
     logger.error(f"Unhandled exception: {exc}", exc_info=True)
     return JSONResponse(
         status_code=500,

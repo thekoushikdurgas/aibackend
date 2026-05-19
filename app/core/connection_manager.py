@@ -5,10 +5,10 @@ Enhanced WebSocket Connection Manager with Session State
 import asyncio
 import logging
 from typing import Dict, Optional, Any, AsyncGenerator
-from datetime import datetime
 from fastapi import WebSocket
 
 from app.config import settings
+from app.utils.helpers import utc_now
 
 logger = logging.getLogger(__name__)
 
@@ -46,9 +46,9 @@ class ConnectionManager:
             self.active_connections[connection_id] = websocket
             self.connection_metadata[connection_id] = {
                 "websocket": websocket,
-                "connected_at": datetime.utcnow(),
-                "last_heartbeat": datetime.utcnow(),
-                "last_activity": datetime.utcnow(),
+                "connected_at": utc_now(),
+                "last_heartbeat": utc_now(),
+                "last_activity": utc_now(),
                 "message_count": 0,
                 "state": {},
                 **(metadata or {}),
@@ -122,9 +122,7 @@ class ConnectionManager:
 
             # Update activity tracking
             if connection_id in self.connection_metadata:
-                self.connection_metadata[connection_id][
-                    "last_activity"
-                ] = datetime.utcnow()
+                self.connection_metadata[connection_id]["last_activity"] = utc_now()
                 self.connection_metadata[connection_id]["message_count"] += 1
 
             return True
@@ -223,7 +221,7 @@ class ConnectionManager:
                             "chunk": chunk,
                             "index": chunk_index,
                             "full_content": full_content,
-                            "timestamp": datetime.utcnow().isoformat(),
+                            "timestamp": utc_now().isoformat(),
                         },
                     }
                 else:
@@ -232,7 +230,7 @@ class ConnectionManager:
                         "chunk": chunk,
                         "index": chunk_index,
                         "full_content": full_content,
-                        "timestamp": datetime.utcnow().isoformat(),
+                        "timestamp": utc_now().isoformat(),
                     }
 
                 await self.send_json(connection_id, message)
@@ -247,7 +245,7 @@ class ConnectionManager:
                         "type": f"{message_type}_complete",
                         "full_content": full_content,
                         "total_chunks": chunk_index,
-                        "timestamp": datetime.utcnow().isoformat(),
+                        "timestamp": utc_now().isoformat(),
                     },
                 }
             else:
@@ -255,7 +253,7 @@ class ConnectionManager:
                     "type": f"{message_type}_complete",
                     "full_content": full_content,
                     "total_chunks": chunk_index,
-                    "timestamp": datetime.utcnow().isoformat(),
+                    "timestamp": utc_now().isoformat(),
                 }
 
             await self.send_json(connection_id, completion_message)
@@ -336,10 +334,8 @@ class ConnectionManager:
             connection_id: Connection identifier
         """
         if connection_id in self.connection_metadata:
-            self.connection_metadata[connection_id][
-                "last_heartbeat"
-            ] = datetime.utcnow()
-            self.connection_metadata[connection_id]["last_activity"] = datetime.utcnow()
+            self.connection_metadata[connection_id]["last_heartbeat"] = utc_now()
+            self.connection_metadata[connection_id]["last_activity"] = utc_now()
 
     def get_connection_count(self) -> int:
         """
@@ -384,7 +380,7 @@ class ConnectionManager:
             settings, "ws_heartbeat_timeout", 300  # Default 5 minutes
         )
 
-        now = datetime.utcnow()
+        now = utc_now()
         stale_connections = []
 
         async with self.lock:
@@ -392,6 +388,8 @@ class ConnectionManager:
                 last_heartbeat = metadata.get(
                     "last_heartbeat", metadata.get("connected_at")
                 )
+                if last_heartbeat is None:
+                    continue
                 elapsed = (now - last_heartbeat).total_seconds()
 
                 if elapsed > timeout:

@@ -4,6 +4,7 @@ Authentication WebSocket Methods (local JWT + SQLAlchemy users).
 
 from __future__ import annotations
 
+import asyncio
 import logging
 from datetime import datetime
 from typing import Any, Dict, Optional, cast
@@ -33,6 +34,7 @@ from app.database.repositories.profile_repo import ProfileRepository
 from app.database.repositories.user_repo import UserRepository
 from app.database.sqlalchemy import AsyncSessionLocal
 from app.models.user import User
+from app.services.user_provisioning import provision_user_storage
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +54,7 @@ def _user_plain(
     return (
         cast(str, u.id),
         cast(str, u.email),
-        int(cast(int, u.token_version or 0)),
+        cast(int, u.token_version or 0),
         cast(Optional[str], u.hashed_password),
         meta,
         cast(Optional[datetime], u.created_at),
@@ -92,6 +94,12 @@ async def handle_auth_signup(
             await session.commit()
             await session.refresh(u)
             uid, em, tv, _, meta, created = _user_plain(u)
+            try:
+                asyncio.get_running_loop().create_task(
+                    asyncio.to_thread(provision_user_storage, uid)
+                )
+            except RuntimeError:
+                provision_user_storage(uid)
 
             access, exp_at = issue_access_token(uid, em, tv)
             refresh = issue_refresh_token(uid, tv)
@@ -186,9 +194,14 @@ async def handle_auth_refresh(
     try:
         claims = verify_refresh_token(refresh_token)
     except HTTPException as e:
+        detail = (
+            e.detail
+            if isinstance(e.detail, str)
+            else (str(e.detail) if e.detail is not None else "Invalid refresh token")
+        )
         raise JSONRPCError(
             JSONRPCErrorCode.AUTHENTICATION_ERROR,
-            str(e.detail) if hasattr(e, "detail") else "Invalid refresh token",
+            detail,
         ) from e
 
     uid = str(claims.get("sub", ""))
@@ -201,7 +214,7 @@ async def handle_auth_refresh(
             raise JSONRPCError(
                 JSONRPCErrorCode.AUTHENTICATION_ERROR, "Invalid refresh token"
             )
-        if int(u.token_version or 0) != tv_claim:
+        if int(cast(Any, u.token_version) or 0) != tv_claim:
             raise JSONRPCError(
                 JSONRPCErrorCode.AUTHENTICATION_ERROR, "Session has been revoked"
             )
@@ -225,9 +238,14 @@ async def handle_auth_verify(
             try:
                 claims = verify_token(token)
             except HTTPException as e:
-                return {"valid": False, "error": str(e.detail)}
+                err = (
+                    e.detail
+                    if isinstance(e.detail, str)
+                    else (str(e.detail) if e.detail is not None else "Invalid token")
+                )
+                return {"valid": False, "error": err}
         elif user and user.get("sub"):
-            claims = cast(Dict[str, Any], user)
+            claims = user
         else:
             return {"valid": False, "error": "No token provided"}
 
@@ -239,7 +257,7 @@ async def handle_auth_verify(
                 return {"valid": False, "error": "User not found"}
             if claims.get("typ") == JWT_TYP_ACCESS:
                 tv = int(claims.get("tv", -1))
-                if int(u.token_version or 0) != tv:
+                if int(cast(Any, u.token_version) or 0) != tv:
                     return {"valid": False, "error": "Token revoked"}
 
             return {

@@ -5,12 +5,12 @@ Implements VectorDBBase interface for multi-backend support.
 
 import logging
 from typing import Any, Dict, List, Optional
-from datetime import datetime
 
 import chromadb
 from chromadb.config import Settings as ChromaSettings
 
 from app.config import settings
+from app.utils.helpers import utc_now
 from .embeddings import get_embedding_service
 from .base import VectorDBBase, VectorSearchResult
 
@@ -141,7 +141,7 @@ class ChromaVectorStore(VectorDBBase):
 
         # Prepare metadata
         meta = metadata or {}
-        meta["added_at"] = datetime.utcnow().isoformat()
+        meta["added_at"] = utc_now().isoformat()
         meta["content_preview"] = content[:200]
 
         # Ensure metadata values are valid types for ChromaDB
@@ -205,7 +205,7 @@ class ChromaVectorStore(VectorDBBase):
             contents.append(doc["content"])
 
             meta = doc.get("metadata", {})
-            meta["added_at"] = datetime.utcnow().isoformat()
+            meta["added_at"] = utc_now().isoformat()
             meta["content_preview"] = doc["content"][:200]
             metadatas.append(self._clean_metadata(meta))
 
@@ -518,3 +518,19 @@ class ChromaVectorStore(VectorDBBase):
             else:
                 cleaned[key] = str(value)
         return cleaned
+
+
+_shared_chroma_store: Optional[ChromaVectorStore] = None
+
+
+def get_shared_chroma_vector_store() -> ChromaVectorStore:
+    """
+    Default-process ChromaDB store (single client + collection).
+
+    Avoids creating a new PersistentClient on every GraphQL / WS path that touches RAG,
+    which previously produced noisy logs and extra disk churn.
+    """
+    global _shared_chroma_store
+    if _shared_chroma_store is None:
+        _shared_chroma_store = ChromaVectorStore()
+    return _shared_chroma_store

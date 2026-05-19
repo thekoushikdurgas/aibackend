@@ -7,7 +7,9 @@ import io
 import logging
 from typing import Dict, Any
 import pandas as pd
+
 from openpyxl import Workbook
+
 from openpyxl.styles import Font, PatternFill
 
 logger = logging.getLogger(__name__)
@@ -153,7 +155,8 @@ class ExportHandler:
             Excel file as bytes
         """
         wb = Workbook()
-        wb.remove(wb.active)  # Remove default sheet
+        if wb.worksheets:
+            wb.remove(wb.worksheets[0])
 
         # Sheet 1: Page Info
         if "page_info" in self.data:

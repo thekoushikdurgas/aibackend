@@ -5,8 +5,11 @@ Similar to the Udemy scraper's structured data extraction
 
 import json
 import logging
-from typing import Dict, List, Any
+from typing import Any, Dict, List
+
 from bs4 import BeautifulSoup
+
+from app.utils.bs4_attrs import soup_attr_str
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +68,10 @@ class StructuredDataParser:
 
         for script in json_ld_scripts:
             try:
-                data = json.loads(script.string)
+                raw = script.string
+                if not raw:
+                    continue
+                data = json.loads(raw)
 
                 # Handle both single objects and @graph arrays
                 if isinstance(data, list):
@@ -100,24 +106,28 @@ class StructuredDataParser:
 
         for item in items:
             try:
-                item_data = {"itemtype": item.get("itemtype", ""), "properties": {}}
+                properties: Dict[str, Any] = {}
+                item_data: Dict[str, Any] = {
+                    "itemtype": soup_attr_str(item.get("itemtype")),
+                    "properties": properties,
+                }
 
                 # Get all properties
                 props = item.find_all(attrs={"itemprop": True})
                 for prop in props:
-                    prop_name = prop.get("itemprop", "")
-                    prop_value = prop.get("content") or prop.get_text(strip=True)
+                    prop_name = soup_attr_str(prop.get("itemprop"))
+                    prop_value = soup_attr_str(prop.get("content")) or prop.get_text(
+                        strip=True
+                    )
 
                     if prop_name:
-                        if prop_name in item_data["properties"]:
+                        if prop_name in properties:
                             # Handle multiple values
-                            if not isinstance(item_data["properties"][prop_name], list):
-                                item_data["properties"][prop_name] = [
-                                    item_data["properties"][prop_name]
-                                ]
-                            item_data["properties"][prop_name].append(prop_value)
+                            if not isinstance(properties[prop_name], list):
+                                properties[prop_name] = [properties[prop_name]]
+                            properties[prop_name].append(prop_value)
                         else:
-                            item_data["properties"][prop_name] = prop_value
+                            properties[prop_name] = prop_value
 
                 microdata_items.append(item_data)
 
@@ -141,20 +151,23 @@ class StructuredDataParser:
 
         for item in items:
             try:
-                item_data = {
-                    "typeof": item.get("typeof", ""),
-                    "vocab": item.get("vocab", ""),
-                    "properties": {},
+                rdfa_properties: Dict[str, Any] = {}
+                item_data: Dict[str, Any] = {
+                    "typeof": soup_attr_str(item.get("typeof")),
+                    "vocab": soup_attr_str(item.get("vocab")),
+                    "properties": rdfa_properties,
                 }
 
                 # Get all properties
                 props = item.find_all(attrs={"property": True})
                 for prop in props:
-                    prop_name = prop.get("property", "")
-                    prop_value = prop.get("content") or prop.get_text(strip=True)
+                    prop_name = soup_attr_str(prop.get("property"))
+                    prop_value = soup_attr_str(prop.get("content")) or prop.get_text(
+                        strip=True
+                    )
 
                     if prop_name:
-                        item_data["properties"][prop_name] = prop_value
+                        rdfa_properties[prop_name] = prop_value
 
                 rdfa_items.append(item_data)
 
@@ -199,13 +212,14 @@ class StructuredDataParser:
         Returns:
             Dictionary of Open Graph properties
         """
-        og_data = {}
+        og_data: Dict[str, str] = {}
 
-        for meta in self.soup.find_all(
-            "meta", property=lambda x: x and x.startswith("og:")
-        ):
-            key = meta.get("property", "").replace("og:", "")
-            value = meta.get("content", "")
+        for meta in self.soup.find_all("meta"):
+            prop = soup_attr_str(meta.get("property"))
+            if not prop.startswith("og:"):
+                continue
+            key = prop.replace("og:", "")
+            value = soup_attr_str(meta.get("content"))
             if key and value:
                 og_data[key] = value
 
@@ -218,13 +232,14 @@ class StructuredDataParser:
         Returns:
             Dictionary of Twitter Card properties
         """
-        twitter_data = {}
+        twitter_data: Dict[str, str] = {}
 
-        for meta in self.soup.find_all(
-            "meta", attrs={"name": lambda x: x and x.startswith("twitter:")}
-        ):
-            key = meta.get("name", "").replace("twitter:", "")
-            value = meta.get("content", "")
+        for meta in self.soup.find_all("meta"):
+            name = soup_attr_str(meta.get("name"))
+            if not name.startswith("twitter:"):
+                continue
+            key = name.replace("twitter:", "")
+            value = soup_attr_str(meta.get("content"))
             if key and value:
                 twitter_data[key] = value
 

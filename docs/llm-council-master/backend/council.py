@@ -197,7 +197,12 @@ def parse_ranking_from_text(ranking_text: str) -> List[str]:
             numbered_matches = re.findall(r'\d+\.\s*Response [A-Z]', ranking_section)
             if numbered_matches:
                 # Extract just the "Response X" part
-                return [re.search(r'Response [A-Z]', m).group() for m in numbered_matches]
+                labels: List[str] = []
+                for m in numbered_matches:
+                    sm = re.search(r"Response [A-Z]", m)
+                    if sm is not None:
+                        labels.append(sm.group())
+                return labels
 
             # Fallback: Extract all "Response X" patterns in order
             matches = re.findall(r'Response [A-Z]', ranking_section)

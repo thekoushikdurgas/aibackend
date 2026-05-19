@@ -120,7 +120,7 @@ class AI21Provider(BaseLLMProvider):
         )
 
         # Build request payload (OpenAI-compatible format)
-        payload = {
+        payload: dict[str, Any] = {
             "messages": messages,
             "model": model,
             "temperature": config.temperature,
@@ -204,7 +204,7 @@ class AI21Provider(BaseLLMProvider):
         )
 
         # Build request payload with streaming enabled
-        payload = {
+        payload: dict[str, Any] = {
             "messages": messages,
             "model": model,
             "temperature": config.temperature,

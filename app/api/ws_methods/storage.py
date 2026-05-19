@@ -4,6 +4,8 @@ Local filesystem storage WebSocket Methods.
 
 import base64
 import logging
+import os
+import re
 from typing import Any, Dict, Optional
 
 from app.core.jsonrpc import JSONRPCError, JSONRPCErrorCode
@@ -11,6 +13,37 @@ from app.core.ws_auth import require_auth
 from app.services.storage_service import get_storage_service
 
 logger = logging.getLogger(__name__)
+
+_INVALID_UPLOAD_SEGMENT_CHARS = re.compile(r"[\x00-\x1f<>:\"|?*]")
+_MAX_UPLOAD_SEGMENT_LEN = 120
+
+
+def _sanitize_upload_segment(name: str) -> str:
+    """Safe single path segment for Windows/Unix storage keys."""
+    s = _INVALID_UPLOAD_SEGMENT_CHARS.sub("_", name).strip()
+    s = s.rstrip(" .")
+    if not s:
+        s = "file"
+    stem, ext = os.path.splitext(s)
+    ext = ext[:32]
+    if len(s) <= _MAX_UPLOAD_SEGMENT_LEN:
+        return s
+    keep = max(1, _MAX_UPLOAD_SEGMENT_LEN - len(ext) - 3)
+    return f"{stem[:keep]}...{ext}"
+
+
+def _sanitize_relative_upload_path(raw: str) -> str:
+    norm = raw.strip().replace("\\", "/").strip("/")
+    if not norm:
+        raise JSONRPCError(JSONRPCErrorCode.INVALID_PARAMS, "file_path is required")
+    out: list[str] = []
+    for seg in norm.split("/"):
+        if not seg or seg in (".", ".."):
+            raise JSONRPCError(
+                JSONRPCErrorCode.INVALID_PARAMS, "Invalid file_path segment"
+            )
+        out.append(_sanitize_upload_segment(seg))
+    return "/".join(out)
 
 
 async def handle_storage_upload(
@@ -28,6 +61,12 @@ async def handle_storage_upload(
         raise JSONRPCError(
             JSONRPCErrorCode.INVALID_PARAMS, "file_path and file_data are required"
         )
+    if not isinstance(file_path, str) or not isinstance(file_data_base64, str):
+        raise JSONRPCError(
+            JSONRPCErrorCode.INVALID_PARAMS,
+            "file_path and file_data must be strings",
+        )
+    file_path = _sanitize_relative_upload_path(file_path)
 
     try:
         try:
@@ -40,6 +79,13 @@ async def handle_storage_upload(
         user_id = user.get("sub") or user.get("id")
         if user_id:
             file_path = f"{user_id}/{file_path}"
+
+        logger.info(
+            "[d0c334][H6] upload path_final=%s user_id=%s bucket=%s",
+            file_path,
+            user_id,
+            bucket_type,
+        )
 
         storage_service = get_storage_service(use_admin=False)
         result = storage_service.upload_file(
@@ -148,12 +194,25 @@ async def handle_storage_list(
         if user_id:
             folder_path = user_id
 
+    logger.info(
+        "[d0c334][H3] list folder_path=%s bucket=%s limit=%s offset=%s",
+        folder_path,
+        bucket_type,
+        limit,
+        offset,
+    )
+
     try:
         storage_service = get_storage_service(use_admin=False)
         files = storage_service.list_files(
             bucket_type=bucket_type, folder_path=folder_path, limit=limit, offset=offset
         )
 
+        logger.info(
+            "[d0c334][H3] list result count=%s names=%s",
+            len(files),
+            [f.get("name") for f in files[:10]],
+        )
         return {
             "success": True,
             "files": files,
@@ -190,6 +249,56 @@ async def handle_storage_move(
     except Exception as e:
         logger.error(f"Storage move error: {e}")
         raise JSONRPCError(JSONRPCErrorCode.INTERNAL_ERROR, f"Move failed: {str(e)}")
+
+
+def _normalize_folder_path_param(raw: str) -> str:
+    s = raw.strip().replace("\\", "/").strip("/")
+    if not s:
+        raise JSONRPCError(JSONRPCErrorCode.INVALID_PARAMS, "folder_path is required")
+    for part in s.split("/"):
+        if not part or part in (".", "..") or ".." in part:
+            raise JSONRPCError(
+                JSONRPCErrorCode.INVALID_PARAMS, "Invalid folder_path segment"
+            )
+    return s
+
+
+async def handle_storage_mkdir(
+    params: Dict[str, Any], user: Optional[Dict[str, Any]] = None, **kwargs
+) -> Dict[str, Any]:
+    user = await require_auth(user, "storage.mkdir")
+
+    bucket_type = params.get("bucket_type", "uploads")
+    try:
+        rel = _normalize_folder_path_param(str(params.get("folder_path") or ""))
+    except JSONRPCError:
+        raise
+
+    user_id = user.get("sub") or user.get("id")
+    full_key = f"{user_id}/{rel}" if user_id else rel
+
+    try:
+        storage_service = get_storage_service(use_admin=False)
+        marker = f"{full_key}/.keep"
+        ok = storage_service.upload_file(
+            bucket_type,
+            marker,
+            b"",
+            "application/octet-stream",
+            None,
+        )
+        if not ok:
+            raise JSONRPCError(
+                JSONRPCErrorCode.INTERNAL_ERROR, "Failed to create folder"
+            )
+        return {"success": True, "folder_path": full_key}
+    except JSONRPCError:
+        raise
+    except Exception as e:
+        logger.error(f"Storage mkdir error: {e}")
+        raise JSONRPCError(
+            JSONRPCErrorCode.INTERNAL_ERROR, f"Mkdir failed: {str(e)}"
+        ) from e
 
 
 async def handle_storage_get_url(
@@ -333,6 +442,7 @@ def get_methods() -> Dict[str, Any]:
         "storage.delete": handle_storage_delete,
         "storage.list": handle_storage_list,
         "storage.move": handle_storage_move,
+        "storage.mkdir": handle_storage_mkdir,
         "storage.get_url": handle_storage_get_url,
         "storage.create_signed_url": handle_storage_create_signed_url,
         "storage.buckets.list": handle_storage_buckets_list,

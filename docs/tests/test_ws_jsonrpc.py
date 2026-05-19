@@ -4,8 +4,13 @@ Tests for JSON-RPC 2.0 Protocol
 
 import pytest
 from app.core.jsonrpc import (
-    create_request, create_response, create_error_response,
-    parse_request, validate_request, JSONRPCError, JSONRPCErrorCode
+    create_request,
+    create_response,
+    create_error_response,
+    parse_request,
+    validate_request,
+    JSONRPCError,
+    JSONRPCErrorCode,
 )
 
 
@@ -42,25 +47,18 @@ def test_validate_request():
         "jsonrpc": "2.0",
         "method": "test.method",
         "params": {},
-        "id": "req-1"
+        "id": "req-1",
     }
     validate_request(valid_request)  # Should not raise
-    
+
     # Invalid jsonrpc version
-    invalid_request = {
-        "jsonrpc": "1.0",
-        "method": "test.method",
-        "id": "req-1"
-    }
+    invalid_request = {"jsonrpc": "1.0", "method": "test.method", "id": "req-1"}
     with pytest.raises(JSONRPCError) as e:
         validate_request(invalid_request)
     assert e.value.code == JSONRPCErrorCode.INVALID_REQUEST
-    
+
     # Missing method
-    invalid_request = {
-        "jsonrpc": "2.0",
-        "id": "req-1"
-    }
+    invalid_request = {"jsonrpc": "2.0", "id": "req-1"}
     with pytest.raises(JSONRPCError) as e:
         validate_request(invalid_request)
     assert e.value.code == JSONRPCErrorCode.INVALID_REQUEST
@@ -72,9 +70,8 @@ def test_parse_request():
     request = parse_request(json_str)
     assert request["method"] == "test.method"
     assert request["id"] == "req-1"
-    
+
     # Invalid JSON
     with pytest.raises(JSONRPCError) as e:
         parse_request("invalid json")
     assert e.value.code == JSONRPCErrorCode.PARSE_ERROR
-

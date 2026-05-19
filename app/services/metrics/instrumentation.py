@@ -193,4 +193,4 @@ class TimingContext:
             return 0.0
         if self.end_time is None:
             return time.time() - self.start_time
-        return self.duration
+        return self.end_time - self.start_time

@@ -2,9 +2,10 @@
 HTML parsing utilities for page analysis
 """
 
-import re
 from typing import Any, Dict, List, Optional
 from bs4 import BeautifulSoup
+
+from .bs4_attrs import soup_attr_str
 from .helpers import sanitize_text, truncate_text
 
 
@@ -28,14 +29,14 @@ class HTMLParser:
         meta_tags = []
         for meta in self.soup.find_all("meta"):
             meta_dict = {}
-            if meta.get("name"):
-                meta_dict["name"] = meta.get("name")
-            if meta.get("property"):
-                meta_dict["property"] = meta.get("property")
-            if meta.get("content"):
-                meta_dict["content"] = meta.get("content")
-            if meta.get("http-equiv"):
-                meta_dict["http_equiv"] = meta.get("http-equiv")
+            if soup_attr_str(meta.get("name")):
+                meta_dict["name"] = soup_attr_str(meta.get("name"))
+            if soup_attr_str(meta.get("property")):
+                meta_dict["property"] = soup_attr_str(meta.get("property"))
+            if soup_attr_str(meta.get("content")):
+                meta_dict["content"] = soup_attr_str(meta.get("content"))
+            if soup_attr_str(meta.get("http-equiv")):
+                meta_dict["http_equiv"] = soup_attr_str(meta.get("http-equiv"))
             if meta_dict:
                 meta_tags.append(meta_dict)
         return meta_tags
@@ -44,12 +45,12 @@ class HTMLParser:
         """Extract meta description"""
         meta = self.soup.find("meta", attrs={"name": "description"})
         if meta:
-            return meta.get("content")
+            return soup_attr_str(meta.get("content")) or None
 
         # Try og:description as fallback
         og_meta = self.soup.find("meta", attrs={"property": "og:description"})
         if og_meta:
-            return og_meta.get("content")
+            return soup_attr_str(og_meta.get("content")) or None
 
         return None
 
@@ -67,10 +68,10 @@ class HTMLParser:
         for a in self.soup.find_all("a", href=True):
             links.append(
                 {
-                    "href": a.get("href"),
+                    "href": soup_attr_str(a.get("href")),
                     "text": a.get_text(strip=True)[:100],
-                    "rel": a.get("rel", []),
-                    "target": a.get("target"),
+                    "rel": soup_attr_str(a.get("rel")),
+                    "target": soup_attr_str(a.get("target")),
                 }
             )
         return links
@@ -145,25 +146,37 @@ class HTMLParser:
 
         # Get canonical URL
         canonical = self.soup.find("link", rel="canonical")
-        canonical_url = canonical.get("href") if canonical else None
+        canonical_url = (
+            soup_attr_str(canonical.get("href")) or None if canonical else None
+        )
 
         # Get robots meta
         robots = self.soup.find("meta", attrs={"name": "robots"})
-        robots_content = robots.get("content") if robots else None
+        robots_content = (
+            soup_attr_str(robots.get("content")) or None if robots else None
+        )
 
         # Get Open Graph data
-        og_data = {}
-        for meta in self.soup.find_all("meta", property=re.compile(r"^og:")):
-            key = meta.get("property", "").replace("og:", "")
-            og_data[key] = meta.get("content")
+        og_data: Dict[str, str] = {}
+        for meta in self.soup.find_all("meta"):
+            prop = soup_attr_str(meta.get("property"))
+            if not prop.startswith("og:"):
+                continue
+            key = prop.replace("og:", "")
+            val = soup_attr_str(meta.get("content"))
+            if key:
+                og_data[key] = val
 
         # Get Twitter Card data
-        twitter_data = {}
-        for meta in self.soup.find_all(
-            "meta", attrs={"name": re.compile(r"^twitter:")}
-        ):
-            key = meta.get("name", "").replace("twitter:", "")
-            twitter_data[key] = meta.get("content")
+        twitter_data: Dict[str, str] = {}
+        for meta in self.soup.find_all("meta"):
+            name = soup_attr_str(meta.get("name"))
+            if not name.startswith("twitter:"):
+                continue
+            key = name.replace("twitter:", "")
+            val = soup_attr_str(meta.get("content"))
+            if key:
+                twitter_data[key] = val
 
         return {
             "title": title,
@@ -210,7 +223,10 @@ class HTMLParser:
             try:
                 import json
 
-                data = json.loads(script.string)
+                raw = script.string
+                if not raw:
+                    continue
+                data = json.loads(raw)
                 structured_data.append(data)
             except (json.JSONDecodeError, TypeError):
                 pass
@@ -257,21 +273,23 @@ class HTMLParser:
         forms = []
         for form in self.soup.find_all("form"):
             try:
-                form_data = {
-                    "action": form.get("action", ""),
-                    "method": form.get("method", "GET").upper(),
+                form_data: Dict[str, Any] = {
+                    "action": soup_attr_str(form.get("action")),
+                    "method": soup_attr_str(form.get("method"), "GET").upper(),
                     "fields": [],
                 }
 
                 # Extract input fields
                 inputs = form.find_all(["input", "textarea", "select"])
                 for input_elem in inputs:
-                    field_info = {
-                        "type": input_elem.get("type", input_elem.name),
-                        "name": input_elem.get("name", ""),
-                        "id": input_elem.get("id", ""),
+                    field_info: Dict[str, Any] = {
+                        "type": soup_attr_str(
+                            input_elem.get("type"), input_elem.name or ""
+                        ),
+                        "name": soup_attr_str(input_elem.get("name")),
+                        "id": soup_attr_str(input_elem.get("id")),
                         "label": None,
-                        "placeholder": input_elem.get("placeholder", ""),
+                        "placeholder": soup_attr_str(input_elem.get("placeholder")),
                         "required": input_elem.has_attr("required"),
                     }
 
@@ -288,13 +306,13 @@ class HTMLParser:
                         options = input_elem.find_all("option")
                         field_info["options"] = [
                             {
-                                "value": opt.get("value", ""),
+                                "value": soup_attr_str(opt.get("value")),
                                 "text": opt.get_text(strip=True),
                             }
                             for opt in options
                         ]
                     else:
-                        field_info["value"] = input_elem.get("value", "")
+                        field_info["value"] = soup_attr_str(input_elem.get("value"))
 
                     form_data["fields"].append(field_info)
 

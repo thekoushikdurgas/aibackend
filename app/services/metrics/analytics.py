@@ -4,13 +4,14 @@ Provides data aggregation, percentile calculation, and performance analysis
 """
 
 import logging
-from typing import Dict, List, Optional, Any
-from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Any, cast
+from datetime import timedelta
 from sqlalchemy import select, func, and_
 from sqlalchemy.ext.asyncio import AsyncSession
 import statistics
 
 from app.models.metrics import ProviderMetric
+from app.utils.helpers import utc_now
 
 logger = logging.getLogger(__name__)
 
@@ -75,7 +76,7 @@ class MetricsAnalytics:
             Dictionary with percentile statistics
         """
         try:
-            cutoff_date = datetime.utcnow() - timedelta(days=days)
+            cutoff_date = utc_now() - timedelta(days=days)
 
             query = select(ProviderMetric).where(
                 and_(
@@ -104,7 +105,7 @@ class MetricsAnalytics:
                     continue
 
                 if value is not None:
-                    values.append(float(value))
+                    values.append(float(cast(Any, value)))
 
             if not values:
                 return {
@@ -155,8 +156,8 @@ class MetricsAnalytics:
         """
         try:
             # Get recent performance (last 2 days)
-            recent_cutoff = datetime.utcnow() - timedelta(days=2)
-            older_cutoff = datetime.utcnow() - timedelta(days=days)
+            recent_cutoff = utc_now() - timedelta(days=2)
+            older_cutoff = utc_now() - timedelta(days=days)
 
             # Recent metrics
             recent_query = select(ProviderMetric).where(
@@ -256,7 +257,7 @@ class MetricsAnalytics:
         try:
             report: Dict[str, Any] = {
                 "period_days": days,
-                "generated_at": datetime.utcnow().isoformat(),
+                "generated_at": utc_now().isoformat(),
                 "providers": [],
             }
 
@@ -271,8 +272,7 @@ class MetricsAnalytics:
                 ).where(
                     and_(
                         ProviderMetric.provider == provider,
-                        ProviderMetric.created_at
-                        >= datetime.utcnow() - timedelta(days=days),
+                        ProviderMetric.created_at >= utc_now() - timedelta(days=days),
                         ProviderMetric.success.is_(True),
                     )
                 )
@@ -322,7 +322,7 @@ class MetricsAnalytics:
             Exported data as string
         """
         try:
-            cutoff_date = datetime.utcnow() - timedelta(days=days)
+            cutoff_date = utc_now() - timedelta(days=days)
 
             query = select(ProviderMetric).where(
                 ProviderMetric.created_at >= cutoff_date

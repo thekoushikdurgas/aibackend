@@ -14,7 +14,11 @@ client = TestClient(app)
 async def test_list_datasets():
     """Test list datasets endpoint"""
     response = client.get("/api/v1/ai21/datasets")
-    assert response.status_code in [200, 401, 500]  # 401 if no auth, 500 if API key missing
+    assert response.status_code in [
+        200,
+        401,
+        500,
+    ]  # 401 if no auth, 500 if API key missing
 
 
 @pytest.mark.asyncio
@@ -55,8 +59,8 @@ async def test_create_custom_model():
             "dataset_id": "test-dataset-id",
             "model_name": "test-model",
             "learning_rate": 0.5,
-            "num_epochs": 20
-        }
+            "num_epochs": 20,
+        },
     )
     assert response.status_code in [200, 201, 401, 500]
 
@@ -65,10 +69,7 @@ async def test_create_custom_model():
 async def test_update_default_epoch():
     """Test update default epoch endpoint"""
     response = client.put(
-        "/api/v1/ai21/custom-models/test-model-id",
-        json={
-            "defaultEpoch": 5
-        }
+        "/api/v1/ai21/custom-models/test-model-id", json={"defaultEpoch": 5}
     )
     assert response.status_code in [200, 401, 404, 500]
 
@@ -79,11 +80,7 @@ async def test_custom_model_complete():
     response = client.post(
         "/api/v1/ai21/custom-models/test-model-id/complete",
         params={"model_type": "j2-mid"},
-        json={
-            "prompt": "The future of AI is",
-            "numResults": 1,
-            "maxTokens": 50
-        }
+        json={"prompt": "The future of AI is", "numResults": 1, "maxTokens": 50},
     )
     assert response.status_code in [200, 401, 404, 500]
 
@@ -96,7 +93,7 @@ async def test_create_custom_model_validation():
         json={
             "model_type": "",  # Empty model type should fail validation
             "dataset_id": "test-dataset-id",
-            "model_name": "test-model"
-        }
+            "model_name": "test-model",
+        },
     )
     assert response.status_code == 422  # Validation error

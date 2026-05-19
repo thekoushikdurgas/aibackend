@@ -4,7 +4,7 @@ Council policy and run options for anti-hallucination modes.
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, cast
 
 from app.config import settings
 
@@ -49,7 +49,10 @@ class CouncilRunOptions:
             allow_web_tool=bool(d.get("allow_web_tool", False)),
             min_rag_similarity=float(d.get("min_rag_similarity", 0.25)),
             verified_min_similarity=float(
-                d.get("verified_min_similarity", d.get("min_rag_similarity", 0.45))
+                cast(
+                    Any,
+                    d.get("verified_min_similarity", d.get("min_rag_similarity", 0.45)),
+                )
             ),
             schema_version=str(d.get("schema_version", "2.0.0")),
         )

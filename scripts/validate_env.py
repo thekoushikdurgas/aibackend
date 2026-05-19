@@ -130,7 +130,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     try:
-        from app.config import get_settings
+        from app.config import clear_base_settings_cache, _base_settings_singleton
     except ModuleNotFoundError as exc:
         name = getattr(exc, "name", None) or str(exc)
         print(
@@ -141,9 +141,10 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 1
 
-    get_settings.cache_clear()
+    clear_base_settings_cache()
     try:
-        settings = get_settings()
+        # Read fresh pydantic Settings from env (not the runtime proxy used by the API).
+        settings = _base_settings_singleton()
     except Exception as exc:
         print(f"validate_env: failed to load settings: {exc}", file=sys.stderr)
         return 1

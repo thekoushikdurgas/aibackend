@@ -3,6 +3,7 @@ Function Calling Handler for Gemini
 """
 
 import logging
+import inspect
 from typing import Any, Callable, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
@@ -83,9 +84,7 @@ class FunctionCallHandler:
         try:
             # Execute function (support both sync and async)
             if hasattr(func, "__call__"):
-                import asyncio
-
-                if asyncio.iscoroutinefunction(func):
+                if inspect.iscoroutinefunction(func):
                     result = await func(**arguments)
                 else:
                     result = func(**arguments)

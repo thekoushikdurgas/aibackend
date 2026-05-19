@@ -2,8 +2,6 @@
 Database models for metrics and benchmarking
 """
 
-from datetime import datetime
-
 from sqlalchemy import (
     Column,
     String,
@@ -17,6 +15,8 @@ from sqlalchemy import (
     JSON,
 )
 from sqlalchemy.orm import DeclarativeBase, relationship
+
+from app.utils.helpers import utc_now
 
 
 class Base(DeclarativeBase):
@@ -35,7 +35,7 @@ class BenchmarkRun(Base):
     prompt = Column(Text, nullable=False)
     config = Column(JSON)  # Store LLM config as JSON
     streaming = Column(Boolean, default=False)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
     completed_at = Column(DateTime, nullable=True)
     status = Column(String, default="running")  # 'running', 'completed', 'failed'
     error_message = Column(Text, nullable=True)
@@ -88,7 +88,7 @@ class ProviderMetric(Base):
     response_data = Column(JSON, nullable=True)  # Store full response for analysis
     extra_metadata = Column(JSON, nullable=True)  # Additional provider-specific data
 
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
 
     # Relationships
     benchmark_run = relationship("BenchmarkRun", back_populates="results")
@@ -127,7 +127,7 @@ class LatencyHistory(Base):
     period = Column(String, nullable=True)  # 'hour', 'day', 'week'
     period_start = Column(DateTime, nullable=False)
 
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
 
     # Relationships
     provider_metric = relationship("ProviderMetric", back_populates="latency_history")
@@ -176,7 +176,7 @@ class ErrorLog(Base):
     response_headers = Column(JSON, nullable=True)
     response_body = Column(Text, nullable=True)
 
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
 
     __table_args__ = (
         Index("idx_error_logs_provider", "provider"),
@@ -202,7 +202,7 @@ class CohereUsage(Base):
     request_id = Column(String, nullable=True)
     success = Column(Boolean, default=True)
     error = Column(Text, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
 
     __table_args__ = (
         Index("idx_cohere_usage_endpoint", "endpoint"),
@@ -223,7 +223,7 @@ class CohereConnectorLog(Base):
     documents_retrieved = Column(Integer, default=0)
     success = Column(Boolean, default=True)
     error = Column(Text, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
 
     __table_args__ = (
         Index("idx_cohere_connector_logs_connector_id", "connector_id"),

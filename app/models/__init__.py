@@ -36,6 +36,8 @@ from .claude_code_session import ClaudeCodeSessionModel
 
 # Import DurgasOS desktop persistence
 from .durgasos_desktop import (
+    TodoTaskModel,
+    TodoWorkspaceModel,
     WorkflowDefinitionModel,
     WorkflowRunModel,
     WidgetLayoutModel,
@@ -76,4 +78,6 @@ __all__ = [
     "WorkflowDefinitionModel",
     "WorkflowRunModel",
     "WidgetLayoutModel",
+    "TodoWorkspaceModel",
+    "TodoTaskModel",
 ]
