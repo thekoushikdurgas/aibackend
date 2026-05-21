@@ -24,6 +24,24 @@ from app.graphql.http_user import require_auth_user_dict
 logger = logging.getLogger(__name__)
 
 
+def _ai_provider_warnings(proxy: object) -> list[str]:
+    """Actionable warnings only when relevant to current overlay state."""
+    warnings: list[str] = []
+    if isinstance(proxy, SettingsOverlayProxy):
+        if proxy.has_stored_secrets():
+            path = proxy.overrides_path
+            warnings.append(
+                f"API keys in the overrides file ({path.name}) are stored as plaintext JSON "
+                "with owner-only permissions (mode 600). Prefer environment variables in production."
+            )
+        if proxy.has_embedding_overrides():
+            warnings.append(
+                "Embedding provider or model is overridden here. Changing them may require a new "
+                "Chroma collection or re-ingest of existing documents."
+            )
+    return warnings
+
+
 @strawberry.type
 class RuntimeSettingsQuery:
     @strawberry.field
@@ -34,10 +52,7 @@ class RuntimeSettingsQuery:
             {
                 "sections": sections_public_dict(),
                 "values": values_public_dict(settings),
-                "warnings": [
-                    "Secrets are stored server-side in plaintext JSON under the overrides path; restrict filesystem access.",
-                    "Changing embedding model or dimension may require a new Chroma collection or re-ingest.",
-                ],
+                "warnings": _ai_provider_warnings(settings),
             },
         )
 

@@ -51,6 +51,10 @@ class SettingsOverlayProxy:
                         self._overlay = {
                             k: v for k, v in data.items() if isinstance(k, str)
                         }
+                        try:
+                            os.chmod(self._path, 0o600)
+                        except OSError:
+                            pass
                         return
                 except (json.JSONDecodeError, OSError, TypeError):
                     pass
@@ -65,12 +69,37 @@ class SettingsOverlayProxy:
             with os.fdopen(fd, "w", encoding="utf-8") as f:
                 json.dump(obj, f, indent=2, sort_keys=True)
             os.replace(tmp, self._path)
+            try:
+                os.chmod(self._path, 0o600)
+            except OSError:
+                pass
         except Exception:
             try:
                 os.unlink(tmp)
             except OSError:
                 pass
             raise
+
+    def overlay_keys(self) -> frozenset[str]:
+        with self._lock:
+            return frozenset(self._overlay.keys())
+
+    def has_stored_secrets(self) -> bool:
+        """True when the overrides file contains non-empty secret/API key fields."""
+        with self._lock:
+            for k, v in self._overlay.items():
+                if not k.endswith("_api_key"):
+                    continue
+                if isinstance(v, str) and v.strip():
+                    return True
+        return False
+
+    def has_embedding_overrides(self) -> bool:
+        with self._lock:
+            return bool(
+                self._overlay.get("embedding_model")
+                or self._overlay.get("embedding_provider")
+            )
 
     def merge_overlay(self, partial: Dict[str, Any]) -> None:
         """Merge non-empty updates into overlay and persist."""
