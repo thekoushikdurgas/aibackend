@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import asyncio
+import logging
+
 import strawberry
 from strawberry.scalars import JSON
 from strawberry.types import Info
@@ -9,6 +12,8 @@ from strawberry.types import Info
 from app.api.ws_methods import storage as storage_handlers
 from app.graphql.modules.util import graphql_params, require_authenticated_sub, run_ws
 from app.services.local_storage_service import absolute_signed_file_url
+
+logger = logging.getLogger(__name__)
 
 
 @strawberry.type
@@ -44,7 +49,17 @@ class StorageMutation:
     @strawberry.mutation
     async def storage_upload(self, info: Info, params: JSON) -> JSON:
         p = graphql_params(params)
-        return await run_ws(storage_handlers.handle_storage_upload, p, info)
+        result = await run_ws(storage_handlers.handle_storage_upload, p, info)
+
+        async def _post_index_hint() -> None:
+            try:
+                await asyncio.sleep(0)
+                logger.debug("storage_upload post-process (indexing deferred)")
+            except Exception:
+                pass
+
+        asyncio.create_task(_post_index_hint())
+        return result
 
     @strawberry.mutation
     async def storage_delete(self, info: Info, params: JSON) -> JSON:

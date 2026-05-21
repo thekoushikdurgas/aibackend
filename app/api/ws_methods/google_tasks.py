@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import json
-import time
 from typing import Any, Dict, Optional, Tuple
 
 from app.api.ws_methods.google_ws_util import (
@@ -19,33 +17,6 @@ from app.core.ws_auth import require_auth
 
 TASKS_BASE = "https://tasks.googleapis.com/tasks/v1"
 TASKLISTS_URL = f"{TASKS_BASE}/users/@me/lists"
-
-_DEBUG_LOG_PATH = r"e:\durgas_ai\debug-2cdf97.log"
-
-
-def _agent_debug_log(
-    location: str,
-    message: str,
-    data: Dict[str, Any],
-    hypothesis_id: str,
-    run_id: str = "pre-fix",
-) -> None:
-    # region agent log
-    try:
-        payload = {
-            "sessionId": "2cdf97",
-            "runId": run_id,
-            "hypothesisId": hypothesis_id,
-            "location": location,
-            "message": message,
-            "data": data,
-            "timestamp": int(time.time() * 1000),
-        }
-        with open(_DEBUG_LOG_PATH, "a", encoding="utf-8") as f:
-            f.write(json.dumps(payload, default=str) + "\n")
-    except OSError:
-        pass
-    # endregion
 
 
 def sanitize_workspace_name_for_titles(raw: object) -> str:
@@ -371,16 +342,6 @@ async def handle_google_tasks_move_task(
     task_id = _task_id_param(params)
     move_params = _move_query_params(params)
     url = f"{TASKS_BASE}/lists/{tasklist_id}/tasks/{task_id}/move"
-    _agent_debug_log(
-        "google_tasks.py:handle_google_tasks_move_task",
-        "move_request",
-        {
-            "tasklist_id": tasklist_id,
-            "task_id": task_id,
-            "move_params": move_params,
-        },
-        "A",
-    )
     try:
         task = await google_http_post_json(
             url, access_token=access_token, json_body={}, params=move_params or None
@@ -389,12 +350,6 @@ async def handle_google_tasks_move_task(
         msg = str(exc)
         if move_params.get("previous") and "Previous task id" in msg:
             reduced = {k: v for k, v in move_params.items() if k != "previous"}
-            _agent_debug_log(
-                "google_tasks.py:handle_google_tasks_move_task",
-                "move_retry_without_previous",
-                {"reduced": reduced, "error": msg[:200]},
-                "B",
-            )
             task = await google_http_post_json(
                 url,
                 access_token=access_token,
@@ -402,19 +357,7 @@ async def handle_google_tasks_move_task(
                 params=reduced or None,
             )
         else:
-            _agent_debug_log(
-                "google_tasks.py:handle_google_tasks_move_task",
-                "move_failed",
-                {"error": msg[:240], "move_params": move_params},
-                "C",
-            )
             raise
-    _agent_debug_log(
-        "google_tasks.py:handle_google_tasks_move_task",
-        "move_ok",
-        {"task_id": task.get("id") if isinstance(task, dict) else None},
-        "A",
-    )
     return {"success": True, "task": task}
 
 

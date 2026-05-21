@@ -1,5 +1,5 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Tue 05/19/2026 12:09:24.34
+Generated: Thu 05/21/2026 19:57:56.80
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
@@ -17,6 +17,7 @@ E:\durgas_ai\ai.backend\app\agents\seo_agent.py
 E:\durgas_ai\ai.backend\app\agents\website_scraper.py
 E:\durgas_ai\ai.backend\app\agents\__init__.py
 E:\durgas_ai\ai.backend\app\api\auth_session.py
+E:\durgas_ai\ai.backend\app\api\jobs.py
 E:\durgas_ai\ai.backend\app\api\storage_signed_files.py
 E:\durgas_ai\ai.backend\app\api\ws_gateway.py
 E:\durgas_ai\ai.backend\app\api\__init__.py
@@ -71,6 +72,7 @@ E:\durgas_ai\ai.backend\app\core\http_session_cookies.py
 E:\durgas_ai\ai.backend\app\core\jsonrpc.py
 E:\durgas_ai\ai.backend\app\core\middleware.py
 E:\durgas_ai\ai.backend\app\core\rate_limiter.py
+E:\durgas_ai\ai.backend\app\core\response_cache.py
 E:\durgas_ai\ai.backend\app\core\session_cookies.py
 E:\durgas_ai\ai.backend\app\core\socketio.py
 E:\durgas_ai\ai.backend\app\core\streaming_processor.py
@@ -87,6 +89,7 @@ E:\durgas_ai\ai.backend\app\graphql\errors.py
 E:\durgas_ai\ai.backend\app\graphql\http_user.py
 E:\durgas_ai\ai.backend\app\graphql\schema.py
 E:\durgas_ai\ai.backend\app\graphql\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\async_job_dispatch.py
 E:\durgas_ai\ai.backend\app\graphql\modules\util.py
 E:\durgas_ai\ai.backend\app\graphql\modules\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\agents\resolvers.py
@@ -98,6 +101,8 @@ E:\durgas_ai\ai.backend\app\graphql\modules\chat\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\chat\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\council\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\council\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\github\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\github\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\gmail\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\gmail\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\google_calendar\resolvers.py
@@ -114,6 +119,8 @@ E:\durgas_ai\ai.backend\app\graphql\modules\health\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\health\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\installed_apps\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\installed_apps\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\jobs\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\jobs\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\linked_accounts\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\linked_accounts\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\media\resolvers.py

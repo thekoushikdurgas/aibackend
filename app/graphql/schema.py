@@ -42,10 +42,12 @@ from app.graphql.modules.linked_accounts.resolvers import (
     LinkedAccountsMutation,
     LinkedAccountsQuery,
 )
+from app.graphql.modules.github.resolvers import GithubMutation, GithubQuery
+from app.graphql.modules.jobs.resolvers import JobsQuery
 
 
 @strawberry.type
-class Query(
+class Query(  # type: ignore[misc]
     AuthQuery,
     ChatQuery,
     AgentsQuery,
@@ -66,13 +68,15 @@ class Query(
     WidgetsQuery,
     InstalledAppsQuery,
     LinkedAccountsQuery,
+    GithubQuery,
     RuntimeSettingsQuery,
+    JobsQuery,
 ):
     """Root GraphQL query (modular mix-ins)."""
 
 
 @strawberry.type
-class Mutation(
+class Mutation(  # type: ignore[misc]
     AuthMutation,
     ChatMutation,
     AgentsMutation,
@@ -88,6 +92,7 @@ class Mutation(
     WidgetsMutation,
     InstalledAppsMutation,
     LinkedAccountsMutation,
+    GithubMutation,
     RuntimeSettingsMutation,
     GoogleTasksMutation,
     TodosMutation,

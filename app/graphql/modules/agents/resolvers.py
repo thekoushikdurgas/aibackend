@@ -9,6 +9,7 @@ from strawberry.scalars import JSON
 from strawberry.types import Info
 
 from app.api.ws_methods import agents as agents_handlers
+from app.graphql.modules.async_job_dispatch import start_ws_job
 from app.graphql.modules.util import run_ws
 
 
@@ -54,7 +55,7 @@ class AgentsMutation:
     @strawberry.mutation
     async def batch_analyze(self, info: Info, params: JSON) -> JSON:
         p = dict(params) if isinstance(params, dict) else {}
-        return await run_ws(agents_handlers.handle_agents_batch_analyze, p, info)
+        return start_ws_job(info, agents_handlers.handle_agents_batch_analyze, p)
 
     @strawberry.mutation
     async def agents_quick_seo(self, info: Info, params: JSON) -> JSON:

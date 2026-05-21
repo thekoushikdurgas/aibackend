@@ -10,6 +10,8 @@ from strawberry.scalars import JSON
 from strawberry.types import Info
 
 from app.config import settings
+from app.core.response_cache import cached_json_response
+from app.graphql.context import GraphQLContext
 from app.graphql.modules.util import graphql_params
 from app.services.weather.open_meteo import fetch_weather_forecast
 
@@ -54,7 +56,16 @@ class WeatherQuery:
                 extensions={"code": "BAD_USER_INPUT"},
             )
 
+        ctx = info.context
+        req = ctx.request if isinstance(ctx, GraphQLContext) else None
+        key = f"gql:weather:{lat:.4f}:{lon:.4f}"
+
+        async def _fetch() -> Any:
+            return await fetch_weather_forecast(lat, lon)
+
         try:
-            return cast(JSON, await fetch_weather_forecast(lat, lon))
+            if req is not None:
+                return cast(JSON, await cached_json_response(req, key, 900.0, _fetch))
+            return cast(JSON, await _fetch())
         except RuntimeError as e:
             raise GraphQLError(str(e), extensions={"code": "INTERNAL"}) from e

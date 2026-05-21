@@ -17,6 +17,8 @@ from app.api.schemas.ai_provider_settings import (
 )
 from app.config import settings
 from app.config_runtime_overlay import SettingsOverlayProxy, apply_ai_provider_updates
+from app.core.response_cache import cache_invalidate_prefix
+from app.graphql.context import GraphQLContext
 from app.graphql.http_user import require_auth_user_dict
 
 logger = logging.getLogger(__name__)
@@ -44,7 +46,7 @@ class RuntimeSettingsQuery:
 class RuntimeSettingsMutation:
     @strawberry.mutation
     async def update_ai_provider_settings(self, info: Info, updates: JSON) -> JSON:
-        require_auth_user_dict(info)
+        auth_user = require_auth_user_dict(info)
         if not isinstance(updates, dict):
             raise GraphQLError(
                 "updates must be a JSON object",
@@ -80,6 +82,11 @@ class RuntimeSettingsMutation:
                 "settings is not SettingsOverlayProxy; runtime overrides may not apply"
             )
         apply_ai_provider_updates(settings, filtered)
+        ctx = info.context
+        if isinstance(ctx, GraphQLContext):
+            sub = str(auth_user.get("sub", ""))
+            if sub:
+                await cache_invalidate_prefix(ctx.request, f"gql:me:v1:{sub}")
         return cast(
             JSON,
             {

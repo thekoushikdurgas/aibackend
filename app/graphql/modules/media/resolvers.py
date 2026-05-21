@@ -13,6 +13,7 @@ from app.api.ws_methods import (
     imagen,
     veo,
 )
+from app.graphql.modules.async_job_dispatch import start_ws_job
 from app.graphql.modules.util import run_ws
 
 
@@ -21,17 +22,17 @@ class MediaMutation:
     @strawberry.mutation
     async def generate_image(self, info: Info, params: JSON) -> JSON:
         p = dict(params) if isinstance(params, dict) else {}
-        return await run_ws(fal.handle_fal_images, p, info)
+        return start_ws_job(info, fal.handle_fal_images, p)
 
     @strawberry.mutation
     async def generate_audio(self, info: Info, params: JSON) -> JSON:
         p = dict(params) if isinstance(params, dict) else {}
-        return await run_ws(fal.handle_fal_audio, p, info)
+        return start_ws_job(info, fal.handle_fal_audio, p)
 
     @strawberry.mutation
     async def generate_video(self, info: Info, params: JSON) -> JSON:
         p = dict(params) if isinstance(params, dict) else {}
-        return await run_ws(fal.handle_fal_video, p, info)
+        return start_ws_job(info, fal.handle_fal_video, p)
 
     @strawberry.mutation
     async def elevenlabs_text_to_speech(self, info: Info, params: JSON) -> JSON:

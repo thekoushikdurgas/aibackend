@@ -72,6 +72,29 @@ class LinkedGoogleAccountModel(Base):
     updated_at = Column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
 
 
+class LinkedGithubAccountModel(Base):
+    """Linked GitHub accounts (OAuth user-to-server token) per OS user (JWT sub)."""
+
+    __tablename__ = "linked_github_accounts"
+    __table_args__ = (
+        UniqueConstraint(
+            "owner_id", "github_user_id", name="uq_linked_github_owner_uid"
+        ),
+    )
+
+    id = Column(String(36), primary_key=True)
+    owner_id = Column(String(255), nullable=False, index=True)
+    github_user_id = Column(String(255), nullable=False, index=True)
+    login = Column(String(255), nullable=True)
+    email = Column(String(512), nullable=True)
+    display_name = Column(String(512), nullable=True)
+    photo_url = Column(String(2048), nullable=True)
+    access_token = Column(Text, nullable=False)
+    token_expires_at = Column(Float, nullable=True)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
+
+
 class DurgasOSInstalledAppsModel(Base):
     """Per-user list of installed DurgasOS app ids (see durgasos lib/apps)."""
 

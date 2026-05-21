@@ -14,6 +14,7 @@ from app.core.auth import user_claims_from_access_token
 from app.core.jsonrpc import JSONRPCError
 from app.database.repositories.user_repo import UserRepository
 from app.database.sqlalchemy import AsyncSessionLocal
+from app.core.response_cache import cached_json_response
 from app.graphql.context import GraphQLContext
 from app.core.graphql_cookie_middleware import queue_graphql_cookie_applier
 from app.core.http_session_cookies import (
@@ -64,6 +65,113 @@ def _auth_payload_from_dict(raw: dict[str, Any]) -> AuthPayload:
     )
 
 
+def _gql_user_to_dict(u: Optional[GqlUser]) -> Any:
+    if u is None:
+        return None
+    prof = u.profile
+    prof_dict: Optional[dict[str, Any]] = None
+    if prof is not None:
+        prof_dict = {
+            "username": prof.username,
+            "avatar_url": prof.avatar_url,
+            "bio": prof.bio,
+            "preferences": prof.preferences,
+            "created_at": prof.created_at,
+            "updated_at": prof.updated_at,
+        }
+    return {
+        "id": u.id,
+        "email": u.email,
+        "user_metadata": u.user_metadata,
+        "app_metadata": u.app_metadata,
+        "created_at": u.created_at,
+        "updated_at": u.updated_at,
+        "is_active": u.is_active,
+        "is_verified": u.is_verified,
+        "profile": prof_dict,
+    }
+
+
+def _gql_user_from_dict(raw: Any) -> Optional[GqlUser]:
+    if raw is None:
+        return None
+    if not isinstance(raw, dict):
+        return None
+    pd = raw.get("profile")
+    profile: Optional[GqlUserProfile] = None
+    if isinstance(pd, dict):
+        profile = GqlUserProfile(
+            username=pd.get("username"),
+            avatar_url=pd.get("avatar_url"),
+            bio=pd.get("bio"),
+            preferences=cast(JSON, pd.get("preferences") or {}),
+            created_at=pd.get("created_at"),
+            updated_at=pd.get("updated_at"),
+        )
+    return GqlUser(
+        id=str(raw.get("id", "")),
+        email=raw.get("email"),
+        user_metadata=cast(JSON, raw.get("user_metadata") or {}),
+        app_metadata=cast(JSON, raw.get("app_metadata") or {}),
+        created_at=raw.get("created_at"),
+        updated_at=raw.get("updated_at"),
+        is_active=bool(raw.get("is_active", True)),
+        is_verified=bool(raw.get("is_verified", False)),
+        profile=profile,
+    )
+
+
+async def _resolve_me_uncached(info: Info, token: str) -> Optional[GqlUser]:
+    data = user_claims_from_access_token(token)
+    if not data:
+        return None
+    sub = str(data.get("sub", ""))
+    jwt_email = data.get("email")
+    jwt_user_meta = cast(JSON, data.get("user_metadata") or {})
+    jwt_app_meta = cast(JSON, data.get("app_metadata") or {})
+
+    async with AsyncSessionLocal() as session:
+        ur = UserRepository(session)
+        row = await ur.get_by_id_with_profile(sub)
+
+    if row is None:
+        return GqlUser(
+            id=sub,
+            email=jwt_email,
+            user_metadata=jwt_user_meta,
+            app_metadata=jwt_app_meta,
+            created_at=None,
+            updated_at=None,
+            is_active=True,
+            is_verified=False,
+            profile=None,
+        )
+
+    prof: Optional[GqlUserProfile] = None
+    if row.profile is not None:
+        p = row.profile
+        prof = GqlUserProfile(
+            username=p.username,
+            avatar_url=p.avatar_url,
+            bio=p.bio,
+            preferences=cast(JSON, p.preferences or {}),
+            created_at=p.created_at.isoformat() if p.created_at else None,
+            updated_at=p.updated_at.isoformat() if p.updated_at else None,
+        )
+
+    return GqlUser(
+        id=str(row.id),
+        email=str(row.email) if row.email is not None else None,
+        user_metadata=cast(JSON, row.user_metadata or {}),
+        app_metadata=jwt_app_meta,
+        created_at=row.created_at.isoformat() if row.created_at else None,
+        updated_at=row.updated_at.isoformat() if row.updated_at else None,
+        is_active=bool(row.is_active),
+        is_verified=bool(row.is_verified),
+        profile=prof,
+    )
+
+
 @strawberry.type
 class AuthQuery:
     @strawberry.field
@@ -71,54 +179,23 @@ class AuthQuery:
         ctx = info.context
         if not isinstance(ctx, GraphQLContext) or not ctx.auth_token:
             return None
-        data = user_claims_from_access_token(ctx.auth_token)
+        tok = ctx.auth_token
+        data = user_claims_from_access_token(tok)
         if not data:
             return None
         sub = str(data.get("sub", ""))
-        jwt_email = data.get("email")
-        jwt_user_meta = cast(JSON, data.get("user_metadata") or {})
-        jwt_app_meta = cast(JSON, data.get("app_metadata") or {})
+        req = ctx.request
 
-        async with AsyncSessionLocal() as session:
-            ur = UserRepository(session)
-            row = await ur.get_by_id_with_profile(sub)
+        if req is None:
+            return await _resolve_me_uncached(info, tok)
 
-        if row is None:
-            return GqlUser(
-                id=sub,
-                email=jwt_email,
-                user_metadata=jwt_user_meta,
-                app_metadata=jwt_app_meta,
-                created_at=None,
-                updated_at=None,
-                is_active=True,
-                is_verified=False,
-                profile=None,
-            )
+        key = f"gql:me:v1:{sub}"
 
-        prof: Optional[GqlUserProfile] = None
-        if row.profile is not None:
-            p = row.profile
-            prof = GqlUserProfile(
-                username=p.username,
-                avatar_url=p.avatar_url,
-                bio=p.bio,
-                preferences=cast(JSON, p.preferences or {}),
-                created_at=p.created_at.isoformat() if p.created_at else None,
-                updated_at=p.updated_at.isoformat() if p.updated_at else None,
-            )
+        async def _factory() -> Any:
+            return _gql_user_to_dict(await _resolve_me_uncached(info, tok))
 
-        return GqlUser(
-            id=str(row.id),
-            email=str(row.email) if row.email is not None else None,
-            user_metadata=cast(JSON, row.user_metadata or {}),
-            app_metadata=jwt_app_meta,
-            created_at=row.created_at.isoformat() if row.created_at else None,
-            updated_at=row.updated_at.isoformat() if row.updated_at else None,
-            is_active=bool(row.is_active),
-            is_verified=bool(row.is_verified),
-            profile=prof,
-        )
+        blob = await cached_json_response(req, key, 25.0, _factory)
+        return _gql_user_from_dict(blob)
 
     @strawberry.field
     async def email_registered(self, email: str) -> bool:

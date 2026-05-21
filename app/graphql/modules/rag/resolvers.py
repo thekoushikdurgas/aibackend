@@ -7,6 +7,7 @@ from strawberry.scalars import JSON
 from strawberry.types import Info
 
 from app.api.ws_methods import rag as rag_handlers
+from app.graphql.modules.async_job_dispatch import start_ws_job
 from app.graphql.modules.util import graphql_params, run_ws
 
 
@@ -80,7 +81,7 @@ class RagMutation:
     @strawberry.mutation
     async def rag_ingest(self, info: Info, params: JSON) -> JSON:
         p = graphql_params(params)
-        return await run_ws(rag_handlers.handle_rag_ingest, p, info)
+        return start_ws_job(info, rag_handlers.handle_rag_ingest, p)
 
     @strawberry.mutation
     async def rag_delete(self, info: Info, document_id: str) -> JSON:

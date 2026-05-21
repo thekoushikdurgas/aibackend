@@ -11,7 +11,9 @@ from sqlalchemy import select
 from strawberry.scalars import JSON
 from strawberry.types import Info
 
+from app.core.response_cache import cache_invalidate_prefix, cached_json_response
 from app.database import AsyncSessionLocal
+from app.graphql.context import GraphQLContext
 from app.graphql.modules.util import require_authenticated_sub, user_from_info
 from app.models.durgasos_desktop import DurgasOSInstalledAppsModel
 from app.utils.helpers import utc_now
@@ -83,6 +85,58 @@ class InstalledApps:
     updated_at: str
 
 
+def _installed_to_dict(i: Optional[InstalledApps]) -> Any:
+    if i is None:
+        return None
+    return {
+        "id": str(i.id),
+        "owner_id": i.owner_id,
+        "app_ids": list(i.app_ids),
+        "file_associations": i.file_associations,
+        "updated_at": i.updated_at,
+    }
+
+
+def _installed_from_dict(raw: Any) -> Optional[InstalledApps]:
+    if raw is None:
+        return None
+    if not isinstance(raw, dict):
+        return None
+    raw_ids = raw.get("app_ids")
+    ids: List[str] = [str(x) for x in raw_ids] if isinstance(raw_ids, list) else []
+    return InstalledApps(
+        id=strawberry.ID(str(raw.get("id", ""))),
+        owner_id=str(raw.get("owner_id", "")),
+        app_ids=ids,
+        file_associations=cast(JSON, raw.get("file_associations") or {}),
+        updated_at=str(raw.get("updated_at", "")),
+    )
+
+
+async def _load_installed_apps(owner: str) -> Optional[InstalledApps]:
+    async with AsyncSessionLocal() as db:
+        stmt = select(DurgasOSInstalledAppsModel).where(
+            DurgasOSInstalledAppsModel.owner_id == owner
+        )
+        r = (await db.execute(stmt)).scalar_one_or_none()
+    if not r:
+        return None
+    raw_ids = r.app_ids
+    ids: List[str]
+    if isinstance(raw_ids, list):
+        ids = [str(x) for x in raw_ids]
+    else:
+        ids = []
+    assoc = _coerce_file_associations(getattr(r, "file_associations", None))
+    return InstalledApps(
+        id=strawberry.ID(str(r.id)),
+        owner_id=str(r.owner_id),
+        app_ids=ids,
+        file_associations=cast(JSON, assoc),
+        updated_at=r.updated_at.isoformat() if r.updated_at else "",
+    )
+
+
 @strawberry.type
 class InstalledAppsQuery:
     @strawberry.field
@@ -91,27 +145,17 @@ class InstalledAppsQuery:
         if not user or not user.get("sub"):
             return None
         owner = str(user["sub"])
-        async with AsyncSessionLocal() as db:
-            stmt = select(DurgasOSInstalledAppsModel).where(
-                DurgasOSInstalledAppsModel.owner_id == owner
-            )
-            r = (await db.execute(stmt)).scalar_one_or_none()
-        if not r:
-            return None
-        raw = r.app_ids
-        ids: List[str]
-        if isinstance(raw, list):
-            ids = [str(x) for x in raw]
-        else:
-            ids = []
-        assoc = _coerce_file_associations(getattr(r, "file_associations", None))
-        return InstalledApps(
-            id=strawberry.ID(str(r.id)),
-            owner_id=str(r.owner_id),
-            app_ids=ids,
-            file_associations=cast(JSON, assoc),
-            updated_at=r.updated_at.isoformat() if r.updated_at else "",
-        )
+        ctx = info.context
+        req = ctx.request if isinstance(ctx, GraphQLContext) else None
+        if req is None:
+            return await _load_installed_apps(owner)
+        key = f"gql:installed_apps:v1:{owner}"
+
+        async def _factory() -> Any:
+            return _installed_to_dict(await _load_installed_apps(owner))
+
+        blob = await cached_json_response(req, key, 60.0, _factory)
+        return _installed_from_dict(blob)
 
 
 @strawberry.type
@@ -147,6 +191,9 @@ class InstalledAppsMutation:
                 await db.refresh(row)
         out_ids = cast(List[str], row.app_ids if isinstance(row.app_ids, list) else [])
         assoc = _coerce_file_associations(getattr(row, "file_associations", None))
+        ctx = info.context
+        if isinstance(ctx, GraphQLContext):
+            await cache_invalidate_prefix(ctx.request, f"gql:installed_apps:v1:{owner}")
         return InstalledApps(
             id=strawberry.ID(str(row.id)),
             owner_id=str(row.owner_id),
@@ -187,6 +234,9 @@ class InstalledAppsMutation:
                 await db.refresh(row)
         out_ids = cast(List[str], row.app_ids if isinstance(row.app_ids, list) else [])
         assoc = _coerce_file_associations(getattr(row, "file_associations", None))
+        ctx = info.context
+        if isinstance(ctx, GraphQLContext):
+            await cache_invalidate_prefix(ctx.request, f"gql:installed_apps:v1:{owner}")
         return InstalledApps(
             id=strawberry.ID(str(row.id)),
             owner_id=str(row.owner_id),

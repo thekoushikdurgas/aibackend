@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, cast
 
 import strawberry
 from graphql import GraphQLError
@@ -21,6 +21,8 @@ from app.api.ws_methods import (
     openrouter,
     reka,
 )
+from app.core.response_cache import cached_json_response
+from app.graphql.context import GraphQLContext
 from app.graphql.modules.util import run_ws, run_ws_chat_completion
 
 
@@ -42,11 +44,28 @@ def _provider_chat_handlers() -> dict[str, Any]:
 class ProvidersQuery:
     @strawberry.field
     async def list_models(self, info: Info, provider_name: str) -> JSON:
-        return await run_ws(
-            chat_handlers.handle_chat_provider_models,
-            {"provider_name": provider_name},
-            info,
-        )
+        key_name = provider_name.strip().lower()
+        ctx = info.context
+        req = ctx.request if isinstance(ctx, GraphQLContext) else None
+        if req is None:
+            return cast(
+                JSON,
+                await run_ws(
+                    chat_handlers.handle_chat_provider_models,
+                    {"provider_name": provider_name},
+                    info,
+                ),
+            )
+        cache_key = f"gql:list_models:v1:{key_name}"
+
+        async def _factory() -> Any:
+            return await run_ws(
+                chat_handlers.handle_chat_provider_models,
+                {"provider_name": provider_name},
+                info,
+            )
+
+        return cast(JSON, await cached_json_response(req, cache_key, 120.0, _factory))
 
 
 @strawberry.type
