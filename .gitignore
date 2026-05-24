@@ -24,8 +24,6 @@ wheels/
 node_modules/
 
 # Secrets (never commit real credentials)
-.env
-.env.local
 .env.*.local
 
 # Virtual Environment
@@ -35,7 +33,6 @@ ENV/
 .venv
 
 # IDE
-.vscode/
 .idea/
 *.swp
 *.swo
@@ -63,3 +60,4 @@ htmlcov/
 
 # Distribution / packaging
 *.whl
+config.bat

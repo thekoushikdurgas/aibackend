@@ -9,11 +9,13 @@ from typing import AsyncGenerator, Awaitable, Callable, cast
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse, Response
 from starlette.requests import ClientDisconnect
 from strawberry.fastapi.context import CustomContext
 
 from app.config import settings
+from app.utils.logging_filters import OptionalApiKeyWarningFilter
 from app.api.auth_session import router as auth_session_router
 from app.api.storage_signed_files import router as storage_signed_files_router
 from app.api.ws_gateway import websocket_gateway_router
@@ -35,6 +37,7 @@ logging.basicConfig(
     level=getattr(logging, settings.log_level.upper()),
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
+logging.getLogger().addFilter(OptionalApiKeyWarningFilter())
 logger = logging.getLogger(__name__)
 
 
@@ -183,7 +186,8 @@ cors_origins = list(
 )
 
 # Middleware: last added = outermost (runs first on incoming request).
-# Target order: CORS -> CorrelationId -> RequestLogging -> ErrorHandler -> routes
+# Target order: CORS -> CorrelationId -> RequestLogging -> ErrorHandler -> Gzip -> routes
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(ErrorHandlerMiddleware)
 app.add_middleware(RequestLoggingMiddleware)
 app.add_middleware(CorrelationIdMiddleware)
@@ -227,10 +231,27 @@ async def health():
     return {"status": "healthy"}
 
 
+def _unwrap_client_disconnect(exc: BaseException) -> ClientDisconnect | None:
+    from app.core.middleware import _find_client_disconnect
+
+    return _find_client_disconnect(exc)
+
+
+def _is_client_closed_exception(exc: BaseException) -> bool:
+    from app.core.middleware import _is_client_closed_exception as is_client_closed
+
+    return is_client_closed(exc)
+
+
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     """Global exception handler"""
-    if isinstance(exc, ClientDisconnect):
+    disconnect = _unwrap_client_disconnect(exc)
+    if (
+        disconnect is not None
+        or isinstance(exc, ClientDisconnect)
+        or _is_client_closed_exception(exc)
+    ):
         logger.info(
             "Client disconnected: %s %s",
             request.method,

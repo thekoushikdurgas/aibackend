@@ -42,4 +42,6 @@ WS_METHOD_MODULES = [
     "google_people",
     "google_drive",
     "workflow_runner",
+    "notifications",
+    "orbit",
 ]

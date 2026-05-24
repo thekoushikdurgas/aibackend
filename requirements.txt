@@ -8,9 +8,11 @@ websockets>=13,<16
 
 # AI/ML Libraries (RAG chunking uses app-local text splitters; no langchain dependency)
 sentence-transformers==2.5.1
-transformers==4.38.1
+# 4.38.x pins tokenizers<0.19 (no cp313 Windows wheels — source build needs Rust)
+transformers>=4.46.0,<5
+tokenizers>=0.21.0,<0.22
 torch==2.2.0
-huggingface-hub==0.21.2
+huggingface-hub>=0.26.0,<1
 
 # Vector Database (1.x has NumPy 2–compatible types; native wheels need grpcio + orjson)
 chromadb==1.5.9
@@ -18,7 +20,7 @@ chromadb==1.5.9
 # Document Processing
 PyMuPDF==1.23.8
 python-docx==1.1.0
-tiktoken==0.5.2
+tiktoken>=0.8.0,<1
 pandas==2.2.3
 openpyxl==3.1.5
 
@@ -37,7 +39,7 @@ slowapi==0.1.9
 
 # HTTP Client (chromadb 1.x expects httpx 0.26–0.28)
 httpx>=0.26,<0.29
-aiohttp==3.9.3
+aiohttp>=3.10.0,<4
 
 # Caching (Optional Redis)
 redis==5.0.1
@@ -59,6 +61,8 @@ lxml==5.1.0
 # Utilities
 tenacity==8.2.3
 structlog==24.1.0
+# Pin regex wheels on Python 3.13 (avoids broken partial installs during ML stack upgrades)
+regex>=2024.11.6
 
 # Realtime / async file I/O
 python-socketio[asyncio_client]>=5.11.0
@@ -71,3 +75,6 @@ boto3>=1.35.0
 # Testing — prefer requirements-dev.txt for CI; kept here for minimal installs
 pytest==8.0.2
 pytest-asyncio==0.23.5
+
+# Host telemetry dependency
+psutil==7.2.2
