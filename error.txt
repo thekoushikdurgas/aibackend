@@ -1,5 +1,3 @@
-Microsoft Windows [Version 10.0.26100.8246]
-(c) Microsoft Corporation. All rights reserved.
 
 E:\durgas_ai\ai.backend>codebase.bat
 
@@ -32,42 +30,45 @@ Requirement already satisfied: strawberry-graphql==0.315.3 in .\venv\Lib\site-pa
 Requirement already satisfied: python-multipart==0.0.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 5)) (0.0.9)
 Requirement already satisfied: websockets<16,>=13 in .\venv\Lib\site-packages (from -r requirements.txt (line 7)) (15.0.1)
 Requirement already satisfied: sentence-transformers==2.5.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 10)) (2.5.1)
-Requirement already satisfied: transformers==4.38.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 11)) (4.38.1)
-Requirement already satisfied: torch==2.2.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 12)) (2.2.0)
-Requirement already satisfied: huggingface-hub==0.21.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 13)) (0.21.2)
-Requirement already satisfied: chromadb==1.5.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 16)) (1.5.9)
-Requirement already satisfied: PyMuPDF==1.23.8 in .\venv\Lib\site-packages (from -r requirements.txt (line 19)) (1.23.8)
-Requirement already satisfied: python-docx==1.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 20)) (1.1.0)
-Requirement already satisfied: tiktoken==0.5.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 21)) (0.5.2)
-Requirement already satisfied: pandas==2.2.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 22)) (2.2.3)
-Requirement already satisfied: openpyxl==3.1.5 in .\venv\Lib\site-packages (from -r requirements.txt (line 23)) (3.1.5)
-Requirement already satisfied: sqlalchemy==2.0.49 in .\venv\Lib\site-packages (from -r requirements.txt (line 26)) (2.0.49)
-Requirement already satisfied: asyncpg<0.31,>=0.29 in .\venv\Lib\site-packages (from -r requirements.txt (line 27)) (0.30.0)
-Requirement already satisfied: greenlet<4,>=3.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 28)) (3.5.0)
-Requirement already satisfied: aiosqlite==0.20.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 29)) (0.20.0)
-Requirement already satisfied: alembic==1.13.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 30)) (1.13.1)
-Requirement already satisfied: python-jose==3.3.0 in .\venv\Lib\site-packages (from python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (3.3.0)
-Requirement already satisfied: bcrypt<5,>=4.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 35)) (4.3.0)
-Requirement already satisfied: slowapi==0.1.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 36)) (0.1.9)
-Requirement already satisfied: httpx<0.29,>=0.26 in .\venv\Lib\site-packages (from -r requirements.txt (line 39)) (0.28.1)
-Requirement already satisfied: aiohttp==3.9.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 40)) (3.9.3)
-Requirement already satisfied: redis==5.0.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 43)) (5.0.1)
-Requirement already satisfied: python-dotenv>=1.0.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 46)) (1.0.1)
-Requirement already satisfied: pydantic<3,>=2.10.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 47)) (2.13.4)
-Requirement already satisfied: pydantic-core<3,>=2.27.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 48)) (2.46.4)
-Requirement already satisfied: pydantic-settings>=2.6.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 49)) (2.14.1)
-Requirement already satisfied: numpy<3,>=2.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 52)) (2.4.4)
-Requirement already satisfied: grpcio<2,>=1.68 in .\venv\Lib\site-packages (from -r requirements.txt (line 53)) (1.80.0)
-Requirement already satisfied: beautifulsoup4==4.12.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 56)) (4.12.3)
-Requirement already satisfied: lxml==5.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 57)) (5.1.0)
-Requirement already satisfied: tenacity==8.2.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 60)) (8.2.3)
-Requirement already satisfied: structlog==24.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 61)) (24.1.0)
-Requirement already satisfied: python-socketio>=5.11.0 in .\venv\Lib\site-packages (from python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 64)) (5.16.1)
-Requirement already satisfied: aiofiles>=24.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 65)) (25.1.0)
-Requirement already satisfied: Pillow>=10.0.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 66)) (12.0.0)
-Requirement already satisfied: boto3>=1.35.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 69)) (1.42.14)
-Requirement already satisfied: pytest==8.0.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 72)) (8.0.2)
-Requirement already satisfied: pytest-asyncio==0.23.5 in .\venv\Lib\site-packages (from -r requirements.txt (line 73)) (0.23.5)
+Requirement already satisfied: transformers<5,>=4.46.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 12)) (4.55.4)
+Requirement already satisfied: tokenizers<0.22,>=0.21.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 13)) (0.21.4)
+Requirement already satisfied: torch==2.2.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 14)) (2.2.0)
+Requirement already satisfied: huggingface-hub<1,>=0.26.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 15)) (0.36.2)
+Requirement already satisfied: chromadb==1.5.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 18)) (1.5.9)
+Requirement already satisfied: PyMuPDF==1.23.8 in .\venv\Lib\site-packages (from -r requirements.txt (line 21)) (1.23.8)
+Requirement already satisfied: python-docx==1.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 22)) (1.1.0)
+Requirement already satisfied: tiktoken<1,>=0.8.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 23)) (0.13.0)
+Requirement already satisfied: pandas==2.2.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 24)) (2.2.3)
+Requirement already satisfied: openpyxl==3.1.5 in .\venv\Lib\site-packages (from -r requirements.txt (line 25)) (3.1.5)
+Requirement already satisfied: sqlalchemy==2.0.49 in .\venv\Lib\site-packages (from -r requirements.txt (line 28)) (2.0.49)
+Requirement already satisfied: asyncpg<0.31,>=0.29 in .\venv\Lib\site-packages (from -r requirements.txt (line 29)) (0.30.0)
+Requirement already satisfied: greenlet<4,>=3.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 30)) (3.5.0)
+Requirement already satisfied: aiosqlite==0.20.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 31)) (0.20.0)
+Requirement already satisfied: alembic==1.13.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 32)) (1.13.1)
+Requirement already satisfied: python-jose==3.3.0 in .\venv\Lib\site-packages (from python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (3.3.0)
+Requirement already satisfied: bcrypt<5,>=4.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 37)) (4.3.0)
+Requirement already satisfied: slowapi==0.1.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 38)) (0.1.9)
+Requirement already satisfied: httpx<0.29,>=0.26 in .\venv\Lib\site-packages (from -r requirements.txt (line 41)) (0.28.1)
+Requirement already satisfied: aiohttp<4,>=3.10.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 42)) (3.13.5)
+Requirement already satisfied: redis==5.0.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 45)) (5.0.1)
+Requirement already satisfied: python-dotenv>=1.0.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 48)) (1.0.1)
+Requirement already satisfied: pydantic<3,>=2.10.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 49)) (2.13.4)
+Requirement already satisfied: pydantic-core<3,>=2.27.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 50)) (2.46.4)
+Requirement already satisfied: pydantic-settings>=2.6.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 51)) (2.14.1)
+Requirement already satisfied: numpy<3,>=2.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 54)) (2.4.6)
+Requirement already satisfied: grpcio<2,>=1.68 in .\venv\Lib\site-packages (from -r requirements.txt (line 55)) (1.80.0)
+Requirement already satisfied: beautifulsoup4==4.12.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 58)) (4.12.3)
+Requirement already satisfied: lxml==5.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 59)) (5.1.0)
+Requirement already satisfied: tenacity==8.2.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 62)) (8.2.3)
+Requirement already satisfied: structlog==24.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 63)) (24.1.0)
+Requirement already satisfied: regex>=2024.11.6 in .\venv\Lib\site-packages (from -r requirements.txt (line 65)) (2026.5.9)
+Requirement already satisfied: python-socketio>=5.11.0 in .\venv\Lib\site-packages (from python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 68)) (5.16.1)
+Requirement already satisfied: aiofiles>=24.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 69)) (25.1.0)
+Requirement already satisfied: Pillow>=10.0.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 70)) (12.0.0)
+Requirement already satisfied: boto3>=1.35.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 73)) (1.42.14)
+Requirement already satisfied: pytest==8.0.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 76)) (8.0.2)
+Requirement already satisfied: pytest-asyncio==0.23.5 in .\venv\Lib\site-packages (from -r requirements.txt (line 77)) (0.23.5)
+Requirement already satisfied: psutil==7.2.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 80)) (7.2.2)
 Requirement already satisfied: pytest-cov==4.1.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 7)) (4.1.0)
 Requirement already satisfied: black==24.2.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 10)) (24.2.0)
 Requirement already satisfied: isort==5.13.2 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 11)) (5.13.2)
@@ -76,63 +77,55 @@ Requirement already satisfied: mypy==1.8.0 in .\venv\Lib\site-packages (from -r 
 Requirement already satisfied: ruff==0.8.4 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 14)) (0.8.4)
 Requirement already satisfied: pyrefly==1.0.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 15)) (1.0.0)
 Requirement already satisfied: types-openpyxl>=3.1.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 18)) (3.1.5.20260508)
-Requirement already satisfied: types-python-jose>=3.3.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 19)) (3.5.0.20260408)
-Requirement already satisfied: mkdocs==1.5.3 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 22)) (1.5.3)
-Requirement already satisfied: mkdocs-material==9.5.9 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 23)) (9.5.9)
+Requirement already satisfied: types-psutil>=7.0.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 19)) (7.2.2.20260518)
+Requirement already satisfied: types-python-jose>=3.3.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 20)) (3.5.0.20260408)
+Requirement already satisfied: mkdocs==1.5.3 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 23)) (1.5.3)
+Requirement already satisfied: mkdocs-material==9.5.9 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 24)) (9.5.9)
 Requirement already satisfied: starlette<0.37.0,>=0.36.3 in .\venv\Lib\site-packages (from fastapi==0.109.2->-r requirements.txt (line 2)) (0.36.3)
 Requirement already satisfied: typing-extensions>=4.8.0 in .\venv\Lib\site-packages (from fastapi==0.109.2->-r requirements.txt (line 2)) (4.15.0)
-Requirement already satisfied: click>=7.0 in .\venv\Lib\site-packages (from uvicorn==0.27.1->uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (8.3.1)
+Requirement already satisfied: click>=7.0 in .\venv\Lib\site-packages (from uvicorn==0.27.1->uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (8.4.0)
 Requirement already satisfied: h11>=0.8 in .\venv\Lib\site-packages (from uvicorn==0.27.1->uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.16.0)
 Requirement already satisfied: graphql-core<3.4.0,>=3.2.0 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (3.2.8)
 Requirement already satisfied: python-dateutil>=2.7 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (2.9.0.post0)
-Requirement already satisfied: packaging>=23 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (23.2)
+Requirement already satisfied: packaging>=23 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (26.2)
 Requirement already satisfied: cross-web>=0.6.0 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (0.6.0)
-Requirement already satisfied: tqdm in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (4.67.1)
+Requirement already satisfied: tqdm in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (4.67.3)
 Requirement already satisfied: scikit-learn in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.8.0)
 Requirement already satisfied: scipy in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.16.3)
-Requirement already satisfied: filelock in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (3.20.0)
-Requirement already satisfied: pyyaml>=5.1 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (6.0.3)
-Requirement already satisfied: regex!=2019.12.17 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (2025.11.3)
-Requirement already satisfied: requests in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (2.32.5)
-Requirement already satisfied: tokenizers<0.19,>=0.14 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (0.15.2)
-Requirement already satisfied: safetensors>=0.4.1 in .\venv\Lib\site-packages (from transformers==4.38.1->-r requirements.txt (line 11)) (0.7.0)
-Requirement already satisfied: fsspec>=2023.5.0 in .\venv\Lib\site-packages (from huggingface-hub==0.21.2->-r requirements.txt (line 13)) (2025.12.0)
-Requirement already satisfied: sympy in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 12)) (1.14.0)
-Requirement already satisfied: networkx in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 12)) (3.6.1)
-Requirement already satisfied: jinja2 in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 12)) (3.1.6)
-Requirement already satisfied: build>=1.0.3 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.3.0)
-Requirement already satisfied: pybase64>=1.4.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.4.3)
-Requirement already satisfied: onnxruntime>=1.14.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.23.2)
-Requirement already satisfied: opentelemetry-api>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
-Requirement already satisfied: opentelemetry-exporter-otlp-proto-grpc>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
-Requirement already satisfied: opentelemetry-sdk>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
-Requirement already satisfied: pypika>=0.48.9 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (0.48.9)
-Requirement already satisfied: overrides>=7.3.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (7.7.0)
-Requirement already satisfied: importlib-resources in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (6.5.2)
-Requirement already satisfied: typer>=0.9.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (0.20.0)
-Requirement already satisfied: kubernetes>=28.1.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (34.1.0)
-Requirement already satisfied: mmh3>=4.0.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (5.2.0)
-Requirement already satisfied: orjson>=3.9.12 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (3.11.9)
-Requirement already satisfied: rich>=10.11.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (14.2.0)
-Requirement already satisfied: jsonschema>=4.19.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 16)) (4.26.0)
-Requirement already satisfied: PyMuPDFb==1.23.7 in .\venv\Lib\site-packages (from PyMuPDF==1.23.8->-r requirements.txt (line 19)) (1.23.7)
-Requirement already satisfied: pytz>=2020.1 in .\venv\Lib\site-packages (from pandas==2.2.3->-r requirements.txt (line 22)) (2025.2)
-Requirement already satisfied: tzdata>=2022.7 in .\venv\Lib\site-packages (from pandas==2.2.3->-r requirements.txt (line 22)) (2026.2)
-Requirement already satisfied: et-xmlfile in .\venv\Lib\site-packages (from openpyxl==3.1.5->-r requirements.txt (line 23)) (2.0.0)
-Requirement already satisfied: Mako in .\venv\Lib\site-packages (from alembic==1.13.1->-r requirements.txt (line 30)) (1.3.10)
-Requirement already satisfied: ecdsa!=0.15 in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (0.19.1)
-Requirement already satisfied: rsa in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (4.9.1)
-Requirement already satisfied: pyasn1 in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (0.6.1)
-Requirement already satisfied: limits>=2.3 in .\venv\Lib\site-packages (from slowapi==0.1.9->-r requirements.txt (line 36)) (5.6.0)
-Requirement already satisfied: aiosignal>=1.1.2 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 40)) (1.4.0)
-Requirement already satisfied: attrs>=17.3.0 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 40)) (25.4.0)
-Requirement already satisfied: frozenlist>=1.1.1 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 40)) (1.8.0)
-Requirement already satisfied: multidict<7.0,>=4.5 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 40)) (6.7.0)
-Requirement already satisfied: yarl<2.0,>=1.0 in .\venv\Lib\site-packages (from aiohttp==3.9.3->-r requirements.txt (line 40)) (1.22.0)
-Requirement already satisfied: soupsieve>1.2 in .\venv\Lib\site-packages (from beautifulsoup4==4.12.3->-r requirements.txt (line 56)) (2.8)
-Requirement already satisfied: iniconfig in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 72)) (2.3.0)
-Requirement already satisfied: pluggy<2.0,>=1.3.0 in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 72)) (1.6.0)
-Requirement already satisfied: colorama in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 72)) (0.4.6)
+Requirement already satisfied: filelock in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 14)) (3.29.0)
+Requirement already satisfied: sympy in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 14)) (1.14.0)
+Requirement already satisfied: networkx in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 14)) (3.6.1)
+Requirement already satisfied: jinja2 in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 14)) (3.1.6)
+Requirement already satisfied: fsspec in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 14)) (2026.4.0)
+Requirement already satisfied: build>=1.0.3 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (1.3.0)
+Requirement already satisfied: pybase64>=1.4.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (1.4.3)
+Requirement already satisfied: onnxruntime>=1.14.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (1.23.2)
+Requirement already satisfied: opentelemetry-api>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (1.39.1)
+Requirement already satisfied: opentelemetry-exporter-otlp-proto-grpc>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (1.39.1)
+Requirement already satisfied: opentelemetry-sdk>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (1.39.1)
+Requirement already satisfied: pypika>=0.48.9 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (0.48.9)
+Requirement already satisfied: overrides>=7.3.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (7.7.0)
+Requirement already satisfied: importlib-resources in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (6.5.2)
+Requirement already satisfied: typer>=0.9.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (0.25.1)
+Requirement already satisfied: kubernetes>=28.1.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (34.1.0)
+Requirement already satisfied: pyyaml>=6.0.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (6.0.3)
+Requirement already satisfied: mmh3>=4.0.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (5.2.0)
+Requirement already satisfied: orjson>=3.9.12 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (3.11.9)
+Requirement already satisfied: rich>=10.11.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (15.0.0)
+Requirement already satisfied: jsonschema>=4.19.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (4.26.0)
+Requirement already satisfied: PyMuPDFb==1.23.7 in .\venv\Lib\site-packages (from PyMuPDF==1.23.8->-r requirements.txt (line 21)) (1.23.7)
+Requirement already satisfied: pytz>=2020.1 in .\venv\Lib\site-packages (from pandas==2.2.3->-r requirements.txt (line 24)) (2025.2)
+Requirement already satisfied: tzdata>=2022.7 in .\venv\Lib\site-packages (from pandas==2.2.3->-r requirements.txt (line 24)) (2026.2)
+Requirement already satisfied: et-xmlfile in .\venv\Lib\site-packages (from openpyxl==3.1.5->-r requirements.txt (line 25)) (2.0.0)
+Requirement already satisfied: Mako in .\venv\Lib\site-packages (from alembic==1.13.1->-r requirements.txt (line 32)) (1.3.10)
+Requirement already satisfied: ecdsa!=0.15 in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (0.19.1)
+Requirement already satisfied: rsa in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (4.9.1)
+Requirement already satisfied: pyasn1 in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (0.6.1)
+Requirement already satisfied: limits>=2.3 in .\venv\Lib\site-packages (from slowapi==0.1.9->-r requirements.txt (line 38)) (5.6.0)
+Requirement already satisfied: soupsieve>1.2 in .\venv\Lib\site-packages (from beautifulsoup4==4.12.3->-r requirements.txt (line 58)) (2.8)
+Requirement already satisfied: iniconfig in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 76)) (2.3.0)
+Requirement already satisfied: pluggy<2.0,>=1.3.0 in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 76)) (1.6.0)
+Requirement already satisfied: colorama in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 76)) (0.4.6)
 Requirement already satisfied: coverage>=5.2.1 in .\venv\Lib\site-packages (from coverage[toml]>=5.2.1->pytest-cov==4.1.0->-r requirements-dev.txt (line 7)) (7.13.5)
 Requirement already satisfied: mypy-extensions>=0.4.3 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (1.1.0)
 Requirement already satisfied: pathspec>=0.9.0 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (1.1.1)
@@ -140,70 +133,78 @@ Requirement already satisfied: platformdirs>=2 in .\venv\Lib\site-packages (from
 Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (0.7.0)
 Requirement already satisfied: pycodestyle<2.12.0,>=2.11.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (2.11.1)
 Requirement already satisfied: pyflakes<3.3.0,>=3.2.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (3.2.0)
-Requirement already satisfied: ghp-import>=1.0 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 22)) (2.1.0)
-Requirement already satisfied: markdown>=3.2.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 22)) (3.10.2)
-Requirement already satisfied: markupsafe>=2.0.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 22)) (3.0.3)
-Requirement already satisfied: mergedeep>=1.3.4 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 22)) (1.3.4)
-Requirement already satisfied: pyyaml-env-tag>=0.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 22)) (1.1)
-Requirement already satisfied: watchdog>=2.0 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 22)) (6.0.0)
-Requirement already satisfied: babel~=2.10 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 23)) (2.18.0)
-Requirement already satisfied: mkdocs-material-extensions~=1.3 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 23)) (1.3.1)
-Requirement already satisfied: paginate~=0.5 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 23)) (0.5.7)
-Requirement already satisfied: pygments~=2.16 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 23)) (2.19.2)
-Requirement already satisfied: pymdown-extensions~=10.2 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 23)) (10.21.2)
-Requirement already satisfied: cryptography>=3.4.0 in .\venv\Lib\site-packages (from python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (46.0.3)
+Requirement already satisfied: ghp-import>=1.0 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 23)) (2.1.0)
+Requirement already satisfied: markdown>=3.2.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 23)) (3.10.2)
+Requirement already satisfied: markupsafe>=2.0.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 23)) (3.0.3)
+Requirement already satisfied: mergedeep>=1.3.4 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 23)) (1.3.4)
+Requirement already satisfied: pyyaml-env-tag>=0.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 23)) (1.1)
+Requirement already satisfied: watchdog>=2.0 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 23)) (6.0.0)
+Requirement already satisfied: babel~=2.10 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 24)) (2.18.0)
+Requirement already satisfied: mkdocs-material-extensions~=1.3 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 24)) (1.3.1)
+Requirement already satisfied: paginate~=0.5 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 24)) (0.5.7)
+Requirement already satisfied: pygments~=2.16 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 24)) (2.20.0)
+Requirement already satisfied: pymdown-extensions~=10.2 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 24)) (10.21.2)
+Requirement already satisfied: requests~=2.26 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 24)) (2.34.2)
+Requirement already satisfied: cryptography>=3.4.0 in .\venv\Lib\site-packages (from python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (46.0.3)
 Requirement already satisfied: httptools>=0.5.0 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.7.1)
 Requirement already satisfied: watchfiles>=0.13 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (1.1.1)
-Requirement already satisfied: anyio in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 39)) (4.12.0)
-Requirement already satisfied: certifi in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 39)) (2025.11.12)
-Requirement already satisfied: httpcore==1.* in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 39)) (1.0.9)
-Requirement already satisfied: idna in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 39)) (3.11)
-Requirement already satisfied: annotated-types>=0.6.0 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 47)) (0.7.0)
-Requirement already satisfied: typing-inspection>=0.4.2 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 47)) (0.4.2)
-Requirement already satisfied: charset_normalizer<4,>=2 in .\venv\Lib\site-packages (from requests->transformers==4.38.1->-r requirements.txt (line 11)) (3.4.4)
-Requirement already satisfied: urllib3<3,>=1.21.1 in .\venv\Lib\site-packages (from requests->transformers==4.38.1->-r requirements.txt (line 11)) (2.3.0)
-Requirement already satisfied: propcache>=0.2.1 in .\venv\Lib\site-packages (from yarl<2.0,>=1.0->aiohttp==3.9.3->-r requirements.txt (line 40)) (0.4.1)
-Requirement already satisfied: bidict>=0.21.0 in .\venv\Lib\site-packages (from python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 64)) (0.23.1)
-Requirement already satisfied: python-engineio>=4.11.0 in .\venv\Lib\site-packages (from python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 64)) (4.13.1)
-Requirement already satisfied: botocore<1.43.0,>=1.42.14 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 69)) (1.42.14)
-Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 69)) (1.0.1)
-Requirement already satisfied: s3transfer<0.17.0,>=0.16.0 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 69)) (0.16.0)
+Requirement already satisfied: safetensors>=0.4.3 in .\venv\Lib\site-packages (from transformers<5,>=4.46.0->-r requirements.txt (line 12)) (0.7.0)
+Requirement already satisfied: anyio in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 41)) (4.13.0)
+Requirement already satisfied: certifi in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 41)) (2026.5.20)
+Requirement already satisfied: httpcore==1.* in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 41)) (1.0.9)
+Requirement already satisfied: idna in .\venv\Lib\site-packages (from httpx<0.29,>=0.26->-r requirements.txt (line 41)) (3.16)
+Requirement already satisfied: aiohappyeyeballs>=2.5.0 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 42)) (2.6.1)
+Requirement already satisfied: aiosignal>=1.4.0 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 42)) (1.4.0)
+Requirement already satisfied: attrs>=17.3.0 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 42)) (25.4.0)
+Requirement already satisfied: frozenlist>=1.1.1 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 42)) (1.8.0)
+Requirement already satisfied: multidict<7.0,>=4.5 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 42)) (6.7.0)
+Requirement already satisfied: propcache>=0.2.0 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 42)) (0.4.1)
+Requirement already satisfied: yarl<2.0,>=1.17.0 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 42)) (1.22.0)
+Requirement already satisfied: annotated-types>=0.6.0 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 49)) (0.7.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 49)) (0.4.2)
+Requirement already satisfied: charset_normalizer<4,>=2 in .\venv\Lib\site-packages (from requests~=2.26->mkdocs-material==9.5.9->-r requirements-dev.txt (line 24)) (3.4.7)
+Requirement already satisfied: urllib3<3,>=1.26 in .\venv\Lib\site-packages (from requests~=2.26->mkdocs-material==9.5.9->-r requirements-dev.txt (line 24)) (2.3.0)
+Requirement already satisfied: bidict>=0.21.0 in .\venv\Lib\site-packages (from python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 68)) (0.23.1)
+Requirement already satisfied: python-engineio>=4.11.0 in .\venv\Lib\site-packages (from python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 68)) (4.13.1)
+Requirement already satisfied: botocore<1.43.0,>=1.42.14 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 73)) (1.42.14)
+Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 73)) (1.0.1)
+Requirement already satisfied: s3transfer<0.17.0,>=0.16.0 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 73)) (0.16.0)
 Requirement already satisfied: six>=1.5 in .\venv\Lib\site-packages (from python-dateutil>=2.7->strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (1.17.0)
-Requirement already satisfied: types-pyasn1 in .\venv\Lib\site-packages (from types-python-jose>=3.3.0->-r requirements-dev.txt (line 19)) (0.6.0.20260408)
-Requirement already satisfied: pyproject_hooks in .\venv\Lib\site-packages (from build>=1.0.3->chromadb==1.5.9->-r requirements.txt (line 16)) (1.2.0)
-Requirement already satisfied: cffi>=2.0.0 in .\venv\Lib\site-packages (from cryptography>=3.4.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (2.0.0)
-Requirement already satisfied: pycparser in .\venv\Lib\site-packages (from cffi>=2.0.0->cryptography>=3.4.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 33)) (2.23)
-Requirement already satisfied: jsonschema-specifications>=2023.03.6 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 16)) (2025.9.1)
-Requirement already satisfied: referencing>=0.28.4 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.37.0)
-Requirement already satisfied: rpds-py>=0.25.0 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.30.0)
-Requirement already satisfied: google-auth>=1.0.1 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (2.43.0)
-Requirement already satisfied: websocket-client!=0.40.0,!=0.41.*,!=0.42.*,>=0.32.0 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.9.0)
-Requirement already satisfied: requests-oauthlib in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (2.0.0)
-Requirement already satisfied: durationpy>=0.7 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.10)
-Requirement already satisfied: cachetools<7.0,>=2.0.0 in .\venv\Lib\site-packages (from google-auth>=1.0.1->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (6.2.3)
-Requirement already satisfied: pyasn1-modules>=0.2.1 in .\venv\Lib\site-packages (from google-auth>=1.0.1->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.4.2)
-Requirement already satisfied: deprecated>=1.2 in .\venv\Lib\site-packages (from limits>=2.3->slowapi==0.1.9->-r requirements.txt (line 36)) (1.3.1)
-Requirement already satisfied: wrapt<3,>=1.10 in .\venv\Lib\site-packages (from deprecated>=1.2->limits>=2.3->slowapi==0.1.9->-r requirements.txt (line 36)) (1.17.3)
-Requirement already satisfied: coloredlogs in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (15.0.1)
-Requirement already satisfied: flatbuffers in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (25.9.23)
-Requirement already satisfied: protobuf in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (6.33.6)
-Requirement already satisfied: importlib-metadata<8.8.0,>=6.0 in .\venv\Lib\site-packages (from opentelemetry-api>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (8.7.0)
-Requirement already satisfied: zipp>=3.20 in .\venv\Lib\site-packages (from importlib-metadata<8.8.0,>=6.0->opentelemetry-api>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (3.23.0)
-Requirement already satisfied: googleapis-common-protos~=1.57 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.75.0)
-Requirement already satisfied: opentelemetry-exporter-otlp-proto-common==1.39.1 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
-Requirement already satisfied: opentelemetry-proto==1.39.1 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.39.1)
-Requirement already satisfied: opentelemetry-semantic-conventions==0.60b1 in .\venv\Lib\site-packages (from opentelemetry-sdk>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.60b1)
-Requirement already satisfied: simple-websocket>=0.10.0 in .\venv\Lib\site-packages (from python-engineio>=4.11.0->python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 64)) (1.1.0)
-Requirement already satisfied: markdown-it-py>=2.2.0 in .\venv\Lib\site-packages (from rich>=10.11.0->chromadb==1.5.9->-r requirements.txt (line 16)) (4.0.0)
-Requirement already satisfied: mdurl~=0.1 in .\venv\Lib\site-packages (from markdown-it-py>=2.2.0->rich>=10.11.0->chromadb==1.5.9->-r requirements.txt (line 16)) (0.1.2)
-Requirement already satisfied: wsproto in .\venv\Lib\site-packages (from simple-websocket>=0.10.0->python-engineio>=4.11.0->python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 64)) (1.3.2)
-Requirement already satisfied: shellingham>=1.3.0 in .\venv\Lib\site-packages (from typer>=0.9.0->chromadb==1.5.9->-r requirements.txt (line 16)) (1.5.4)
-Requirement already satisfied: humanfriendly>=9.1 in .\venv\Lib\site-packages (from coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (10.0)
-Requirement already satisfied: pyreadline3 in .\venv\Lib\site-packages (from humanfriendly>=9.1->coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 16)) (3.5.4)
-Requirement already satisfied: oauthlib>=3.0.0 in .\venv\Lib\site-packages (from requests-oauthlib->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 16)) (3.3.1)
+Requirement already satisfied: types-pyasn1 in .\venv\Lib\site-packages (from types-python-jose>=3.3.0->-r requirements-dev.txt (line 20)) (0.6.0.20260408)
+Requirement already satisfied: pyproject_hooks in .\venv\Lib\site-packages (from build>=1.0.3->chromadb==1.5.9->-r requirements.txt (line 18)) (1.2.0)
+Requirement already satisfied: cffi>=2.0.0 in .\venv\Lib\site-packages (from cryptography>=3.4.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (2.0.0)
+Requirement already satisfied: pycparser in .\venv\Lib\site-packages (from cffi>=2.0.0->cryptography>=3.4.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (3.0)
+Requirement already satisfied: jsonschema-specifications>=2023.03.6 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 18)) (2025.9.1)
+Requirement already satisfied: referencing>=0.28.4 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.37.0)
+Requirement already satisfied: rpds-py>=0.25.0 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.30.0)
+Requirement already satisfied: google-auth>=1.0.1 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (2.53.0)
+Requirement already satisfied: websocket-client!=0.40.0,!=0.41.*,!=0.42.*,>=0.32.0 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (1.9.0)
+Requirement already satisfied: requests-oauthlib in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (2.0.0)
+Requirement already satisfied: durationpy>=0.7 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.10)
+Requirement already satisfied: pyasn1-modules>=0.2.1 in .\venv\Lib\site-packages (from google-auth>=1.0.1->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.4.2)
+Requirement already satisfied: deprecated>=1.2 in .\venv\Lib\site-packages (from limits>=2.3->slowapi==0.1.9->-r requirements.txt (line 38)) (1.3.1)
+Requirement already satisfied: wrapt<3,>=1.10 in .\venv\Lib\site-packages (from deprecated>=1.2->limits>=2.3->slowapi==0.1.9->-r requirements.txt (line 38)) (1.17.3)
+Requirement already satisfied: coloredlogs in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 18)) (15.0.1)
+Requirement already satisfied: flatbuffers in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 18)) (25.9.23)
+Requirement already satisfied: protobuf in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 18)) (6.33.6)
+Requirement already satisfied: importlib-metadata<8.8.0,>=6.0 in .\venv\Lib\site-packages (from opentelemetry-api>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 18)) (8.7.0)
+Requirement already satisfied: zipp>=3.20 in .\venv\Lib\site-packages (from importlib-metadata<8.8.0,>=6.0->opentelemetry-api>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 18)) (3.23.0)
+Requirement already satisfied: googleapis-common-protos~=1.57 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 18)) (1.75.0)
+Requirement already satisfied: opentelemetry-exporter-otlp-proto-common==1.39.1 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 18)) (1.39.1)
+Requirement already satisfied: opentelemetry-proto==1.39.1 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 18)) (1.39.1)
+Requirement already satisfied: opentelemetry-semantic-conventions==0.60b1 in .\venv\Lib\site-packages (from opentelemetry-sdk>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.60b1)
+Requirement already satisfied: simple-websocket>=0.10.0 in .\venv\Lib\site-packages (from python-engineio>=4.11.0->python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 68)) (1.1.0)
+Requirement already satisfied: markdown-it-py>=2.2.0 in .\venv\Lib\site-packages (from rich>=10.11.0->chromadb==1.5.9->-r requirements.txt (line 18)) (4.2.0)
+Requirement already satisfied: mdurl~=0.1 in .\venv\Lib\site-packages (from markdown-it-py>=2.2.0->rich>=10.11.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.1.2)
+Requirement already satisfied: wsproto in .\venv\Lib\site-packages (from simple-websocket>=0.10.0->python-engineio>=4.11.0->python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 68)) (1.3.2)
+Requirement already satisfied: shellingham>=1.3.0 in .\venv\Lib\site-packages (from typer>=0.9.0->chromadb==1.5.9->-r requirements.txt (line 18)) (1.5.4)
+Requirement already satisfied: annotated-doc>=0.0.2 in .\venv\Lib\site-packages (from typer>=0.9.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.0.4)
+Requirement already satisfied: humanfriendly>=9.1 in .\venv\Lib\site-packages (from coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 18)) (10.0)
+Requirement already satisfied: pyreadline3 in .\venv\Lib\site-packages (from humanfriendly>=9.1->coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 18)) (3.5.4)
+Requirement already satisfied: oauthlib>=3.0.0 in .\venv\Lib\site-packages (from requests-oauthlib->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (3.3.1)
 Requirement already satisfied: joblib>=1.3.0 in .\venv\Lib\site-packages (from scikit-learn->sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.5.2)
 Requirement already satisfied: threadpoolctl>=3.2.0 in .\venv\Lib\site-packages (from scikit-learn->sentence-transformers==2.5.1->-r requirements.txt (line 10)) (3.6.0)
-Requirement already satisfied: mpmath<1.4,>=1.1.0 in .\venv\Lib\site-packages (from sympy->torch==2.2.0->-r requirements.txt (line 12)) (1.3.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in .\venv\Lib\site-packages (from sympy->torch==2.2.0->-r requirements.txt (line 14)) (1.3.0)
   OK Dependencies installed
 
 [2/10] Environment validation (preflight)...
@@ -215,48 +216,8 @@ validate_env: OK - settings load successfully
 [3/10] Type checking (mypy)...
 ----------------------------------------
   Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m mypy app/
-app\graphql\modules\widgets\resolvers.py:125: error: Need type annotation for "raw_payload"  [var-annotated]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePhotosQuery" is incompatible with definition in base class "GmailQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePhotosQuery" is incompatible with definition in base class "GoogleCalendarQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePhotosQuery" is incompatible with definition in base class "GooglePeopleQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePhotosQuery" is incompatible with definition in base class "GoogleDriveQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePhotosQuery" is incompatible with definition in base class "GoogleTasksQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePhotosQuery" is incompatible with definition in base class "TodosQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePhotosQuery" is incompatible with definition in base class "MetricsQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePhotosQuery" is incompatible with definition in base class "HealthQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GmailQuery" is incompatible with definition in base class "GoogleCalendarQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GmailQuery" is incompatible with definition in base class "GooglePeopleQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GmailQuery" is incompatible with definition in base class "GoogleDriveQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GmailQuery" is incompatible with definition in base class "GoogleTasksQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GmailQuery" is incompatible with definition in base class "TodosQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GmailQuery" is incompatible with definition in base class "MetricsQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GmailQuery" is incompatible with definition in base class "HealthQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleCalendarQuery" is incompatible with definition in base class "GooglePeopleQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleCalendarQuery" is incompatible with definition in base class "GoogleDriveQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleCalendarQuery" is incompatible with definition in base class "GoogleTasksQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleCalendarQuery" is incompatible with definition in base class "TodosQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleCalendarQuery" is incompatible with definition in base class "MetricsQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleCalendarQuery" is incompatible with definition in base class "HealthQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePeopleQuery" is incompatible with definition in base class "GoogleDriveQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePeopleQuery" is incompatible with definition in base class "GoogleTasksQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePeopleQuery" is incompatible with definition in base class "TodosQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePeopleQuery" is incompatible with definition in base class "MetricsQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GooglePeopleQuery" is incompatible with definition in base class "HealthQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleDriveQuery" is incompatible with definition in base class "GoogleTasksQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleDriveQuery" is incompatible with definition in base class "TodosQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleDriveQuery" is incompatible with definition in base class "MetricsQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleDriveQuery" is incompatible with definition in base class "HealthQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleTasksQuery" is incompatible with definition in base class "TodosQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleTasksQuery" is incompatible with definition in base class "MetricsQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "GoogleTasksQuery" is incompatible with definition in base class "HealthQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "TodosQuery" is incompatible with definition in base class "MetricsQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "TodosQuery" is incompatible with definition in base class "HealthQuery"  [misc]
-app\graphql\schema.py:50: error: Definition of "__replace__" in base class "MetricsQuery" is incompatible with definition in base class "HealthQuery"  [misc]
-app\graphql\schema.py:79: error: Definition of "__replace__" in base class "ToolsMutation" is incompatible with definition in base class "GoogleTasksMutation"  [misc]
-app\graphql\schema.py:79: error: Definition of "__replace__" in base class "ToolsMutation" is incompatible with definition in base class "TodosMutation"  [misc]
-app\graphql\schema.py:79: error: Definition of "__replace__" in base class "GoogleTasksMutation" is incompatible with definition in base class "TodosMutation"  [misc]
-Found 40 errors in 2 files (checked 324 source files)
-   mypy issues (warning only; set MYPY_STRICT=1 to fail)
+Success: no issues found in 329 source files
+  OK mypy passed
 
 [3b/10] Pyrefly (static analysis)...
 ----------------------------------------
@@ -265,21 +226,21 @@ Found 40 errors in 2 files (checked 324 source files)
  INFO Checking project configured at `E:\durgas_ai\ai.backend\pyrefly.toml`
 === Error Summary ===
 No errors found!
- INFO 0 errors
+ INFO 0 errors (1 suppressed)
   OK pyrefly passed
 
 [4/10] Formatting checks (black)...
 ----------------------------------------
   Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m black --check app scripts tests docs\tests
 All done! ✨ 🍰 ✨
-374 files would be left unchanged.
+379 files would be left unchanged.
   OK black check passed
 
 [4b/10] Prettier (Markdown, JSON, YAML)...
 ----------------------------------------
   Running: npm ci (or npm install) then npm run format:check
 
-added 1 package, and audited 2 packages in 1s
+added 1 package, and audited 2 packages in 2s
 
 1 package is looking for funding
   run `npm fund` for details
@@ -308,22 +269,23 @@ platform win32 -- Python 3.13.13, pytest-8.0.2, pluggy-1.6.0 -- E:\durgas_ai\ai.
 cachedir: .pytest_cache
 rootdir: E:\durgas_ai\ai.backend
 configfile: pytest.ini
-plugins: anyio-4.12.0, asyncio-0.23.5, cov-4.1.0
+plugins: anyio-4.13.0, asyncio-0.23.5, cov-4.1.0
 asyncio: mode=Mode.AUTO
-collected 10 items
+collected 11 items
 
-tests/council/hallucination_eval/test_eval_harness.py::test_eval_harness_smoke PASSED [ 10%]
-tests/council/test_verifier_rag.py::test_verify_unsupported_empty_hits PASSED [ 20%]
-tests/council/test_verifier_rag.py::test_verify_supported_with_strong_match PASSED [ 30%]
-tests/test_graphql_schema.py::test_schema_introspection_has_auth_mutations PASSED [ 40%]
-tests/test_graphql_schema.py::test_schema_has_chat_query_fields PASSED [ 50%]
-tests/test_graphql_schema.py::test_gql_user_type_exposes_profile_fields PASSED [ 60%]
-tests/test_open_meteo_weather.py::test_c_to_f PASSED                 [ 70%]
-tests/test_open_meteo_weather.py::test_wmo_weather_summary PASSED    [ 80%]
+tests/council/hallucination_eval/test_eval_harness.py::test_eval_harness_smoke PASSED [  9%]
+tests/council/test_verifier_rag.py::test_verify_unsupported_empty_hits PASSED [ 18%]
+tests/council/test_verifier_rag.py::test_verify_supported_with_strong_match PASSED [ 27%]
+tests/test_graphql_schema.py::test_schema_introspection_has_auth_mutations PASSED [ 36%]
+tests/test_graphql_schema.py::test_schema_has_chat_query_fields PASSED [ 45%]
+tests/test_graphql_schema.py::test_gql_user_type_exposes_profile_fields PASSED [ 54%]
+tests/test_graphql_schema.py::test_host_stats_resolver PASSED        [ 63%]
+tests/test_open_meteo_weather.py::test_c_to_f PASSED                 [ 72%]
+tests/test_open_meteo_weather.py::test_wmo_weather_summary PASSED    [ 81%]
 tests/test_open_meteo_weather.py::test_normalize_open_meteo_payload_shape PASSED [ 90%]
 tests/test_open_meteo_weather.py::test_fetch_weather_forecast_with_mock_transport PASSED [100%]
 
-=========================== 10 passed in 40.69s ===========================
+=========================== 11 passed in 6.15s ============================
   OK Tests passed
 
 [6b] Coverage skipped (set RUN_TEST_COVERAGE=1 for pytest --cov=app)
@@ -338,7 +300,7 @@ Best-practices score: 42.5/100
 ----------------------------------------
   Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m black app scripts tests docs\tests
 All done! ✨ 🍰 ✨
-374 files left unchanged.
+379 files left unchanged.
   OK black formatting applied
 
 [9/10] Install / import integrity...
@@ -357,7 +319,7 @@ Section Status:
   [0b] Docker hint:                   DONE
   [1] Pip dependencies:              PASSED
   [2] Environment validate:          PASSED
-  [3] mypy:                          WARNING
+  [3] mypy:                          PASSED
   [3b] pyrefly:                      PASSED
   [4] black --check:                 PASSED
   [4b] Prettier:                     PASSED
@@ -369,6 +331,1295 @@ Section Status:
   [9] pip check + import app:        PASSED
 
   OK All blocking checks passed
-  Found 1 warning(s)
 
   Start API server? (Y/N)
+ Y
+
+[10/10] Starting uvicorn (reload)...
+  E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m uvicorn app.main:app --reload
+  Press Ctrl+C to stop
+
+INFO:     Will watch for changes in these directories: ['E:\\durgas_ai\\ai.backend']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [22732] using StatReload
+INFO:     Started server process [21288]
+INFO:     Waiting for application startup.
+2026-05-24 11:41:51,825 - app.main - INFO - Starting DurgasAI Backend v1.0.0
+2026-05-24 11:41:51,825 - app.main - INFO - Environment: development
+2026-05-24 11:41:51,826 - app.main - INFO - Default LLM Provider: ollama
+2026-05-24 11:42:04,608 - app.main - INFO - Database initialized successfully
+2026-05-24 11:42:07,964 - app.services.rag.vectorstore - INFO - ChromaDB client initialized at ./data/chroma
+2026-05-24 11:42:07,968 - app.services.rag.vectorstore - INFO - Using collection: durgasai_pages
+2026-05-24 11:42:07,969 - app.services.rag.vectorstore - INFO - ChromaDB initialized
+2026-05-24 11:42:07,969 - app.main - INFO - ChromaDB initialized successfully
+2026-05-24 11:42:07,969 - app.services.llm.factory - INFO - Created LLM provider instance: ollama
+2026-05-24 11:42:07,969 - app.main - INFO - LLM Provider (ollama) initialized
+2026-05-24 11:42:07,969 - app.services.rag.pipeline - INFO - RAG Pipeline initialized
+2026-05-24 11:42:07,970 - app.main - INFO - RAG Pipeline initialized successfully
+INFO:     Application startup complete.
+INFO:     127.0.0.1:2558 - "OPTIONS /graphql HTTP/1.1" 200 OK
+2026-05-24 11:43:46,136 - app.core.middleware - INFO - Request [7f9dd9ac-8462-4edc-aea7-c4d2401978af]: POST /graphql
+2026-05-24 11:43:46,151 - app.core.middleware - INFO - Response [7f9dd9ac-8462-4edc-aea7-c4d2401978af]: POST /graphql - Status: 200 - Duration: 0.015s
+INFO:     127.0.0.1:9888 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:43:46,218 - app.core.middleware - INFO - Request [118f584a-5e3a-4ba9-bfe9-bcf5c7d2cab3]: POST /graphql
+2026-05-24 11:43:46,236 - app.core.middleware - INFO - Request [f3e04c88-f5cb-45c0-aeb3-3f71d264d451]: POST /graphql
+2026-05-24 11:43:46,236 - app.core.middleware - INFO - Request [ab9fe047-9ac6-4a98-9157-ae3412972a3d]: POST /graphql
+2026-05-24 11:43:46,237 - app.core.middleware - INFO - Request [b0ffec7d-c97f-4159-bfe0-51d60640019b]: POST /graphql
+INFO:     ('127.0.0.1', 1888) - "WebSocket /ws/gateway" [accepted]
+2026-05-24 11:43:48,553 - app.core.connection_manager - INFO - ✅ WebSocket connected: ws_20260524061348_928d3612 (Total: 1)
+2026-05-24 11:43:48,564 - app.core.middleware - INFO - Request [6dddf626-67f3-4d19-aa28-a4f04992ff5f]: POST /graphql
+2026-05-24 11:43:48,565 - app.core.middleware - INFO - Request [ad41f346-d8b3-41d9-bf96-cfeb08146074]: POST /graphql
+INFO:     connection open
+2026-05-24 11:43:49,231 - app.api.ws_gateway - ERROR - Handler error for system.notifications: object async_generator can't be used in 'await' expression
+Traceback (most recent call last):
+  File "E:\durgas_ai\ai.backend\app\api\ws_gateway.py", line 146, in handle_message
+    result = await handler(params, user=user, connection_id=connection_id)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: object async_generator can't be used in 'await' expression
+INFO:     ('127.0.0.1', 10569) - "WebSocket /ws/gateway" [accepted]
+2026-05-24 11:43:49,237 - app.core.connection_manager - INFO - ✅ WebSocket connected: ws_20260524061349_1dffc1ad (Total: 2)
+2026-05-24 11:43:49,237 - app.core.middleware - INFO - Response [ab9fe047-9ac6-4a98-9157-ae3412972a3d]: POST /graphql - Status: 200 - Duration: 3.001s
+INFO:     connection open
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:43:50,544 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+INFO:     ('127.0.0.1', 4197) - "WebSocket /ws/gateway" [accepted]
+2026-05-24 11:43:50,550 - app.core.connection_manager - INFO - ✅ WebSocket connected: ws_20260524061350_138742f0 (Total: 3)
+INFO:     connection open
+2026-05-24 11:43:50,827 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:43:51,324 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:43:51,690 - httpx - INFO - HTTP Request: GET https://api.open-meteo.com/v1/forecast?latitude=12.99006115173102&longitude=77.6903126488282&timezone=auto&forecast_days=7&current=temperature_2m%2Cweather_code&hourly=temperature_2m%2Cweather_code&daily=weather_code%2Ctemperature_2m_max%2Ctemperature_2m_min "HTTP/1.1 200 OK"
+2026-05-24 11:43:51,693 - app.core.middleware - INFO - Request [6070fa0e-369c-4a76-b927-fa4787cd503b]: POST /graphql
+2026-05-24 11:43:51,697 - app.core.middleware - INFO - Response [6dddf626-67f3-4d19-aa28-a4f04992ff5f]: POST /graphql - Status: 200 - Duration: 3.133s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:43:52,966 - app.core.middleware - INFO - Response [118f584a-5e3a-4ba9-bfe9-bcf5c7d2cab3]: POST /graphql - Status: 200 - Duration: 6.748s
+INFO:     127.0.0.1:9888 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:43:52,995 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:43:53,351 - app.core.middleware - INFO - Request [c8a8fe89-f9e3-445d-a11c-ee34b06e684c]: POST /graphql
+2026-05-24 11:43:54,812 - app.core.middleware - INFO - Request [6f846dc0-9166-4286-ba1f-aab45eeb5dd3]: POST /graphql
+2026-05-24 11:43:58,043 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:43:58,045 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:43:58,048 - app.core.middleware - INFO - Response [c8a8fe89-f9e3-445d-a11c-ee34b06e684c]: POST /graphql - Status: 200 - Duration: 4.697s
+INFO:     127.0.0.1:9888 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:43:58,058 - app.core.middleware - INFO - Request [d53b87b4-c5dc-49dd-891d-30102e979462]: POST /graphql
+2026-05-24 11:43:58,100 - app.core.middleware - INFO - Response [d53b87b4-c5dc-49dd-891d-30102e979462]: POST /graphql - Status: 200 - Duration: 0.042s
+INFO:     127.0.0.1:9888 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:43:58,107 - app.core.middleware - INFO - Request [a638d53f-eb34-4acd-9dce-6c2963366786]: POST /graphql
+2026-05-24 11:43:58,161 - app.core.middleware - INFO - Response [a638d53f-eb34-4acd-9dce-6c2963366786]: POST /graphql - Status: 200 - Duration: 0.053s
+INFO:     127.0.0.1:9888 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:43:58,173 - app.core.middleware - INFO - Request [f502994a-8f9e-4b6b-99b8-2c4b1dfc6301]: POST /graphql
+2026-05-24 11:43:58,214 - app.core.middleware - INFO - Response [f502994a-8f9e-4b6b-99b8-2c4b1dfc6301]: POST /graphql - Status: 200 - Duration: 0.041s
+INFO:     127.0.0.1:9888 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:43:58,329 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:43:58,332 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:43:58,335 - app.core.middleware - INFO - Response [ad41f346-d8b3-41d9-bf96-cfeb08146074]: POST /graphql - Status: 200 - Duration: 9.771s
+INFO:     127.0.0.1:1355 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:43:58,345 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:43:58,346 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:43:58,348 - app.core.middleware - INFO - Response [b0ffec7d-c97f-4159-bfe0-51d60640019b]: POST /graphql - Status: 200 - Duration: 12.112s
+INFO:     127.0.0.1:3193 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:43:58,860 - app.core.middleware - INFO - Response [f3e04c88-f5cb-45c0-aeb3-3f71d264d451]: POST /graphql - Status: 200 - Duration: 12.624s
+INFO:     127.0.0.1:2521 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:43:59,834 - app.core.middleware - INFO - Request [d89b9304-2922-47f2-9650-a6bb44f52613]: POST /graphql
+2026-05-24 11:43:59,875 - app.core.middleware - INFO - Response [d89b9304-2922-47f2-9650-a6bb44f52613]: POST /graphql - Status: 200 - Duration: 0.041s
+INFO:     127.0.0.1:2521 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:00,405 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:00,406 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:44:00,408 - app.core.middleware - INFO - Response [6070fa0e-369c-4a76-b927-fa4787cd503b]: POST /graphql - Status: 200 - Duration: 8.715s
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:01,096 - app.core.middleware - INFO - Request [ab939f31-48c7-441d-b74d-76e1490d97be]: POST /graphql
+2026-05-24 11:44:01,133 - app.core.middleware - INFO - Response [ab939f31-48c7-441d-b74d-76e1490d97be]: POST /graphql - Status: 200 - Duration: 0.037s
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:01,996 - app.core.middleware - INFO - Request [0d17a89d-3ec3-4a35-a60a-aeb1beeddf61]: POST /graphql
+2026-05-24 11:44:02,046 - app.core.middleware - INFO - Response [0d17a89d-3ec3-4a35-a60a-aeb1beeddf61]: POST /graphql - Status: 200 - Duration: 0.051s
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:03,322 - app.core.middleware - INFO - Request [aff23b6f-8727-4dfa-9e78-5023880e1e18]: POST /graphql
+2026-05-24 11:44:03,332 - app.core.middleware - INFO - Response [aff23b6f-8727-4dfa-9e78-5023880e1e18]: POST /graphql - Status: 200 - Duration: 0.010s
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:03,891 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:03,893 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:44:03,895 - app.core.middleware - INFO - Response [6f846dc0-9166-4286-ba1f-aab45eeb5dd3]: POST /graphql - Status: 200 - Duration: 9.083s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:03,974 - app.core.middleware - INFO - Request [06754782-9f1f-4e9e-aee6-0e3efeba301c]: POST /graphql
+2026-05-24 11:44:04,992 - app.core.middleware - INFO - Request [385d8e7a-11a6-4274-b5b1-f9a479a11e09]: POST /graphql
+2026-05-24 11:44:05,034 - app.core.middleware - INFO - Response [385d8e7a-11a6-4274-b5b1-f9a479a11e09]: POST /graphql - Status: 200 - Duration: 0.042s
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:05,936 - app.core.middleware - INFO - Response [06754782-9f1f-4e9e-aee6-0e3efeba301c]: POST /graphql - Status: 200 - Duration: 1.962s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:07,076 - app.core.middleware - INFO - Request [78e782f3-06da-4ac8-93a8-70d10ed9fd76]: POST /graphql
+2026-05-24 11:44:07,137 - app.core.middleware - INFO - Response [78e782f3-06da-4ac8-93a8-70d10ed9fd76]: POST /graphql - Status: 200 - Duration: 0.062s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:07,704 - app.core.middleware - INFO - Request [7a9dc739-66a5-4ab5-b3b4-d5245f2f1225]: POST /graphql
+2026-05-24 11:44:07,748 - app.core.middleware - INFO - Response [7a9dc739-66a5-4ab5-b3b4-d5245f2f1225]: POST /graphql - Status: 200 - Duration: 0.044s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:08,183 - app.core.middleware - INFO - Request [f14e5b83-7c47-4647-b628-6441fdda12b5]: POST /graphql
+2026-05-24 11:44:08,219 - app.core.middleware - INFO - Response [f14e5b83-7c47-4647-b628-6441fdda12b5]: POST /graphql - Status: 200 - Duration: 0.036s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:08,258 - app.core.middleware - INFO - Request [2ed05213-2d67-4143-9125-6ec65b61d62a]: POST /graphql
+2026-05-24 11:44:08,375 - app.core.middleware - INFO - Request [f7a8956e-1fc3-4d02-9ed2-dac1f00fe321]: POST /graphql
+2026-05-24 11:44:08,390 - app.core.middleware - INFO - Response [f7a8956e-1fc3-4d02-9ed2-dac1f00fe321]: POST /graphql - Status: 200 - Duration: 0.014s
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:08,980 - app.core.middleware - INFO - Request [af299567-2846-43cf-8866-4b243492c090]: POST /graphql
+2026-05-24 11:44:09,035 - app.core.middleware - INFO - Response [af299567-2846-43cf-8866-4b243492c090]: POST /graphql - Status: 200 - Duration: 0.054s
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:09,535 - app.core.middleware - INFO - Request [c960c47a-35d2-4e13-b10a-2ca80b52e5e2]: POST /graphql
+2026-05-24 11:44:09,591 - app.core.middleware - INFO - Response [c960c47a-35d2-4e13-b10a-2ca80b52e5e2]: POST /graphql - Status: 200 - Duration: 0.056s
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:10,068 - app.core.middleware - INFO - Request [d9614048-1df0-4a4e-9a69-0bda65492afe]: POST /graphql
+2026-05-24 11:44:10,113 - app.core.middleware - INFO - Response [d9614048-1df0-4a4e-9a69-0bda65492afe]: POST /graphql - Status: 200 - Duration: 0.045s
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:10,945 - app.core.middleware - INFO - Response [2ed05213-2d67-4143-9125-6ec65b61d62a]: POST /graphql - Status: 200 - Duration: 2.687s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13236 - "OPTIONS /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:11,232 - app.core.middleware - INFO - Request [e124061d-504e-434e-9bf1-099dd474f402]: POST /graphql
+2026-05-24 11:44:11,293 - app.core.middleware - INFO - Request [813d625a-0f90-4949-a0df-dd88cfb0e707]: POST /graphql
+2026-05-24 11:44:11,307 - app.core.middleware - INFO - Response [e124061d-504e-434e-9bf1-099dd474f402]: POST /graphql - Status: 200 - Duration: 0.074s
+2026-05-24 11:44:11,309 - app.core.middleware - INFO - Request [37382354-8682-4b5e-be4e-f9ebf83cb948]: POST /graphql
+2026-05-24 11:44:11,311 - app.core.middleware - INFO - Request [a5fe4e4a-caa4-4014-9e4e-a0eaea29f350]: POST /graphql
+2026-05-24 11:44:11,311 - app.core.middleware - INFO - Request [9d106094-7bf4-49ee-8e38-cb7612352b78]: POST /graphql
+2026-05-24 11:44:11,315 - app.core.middleware - INFO - Request [881fc134-ef4e-48fe-842b-f199e6411c36]: POST /graphql
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:12,327 - app.core.middleware - INFO - Response [813d625a-0f90-4949-a0df-dd88cfb0e707]: POST /graphql - Status: 200 - Duration: 1.034s
+2026-05-24 11:44:12,328 - app.core.middleware - INFO - Request [d35aa6af-95e2-41bd-aef4-82ccf7bed5e7]: POST /graphql
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:12,386 - app.core.middleware - INFO - Response [d35aa6af-95e2-41bd-aef4-82ccf7bed5e7]: POST /graphql - Status: 200 - Duration: 0.057s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:12,523 - app.core.middleware - INFO - Request [c24056c0-7701-4a00-a1f4-767d2e18ea07]: POST /graphql
+2026-05-24 11:44:12,567 - app.core.middleware - INFO - Response [c24056c0-7701-4a00-a1f4-767d2e18ea07]: POST /graphql - Status: 200 - Duration: 0.045s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:12,866 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:13,867 - app.core.middleware - INFO - Request [6f567e9f-7637-4048-a85d-9d69536dcf5d]: POST /graphql
+2026-05-24 11:44:13,867 - app.core.middleware - INFO - Request [4b7c363b-6ec4-4603-8f12-eedf591881ef]: POST /graphql
+2026-05-24 11:44:13,991 - app.core.middleware - INFO - Response [6f567e9f-7637-4048-a85d-9d69536dcf5d]: POST /graphql - Status: 200 - Duration: 0.124s
+2026-05-24 11:44:13,993 - app.core.middleware - INFO - Response [4b7c363b-6ec4-4603-8f12-eedf591881ef]: POST /graphql - Status: 200 - Duration: 0.126s
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:14,403 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:14,405 - app.services.llm.factory - INFO - Created LLM provider instance: huggingface
+2026-05-24 11:44:15,407 - app.core.middleware - INFO - Request [8aeffd70-acd7-4b41-86ce-474585671e5a]: POST /graphql
+2026-05-24 11:44:16,422 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 401 Unauthorized"
+2026-05-24 11:44:16,425 - app.core.middleware - INFO - Request [a2d7382b-ae21-40ad-a593-5c644536bace]: POST /graphql
+2026-05-24 11:44:16,426 - app.services.llm.factory - INFO - Created LLM provider instance: gemini
+2026-05-24 11:44:18,566 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:18,583 - app.core.middleware - INFO - Response [37382354-8682-4b5e-be4e-f9ebf83cb948]: POST /graphql - Status: 200 - Duration: 7.275s
+INFO:     127.0.0.1:7110 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:18,599 - app.core.middleware - INFO - Request [d5096b9d-7496-4b12-8cfa-3d519c712d99]: POST /graphql
+2026-05-24 11:44:19,930 - httpx - INFO - HTTP Request: GET https://generativelanguage.googleapis.com/v1beta/models?key=your_gemini_api_key_here "HTTP/1.1 400 Bad Request"
+2026-05-24 11:44:19,934 - app.services.llm.ai21 - WARNING - AI21 API key not configured
+2026-05-24 11:44:19,934 - app.services.llm.factory - INFO - Created LLM provider instance: ai21
+2026-05-24 11:44:19,935 - app.services.llm.groq - WARNING - Groq API key not configured
+2026-05-24 11:44:19,935 - app.services.llm.factory - INFO - Created LLM provider instance: groq
+2026-05-24 11:44:19,935 - app.services.nvidia.client - WARNING - NVIDIA API key not configured
+2026-05-24 11:44:19,935 - app.services.nvidia.chat - WARNING - NVIDIA API key not configured
+2026-05-24 11:44:19,935 - app.services.llm.factory - INFO - Created LLM provider instance: nvidia
+2026-05-24 11:44:19,936 - app.services.llm.cerebras - WARNING - Cerebras API key not configured
+2026-05-24 11:44:19,936 - app.services.llm.factory - INFO - Created LLM provider instance: cerebras
+2026-05-24 11:44:19,936 - app.services.llm.openrouter - WARNING - OpenRouter API key not configured
+2026-05-24 11:44:19,937 - app.services.llm.factory - INFO - Created LLM provider instance: openrouter
+2026-05-24 11:44:19,937 - app.services.llm.fireworks - WARNING - Fireworks AI API key not configured
+2026-05-24 11:44:19,937 - app.services.llm.factory - INFO - Created LLM provider instance: fireworks
+2026-05-24 11:44:19,937 - app.services.llm.deepinfra - WARNING - Deep Infra API key not configured
+2026-05-24 11:44:19,938 - app.services.llm.factory - INFO - Created LLM provider instance: deepinfra
+2026-05-24 11:44:19,938 - app.services.llm.anyscale - WARNING - Anyscale API key not configured
+2026-05-24 11:44:19,938 - app.services.llm.factory - INFO - Created LLM provider instance: anyscale
+2026-05-24 11:44:19,938 - app.services.llm.cohere - WARNING - Cohere API key not configured
+2026-05-24 11:44:20,959 - app.services.llm.factory - INFO - Created LLM provider instance: cohere
+2026-05-24 11:44:20,976 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:21,262 - app.core.middleware - INFO - Response [881fc134-ef4e-48fe-842b-f199e6411c36]: POST /graphql - Status: 200 - Duration: 9.947s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:21,270 - app.core.middleware - INFO - Request [6a7f99bc-2d87-4c94-a3f2-894ed8c21d28]: POST /graphql
+2026-05-24 11:44:21,274 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:22,135 - httpx - INFO - HTTP Request: GET https://api.cohere.ai/v1/models "HTTP/1.1 401 Unauthorized"
+2026-05-24 11:44:22,141 - app.services.hyperbolic.client - WARNING - Hyperbolic API key not configured
+2026-05-24 11:44:22,142 - app.services.llm.hyperbolic - WARNING - Hyperbolic API key not configured
+2026-05-24 11:44:22,143 - app.services.llm.factory - INFO - Created LLM provider instance: hyperbolic
+2026-05-24 11:44:22,144 - app.services.llm.reka - WARNING - Reka AI API key not configured
+2026-05-24 11:44:22,145 - app.services.llm.factory - INFO - Created LLM provider instance: reka
+2026-05-24 11:44:22,145 - app.services.reka.model_registry - WARNING - Reka AI API key not configured, using default models
+2026-05-24 11:44:22,145 - app.services.reka.model_registry - WARNING - Reka AI API key not configured, using default models
+2026-05-24 11:44:22,147 - app.core.middleware - INFO - Response [a5fe4e4a-caa4-4014-9e4e-a0eaea29f350]: POST /graphql - Status: 200 - Duration: 10.837s
+INFO:     127.0.0.1:10152 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:22,172 - app.core.middleware - INFO - Request [35fb6b4d-9baf-49cf-b62e-8c2fc420321f]: POST /graphql
+2026-05-24 11:44:22,698 - app.core.middleware - INFO - Response [8aeffd70-acd7-4b41-86ce-474585671e5a]: POST /graphql - Status: 200 - Duration: 7.292s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:22,707 - app.core.middleware - INFO - Request [0588dd93-c780-4101-b60e-3913a76865fa]: POST /graphql
+2026-05-24 11:44:22,764 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:22,971 - app.core.middleware - INFO - Response [a2d7382b-ae21-40ad-a593-5c644536bace]: POST /graphql - Status: 200 - Duration: 6.547s
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:22,979 - app.core.middleware - INFO - Request [1fc12e27-062b-4514-b954-3b20e12c0fb1]: POST /graphql
+2026-05-24 11:44:23,061 - app.core.middleware - INFO - Response [d5096b9d-7496-4b12-8cfa-3d519c712d99]: POST /graphql - Status: 200 - Duration: 4.462s
+INFO:     127.0.0.1:7110 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:23,081 - app.core.middleware - INFO - Request [9a1614ae-7649-489d-8409-7677160d7920]: POST /graphql
+2026-05-24 11:44:23,567 - app.core.middleware - INFO - Response [9d106094-7bf4-49ee-8e38-cb7612352b78]: POST /graphql - Status: 200 - Duration: 12.255s
+INFO:     127.0.0.1:13842 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:23,575 - app.core.middleware - INFO - Request [3abb4a8b-2409-4a48-9521-78d70563a595]: POST /graphql
+2026-05-24 11:44:24,262 - app.core.middleware - INFO - Response [6a7f99bc-2d87-4c94-a3f2-894ed8c21d28]: POST /graphql - Status: 200 - Duration: 2.992s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:24,274 - app.core.middleware - INFO - Request [1112eddc-9828-487b-890c-6a9a229fa591]: POST /graphql
+2026-05-24 11:44:24,308 - app.core.middleware - INFO - Response [1112eddc-9828-487b-890c-6a9a229fa591]: POST /graphql - Status: 200 - Duration: 0.033s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:24,326 - app.core.middleware - INFO - Request [633548fe-661e-4dcf-b22a-749ece4c7a9c]: POST /graphql
+2026-05-24 11:44:28,107 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:28,112 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:44:28,117 - app.core.middleware - INFO - Response [0588dd93-c780-4101-b60e-3913a76865fa]: POST /graphql - Status: 200 - Duration: 5.410s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:28,139 - app.core.middleware - INFO - Request [835737a7-8ef8-4c2e-8649-5f0eff19ba3f]: POST /graphql
+2026-05-24 11:44:28,383 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:28,385 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:44:28,386 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:28,388 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:44:28,390 - app.core.middleware - INFO - Response [9a1614ae-7649-489d-8409-7677160d7920]: POST /graphql - Status: 200 - Duration: 5.309s
+2026-05-24 11:44:28,392 - app.core.middleware - INFO - Response [1fc12e27-062b-4514-b954-3b20e12c0fb1]: POST /graphql - Status: 200 - Duration: 5.412s
+INFO:     127.0.0.1:7110 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:28,404 - app.core.middleware - INFO - Request [797da9d3-a39e-40b1-b702-6c43e030db20]: POST /graphql
+2026-05-24 11:44:28,412 - app.core.middleware - INFO - Request [5457d606-22a8-49e7-a299-c42ce71bd41d]: POST /graphql
+2026-05-24 11:44:28,441 - app.core.middleware - INFO - Response [797da9d3-a39e-40b1-b702-6c43e030db20]: POST /graphql - Status: 200 - Duration: 0.037s
+2026-05-24 11:44:28,444 - app.core.middleware - INFO - Response [5457d606-22a8-49e7-a299-c42ce71bd41d]: POST /graphql - Status: 200 - Duration: 0.032s
+INFO:     127.0.0.1:7110 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:28,458 - app.core.middleware - INFO - Request [65ce511d-35bf-46a7-85a8-42df1e8a690d]: POST /graphql
+2026-05-24 11:44:28,467 - app.core.middleware - INFO - Request [acf56d41-cf8c-4546-81b5-58d27f919fa9]: POST /graphql
+2026-05-24 11:44:28,552 - app.core.middleware - INFO - Response [65ce511d-35bf-46a7-85a8-42df1e8a690d]: POST /graphql - Status: 200 - Duration: 0.094s
+2026-05-24 11:44:28,554 - app.core.middleware - INFO - Response [acf56d41-cf8c-4546-81b5-58d27f919fa9]: POST /graphql - Status: 200 - Duration: 0.087s
+INFO:     127.0.0.1:7110 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2890 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:28,570 - app.core.middleware - INFO - Request [7e96f1aa-ddfa-467b-956a-d36d1984abf3]: POST /graphql
+2026-05-24 11:44:28,615 - app.core.middleware - INFO - Response [7e96f1aa-ddfa-467b-956a-d36d1984abf3]: POST /graphql - Status: 200 - Duration: 0.046s
+INFO:     127.0.0.1:7110 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:28,651 - app.core.middleware - INFO - Response [35fb6b4d-9baf-49cf-b62e-8c2fc420321f]: POST /graphql - Status: 200 - Duration: 6.479s
+INFO:     127.0.0.1:10152 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:28,700 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:28,703 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:44:28,706 - app.core.middleware - INFO - Response [3abb4a8b-2409-4a48-9521-78d70563a595]: POST /graphql - Status: 200 - Duration: 5.130s
+INFO:     127.0.0.1:13842 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:28,862 - app.core.middleware - INFO - Request [8e908003-e9ea-498c-b65a-30fcc4c5d141]: POST /graphql
+2026-05-24 11:44:28,905 - app.core.middleware - INFO - Response [8e908003-e9ea-498c-b65a-30fcc4c5d141]: POST /graphql - Status: 200 - Duration: 0.044s
+INFO:     127.0.0.1:13842 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:28,975 - app.core.middleware - INFO - Response [633548fe-661e-4dcf-b22a-749ece4c7a9c]: POST /graphql - Status: 200 - Duration: 4.649s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:29,006 - app.core.middleware - INFO - Request [44d780b9-9d1a-4375-a97f-e9d152ebaaa5]: POST /graphql
+2026-05-24 11:44:29,370 - app.core.middleware - INFO - Request [46421cee-02a6-492d-ae15-54272e1a0f36]: POST /graphql
+2026-05-24 11:44:29,380 - app.core.middleware - INFO - Response [46421cee-02a6-492d-ae15-54272e1a0f36]: POST /graphql - Status: 200 - Duration: 0.010s
+INFO:     127.0.0.1:13842 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:30,188 - app.core.middleware - INFO - Response [835737a7-8ef8-4c2e-8649-5f0eff19ba3f]: POST /graphql - Status: 200 - Duration: 2.049s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:30,245 - app.core.middleware - INFO - Request [06487100-13e4-404c-8b24-993f50dbe3aa]: POST /graphql
+2026-05-24 11:44:31,022 - app.core.middleware - INFO - Response [44d780b9-9d1a-4375-a97f-e9d152ebaaa5]: POST /graphql - Status: 200 - Duration: 2.016s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:31,128 - app.core.middleware - INFO - Request [9eea95cb-190f-4b02-a24a-c922b64e4b2c]: POST /graphql
+2026-05-24 11:44:31,183 - app.core.middleware - INFO - Response [9eea95cb-190f-4b02-a24a-c922b64e4b2c]: POST /graphql - Status: 200 - Duration: 0.055s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:31,212 - app.core.middleware - INFO - Request [2da1225b-5f7f-4063-b781-a8f916cc9003]: POST /graphql
+2026-05-24 11:44:31,485 - app.core.middleware - INFO - Response [2da1225b-5f7f-4063-b781-a8f916cc9003]: POST /graphql - Status: 200 - Duration: 0.274s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:32,966 - app.core.middleware - INFO - Response [06487100-13e4-404c-8b24-993f50dbe3aa]: POST /graphql - Status: 200 - Duration: 2.721s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:33,349 - app.core.middleware - INFO - Request [99fb6f47-f533-4189-9ee4-f2b519d665b4]: POST /graphql
+2026-05-24 11:44:33,388 - app.core.middleware - INFO - Response [99fb6f47-f533-4189-9ee4-f2b519d665b4]: POST /graphql - Status: 200 - Duration: 0.039s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:34,439 - app.core.middleware - INFO - Request [fa59dae7-9edb-403f-b4b0-4289e84de23e]: POST /graphql
+2026-05-24 11:44:34,444 - app.core.middleware - INFO - Request [0b6fe7d2-b583-4378-9f34-ee6bafd1fbd7]: POST /graphql
+2026-05-24 11:44:34,545 - app.core.middleware - INFO - Response [fa59dae7-9edb-403f-b4b0-4289e84de23e]: POST /graphql - Status: 200 - Duration: 0.106s
+2026-05-24 11:44:34,546 - app.core.middleware - INFO - Response [0b6fe7d2-b583-4378-9f34-ee6bafd1fbd7]: POST /graphql - Status: 200 - Duration: 0.103s
+INFO:     127.0.0.1:11728 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:35,405 - app.core.middleware - INFO - Request [94ce5c91-1d9a-4e06-b8e4-9e037d17cc95]: POST /graphql
+2026-05-24 11:44:35,463 - app.core.middleware - INFO - Response [94ce5c91-1d9a-4e06-b8e4-9e037d17cc95]: POST /graphql - Status: 200 - Duration: 0.058s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:35,902 - app.core.middleware - INFO - Request [5c89a0ae-13ea-4e1b-971a-2a73097402f0]: POST /graphql
+2026-05-24 11:44:35,945 - app.core.middleware - INFO - Response [5c89a0ae-13ea-4e1b-971a-2a73097402f0]: POST /graphql - Status: 200 - Duration: 0.043s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:37,013 - app.core.middleware - INFO - Request [b348daa2-94ad-4614-b198-d857ea93e538]: POST /graphql
+2026-05-24 11:44:37,050 - app.core.middleware - INFO - Response [b348daa2-94ad-4614-b198-d857ea93e538]: POST /graphql - Status: 200 - Duration: 0.037s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:37,660 - app.core.middleware - INFO - Request [f7bedabb-719f-4189-a106-b06f744044b2]: POST /graphql
+2026-05-24 11:44:37,698 - app.core.middleware - INFO - Response [f7bedabb-719f-4189-a106-b06f744044b2]: POST /graphql - Status: 200 - Duration: 0.039s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:38,715 - app.core.middleware - INFO - Request [6e78fe90-9fd8-4163-9a4b-30ecbf32e657]: POST /graphql
+2026-05-24 11:44:38,759 - app.core.middleware - INFO - Response [6e78fe90-9fd8-4163-9a4b-30ecbf32e657]: POST /graphql - Status: 200 - Duration: 0.044s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:39,643 - app.core.middleware - INFO - Request [1743f591-631e-4287-9cd7-dc8b9bb8db35]: POST /graphql
+2026-05-24 11:44:40,447 - app.core.middleware - INFO - Request [bfda27fb-5ae7-4270-be39-13e863b45a17]: POST /graphql
+2026-05-24 11:44:40,457 - app.core.middleware - INFO - Request [61c17af3-4397-49b0-9993-ea3e08f7cd0e]: POST /graphql
+2026-05-24 11:44:41,264 - app.core.middleware - INFO - Request [06e90a14-0038-4389-a5d5-9edb49871c2c]: POST /graphql
+2026-05-24 11:44:41,265 - app.core.middleware - INFO - Request [f89ee808-ad62-41ac-a3fb-0d0609472cdb]: POST /graphql
+2026-05-24 11:44:42,113 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:43,717 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:43,725 - app.core.middleware - INFO - Request [c36f09d7-98ec-4ecd-91ea-32321491781f]: POST /graphql
+2026-05-24 11:44:44,679 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:44,962 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:44,975 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:45,226 - app.core.middleware - INFO - Response [1743f591-631e-4287-9cd7-dc8b9bb8db35]: POST /graphql - Status: 200 - Duration: 5.583s
+INFO:     127.0.0.1:2297 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:45,247 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:45,533 - app.core.middleware - INFO - Response [bfda27fb-5ae7-4270-be39-13e863b45a17]: POST /graphql - Status: 200 - Duration: 5.086s
+INFO:     127.0.0.1:12715 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:45,775 - app.core.middleware - INFO - Response [06e90a14-0038-4389-a5d5-9edb49871c2c]: POST /graphql - Status: 200 - Duration: 4.511s
+INFO:     127.0.0.1:4434 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:45,821 - app.core.middleware - INFO - Response [61c17af3-4397-49b0-9993-ea3e08f7cd0e]: POST /graphql - Status: 200 - Duration: 5.364s
+INFO:     127.0.0.1:1328 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:46,066 - app.core.middleware - INFO - Response [f89ee808-ad62-41ac-a3fb-0d0609472cdb]: POST /graphql - Status: 200 - Duration: 4.802s
+INFO:     127.0.0.1:10385 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:47,033 - app.core.middleware - INFO - Request [feac7d4b-c9a0-4e2c-8139-0b9e6eea3663]: POST /graphql
+2026-05-24 11:44:47,313 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:47,314 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:44:47,315 - app.core.middleware - INFO - Response [c36f09d7-98ec-4ecd-91ea-32321491781f]: POST /graphql - Status: 200 - Duration: 3.590s
+INFO:     127.0.0.1:5593 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:49,892 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:44:49,893 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:44:49,895 - app.core.middleware - INFO - Response [feac7d4b-c9a0-4e2c-8139-0b9e6eea3663]: POST /graphql - Status: 200 - Duration: 2.862s
+INFO:     127.0.0.1:10385 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:51,046 - app.core.middleware - INFO - Request [80ee77cf-f0f3-4a87-9647-66bd9f812d63]: POST /graphql
+2026-05-24 11:44:51,055 - app.core.middleware - INFO - Response [80ee77cf-f0f3-4a87-9647-66bd9f812d63]: POST /graphql - Status: 200 - Duration: 0.010s
+INFO:     127.0.0.1:10385 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:55,041 - app.core.middleware - INFO - Request [0e3c2b43-c91f-4fcd-adb7-d580c4c2c826]: POST /graphql
+2026-05-24 11:44:55,061 - app.core.middleware - INFO - Response [0e3c2b43-c91f-4fcd-adb7-d580c4c2c826]: POST /graphql - Status: 200 - Duration: 0.020s
+INFO:     127.0.0.1:10385 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:57,036 - app.core.middleware - INFO - Request [bd57c786-748c-4558-bf69-fb2e067601e8]: POST /graphql
+2026-05-24 11:44:57,043 - app.core.middleware - INFO - Response [bd57c786-748c-4558-bf69-fb2e067601e8]: POST /graphql - Status: 200 - Duration: 0.007s
+INFO:     127.0.0.1:10385 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:44:59,044 - app.core.middleware - INFO - Request [4afb881d-7263-4cf7-92da-5e1d79b7e90b]: POST /graphql
+2026-05-24 11:45:02,026 - app.core.middleware - INFO - Request [33cb7807-0b16-4432-80ae-3307a0e4cff6]: POST /graphql
+2026-05-24 11:45:03,026 - app.core.middleware - INFO - Request [602c3fb6-b53c-4a41-8fb4-53c8f1cbab91]: POST /graphql
+2026-05-24 11:45:03,620 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:45:03,622 - app.core.middleware - INFO - Response [4afb881d-7263-4cf7-92da-5e1d79b7e90b]: POST /graphql - Status: 200 - Duration: 4.578s
+INFO:     127.0.0.1:10385 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:04,212 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:45:04,695 - app.core.middleware - INFO - Response [33cb7807-0b16-4432-80ae-3307a0e4cff6]: POST /graphql - Status: 200 - Duration: 2.668s
+INFO:     127.0.0.1:3308 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:05,300 - app.core.middleware - INFO - Response [602c3fb6-b53c-4a41-8fb4-53c8f1cbab91]: POST /graphql - Status: 200 - Duration: 2.275s
+INFO:     127.0.0.1:12659 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:11,038 - app.core.middleware - INFO - Request [1c79d6f1-9423-4ed0-8537-68eaa6283b92]: POST /graphql
+2026-05-24 11:45:11,044 - app.core.middleware - INFO - Response [1c79d6f1-9423-4ed0-8537-68eaa6283b92]: POST /graphql - Status: 200 - Duration: 0.005s
+INFO:     127.0.0.1:11606 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:12,028 - app.core.middleware - INFO - Request [494a52d5-01fc-42a9-824a-8a5f09c97af5]: POST /graphql
+2026-05-24 11:45:12,038 - app.core.middleware - INFO - Request [4ee38444-a03a-4fb4-a02e-b35833652134]: POST /graphql
+2026-05-24 11:45:14,850 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:45:14,851 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:45:14,852 - app.core.middleware - INFO - Response [494a52d5-01fc-42a9-824a-8a5f09c97af5]: POST /graphql - Status: 200 - Duration: 2.825s
+INFO:     127.0.0.1:11606 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:16,882 - app.core.middleware - INFO - Response [4ee38444-a03a-4fb4-a02e-b35833652134]: POST /graphql - Status: 200 - Duration: 4.844s
+INFO:     127.0.0.1:3620 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:17,035 - app.core.middleware - INFO - Request [d4ae6868-e478-4f27-9acb-bf19dcc2e9f9]: POST /graphql
+2026-05-24 11:45:17,036 - app.core.middleware - INFO - Request [7a87b4da-2aee-45c6-a2b3-8111ea410f41]: POST /graphql
+2026-05-24 11:45:17,083 - app.core.middleware - INFO - Response [d4ae6868-e478-4f27-9acb-bf19dcc2e9f9]: POST /graphql - Status: 200 - Duration: 0.047s
+2026-05-24 11:45:17,083 - app.core.middleware - INFO - Response [7a87b4da-2aee-45c6-a2b3-8111ea410f41]: POST /graphql - Status: 200 - Duration: 0.047s
+INFO:     127.0.0.1:3620 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:11606 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:23,029 - app.core.middleware - INFO - Request [608b532d-50c4-453e-b85a-129c6a5368ff]: POST /graphql
+2026-05-24 11:45:24,179 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:45:25,259 - app.core.middleware - INFO - Response [608b532d-50c4-453e-b85a-129c6a5368ff]: POST /graphql - Status: 200 - Duration: 2.230s
+INFO:     127.0.0.1:3166 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:26,024 - app.core.middleware - INFO - Request [ee96a244-c672-4a2a-a1a9-604150033864]: POST /graphql
+2026-05-24 11:45:26,036 - app.core.middleware - INFO - Response [ee96a244-c672-4a2a-a1a9-604150033864]: POST /graphql - Status: 200 - Duration: 0.011s
+INFO:     127.0.0.1:3166 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:31,029 - app.core.middleware - INFO - Request [64e6d365-e702-439d-b680-9695f057bf47]: POST /graphql
+2026-05-24 11:45:31,037 - app.core.middleware - INFO - Response [64e6d365-e702-439d-b680-9695f057bf47]: POST /graphql - Status: 200 - Duration: 0.008s
+INFO:     127.0.0.1:3166 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:32,026 - app.core.middleware - INFO - Request [b49d77d4-85b5-48c1-bc69-248ad3fcab9d]: POST /graphql
+2026-05-24 11:45:34,312 - app.core.middleware - INFO - Request [b0672104-b9ee-4273-8d22-4052c5fa50be]: POST /graphql
+2026-05-24 11:45:34,864 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:45:34,865 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:45:34,866 - app.core.middleware - INFO - Response [b49d77d4-85b5-48c1-bc69-248ad3fcab9d]: POST /graphql - Status: 200 - Duration: 2.839s
+INFO:     127.0.0.1:3166 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:37,030 - app.core.middleware - INFO - Request [f11ad1b5-031d-4975-8fe8-28ee53927493]: POST /graphql
+2026-05-24 11:45:37,040 - app.core.middleware - INFO - Response [f11ad1b5-031d-4975-8fe8-28ee53927493]: POST /graphql - Status: 200 - Duration: 0.010s
+INFO:     127.0.0.1:3166 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:38,019 - app.core.middleware - INFO - Response [b0672104-b9ee-4273-8d22-4052c5fa50be]: POST /graphql - Status: 200 - Duration: 3.707s
+INFO:     127.0.0.1:7004 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:42,036 - app.core.middleware - INFO - Request [5a93f2b4-bd65-49f8-aeb5-f3c28982140c]: POST /graphql
+2026-05-24 11:45:43,028 - app.core.middleware - INFO - Request [0c1a45f2-0554-40e2-b693-bb3ddab849ac]: POST /graphql
+2026-05-24 11:45:43,598 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:45:44,167 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:45:44,726 - app.core.middleware - INFO - Response [5a93f2b4-bd65-49f8-aeb5-f3c28982140c]: POST /graphql - Status: 200 - Duration: 2.690s
+INFO:     127.0.0.1:7004 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:45,351 - app.core.middleware - INFO - Response [0c1a45f2-0554-40e2-b693-bb3ddab849ac]: POST /graphql - Status: 200 - Duration: 2.324s
+INFO:     127.0.0.1:6916 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:51,030 - app.core.middleware - INFO - Request [96020dbf-6051-4bb4-8962-f68a48a610a5]: POST /graphql
+2026-05-24 11:45:51,037 - app.core.middleware - INFO - Response [96020dbf-6051-4bb4-8962-f68a48a610a5]: POST /graphql - Status: 200 - Duration: 0.007s
+INFO:     127.0.0.1:5857 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:45:57,032 - app.core.middleware - INFO - Request [9944dbcb-b766-497f-a079-224fd54120aa]: POST /graphql
+2026-05-24 11:45:57,044 - app.core.middleware - INFO - Response [9944dbcb-b766-497f-a079-224fd54120aa]: POST /graphql - Status: 200 - Duration: 0.012s
+INFO:     127.0.0.1:3174 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:03,024 - app.core.middleware - INFO - Request [6e50b4c2-0c95-425c-807b-437a51b43e2c]: POST /graphql
+2026-05-24 11:46:04,195 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:46:05,267 - app.core.middleware - INFO - Response [6e50b4c2-0c95-425c-807b-437a51b43e2c]: POST /graphql - Status: 200 - Duration: 2.243s
+INFO:     127.0.0.1:3128 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:07,039 - app.core.middleware - INFO - Request [e6ef4d3c-dea9-4c5a-be53-5fac7d62e452]: POST /graphql
+2026-05-24 11:46:09,310 - app.core.middleware - INFO - Request [085988a2-d5e1-4bbc-a9a4-a0f3c60fa0fd]: POST /graphql
+2026-05-24 11:46:09,877 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:46:09,878 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:46:09,879 - app.core.middleware - INFO - Response [e6ef4d3c-dea9-4c5a-be53-5fac7d62e452]: POST /graphql - Status: 200 - Duration: 2.840s
+INFO:     127.0.0.1:3128 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:11,035 - app.core.middleware - INFO - Request [bc0a770e-7253-4591-81b7-18b9c599873a]: POST /graphql
+2026-05-24 11:46:11,045 - app.core.middleware - INFO - Response [bc0a770e-7253-4591-81b7-18b9c599873a]: POST /graphql - Status: 200 - Duration: 0.010s
+INFO:     127.0.0.1:3128 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:12,031 - app.core.middleware - INFO - Request [e262be04-17e6-4620-854b-ae6e17366882]: POST /graphql
+2026-05-24 11:46:12,035 - app.core.middleware - INFO - Request [2e08bbcf-c982-4bdc-ab4c-02ef2a946cd7]: POST /graphql
+2026-05-24 11:46:12,070 - app.core.middleware - INFO - Response [e262be04-17e6-4620-854b-ae6e17366882]: POST /graphql - Status: 200 - Duration: 0.039s
+INFO:     127.0.0.1:3128 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:12,340 - app.core.middleware - INFO - Response [085988a2-d5e1-4bbc-a9a4-a0f3c60fa0fd]: POST /graphql - Status: 200 - Duration: 3.030s
+INFO:     127.0.0.1:12637 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:15,768 - app.core.middleware - INFO - Response [2e08bbcf-c982-4bdc-ab4c-02ef2a946cd7]: POST /graphql - Status: 200 - Duration: 3.734s
+INFO:     127.0.0.1:11700 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:17,036 - app.core.middleware - INFO - Request [cb77596e-f41b-4d31-a629-54daf4337c6a]: POST /graphql
+2026-05-24 11:46:17,042 - app.core.middleware - INFO - Response [cb77596e-f41b-4d31-a629-54daf4337c6a]: POST /graphql - Status: 200 - Duration: 0.006s
+INFO:     127.0.0.1:11700 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:23,037 - app.core.middleware - INFO - Request [b7acd6b3-e9d0-4f8b-9fa0-96a2d62545e3]: POST /graphql
+2026-05-24 11:46:24,226 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:46:25,305 - app.core.middleware - INFO - Response [b7acd6b3-e9d0-4f8b-9fa0-96a2d62545e3]: POST /graphql - Status: 200 - Duration: 2.268s
+INFO:     127.0.0.1:12996 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:28,029 - app.core.middleware - INFO - Request [5881c247-9913-4cb3-9ad1-722e9fa16c56]: POST /graphql
+2026-05-24 11:46:28,037 - app.core.middleware - INFO - Response [5881c247-9913-4cb3-9ad1-722e9fa16c56]: POST /graphql - Status: 200 - Duration: 0.008s
+INFO:     127.0.0.1:12996 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:31,023 - app.core.middleware - INFO - Request [8a512380-4cda-4ccb-95c0-877b2281ed6b]: POST /graphql
+2026-05-24 11:46:31,037 - app.core.middleware - INFO - Response [8a512380-4cda-4ccb-95c0-877b2281ed6b]: POST /graphql - Status: 200 - Duration: 0.015s
+INFO:     127.0.0.1:12996 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:37,043 - app.core.middleware - INFO - Request [740fcae5-30e9-4127-b0af-ccf8c5794952]: POST /graphql
+2026-05-24 11:46:37,050 - app.core.middleware - INFO - Response [740fcae5-30e9-4127-b0af-ccf8c5794952]: POST /graphql - Status: 200 - Duration: 0.007s
+INFO:     127.0.0.1:5031 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:42,022 - app.core.middleware - INFO - Request [8f38b7a4-d0fd-4985-959c-621e939b392d]: POST /graphql
+2026-05-24 11:46:43,036 - app.core.middleware - INFO - Request [25f3d380-09be-4edd-8a12-df74af662aa4]: POST /graphql
+2026-05-24 11:46:43,040 - app.core.middleware - INFO - Request [4a48b0e0-c517-4ab6-be6a-b7fe2fa68ca4]: POST /graphql
+2026-05-24 11:46:43,617 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:46:44,203 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:46:45,606 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:46:45,607 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:46:45,608 - app.core.middleware - INFO - Response [8f38b7a4-d0fd-4985-959c-621e939b392d]: POST /graphql - Status: 200 - Duration: 3.586s
+INFO:     127.0.0.1:5031 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:45,627 - app.core.middleware - INFO - Response [25f3d380-09be-4edd-8a12-df74af662aa4]: POST /graphql - Status: 200 - Duration: 2.591s
+INFO:     127.0.0.1:8875 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:47,405 - app.core.middleware - INFO - Response [4a48b0e0-c517-4ab6-be6a-b7fe2fa68ca4]: POST /graphql - Status: 200 - Duration: 4.365s
+INFO:     127.0.0.1:6700 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:51,023 - app.core.middleware - INFO - Request [91eccd91-bf5d-4175-b1ea-c02d71f9725b]: POST /graphql
+2026-05-24 11:46:51,031 - app.core.middleware - INFO - Response [91eccd91-bf5d-4175-b1ea-c02d71f9725b]: POST /graphql - Status: 200 - Duration: 0.008s
+INFO:     127.0.0.1:3053 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:57,023 - app.core.middleware - INFO - Request [5bb53353-2e23-4307-b7f9-1c90158e524d]: POST /graphql
+2026-05-24 11:46:57,036 - app.core.middleware - INFO - Response [5bb53353-2e23-4307-b7f9-1c90158e524d]: POST /graphql - Status: 200 - Duration: 0.013s
+INFO:     127.0.0.1:8887 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:46:59,033 - app.core.middleware - INFO - Request [10e12f44-ba64-45f5-86b8-bc5f9fe90583]: POST /graphql
+2026-05-24 11:46:59,039 - app.core.middleware - INFO - Response [10e12f44-ba64-45f5-86b8-bc5f9fe90583]: POST /graphql - Status: 200 - Duration: 0.006s
+INFO:     127.0.0.1:8887 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:03,024 - app.core.middleware - INFO - Request [b593a0a0-5be2-4eac-904c-894e3843b61d]: POST /graphql
+2026-05-24 11:47:04,202 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:47:05,265 - app.core.middleware - INFO - Response [b593a0a0-5be2-4eac-904c-894e3843b61d]: POST /graphql - Status: 200 - Duration: 2.241s
+INFO:     127.0.0.1:8887 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:07,061 - app.core.middleware - INFO - Request [ef30386e-2e7e-49db-9a9d-fea5ac680de0]: POST /graphql
+2026-05-24 11:47:09,867 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:47:09,868 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:47:09,869 - app.core.middleware - INFO - Response [ef30386e-2e7e-49db-9a9d-fea5ac680de0]: POST /graphql - Status: 200 - Duration: 2.808s
+INFO:     127.0.0.1:8887 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:11,032 - app.core.middleware - INFO - Request [d6b1174d-032a-4e59-84bc-cdd3e7c0f2fa]: POST /graphql
+2026-05-24 11:47:11,043 - app.core.middleware - INFO - Response [d6b1174d-032a-4e59-84bc-cdd3e7c0f2fa]: POST /graphql - Status: 200 - Duration: 0.011s
+INFO:     127.0.0.1:8887 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:12,027 - app.core.middleware - INFO - Request [6ce62a06-fa37-4d3a-bacb-e1be5e0a1e30]: POST /graphql
+2026-05-24 11:47:12,054 - app.core.middleware - INFO - Request [a931fa42-9136-4e47-baa2-0e85da6f6bc6]: POST /graphql
+2026-05-24 11:47:12,061 - app.core.middleware - INFO - Response [6ce62a06-fa37-4d3a-bacb-e1be5e0a1e30]: POST /graphql - Status: 200 - Duration: 0.034s
+INFO:     127.0.0.1:8887 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:15,638 - app.core.middleware - INFO - Response [a931fa42-9136-4e47-baa2-0e85da6f6bc6]: POST /graphql - Status: 200 - Duration: 3.583s
+INFO:     127.0.0.1:11301 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:17,031 - app.core.middleware - INFO - Request [f3285967-1581-4247-861d-e276d73f0a0e]: POST /graphql
+2026-05-24 11:47:17,038 - app.core.middleware - INFO - Response [f3285967-1581-4247-861d-e276d73f0a0e]: POST /graphql - Status: 200 - Duration: 0.007s
+INFO:     127.0.0.1:11301 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:18,032 - app.core.middleware - INFO - Request [1e89fb9e-3a3a-48bf-ac37-10007218663e]: POST /graphql
+2026-05-24 11:47:21,183 - app.core.middleware - INFO - Response [1e89fb9e-3a3a-48bf-ac37-10007218663e]: POST /graphql - Status: 200 - Duration: 3.151s
+INFO:     127.0.0.1:11301 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:23,036 - app.core.middleware - INFO - Request [e2399037-f6d2-4f87-9199-2df692c72b91]: POST /graphql
+2026-05-24 11:47:24,185 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:47:25,246 - app.core.middleware - INFO - Response [e2399037-f6d2-4f87-9199-2df692c72b91]: POST /graphql - Status: 200 - Duration: 2.210s
+INFO:     127.0.0.1:11301 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:30,024 - app.core.middleware - INFO - Request [4060b9f2-8aed-4247-8d45-0db15c276648]: POST /graphql
+2026-05-24 11:47:30,034 - app.core.middleware - INFO - Response [4060b9f2-8aed-4247-8d45-0db15c276648]: POST /graphql - Status: 200 - Duration: 0.009s
+INFO:     127.0.0.1:11301 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:31,028 - app.core.middleware - INFO - Request [7d4c226f-ff07-41f4-b496-76a1eab8185e]: POST /graphql
+2026-05-24 11:47:31,034 - app.core.middleware - INFO - Response [7d4c226f-ff07-41f4-b496-76a1eab8185e]: POST /graphql - Status: 200 - Duration: 0.006s
+INFO:     127.0.0.1:11301 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:37,032 - app.core.middleware - INFO - Request [ed60f11c-4771-4b1c-86b9-f6b69cf2498c]: POST /graphql
+2026-05-24 11:47:37,041 - app.core.middleware - INFO - Response [ed60f11c-4771-4b1c-86b9-f6b69cf2498c]: POST /graphql - Status: 200 - Duration: 0.009s
+INFO:     127.0.0.1:12921 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:43,027 - app.core.middleware - INFO - Request [ff464ea9-6be8-4c45-adbb-2ab63f07f474]: POST /graphql
+2026-05-24 11:47:44,133 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:47:45,276 - app.core.middleware - INFO - Response [ff464ea9-6be8-4c45-adbb-2ab63f07f474]: POST /graphql - Status: 200 - Duration: 2.248s
+INFO:     127.0.0.1:6533 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:51,030 - app.core.middleware - INFO - Request [4502f946-3bc7-4fe8-8877-12f95b8a2bd1]: POST /graphql
+2026-05-24 11:47:51,040 - app.core.middleware - INFO - Response [4502f946-3bc7-4fe8-8877-12f95b8a2bd1]: POST /graphql - Status: 200 - Duration: 0.010s
+INFO:     127.0.0.1:2928 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:52,030 - app.core.middleware - INFO - Request [ae22822e-97b3-4b3b-9a7a-9538c8c0ab2c]: POST /graphql
+2026-05-24 11:47:55,178 - app.core.middleware - INFO - Response [ae22822e-97b3-4b3b-9a7a-9538c8c0ab2c]: POST /graphql - Status: 200 - Duration: 3.148s
+INFO:     127.0.0.1:2928 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:47:57,033 - app.core.middleware - INFO - Request [d5e95ab5-b038-42e5-95d3-e09c89cae89f]: POST /graphql
+2026-05-24 11:47:57,040 - app.core.middleware - INFO - Response [d5e95ab5-b038-42e5-95d3-e09c89cae89f]: POST /graphql - Status: 200 - Duration: 0.007s
+INFO:     127.0.0.1:2928 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:01,036 - app.core.middleware - INFO - Request [4d3bef67-acf7-4e21-a2dd-77bb6898e9fa]: POST /graphql
+2026-05-24 11:48:02,182 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:48:03,303 - app.core.middleware - INFO - Response [4d3bef67-acf7-4e21-a2dd-77bb6898e9fa]: POST /graphql - Status: 200 - Duration: 2.267s
+INFO:     127.0.0.1:2928 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:07,070 - app.core.middleware - INFO - Request [16776110-33ce-4010-8e23-6ea6d4d47f29]: POST /graphql
+2026-05-24 11:48:07,074 - app.core.middleware - INFO - Request [bb50c25f-642b-4e51-85b7-4d8342b558b1]: POST /graphql
+2026-05-24 11:48:09,887 - app.core.middleware - INFO - Request [dff179a1-2a63-4302-bf6b-18a9581b5840]: POST /graphql
+2026-05-24 11:48:09,896 - app.core.middleware - INFO - Response [dff179a1-2a63-4302-bf6b-18a9581b5840]: POST /graphql - Status: 200 - Duration: 0.009s
+INFO:     127.0.0.1:11564 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:10,172 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:48:10,173 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:48:10,174 - app.core.middleware - INFO - Response [bb50c25f-642b-4e51-85b7-4d8342b558b1]: POST /graphql - Status: 200 - Duration: 3.099s
+INFO:     127.0.0.1:6686 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:10,435 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:48:10,436 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:48:10,437 - app.core.middleware - INFO - Response [16776110-33ce-4010-8e23-6ea6d4d47f29]: POST /graphql - Status: 200 - Duration: 3.367s
+INFO:     127.0.0.1:2928 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:12,032 - app.core.middleware - INFO - Request [94cbf2dd-a9f7-468b-8663-0bca5938db18]: POST /graphql
+2026-05-24 11:48:15,037 - app.core.middleware - INFO - Request [f1019211-4b3b-4766-b8b4-a95727640611]: POST /graphql
+2026-05-24 11:48:15,051 - app.core.middleware - INFO - Response [f1019211-4b3b-4766-b8b4-a95727640611]: POST /graphql - Status: 200 - Duration: 0.014s
+INFO:     127.0.0.1:6686 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:16,242 - app.core.middleware - INFO - Response [94cbf2dd-a9f7-468b-8663-0bca5938db18]: POST /graphql - Status: 200 - Duration: 4.209s
+INFO:     127.0.0.1:2928 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:21,026 - app.core.middleware - INFO - Request [986b0567-b6d6-4dbd-beca-57f07ac0edb5]: POST /graphql
+2026-05-24 11:48:22,151 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:48:23,240 - app.core.middleware - INFO - Response [986b0567-b6d6-4dbd-beca-57f07ac0edb5]: POST /graphql - Status: 200 - Duration: 2.215s
+INFO:     127.0.0.1:2928 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:26,035 - app.core.middleware - INFO - Request [e6ee9174-39c4-40ac-8098-bba9734915bf]: POST /graphql
+2026-05-24 11:48:29,026 - app.core.middleware - INFO - Request [99d0326b-6388-4160-b1f7-c4a03c9f00ee]: POST /graphql
+2026-05-24 11:48:29,032 - app.core.middleware - INFO - Response [99d0326b-6388-4160-b1f7-c4a03c9f00ee]: POST /graphql - Status: 200 - Duration: 0.007s
+INFO:     127.0.0.1:4864 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:29,163 - app.core.middleware - INFO - Response [e6ee9174-39c4-40ac-8098-bba9734915bf]: POST /graphql - Status: 200 - Duration: 3.128s
+INFO:     127.0.0.1:2928 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:34,023 - app.core.middleware - INFO - Request [7aecf38b-28ce-4698-bd0b-1fa6c0379432]: POST /graphql
+2026-05-24 11:48:34,031 - app.core.middleware - INFO - Response [7aecf38b-28ce-4698-bd0b-1fa6c0379432]: POST /graphql - Status: 200 - Duration: 0.008s
+INFO:     127.0.0.1:2928 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:35,037 - app.core.middleware - INFO - Request [cfe9de13-da13-47d7-a5a0-18772cbb75b7]: POST /graphql
+2026-05-24 11:48:35,048 - app.core.middleware - INFO - Response [cfe9de13-da13-47d7-a5a0-18772cbb75b7]: POST /graphql - Status: 200 - Duration: 0.011s
+INFO:     127.0.0.1:2928 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:41,029 - app.core.middleware - INFO - Request [2891188f-190d-47ac-bcdb-0b5edafbfea3]: POST /graphql
+2026-05-24 11:48:42,170 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:48:43,247 - app.core.middleware - INFO - Response [2891188f-190d-47ac-bcdb-0b5edafbfea3]: POST /graphql - Status: 200 - Duration: 2.218s
+INFO:     127.0.0.1:9358 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:48,401 - app.core.middleware - INFO - Request [f023c7cd-0c8a-48fb-8a52-1d913260bf50]: POST /graphql
+2026-05-24 11:48:48,405 - app.core.middleware - INFO - Request [d1866011-f23a-4ede-b862-9479ccb4bf42]: POST /graphql
+2026-05-24 11:48:48,510 - app.core.middleware - INFO - Request [5b904f21-b0ca-4c78-a4c6-36dcb0df6a55]: POST /graphql
+2026-05-24 11:48:48,510 - app.core.middleware - INFO - Request [553d28f9-775b-4ea6-998b-912550a71961]: POST /graphql
+2026-05-24 11:48:48,565 - app.core.middleware - INFO - Response [553d28f9-775b-4ea6-998b-912550a71961]: POST /graphql - Status: 200 - Duration: 0.055s
+INFO:     127.0.0.1:5026 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:48,606 - app.core.connection_manager - INFO - ❌ WebSocket disconnected: ws_20260524061348_928d3612 (Total: 3)
+2026-05-24 11:48:48,606 - app.core.connection_manager - WARNING - Removed stale connection: ws_20260524061348_928d3612 (timeout: 300s)
+2026-05-24 11:48:48,606 - app.core.connection_manager - INFO - Periodic cleanup removed 1 stale connections
+2026-05-24 11:48:49,392 - app.core.middleware - INFO - Request [1fa0e1f4-fd48-47ed-9810-59fc51442d1b]: POST /graphql
+2026-05-24 11:48:52,724 - app.core.middleware - INFO - Request [136aa83b-05a4-4ab0-bf0a-609c0c833429]: POST /graphql
+2026-05-24 11:48:52,725 - app.core.middleware - INFO - Request [1a7b4862-9628-454a-b409-90d49c485462]: POST /graphql
+2026-05-24 11:48:53,020 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:48:53,022 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:48:53,025 - app.core.middleware - INFO - Response [f023c7cd-0c8a-48fb-8a52-1d913260bf50]: POST /graphql - Status: 200 - Duration: 4.624s
+INFO:     127.0.0.1:8994 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:53,031 - app.core.middleware - INFO - Request [47e9a928-2eb7-47ed-ae95-a73c7feaecf0]: POST /graphql
+2026-05-24 11:48:53,076 - app.core.middleware - INFO - Response [47e9a928-2eb7-47ed-ae95-a73c7feaecf0]: POST /graphql - Status: 200 - Duration: 0.045s
+INFO:     127.0.0.1:8994 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:53,083 - app.core.middleware - INFO - Request [8aa01ac5-964f-4b97-b520-2658c660a208]: POST /graphql
+2026-05-24 11:48:53,154 - app.core.middleware - INFO - Response [8aa01ac5-964f-4b97-b520-2658c660a208]: POST /graphql - Status: 200 - Duration: 0.071s
+INFO:     127.0.0.1:8994 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:53,163 - app.core.middleware - INFO - Request [4a5eac7b-bb93-4b70-a153-8f85904ad21a]: POST /graphql
+2026-05-24 11:48:53,207 - app.core.middleware - INFO - Response [4a5eac7b-bb93-4b70-a153-8f85904ad21a]: POST /graphql - Status: 200 - Duration: 0.044s
+INFO:     127.0.0.1:8994 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:54,150 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:48:54,154 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:48:54,158 - app.core.middleware - INFO - Request [1cdc53b7-01fb-466d-9aca-d8c6ffa53f8e]: POST /graphql
+2026-05-24 11:48:54,158 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:48:54,159 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:48:54,165 - app.core.middleware - INFO - Response [5b904f21-b0ca-4c78-a4c6-36dcb0df6a55]: POST /graphql - Status: 200 - Duration: 5.655s
+2026-05-24 11:48:54,166 - app.core.middleware - INFO - Response [d1866011-f23a-4ede-b862-9479ccb4bf42]: POST /graphql - Status: 200 - Duration: 5.760s
+INFO:     127.0.0.1:4642 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:10292 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:54,221 - app.core.middleware - INFO - Response [1cdc53b7-01fb-466d-9aca-d8c6ffa53f8e]: POST /graphql - Status: 200 - Duration: 0.063s
+2026-05-24 11:48:54,226 - app.core.middleware - INFO - Request [53d7e13e-cd82-4115-93d4-bc9ede10184b]: POST /graphql
+INFO:     127.0.0.1:8994 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:54,244 - app.core.middleware - INFO - Response [53d7e13e-cd82-4115-93d4-bc9ede10184b]: POST /graphql - Status: 200 - Duration: 0.018s
+INFO:     127.0.0.1:4642 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:54,701 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:48:54,703 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:48:54,704 - app.core.middleware - INFO - Response [1fa0e1f4-fd48-47ed-9810-59fc51442d1b]: POST /graphql - Status: 200 - Duration: 5.312s
+INFO:     127.0.0.1:5026 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:55,231 - app.core.middleware - INFO - Request [9fc8b384-6935-4da3-923f-4405f23bf91a]: POST /graphql
+2026-05-24 11:48:55,275 - app.core.middleware - INFO - Response [9fc8b384-6935-4da3-923f-4405f23bf91a]: POST /graphql - Status: 200 - Duration: 0.044s
+INFO:     127.0.0.1:5026 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:57,172 - app.core.middleware - INFO - Request [0aaf60cd-b4a7-4908-bc65-e3fdca85a4a0]: POST /graphql
+2026-05-24 11:48:57,180 - app.core.middleware - INFO - Request [4ce8658e-6794-40e0-a9ef-7d1503c80cde]: POST /graphql
+2026-05-24 11:48:57,285 - app.core.middleware - INFO - Response [0aaf60cd-b4a7-4908-bc65-e3fdca85a4a0]: POST /graphql - Status: 200 - Duration: 0.114s
+2026-05-24 11:48:57,288 - app.core.middleware - INFO - Response [4ce8658e-6794-40e0-a9ef-7d1503c80cde]: POST /graphql - Status: 200 - Duration: 0.108s
+INFO:     127.0.0.1:5026 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4642 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:57,345 - app.core.middleware - INFO - Request [ed2f6a03-6a92-45e2-a714-8ef262ed2441]: POST /graphql
+2026-05-24 11:48:57,402 - app.core.middleware - INFO - Response [ed2f6a03-6a92-45e2-a714-8ef262ed2441]: POST /graphql - Status: 200 - Duration: 0.058s
+INFO:     127.0.0.1:4642 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:57,485 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:48:57,487 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:48:57,489 - app.core.middleware - INFO - Response [1a7b4862-9628-454a-b409-90d49c485462]: POST /graphql - Status: 200 - Duration: 4.764s
+INFO:     127.0.0.1:14457 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:57,728 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:48:57,733 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:48:57,735 - app.core.middleware - INFO - Response [136aa83b-05a4-4ab0-bf0a-609c0c833429]: POST /graphql - Status: 200 - Duration: 5.011s
+INFO:     127.0.0.1:12642 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:48:58,496 - app.core.middleware - INFO - Request [03f4888a-8b8b-499d-bbba-491e6d26f0f6]: POST /graphql
+2026-05-24 11:48:59,235 - app.core.middleware - INFO - Request [dcdfacee-fe7b-4de8-a9cb-67e22dfb68c5]: POST /graphql
+2026-05-24 11:48:59,262 - app.core.middleware - INFO - Request [1da4b989-a388-453e-a71d-ff520536778d]: POST /graphql
+2026-05-24 11:49:00,208 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:49:00,516 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:49:01,100 - app.core.middleware - INFO - Request [bbc22455-614e-47f6-8ba1-952eecb06eca]: POST /graphql
+2026-05-24 11:49:01,936 - app.core.middleware - INFO - Request [7e10d197-6382-4ec8-ab06-ad44cde85186]: POST /graphql
+2026-05-24 11:49:01,941 - app.core.middleware - INFO - Response [03f4888a-8b8b-499d-bbba-491e6d26f0f6]: POST /graphql - Status: 200 - Duration: 3.444s
+INFO:     127.0.0.1:12642 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:02,003 - app.core.middleware - INFO - Response [7e10d197-6382-4ec8-ab06-ad44cde85186]: POST /graphql - Status: 200 - Duration: 0.067s
+INFO:     127.0.0.1:4780 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:02,501 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:49:02,752 - app.core.middleware - INFO - Response [1da4b989-a388-453e-a71d-ff520536778d]: POST /graphql - Status: 200 - Duration: 3.490s
+INFO:     127.0.0.1:4642 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:03,349 - app.core.middleware - INFO - Response [dcdfacee-fe7b-4de8-a9cb-67e22dfb68c5]: POST /graphql - Status: 200 - Duration: 4.115s
+INFO:     127.0.0.1:14457 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:03,626 - app.core.middleware - INFO - Response [bbc22455-614e-47f6-8ba1-952eecb06eca]: POST /graphql - Status: 200 - Duration: 2.525s
+INFO:     127.0.0.1:5026 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:05,024 - app.core.middleware - INFO - Request [b2e3e27f-e11a-44d2-bdc7-9b96a91e9baa]: POST /graphql
+2026-05-24 11:49:05,031 - app.core.middleware - INFO - Response [b2e3e27f-e11a-44d2-bdc7-9b96a91e9baa]: POST /graphql - Status: 200 - Duration: 0.007s
+INFO:     127.0.0.1:5026 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:08,030 - app.core.middleware - INFO - Request [73b4e2f0-f248-4cd5-b82f-8f36b645df58]: POST /graphql
+2026-05-24 11:49:08,042 - app.core.middleware - INFO - Response [73b4e2f0-f248-4cd5-b82f-8f36b645df58]: POST /graphql - Status: 200 - Duration: 0.012s
+INFO:     127.0.0.1:5026 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:12,032 - app.core.middleware - INFO - Request [cc305bb0-a130-4df2-abf9-a4e08adfab4d]: POST /graphql
+2026-05-24 11:49:12,036 - app.core.middleware - INFO - Request [5dde5bff-ebdf-4df1-9a22-111a5135bd8f]: POST /graphql
+2026-05-24 11:49:12,040 - app.core.middleware - INFO - Request [f2c25584-c06e-4b5c-9eaf-4934e5738c99]: POST /graphql
+2026-05-24 11:49:12,076 - app.core.middleware - INFO - Response [cc305bb0-a130-4df2-abf9-a4e08adfab4d]: POST /graphql - Status: 200 - Duration: 0.045s
+INFO:     127.0.0.1:5026 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:14,029 - app.core.middleware - INFO - Request [e02e283f-6f88-42b4-a46a-acb0aae99b1c]: POST /graphql
+2026-05-24 11:49:14,045 - app.core.middleware - INFO - Response [f2c25584-c06e-4b5c-9eaf-4934e5738c99]: POST /graphql - Status: 200 - Duration: 2.006s
+2026-05-24 11:49:14,050 - app.core.middleware - INFO - Response [e02e283f-6f88-42b4-a46a-acb0aae99b1c]: POST /graphql - Status: 200 - Duration: 0.020s
+INFO:     127.0.0.1:7134 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5026 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:15,766 - app.core.middleware - INFO - Response [5dde5bff-ebdf-4df1-9a22-111a5135bd8f]: POST /graphql - Status: 200 - Duration: 3.730s
+INFO:     127.0.0.1:9234 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:17,033 - app.core.middleware - INFO - Request [e1eb1b25-8f40-4737-bcb4-e7e1516a6ad7]: POST /graphql
+2026-05-24 11:49:20,037 - app.core.middleware - INFO - Request [6c761393-770d-479e-a7ea-dbd78c3abaea]: POST /graphql
+2026-05-24 11:49:20,831 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:49:20,832 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:49:20,834 - app.core.middleware - INFO - Response [e1eb1b25-8f40-4737-bcb4-e7e1516a6ad7]: POST /graphql - Status: 200 - Duration: 3.801s
+INFO:     127.0.0.1:9234 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:21,419 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:49:23,055 - app.core.middleware - INFO - Response [6c761393-770d-479e-a7ea-dbd78c3abaea]: POST /graphql - Status: 200 - Duration: 3.018s
+INFO:     127.0.0.1:7753 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:29,030 - app.core.middleware - INFO - Request [7f55c39a-3ca9-4292-aa5b-c9eaf132c32a]: POST /graphql
+2026-05-24 11:49:29,038 - app.core.middleware - INFO - Response [7f55c39a-3ca9-4292-aa5b-c9eaf132c32a]: POST /graphql - Status: 200 - Duration: 0.009s
+INFO:     127.0.0.1:3062 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:32,027 - app.core.middleware - INFO - Request [487dc162-627b-47bc-80f5-3cf3a77c0b21]: POST /graphql
+2026-05-24 11:49:32,057 - app.core.middleware - INFO - Response [487dc162-627b-47bc-80f5-3cf3a77c0b21]: POST /graphql - Status: 200 - Duration: 0.030s
+INFO:     127.0.0.1:3062 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:34,033 - app.core.middleware - INFO - Request [350bdc26-a614-4e29-a90e-ec05a3fa0569]: POST /graphql
+2026-05-24 11:49:35,034 - app.core.middleware - INFO - Request [859c68a7-9e15-40cb-ba8b-168804a92abf]: POST /graphql
+2026-05-24 11:49:35,045 - app.core.middleware - INFO - Response [859c68a7-9e15-40cb-ba8b-168804a92abf]: POST /graphql - Status: 200 - Duration: 0.011s
+INFO:     127.0.0.1:9081 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:36,032 - app.core.middleware - INFO - Request [55fa4ae9-6d02-451f-8154-438cbb3cfa68]: POST /graphql
+2026-05-24 11:49:36,040 - app.core.middleware - INFO - Response [55fa4ae9-6d02-451f-8154-438cbb3cfa68]: POST /graphql - Status: 200 - Duration: 0.008s
+INFO:     127.0.0.1:9081 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:37,832 - app.core.middleware - INFO - Response [350bdc26-a614-4e29-a90e-ec05a3fa0569]: POST /graphql - Status: 200 - Duration: 3.799s
+INFO:     127.0.0.1:3062 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:41,035 - app.core.middleware - INFO - Request [7e4e52e2-fa56-4468-9e34-8a678075039f]: POST /graphql
+2026-05-24 11:49:42,119 - app.core.middleware - INFO - Request [20bd6ba8-b961-440a-b8c1-65f0702f25b2]: POST /graphql
+2026-05-24 11:49:43,363 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:49:43,669 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:49:45,545 - app.core.middleware - INFO - Response [7e4e52e2-fa56-4468-9e34-8a678075039f]: POST /graphql - Status: 200 - Duration: 4.510s
+INFO:     127.0.0.1:3062 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:45,807 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:49:45,808 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:49:46,128 - app.core.middleware - INFO - Response [20bd6ba8-b961-440a-b8c1-65f0702f25b2]: POST /graphql - Status: 200 - Duration: 4.009s
+INFO:     127.0.0.1:14265 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:47,033 - app.core.middleware - INFO - Request [2ad156c9-a5d6-4b7c-a0a7-3ec197d0e5bb]: POST /graphql
+2026-05-24 11:49:47,063 - app.core.middleware - INFO - Response [2ad156c9-a5d6-4b7c-a0a7-3ec197d0e5bb]: POST /graphql - Status: 200 - Duration: 0.030s
+INFO:     127.0.0.1:14265 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:48,616 - app.core.connection_manager - INFO - ❌ WebSocket disconnected: ws_20260524061349_1dffc1ad (Total: 2)
+2026-05-24 11:49:48,616 - app.core.connection_manager - WARNING - Removed stale connection: ws_20260524061349_1dffc1ad (timeout: 300s)
+2026-05-24 11:49:48,616 - app.core.connection_manager - INFO - ❌ WebSocket disconnected: ws_20260524061350_138742f0 (Total: 2)
+2026-05-24 11:49:48,617 - app.core.connection_manager - WARNING - Removed stale connection: ws_20260524061350_138742f0 (timeout: 300s)
+2026-05-24 11:49:48,617 - app.core.connection_manager - INFO - Periodic cleanup removed 2 stale connections
+2026-05-24 11:49:51,146 - app.core.middleware - INFO - Request [8faeaf38-7189-4c11-9e89-42da5541e406]: POST /graphql
+2026-05-24 11:49:51,155 - app.core.middleware - INFO - Response [8faeaf38-7189-4c11-9e89-42da5541e406]: POST /graphql - Status: 200 - Duration: 0.009s
+INFO:     127.0.0.1:14265 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:49:57,042 - app.core.middleware - INFO - Request [3e92c349-c4b3-41cd-8080-c20298de925d]: POST /graphql
+2026-05-24 11:49:57,051 - app.core.middleware - INFO - Response [3e92c349-c4b3-41cd-8080-c20298de925d]: POST /graphql - Status: 200 - Duration: 0.008s
+INFO:     127.0.0.1:5519 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:02,029 - app.core.middleware - INFO - Request [1a743fd0-0b80-4087-b05a-e9e3e0178bae]: POST /graphql
+2026-05-24 11:50:03,037 - app.core.middleware - INFO - Request [f76d8021-b4cb-4d83-ad35-979de46e8802]: POST /graphql
+2026-05-24 11:50:03,623 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:50:04,177 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:50:06,152 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:50:06,153 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:50:06,154 - app.core.middleware - INFO - Response [1a743fd0-0b80-4087-b05a-e9e3e0178bae]: POST /graphql - Status: 200 - Duration: 4.125s
+INFO:     127.0.0.1:5519 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:06,166 - app.core.middleware - INFO - Response [f76d8021-b4cb-4d83-ad35-979de46e8802]: POST /graphql - Status: 200 - Duration: 3.128s
+INFO:     127.0.0.1:9563 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:07,071 - app.core.middleware - INFO - Request [6ed2687d-f658-4812-bf69-422948aa5483]: POST /graphql
+2026-05-24 11:50:07,080 - app.core.middleware - INFO - Response [6ed2687d-f658-4812-bf69-422948aa5483]: POST /graphql - Status: 200 - Duration: 0.009s
+INFO:     127.0.0.1:9563 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:08,032 - app.core.middleware - INFO - Request [36f5e510-8930-40f3-982d-4cdf02b16c95]: POST /graphql
+2026-05-24 11:50:11,611 - app.core.middleware - INFO - Response [36f5e510-8930-40f3-982d-4cdf02b16c95]: POST /graphql - Status: 200 - Duration: 3.579s
+INFO:     127.0.0.1:9563 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:12,029 - app.core.middleware - INFO - Request [e1bdf9e1-1f29-441f-b55c-b1ece33ddf30]: POST /graphql
+2026-05-24 11:50:12,033 - app.core.middleware - INFO - Request [a8a87de2-41b5-409a-a798-c72d7fb46e2a]: POST /graphql
+2026-05-24 11:50:12,045 - app.core.middleware - INFO - Response [e1bdf9e1-1f29-441f-b55c-b1ece33ddf30]: POST /graphql - Status: 200 - Duration: 0.015s
+INFO:     127.0.0.1:9563 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:15,683 - app.core.middleware - INFO - Response [a8a87de2-41b5-409a-a798-c72d7fb46e2a]: POST /graphql - Status: 200 - Duration: 3.650s
+INFO:     127.0.0.1:5662 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:18,036 - app.core.middleware - INFO - Request [07ac9170-c244-427c-a04f-939a50545938]: POST /graphql
+2026-05-24 11:50:18,042 - app.core.middleware - INFO - Response [07ac9170-c244-427c-a04f-939a50545938]: POST /graphql - Status: 200 - Duration: 0.006s
+INFO:     127.0.0.1:5662 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:24,027 - app.core.middleware - INFO - Request [6e07cd1e-04f6-47a6-aa0f-713e6ca82a4d]: POST /graphql
+2026-05-24 11:50:25,194 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:50:26,357 - app.core.middleware - INFO - Response [6e07cd1e-04f6-47a6-aa0f-713e6ca82a4d]: POST /graphql - Status: 200 - Duration: 2.330s
+INFO:     127.0.0.1:10647 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:32,027 - app.core.middleware - INFO - Request [13540d89-ead4-45a0-9b0c-a65dbc26afb8]: POST /graphql
+2026-05-24 11:50:32,033 - app.core.middleware - INFO - Response [13540d89-ead4-45a0-9b0c-a65dbc26afb8]: POST /graphql - Status: 200 - Duration: 0.006s
+INFO:     127.0.0.1:1932 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:38,038 - app.core.middleware - INFO - Request [8bf7b17f-4a9d-4d17-9478-7d3ee79f568a]: POST /graphql
+2026-05-24 11:50:38,050 - app.core.middleware - INFO - Response [8bf7b17f-4a9d-4d17-9478-7d3ee79f568a]: POST /graphql - Status: 200 - Duration: 0.012s
+INFO:     127.0.0.1:8871 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:42,038 - app.core.middleware - INFO - Request [1c1f8dc3-a481-4b4c-867d-f2346dc4a67a]: POST /graphql
+2026-05-24 11:50:44,025 - app.core.middleware - INFO - Request [b6d9b133-1de7-4e3c-9c73-a9316167f44b]: POST /graphql
+2026-05-24 11:50:45,179 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:50:45,441 - app.core.middleware - INFO - Response [1c1f8dc3-a481-4b4c-867d-f2346dc4a67a]: POST /graphql - Status: 200 - Duration: 3.403s
+INFO:     127.0.0.1:8871 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:46,234 - app.core.middleware - INFO - Response [b6d9b133-1de7-4e3c-9c73-a9316167f44b]: POST /graphql - Status: 200 - Duration: 2.209s
+INFO:     127.0.0.1:8674 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:52,025 - app.core.middleware - INFO - Request [408b3480-bcd6-43f5-b2c2-a480becf94f2]: POST /graphql
+2026-05-24 11:50:52,031 - app.core.middleware - INFO - Response [408b3480-bcd6-43f5-b2c2-a480becf94f2]: POST /graphql - Status: 200 - Duration: 0.006s
+INFO:     127.0.0.1:11438 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:50:58,037 - app.core.middleware - INFO - Request [b549ba06-4a12-4061-b190-6d962857b140]: POST /graphql
+2026-05-24 11:50:58,045 - app.core.middleware - INFO - Response [b549ba06-4a12-4061-b190-6d962857b140]: POST /graphql - Status: 200 - Duration: 0.008s
+INFO:     127.0.0.1:11471 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:04,036 - app.core.middleware - INFO - Request [61c80d7f-9954-416b-a0e7-331d8e297f7e]: POST /graphql
+2026-05-24 11:51:05,260 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:51:06,383 - app.core.middleware - INFO - Response [61c80d7f-9954-416b-a0e7-331d8e297f7e]: POST /graphql - Status: 200 - Duration: 2.348s
+INFO:     127.0.0.1:8303 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:07,179 - app.core.middleware - INFO - Request [d0a5e8bd-7a12-403b-a0a3-54b20e132f4c]: POST /graphql
+2026-05-24 11:51:07,184 - app.core.middleware - INFO - Request [bd584f2c-70ab-4ceb-bfa1-b915d486ea62]: POST /graphql
+2026-05-24 11:51:10,180 - app.core.middleware - INFO - Request [db26f69d-635b-4969-b5bf-633b11d26069]: POST /graphql
+2026-05-24 11:51:10,183 - app.core.connection_manager - INFO - ❌ WebSocket disconnected: ws_20260524061350_138742f0 (Total: 0)
+2026-05-24 11:51:10,183 - app.core.connection_manager - INFO - ❌ WebSocket disconnected: ws_20260524061349_1dffc1ad (Total: 0)
+2026-05-24 11:51:10,183 - app.core.connection_manager - INFO - ❌ WebSocket disconnected: ws_20260524061348_928d3612 (Total: 0)
+INFO:     connection closed
+INFO:     connection closed
+INFO:     connection closed
+2026-05-24 11:51:10,197 - app.core.middleware - INFO - Client disconnected during POST /graphql
+2026-05-24 11:51:10,197 - app.core.middleware - INFO - Response [db26f69d-635b-4969-b5bf-633b11d26069]: POST /graphql - Status: 499 - Duration: 0.017s
+2026-05-24 11:51:10,199 - app.main - ERROR - Unhandled exception: No response returned.
+  + Exception Group Traceback (most recent call last):
+  |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\_utils.py", line 87, in collapse_excgroups
+  |     yield
+  |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 190, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ~~~~~~~~~~~~~~~~~~^^
+    |   File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |     ~~~~~~~~~~~~~~^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\app\core\graphql_cookie_middleware.py", line 30, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 146, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ~~~~~~~~~~~~~~~~~~^^
+    |   File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |     ~~~~~~~~~~~~~~^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\app\core\middleware.py", line 65, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 166, in call_next
+    |     raise RuntimeError("No response returned.")
+    | RuntimeError: No response returned.
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 189, in __call__
+    with collapse_excgroups():
+         ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\app\core\graphql_cookie_middleware.py", line 30, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 165, in call_next
+    raise app_exc
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 189, in __call__
+    with collapse_excgroups():
+         ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\app\core\middleware.py", line 65, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 166, in call_next
+    raise RuntimeError("No response returned.")
+RuntimeError: No response returned.
+ERROR:    Exception in ASGI application
+  + Exception Group Traceback (most recent call last):
+  |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\_utils.py", line 87, in collapse_excgroups
+  |     yield
+  |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 190, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 412, in run_asgi
+    |     result = await app(  # type: ignore[func-returns-value]
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         self.scope, self.receive, self.send
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 84, in __call__
+    |     return await self.app(scope, receive, send)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\fastapi\applications.py", line 1054, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\applications.py", line 123, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    |     raise exc
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ~~~~~~~~~~~~~~~~~~^^
+    |   File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |     ~~~~~~~~~~~~~~^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\app\core\graphql_cookie_middleware.py", line 30, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 146, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 189, in __call__
+    |     with collapse_excgroups():
+    |          ~~~~~~~~~~~~~~~~~~^^
+    |   File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |     ~~~~~~~~~~~~~~^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\_utils.py", line 93, in collapse_excgroups
+    |     raise exc
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\app\core\middleware.py", line 65, in dispatch
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 166, in call_next
+    |     raise RuntimeError("No response returned.")
+    | RuntimeError: No response returned.
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 412, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 189, in __call__
+    with collapse_excgroups():
+         ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\app\core\graphql_cookie_middleware.py", line 30, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 165, in call_next
+    raise app_exc
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 151, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 189, in __call__
+    with collapse_excgroups():
+         ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\_utils.py", line 93, in collapse_excgroups
+    raise exc
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\app\core\middleware.py", line 65, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\starlette\middleware\base.py", line 166, in call_next
+    raise RuntimeError("No response returned.")
+RuntimeError: No response returned.
+2026-05-24 11:51:10,492 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:51:10,493 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:51:10,494 - app.core.middleware - INFO - Response [d0a5e8bd-7a12-403b-a0a3-54b20e132f4c]: POST /graphql - Status: 200 - Duration: 3.315s
+2026-05-24 11:51:10,744 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:51:10,745 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:51:10,746 - app.core.middleware - INFO - Response [bd584f2c-70ab-4ceb-bfa1-b915d486ea62]: POST /graphql - Status: 200 - Duration: 3.562s
+INFO:     ('127.0.0.1', 5150) - "WebSocket /ws/gateway?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMWUzNTVkMy02OWRhLTQxM2EtOWIzYy1jNmQwOTc0ZjUzZjUiLCJlbWFpbCI6ImR1cmdhc0BnbWFpbC5jb20iLCJ0eXAiOiJhY2Nlc3MiLCJ0diI6MCwiZXhwIjoxNzc5NTk4MTUxfQ.4o4RwBuleULgvXDh6IXNeFqjsNe2o1Eh4XX9Me_Wo5s" [accepted]
+2026-05-24 11:51:30,429 - app.core.connection_manager - INFO - ✅ WebSocket connected: ws_20260524062130_bc3dbe4a (Total: 1)
+INFO:     connection open
+INFO:     ('127.0.0.1', 14902) - "WebSocket /ws/gateway?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMWUzNTVkMy02OWRhLTQxM2EtOWIzYy1jNmQwOTc0ZjUzZjUiLCJlbWFpbCI6ImR1cmdhc0BnbWFpbC5jb20iLCJ0eXAiOiJhY2Nlc3MiLCJ0diI6MCwiZXhwIjoxNzc5NTk4MTUxfQ.4o4RwBuleULgvXDh6IXNeFqjsNe2o1Eh4XX9Me_Wo5s" [accepted]
+2026-05-24 11:51:30,788 - app.core.connection_manager - INFO - ✅ WebSocket connected: ws_20260524062130_dd091e41 (Total: 2)
+INFO:     connection open
+INFO:     127.0.0.1:3944 - "OPTIONS /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:30,921 - app.core.middleware - INFO - Request [ec193ab0-3c6b-406d-a0c0-fc7e11b8c0e3]: POST /graphql
+2026-05-24 11:51:30,928 - app.core.middleware - INFO - Response [ec193ab0-3c6b-406d-a0c0-fc7e11b8c0e3]: POST /graphql - Status: 200 - Duration: 0.007s
+INFO:     127.0.0.1:7748 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:31,219 - app.core.middleware - INFO - Request [76aa4f3e-1b83-4f3b-be8c-e18e06684743]: POST /graphql
+INFO:     ('127.0.0.1', 5256) - "WebSocket /ws/gateway?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMWUzNTVkMy02OWRhLTQxM2EtOWIzYy1jNmQwOTc0ZjUzZjUiLCJlbWFpbCI6ImR1cmdhc0BnbWFpbC5jb20iLCJ0eXAiOiJhY2Nlc3MiLCJ0diI6MCwiZXhwIjoxNzc5NTk4MTUxfQ.4o4RwBuleULgvXDh6IXNeFqjsNe2o1Eh4XX9Me_Wo5s" [accepted]
+2026-05-24 11:51:31,225 - app.core.connection_manager - INFO - ✅ WebSocket connected: ws_20260524062131_c39b329e (Total: 3)
+Exception ignored in: <gzip on 0x2416d3e4340>
+Traceback (most recent call last):
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\gzip.py", line 373, in close
+    fileobj.write(self.compress.flush())
+ValueError: I/O operation on closed file.
+INFO:     connection open
+2026-05-24 11:51:31,243 - app.core.middleware - INFO - Request [2bfb65f4-90d8-4e6c-8092-1aad1769b674]: POST /graphql
+2026-05-24 11:51:31,248 - app.core.middleware - INFO - Request [99908d38-5a2c-4f81-95ac-a2e4288b6efa]: POST /graphql
+2026-05-24 11:51:31,249 - app.core.middleware - INFO - Request [2640d614-1408-4719-b60a-a53a71606dc3]: POST /graphql
+2026-05-24 11:51:31,261 - app.core.middleware - INFO - Request [4cce134b-4607-4436-a330-1dbe5737317b]: POST /graphql
+2026-05-24 11:51:31,261 - app.core.middleware - INFO - Request [6cac17a7-a2b2-4dad-8e52-226572cbdd23]: POST /graphql
+INFO:     ('127.0.0.1', 12064) - "WebSocket /ws/gateway?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMWUzNTVkMy02OWRhLTQxM2EtOWIzYy1jNmQwOTc0ZjUzZjUiLCJlbWFpbCI6ImR1cmdhc0BnbWFpbC5jb20iLCJ0eXAiOiJhY2Nlc3MiLCJ0diI6MCwiZXhwIjoxNzc5NTk4MTUxfQ.4o4RwBuleULgvXDh6IXNeFqjsNe2o1Eh4XX9Me_Wo5s" [accepted]
+2026-05-24 11:51:31,941 - app.core.connection_manager - INFO - ✅ WebSocket connected: ws_20260524062131_bec50e04 (Total: 4)
+INFO:     connection open
+INFO:     connection closed
+2026-05-24 11:51:31,950 - app.core.connection_manager - INFO - ❌ WebSocket disconnected: ws_20260524062131_c39b329e (Total: 4)
+INFO:     connection closed
+2026-05-24 11:51:31,951 - app.core.connection_manager - INFO - ❌ WebSocket disconnected: ws_20260524062130_dd091e41 (Total: 4)
+INFO:     connection closed
+2026-05-24 11:51:31,952 - app.core.connection_manager - INFO - ❌ WebSocket disconnected: ws_20260524062130_bc3dbe4a (Total: 4)
+2026-05-24 11:51:31,972 - strawberry.execution - ERROR - Authentication required
+
+GraphQL request:2:3
+1 | query TodoWorkspaces($googleUserId: String!) {
+2 |   todoWorkspaces(googleUserId: $googleUserId) {
+  |   ^
+3 |     id
+Traceback (most recent call last):
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\graphql\execution\execute.py", line 530, in await_result
+    return_type, field_nodes, info, path, await result
+                                          ^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\strawberry\schema\schema_converter.py", line 789, in _async_resolver
+    return await await_maybe(
+           ^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\strawberry\utils\await_maybe.py", line 13, in await_maybe
+    return await value
+           ^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\app\graphql\modules\todos\resolvers.py", line 122, in todo_workspaces
+    owner = require_authenticated_sub(info)
+  File "E:\durgas_ai\ai.backend\app\graphql\modules\util.py", line 45, in require_authenticated_sub
+    raise GraphQLError(
+    ...<2 lines>...
+    )
+graphql.error.graphql_error.GraphQLError: Authentication required
+2026-05-24 11:51:31,979 - app.core.middleware - INFO - Response [2bfb65f4-90d8-4e6c-8092-1aad1769b674]: POST /graphql - Status: 200 - Duration: 0.736s
+2026-05-24 11:51:31,980 - app.core.middleware - INFO - Response [99908d38-5a2c-4f81-95ac-a2e4288b6efa]: POST /graphql - Status: 200 - Duration: 0.732s
+2026-05-24 11:51:31,981 - app.core.middleware - INFO - Response [2640d614-1408-4719-b60a-a53a71606dc3]: POST /graphql - Status: 200 - Duration: 0.732s
+2026-05-24 11:51:31,982 - app.core.middleware - INFO - Response [4cce134b-4607-4436-a330-1dbe5737317b]: POST /graphql - Status: 200 - Duration: 0.721s
+INFO:     127.0.0.1:11142 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6768 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:11874 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14083 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:32,244 - app.core.middleware - INFO - Request [36fdfc13-f9d2-4c58-9a51-38eecbcc8568]: POST /graphql
+2026-05-24 11:51:32,245 - app.core.middleware - INFO - Request [ef60bb15-c76c-42c1-b60c-ebdf8754e8a5]: POST /graphql
+2026-05-24 11:51:32,916 - strawberry.execution - ERROR - Authentication required
+
+GraphQL request:2:3
+1 | query TodoTasks($workspaceId: String!) {
+2 |   todoTasks(workspaceId: $workspaceId) {
+  |   ^
+3 |     id
+Traceback (most recent call last):
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\graphql\execution\execute.py", line 530, in await_result
+    return_type, field_nodes, info, path, await result
+                                          ^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\strawberry\schema\schema_converter.py", line 789, in _async_resolver
+    return await await_maybe(
+           ^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\strawberry\utils\await_maybe.py", line 13, in await_maybe
+    return await value
+           ^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\app\graphql\modules\todos\resolvers.py", line 158, in todo_tasks
+    owner = require_authenticated_sub(info)
+  File "E:\durgas_ai\ai.backend\app\graphql\modules\util.py", line 45, in require_authenticated_sub
+    raise GraphQLError(
+    ...<2 lines>...
+    )
+graphql.error.graphql_error.GraphQLError: Authentication required
+2026-05-24 11:51:32,919 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+INFO:     ('127.0.0.1', 4782) - "WebSocket /ws/gateway?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMWUzNTVkMy02OWRhLTQxM2EtOWIzYy1jNmQwOTc0ZjUzZjUiLCJlbWFpbCI6ImR1cmdhc0BnbWFpbC5jb20iLCJ0eXAiOiJhY2Nlc3MiLCJ0diI6MCwiZXhwIjoxNzc5NTk4MTUxfQ.4o4RwBuleULgvXDh6IXNeFqjsNe2o1Eh4XX9Me_Wo5s" [accepted]
+2026-05-24 11:51:32,922 - app.core.connection_manager - INFO - ✅ WebSocket connected: ws_20260524062132_bee3b5fe (Total: 2)
+INFO:     connection open
+2026-05-24 11:51:32,924 - app.core.middleware - INFO - Response [ef60bb15-c76c-42c1-b60c-ebdf8754e8a5]: POST /graphql - Status: 200 - Duration: 0.679s
+INFO:     127.0.0.1:6768 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     ('127.0.0.1', 6325) - "WebSocket /ws/gateway?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMWUzNTVkMy02OWRhLTQxM2EtOWIzYy1jNmQwOTc0ZjUzZjUiLCJlbWFpbCI6ImR1cmdhc0BnbWFpbC5jb20iLCJ0eXAiOiJhY2Nlc3MiLCJ0diI6MCwiZXhwIjoxNzc5NTk4MTUxfQ.4o4RwBuleULgvXDh6IXNeFqjsNe2o1Eh4XX9Me_Wo5s" [accepted]
+2026-05-24 11:51:32,952 - app.core.connection_manager - INFO - ✅ WebSocket connected: ws_20260524062132_f5ff8f36 (Total: 3)
+INFO:     connection open
+2026-05-24 11:51:33,143 - app.core.middleware - INFO - Request [95cfe821-0349-4085-9258-f77f3ae569de]: POST /graphql
+2026-05-24 11:51:33,155 - strawberry.execution - ERROR - Authentication required
+
+GraphQL request:2:3
+1 | query GetLinkedGoogleAccountToken($googleUserId: String!) {
+2 |   getLinkedGoogleAccountToken(googleUserId: $googleUserId)
+  |   ^
+3 | }
+Traceback (most recent call last):
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\graphql\execution\execute.py", line 530, in await_result
+    return_type, field_nodes, info, path, await result
+                                          ^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\strawberry\schema\schema_converter.py", line 789, in _async_resolver
+    return await await_maybe(
+           ^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\strawberry\utils\await_maybe.py", line 13, in await_maybe
+    return await value
+           ^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\app\graphql\modules\linked_accounts\resolvers.py", line 96, in get_linked_google_account_token
+    owner = require_authenticated_sub(info)
+  File "E:\durgas_ai\ai.backend\app\graphql\modules\util.py", line 45, in require_authenticated_sub
+    raise GraphQLError(
+    ...<2 lines>...
+    )
+graphql.error.graphql_error.GraphQLError: Authentication required
+2026-05-24 11:51:33,159 - app.core.middleware - INFO - Response [95cfe821-0349-4085-9258-f77f3ae569de]: POST /graphql - Status: 200 - Duration: 0.017s
+INFO:     127.0.0.1:6768 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:33,346 - app.core.middleware - INFO - Request [74fe9792-0d2f-46a9-a6b6-bdaf6d7a746e]: POST /graphql
+2026-05-24 11:51:34,106 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:51:34,110 - app.core.middleware - INFO - Request [dadea763-b142-4d80-af1c-eb5bd3f2291c]: POST /graphql
+2026-05-24 11:51:34,111 - app.api.ws_gateway - ERROR - Handler error for system.notifications: object async_generator can't be used in 'await' expression
+Traceback (most recent call last):
+  File "E:\durgas_ai\ai.backend\app\api\ws_gateway.py", line 146, in handle_message
+    result = await handler(params, user=user, connection_id=connection_id)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: object async_generator can't be used in 'await' expression
+2026-05-24 11:51:34,119 - app.core.middleware - INFO - Request [ec54f30a-333c-4caf-a9f3-67abe6031631]: POST /graphql
+2026-05-24 11:51:36,683 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:51:36,687 - app.core.middleware - INFO - Response [76aa4f3e-1b83-4f3b-be8c-e18e06684743]: POST /graphql - Status: 200 - Duration: 5.468s
+INFO:     127.0.0.1:7748 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:36,697 - app.core.middleware - INFO - Request [de4d9ebf-651d-4a7c-9d2d-f30e1a1734e4]: POST /graphql
+2026-05-24 11:51:36,713 - app.core.middleware - INFO - Response [de4d9ebf-651d-4a7c-9d2d-f30e1a1734e4]: POST /graphql - Status: 200 - Duration: 0.016s
+INFO:     127.0.0.1:7748 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:36,721 - app.core.middleware - INFO - Request [543fe797-e8ab-491e-a95a-57ee8fa7c5e2]: POST /graphql
+2026-05-24 11:51:36,933 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:51:37,747 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+INFO:     ('127.0.0.1', 1255) - "WebSocket /ws/gateway?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMWUzNTVkMy02OWRhLTQxM2EtOWIzYy1jNmQwOTc0ZjUzZjUiLCJlbWFpbCI6ImR1cmdhc0BnbWFpbC5jb20iLCJ0eXAiOiJhY2Nlc3MiLCJ0diI6MCwiZXhwIjoxNzc5NTk4MTUxfQ.4o4RwBuleULgvXDh6IXNeFqjsNe2o1Eh4XX9Me_Wo5s" [accepted]
+2026-05-24 11:51:37,764 - app.core.connection_manager - INFO - ✅ WebSocket connected: ws_20260524062137_a75153b2 (Total: 4)
+INFO:     connection open
+2026-05-24 11:51:37,795 - app.api.ws_gateway - ERROR - Handler error for system.notifications: object async_generator can't be used in 'await' expression
+Traceback (most recent call last):
+  File "E:\durgas_ai\ai.backend\app\api\ws_gateway.py", line 146, in handle_message
+    result = await handler(params, user=user, connection_id=connection_id)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: object async_generator can't be used in 'await' expression
+2026-05-24 11:51:39,051 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:51:39,055 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:51:40,738 - app.core.middleware - INFO - Response [36fdfc13-f9d2-4c58-9a51-38eecbcc8568]: POST /graphql - Status: 200 - Duration: 8.494s
+INFO:     127.0.0.1:11142 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:40,745 - app.core.middleware - INFO - Request [586f2d2f-aa8e-4615-971e-f5bbbe5ede1e]: POST /graphql
+2026-05-24 11:51:41,489 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:51:41,492 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:51:41,495 - app.core.middleware - INFO - Response [74fe9792-0d2f-46a9-a6b6-bdaf6d7a746e]: POST /graphql - Status: 200 - Duration: 8.150s
+2026-05-24 11:51:41,496 - app.core.middleware - INFO - Response [6cac17a7-a2b2-4dad-8e52-226572cbdd23]: POST /graphql - Status: 200 - Duration: 10.235s
+INFO:     127.0.0.1:6768 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6024 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:41,521 - app.core.middleware - INFO - Request [5710880d-a67d-4e2a-b636-5782bbaf7019]: POST /graphql
+2026-05-24 11:51:41,523 - app.core.middleware - INFO - Request [65068a18-3c04-4abe-8777-909ce68076f3]: POST /graphql
+2026-05-24 11:51:41,555 - app.core.middleware - INFO - Response [5710880d-a67d-4e2a-b636-5782bbaf7019]: POST /graphql - Status: 200 - Duration: 0.034s
+INFO:     127.0.0.1:6768 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:41,561 - app.core.middleware - INFO - Request [3188a1f4-c609-4f8a-ac10-7699a1c33a54]: POST /graphql
+2026-05-24 11:51:41,774 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:51:41,776 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:51:41,777 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:51:41,778 - app.services.llm.factory - INFO - Using healthy provider: ollama
+2026-05-24 11:51:41,780 - app.core.middleware - INFO - Response [dadea763-b142-4d80-af1c-eb5bd3f2291c]: POST /graphql - Status: 200 - Duration: 7.671s
+INFO:     127.0.0.1:14083 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:41,788 - app.core.middleware - INFO - Request [86d39ff3-3719-43b0-a0a3-4c2b8dc0f55b]: POST /graphql
+2026-05-24 11:51:41,828 - app.core.middleware - INFO - Response [86d39ff3-3719-43b0-a0a3-4c2b8dc0f55b]: POST /graphql - Status: 200 - Duration: 0.040s
+INFO:     127.0.0.1:14083 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:41,841 - app.core.middleware - INFO - Request [caa44469-eefa-447c-8584-ac44c3a9dc4f]: POST /graphql
+2026-05-24 11:51:41,882 - app.core.middleware - INFO - Response [caa44469-eefa-447c-8584-ac44c3a9dc4f]: POST /graphql - Status: 200 - Duration: 0.041s
+INFO:     127.0.0.1:14083 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:41,890 - app.core.middleware - INFO - Request [61c685f2-155f-4cd7-8a87-f62bcaaec5ff]: POST /graphql
+2026-05-24 11:51:41,910 - app.core.middleware - INFO - Response [61c685f2-155f-4cd7-8a87-f62bcaaec5ff]: POST /graphql - Status: 200 - Duration: 0.020s
+INFO:     127.0.0.1:14083 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:41,922 - app.core.middleware - INFO - Request [2e7d39b1-6239-4811-8547-7cd4eb2f0a3c]: POST /graphql
+2026-05-24 11:51:42,832 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:51:44,319 - httpx - INFO - HTTP Request: GET http://54.167.242.75:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-24 11:51:45,075 - httpx - INFO - HTTP Request: GET https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.006&timezone=auto&forecast_days=7&current=temperature_2m%2Cweather_code&hourly=temperature_2m%2Cweather_code&daily=weather_code%2Ctemperature_2m_max%2Ctemperature_2m_min "HTTP/1.1 200 OK"
+2026-05-24 11:51:45,082 - app.core.middleware - INFO - Response [65068a18-3c04-4abe-8777-909ce68076f3]: POST /graphql - Status: 200 - Duration: 3.559s
+2026-05-24 11:51:45,083 - app.core.middleware - INFO - Response [2e7d39b1-6239-4811-8547-7cd4eb2f0a3c]: POST /graphql - Status: 200 - Duration: 3.162s
+INFO:     127.0.0.1:6024 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14083 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:45,111 - app.core.middleware - INFO - Request [5ff83e1e-530d-4b8a-82f2-7d4633deaa54]: POST /graphql
+2026-05-24 11:51:45,115 - app.core.middleware - INFO - Request [9ff27895-a8a8-4be5-84a8-ffbef3ae6b97]: POST /graphql
+2026-05-24 11:51:45,235 - app.core.middleware - INFO - Response [5ff83e1e-530d-4b8a-82f2-7d4633deaa54]: POST /graphql - Status: 200 - Duration: 0.123s
+2026-05-24 11:51:45,235 - app.core.middleware - INFO - Response [9ff27895-a8a8-4be5-84a8-ffbef3ae6b97]: POST /graphql - Status: 200 - Duration: 0.121s
+INFO:     127.0.0.1:6024 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14083 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:45,246 - app.core.middleware - INFO - Request [b9c2be3b-b101-422f-b2e0-f3b98be13d86]: POST /graphql
+2026-05-24 11:51:45,247 - app.core.middleware - INFO - Request [499ce1f9-1889-4198-8060-4500a5388650]: POST /graphql
+2026-05-24 11:51:45,310 - app.core.middleware - INFO - Response [b9c2be3b-b101-422f-b2e0-f3b98be13d86]: POST /graphql - Status: 200 - Duration: 0.064s
+2026-05-24 11:51:45,310 - app.core.middleware - INFO - Response [499ce1f9-1889-4198-8060-4500a5388650]: POST /graphql - Status: 200 - Duration: 0.063s
+INFO:     127.0.0.1:6024 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14083 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:45,340 - app.core.middleware - INFO - Request [7894e9b2-627e-4fd4-b593-b1645ef6458d]: POST /graphql
+2026-05-24 11:51:45,341 - app.core.middleware - INFO - Request [2ad6b0dc-e44c-4787-aad4-6935b17901da]: POST /graphql
+2026-05-24 11:51:45,406 - app.core.middleware - INFO - Response [7894e9b2-627e-4fd4-b593-b1645ef6458d]: POST /graphql - Status: 200 - Duration: 0.066s
+2026-05-24 11:51:45,407 - app.core.middleware - INFO - Response [2ad6b0dc-e44c-4787-aad4-6935b17901da]: POST /graphql - Status: 200 - Duration: 0.066s
+2026-05-24 11:51:45,408 - app.core.middleware - INFO - Response [3188a1f4-c609-4f8a-ac10-7699a1c33a54]: POST /graphql - Status: 200 - Duration: 3.847s
+INFO:     127.0.0.1:6024 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14083 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6768 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:45,431 - app.core.middleware - INFO - Request [168f0f8d-7da8-4d08-9dce-00012ff108a0]: POST /graphql
+2026-05-24 11:51:45,518 - httpx - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 401 Unauthorized"
+2026-05-24 11:51:45,525 - app.core.middleware - INFO - Response [168f0f8d-7da8-4d08-9dce-00012ff108a0]: POST /graphql - Status: 200 - Duration: 0.094s
+2026-05-24 11:51:46,479 - app.core.middleware - INFO - Request [2bc7ea5b-a031-4e4d-9e64-eb55ba58dede]: POST /graphql
+2026-05-24 11:51:46,480 - app.core.middleware - INFO - Request [40dba4b5-6e42-408a-8b94-124324092d34]: POST /graphql
+INFO:     127.0.0.1:6768 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:46,495 - app.core.middleware - INFO - Response [543fe797-e8ab-491e-a95a-57ee8fa7c5e2]: POST /graphql - Status: 200 - Duration: 9.774s
+2026-05-24 11:51:46,503 - app.core.middleware - INFO - Response [ec54f30a-333c-4caf-a9f3-67abe6031631]: POST /graphql - Status: 200 - Duration: 12.384s
+INFO:     127.0.0.1:7748 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:11874 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:46,587 - app.core.middleware - INFO - Response [2bc7ea5b-a031-4e4d-9e64-eb55ba58dede]: POST /graphql - Status: 200 - Duration: 0.108s
+2026-05-24 11:51:46,588 - app.core.middleware - INFO - Response [40dba4b5-6e42-408a-8b94-124324092d34]: POST /graphql - Status: 200 - Duration: 0.108s
+INFO:     127.0.0.1:14083 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6024 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:46,863 - httpx - INFO - HTTP Request: GET https://generativelanguage.googleapis.com/v1beta/models?key=your_gemini_api_key_here "HTTP/1.1 400 Bad Request"
+2026-05-24 11:51:47,459 - httpx - INFO - HTTP Request: GET https://api.cohere.ai/v1/models "HTTP/1.1 401 Unauthorized"
+2026-05-24 11:51:47,460 - app.services.reka.model_registry - WARNING - Reka AI API key not configured, using default models
+2026-05-24 11:51:47,460 - app.services.reka.model_registry - WARNING - Reka AI API key not configured, using default models
+2026-05-24 11:51:47,461 - app.core.middleware - INFO - Response [586f2d2f-aa8e-4615-971e-f5bbbe5ede1e]: POST /graphql - Status: 200 - Duration: 6.716s
+INFO:     127.0.0.1:11142 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:47,833 - app.core.middleware - INFO - Request [69559be5-2b9b-4497-ad6e-da1b332bea70]: POST /graphql
+2026-05-24 11:51:48,955 - app.core.middleware - INFO - Request [7781d52b-19dc-41c8-b0e8-3152ff2afae6]: POST /graphql
+2026-05-24 11:51:48,993 - app.core.middleware - INFO - Response [7781d52b-19dc-41c8-b0e8-3152ff2afae6]: POST /graphql - Status: 200 - Duration: 0.038s
+INFO:     127.0.0.1:6024 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:50,336 - app.core.middleware - INFO - Response [69559be5-2b9b-4497-ad6e-da1b332bea70]: POST /graphql - Status: 200 - Duration: 2.503s
+2026-05-24 11:51:50,339 - app.core.middleware - INFO - Request [047f6a8f-80eb-4fb8-b3a9-f4ff6417c197]: POST /graphql
+INFO:     127.0.0.1:11142 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:50,352 - app.core.middleware - INFO - Response [047f6a8f-80eb-4fb8-b3a9-f4ff6417c197]: POST /graphql - Status: 200 - Duration: 0.013s
+INFO:     127.0.0.1:6024 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:50,371 - app.core.middleware - INFO - Request [88163f79-eb4b-4e8e-ab24-944057e02e23]: POST /graphql
+2026-05-24 11:51:50,374 - app.core.middleware - INFO - Request [9cb8816f-a98a-47ce-9633-fde904a9b55e]: POST /graphql
+2026-05-24 11:51:50,375 - app.core.middleware - INFO - Request [41532552-ac4c-4a3d-a3ae-25bf068ff6ab]: POST /graphql
+2026-05-24 11:51:50,506 - app.core.middleware - INFO - Request [c870dc96-1d8b-4ced-93f3-457b406f826c]: POST /graphql
+2026-05-24 11:51:50,521 - app.core.middleware - INFO - Request [8641dbdf-22b0-4d71-a3b6-a16b835012b8]: POST /graphql
+2026-05-24 11:51:50,577 - app.core.middleware - INFO - Request [916eba2c-c005-484c-9f99-d88364522fca]: POST /graphql
+2026-05-24 11:51:50,619 - app.core.middleware - INFO - Response [916eba2c-c005-484c-9f99-d88364522fca]: POST /graphql - Status: 200 - Duration: 0.042s
+INFO:     127.0.0.1:6768 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:51,056 - app.core.middleware - INFO - Request [2c18feda-baa4-42cd-a445-f8ddf8e4ddad]: POST /graphql
+2026-05-24 11:51:51,089 - app.core.middleware - INFO - Response [2c18feda-baa4-42cd-a445-f8ddf8e4ddad]: POST /graphql - Status: 200 - Duration: 0.033s
+INFO:     127.0.0.1:6768 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:52,391 - app.core.middleware - INFO - Response [88163f79-eb4b-4e8e-ab24-944057e02e23]: POST /graphql - Status: 200 - Duration: 2.021s
+INFO:     127.0.0.1:6024 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:52,405 - app.core.middleware - INFO - Response [41532552-ac4c-4a3d-a3ae-25bf068ff6ab]: POST /graphql - Status: 200 - Duration: 2.030s
+2026-05-24 11:51:52,405 - app.core.middleware - INFO - Response [9cb8816f-a98a-47ce-9633-fde904a9b55e]: POST /graphql - Status: 200 - Duration: 2.031s
+INFO:     127.0.0.1:14083 - "POST /graphql HTTP/1.1" 200 OK
+INFO:     127.0.0.1:11142 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:52,476 - app.core.middleware - INFO - Response [c870dc96-1d8b-4ced-93f3-457b406f826c]: POST /graphql - Status: 200 - Duration: 1.970s
+INFO:     127.0.0.1:11874 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:52,791 - app.core.middleware - INFO - Request [4eae85b9-6ece-4dcd-861e-09f9b7bb001b]: POST /graphql
+2026-05-24 11:51:52,827 - app.core.middleware - INFO - Response [4eae85b9-6ece-4dcd-861e-09f9b7bb001b]: POST /graphql - Status: 200 - Duration: 0.037s
+INFO:     127.0.0.1:11874 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:53,017 - app.core.middleware - INFO - Response [8641dbdf-22b0-4d71-a3b6-a16b835012b8]: POST /graphql - Status: 200 - Duration: 2.496s
+INFO:     127.0.0.1:7748 - "POST /graphql HTTP/1.1" 200 OK
+2026-05-24 11:51:53,338 - app.core.middleware - INFO - Request [8c83633f-333e-47ee-83b7-6d0b1e685cb3]: POST /graphql
+2026-05-24 11:51:53,374 - app.core.middleware - INFO - Response [8c83633f-333e-47ee-83b7-6d0b1e685cb3]: POST /graphql - Status: 200 - Duration: 0.037s
+INFO:     127.0.0.1:7748 - "POST /graphql HTTP/1.1" 200 OK
+20

@@ -1,5 +1,6 @@
 """Sanity checks for the Strawberry schema (no Supabase required)."""
 
+import pytest
 from app.graphql.schema import schema
 
 
@@ -54,6 +55,7 @@ def test_schema_has_chat_query_fields():
     assert "aiProviderSettings" in names
     assert "websocketGatewayStatus" in names
     assert "storageSignedHttpUrl" in names
+    assert "hostStats" in names
 
 
 def test_gql_user_type_exposes_profile_fields():
@@ -82,3 +84,20 @@ def test_gql_user_type_exposes_profile_fields():
     prof_fields = {f["name"] for f in result.data["gqlUserProfile"]["fields"]}
     assert "username" in prof_fields
     assert "avatarUrl" in prof_fields
+
+
+@pytest.mark.asyncio
+async def test_host_stats_resolver():
+    result = await schema.execute(
+        """
+        query {
+          hostStats
+        }
+        """
+    )
+    assert result.errors is None
+    stats = result.data["hostStats"]
+    assert "cpu" in stats
+    assert "ram" in stats
+    assert "storage" in stats
+    assert "network" in stats

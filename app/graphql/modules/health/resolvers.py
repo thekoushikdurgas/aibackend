@@ -91,3 +91,10 @@ class HealthQuery:
                 "system_ready": ready_payload,
             },
         )
+
+    @strawberry.field
+    async def host_stats(self, info: Info) -> JSON:
+        """Query native host OS telemetry (CPU, RAM, GPU, Disk, Network)"""
+        from app.utils.telemetry import get_host_stats
+
+        return cast(JSON, await get_host_stats())

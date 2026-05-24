@@ -5,6 +5,7 @@ SQLAlchemy database connection and session management
 import errno
 import logging
 from collections.abc import AsyncGenerator
+from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 
@@ -29,12 +30,23 @@ elif "+asyncpg" in database_url or (
 ):
     _connect_args = {"timeout": 45}
 
-engine = create_async_engine(
-    database_url,
-    echo=False,
-    future=True,
-    connect_args=_connect_args,
-)
+_engine_args: dict[str, Any] = {
+    "echo": False,
+    "future": True,
+    "connect_args": _connect_args,
+}
+
+if "sqlite" not in database_url.lower():
+    _engine_args.update(
+        {
+            "pool_size": 20,
+            "max_overflow": 10,
+            "pool_recycle": 1800,
+            "pool_pre_ping": True,
+        }
+    )
+
+engine = create_async_engine(database_url, **_engine_args)
 
 # Create async session factory
 AsyncSessionLocal = async_sessionmaker(

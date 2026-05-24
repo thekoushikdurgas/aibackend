@@ -175,9 +175,9 @@ class DocumentService:
 
         collection = collection_name or self.vector_store.collection_name
 
-        # Get all chunks from the collection
+        # Get all chunks from the collection (retrieve metadatas only to save memory and CPU)
         collection_obj = self.vector_store.get_collection()
-        all_results = collection_obj.get(include=["metadatas", "documents"])
+        all_results = collection_obj.get(include=["metadatas"])
 
         # Aggregate chunks by document_id
         documents_map = {}
@@ -199,15 +199,6 @@ class DocumentService:
 
             if document_id:
                 if document_id not in documents_map:
-                    # Get document content preview (first chunk)
-                    content_preview = ""
-                    if i < len(all_results.get("documents", [])):
-                        content_preview = (
-                            all_results.get("documents", [])[i][:200]
-                            if all_results.get("documents", [])[i]
-                            else ""
-                        )
-
                     documents_map[document_id] = {
                         "id": document_id,
                         "filename": metadata.get("filename", f"Document {document_id}"),
@@ -219,7 +210,8 @@ class DocumentService:
                         "total_pages": metadata.get("total_pages", 1),
                         "file_type": metadata.get("file_type", "unknown"),
                         "chunk_count": 0,
-                        "preview": content_preview,
+                        "preview": "",
+                        "first_chunk_id": chunk_id,
                     }
 
                 documents_map[document_id]["chunk_count"] += 1
@@ -231,6 +223,35 @@ class DocumentService:
         # Apply pagination
         total_count = len(documents)
         paginated_documents = documents[offset : offset + limit]
+
+        # Fetch preview for paginated documents only!
+        if paginated_documents:
+            first_chunk_ids = [
+                d["first_chunk_id"]
+                for d in paginated_documents
+                if d.get("first_chunk_id")
+            ]
+            if first_chunk_ids:
+                try:
+                    chunk_results = collection_obj.get(
+                        ids=first_chunk_ids, include=["documents"]
+                    )
+                    chunk_contents = {}
+                    for cid, content in zip(
+                        chunk_results.get("ids", []), chunk_results.get("documents", [])
+                    ):
+                        chunk_contents[cid] = content[:200] if content else ""
+
+                    for doc in paginated_documents:
+                        fcid = doc.get("first_chunk_id")
+                        if fcid in chunk_contents:
+                            doc["preview"] = chunk_contents[fcid]
+                except Exception as e:
+                    logger.warning(f"Error fetching document previews: {e}")
+
+        # Cleanup internal keys
+        for doc in paginated_documents:
+            doc.pop("first_chunk_id", None)
 
         return {
             "documents": paginated_documents,

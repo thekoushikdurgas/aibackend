@@ -24,13 +24,45 @@ async def handle_system_health(
     user: Optional[Dict[str, Any]] = None,
     connection_id: Optional[str] = None,
 ) -> Dict[str, Any]:
-    """Handle system.health method."""
+    """Handle system.health method — checks all core services concurrently."""
+    tasks = []
+
+    run_ollama = settings.default_llm_provider == "ollama"
+    if run_ollama:
+        tasks.append(_check_ollama_health())
+
+    tasks.append(_check_chromadb_health())
+    tasks.append(_check_postgres_health())
+
+    run_redis = bool(settings.use_redis)
+    if run_redis:
+        tasks.append(_check_redis_health())
+
+    results = await asyncio.gather(*tasks, return_exceptions=False)
+    results_dict = {r["name"]: r for r in results}
+
     services = []
 
-    if settings.default_llm_provider == "ollama":
-        services.append(await _check_ollama_health())
+    # Ollama
+    if run_ollama:
+        services.append(results_dict["ollama"])
+    else:
+        services.append({"name": "ollama", "status": "not_initialized"})
 
-    services.append(await _check_chromadb_health())
+    # ChromaDB
+    services.append(results_dict["chromadb"])
+
+    # Postgres
+    services.append(results_dict["postgres"])
+
+    # Redis
+    if run_redis:
+        services.append(results_dict["redis"])
+    else:
+        services.append({"name": "redis", "status": "not_initialized"})
+
+    # Kafka
+    services.append({"name": "kafka", "status": "not_initialized"})
 
     unhealthy = [
         s for s in services if s.get("status") not in {"healthy", "not_initialized"}
@@ -177,3 +209,42 @@ def get_methods() -> Dict[str, Any]:
         "system.ready": handle_system_ready,
         "system.live": handle_system_live,
     }
+
+
+async def _check_postgres_health() -> Dict[str, Any]:
+    """Check PostgreSQL health via SQLAlchemy."""
+    try:
+        start = time.time()
+        async with engine.connect() as conn:
+            await conn.execute(text("SELECT 1"))
+        latency = (time.time() - start) * 1000
+        return {
+            "name": "postgres",
+            "status": "healthy",
+            "latency_ms": round(latency, 2),
+        }
+    except Exception as e:
+        logger.warning("Postgres health check failed: %s", e)
+        return {"name": "postgres", "status": "unhealthy", "error": str(e)}
+
+
+async def _check_redis_health() -> Dict[str, Any]:
+    """Check Redis health via ping."""
+    try:
+        import redis.asyncio as redis_async
+
+        start = time.time()
+        client = redis_async.from_url(settings.redis_url, decode_responses=True)
+        try:
+            await client.ping()
+            latency = (time.time() - start) * 1000
+            return {
+                "name": "redis",
+                "status": "healthy",
+                "latency_ms": round(latency, 2),
+            }
+        finally:
+            await client.close()
+    except Exception as e:
+        logger.warning("Redis health check failed: %s", e)
+        return {"name": "redis", "status": "unavailable", "error": str(e)}

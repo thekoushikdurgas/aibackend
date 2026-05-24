@@ -4,8 +4,9 @@ JSON-RPC 2.0 Protocol Implementation
 
 import json
 import logging
-from typing import Any, Dict, Optional, Union, AsyncGenerator
+from collections.abc import AsyncIterator
 from enum import IntEnum
+from typing import Any, Dict, Optional, Union
 
 logger = logging.getLogger(__name__)
 
@@ -218,4 +219,4 @@ def is_streaming_result(result: Any) -> bool:
     Returns:
         True if async generator, False otherwise
     """
-    return isinstance(result, AsyncGenerator) or hasattr(result, "__aiter__")
+    return isinstance(result, AsyncIterator)

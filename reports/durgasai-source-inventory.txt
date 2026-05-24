@@ -1,5 +1,5 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Fri 05/22/2026  1:19:15.11
+Generated: Sun 05/24/2026 12:01:34.68
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
@@ -53,9 +53,11 @@ E:\durgas_ai\ai.backend\app\api\ws_methods\imagen.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\metrics.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\multimodal.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\nlp.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\notifications.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\nvidia.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\ollama.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\openrouter.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\orbit.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\rag.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\registry.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\reka.py
@@ -302,6 +304,7 @@ E:\durgas_ai\ai.backend\app\services\openrouter\embeddings.py
 E:\durgas_ai\ai.backend\app\services\openrouter\model_registry.py
 E:\durgas_ai\ai.backend\app\services\openrouter\monitoring.py
 E:\durgas_ai\ai.backend\app\services\openrouter\__init__.py
+E:\durgas_ai\ai.backend\app\services\orbit\codegen.py
 E:\durgas_ai\ai.backend\app\services\rag\base.py
 E:\durgas_ai\ai.backend\app\services\rag\chunking.py
 E:\durgas_ai\ai.backend\app\services\rag\document_loader.py
@@ -325,6 +328,8 @@ E:\durgas_ai\ai.backend\app\utils\bs4_attrs.py
 E:\durgas_ai\ai.backend\app\utils\file_handler.py
 E:\durgas_ai\ai.backend\app\utils\helpers.py
 E:\durgas_ai\ai.backend\app\utils\html_parser.py
+E:\durgas_ai\ai.backend\app\utils\logging_filters.py
+E:\durgas_ai\ai.backend\app\utils\telemetry.py
 E:\durgas_ai\ai.backend\app\utils\__init__.py
 
 === scripts ===
@@ -334,5 +339,6 @@ E:\durgas_ai\ai.backend\scripts\validate_env.py
 === tests ===
 E:\durgas_ai\ai.backend\tests\test_graphql_schema.py
 E:\durgas_ai\ai.backend\tests\test_open_meteo_weather.py
+E:\durgas_ai\ai.backend\tests\test_ws_gateway.py
 E:\durgas_ai\ai.backend\tests\council\test_verifier_rag.py
 E:\durgas_ai\ai.backend\tests\council\hallucination_eval\test_eval_harness.py

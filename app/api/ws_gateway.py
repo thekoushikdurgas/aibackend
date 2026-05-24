@@ -4,10 +4,13 @@ WebSocket Gateway - Unified JSON-RPC 2.0 Gateway for All Operations
 
 import logging
 import time
+from inspect import isawaitable
 from collections import defaultdict, deque
 from typing import Dict, Any, Optional, Callable
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Query
+from starlette.websockets import WebSocketDisconnect as StarletteWebSocketDisconnect
+from uvicorn.protocols.utils import ClientDisconnected
 
 from app.core.jsonrpc import (
     parse_request,
@@ -26,6 +29,17 @@ from app.config import settings
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
+
+
+def _is_websocket_closed_error(exc: BaseException) -> bool:
+    if isinstance(
+        exc,
+        (WebSocketDisconnect, StarletteWebSocketDisconnect, ClientDisconnected),
+    ):
+        return True
+    if isinstance(exc, RuntimeError) and "close message" in str(exc).lower():
+        return True
+    return False
 
 
 class WebSocketGateway:
@@ -130,7 +144,7 @@ class WebSocketGateway:
 
             # Execute handler
             try:
-                result = await handler(params, user=user, connection_id=connection_id)
+                result = handler(params, user=user, connection_id=connection_id)
                 await connection_manager.update_heartbeat(connection_id)
 
                 # Handle streaming vs non-streaming
@@ -139,12 +153,21 @@ class WebSocketGateway:
                     async for chunk in result:
                         await self._send_response(websocket, request_id, chunk)
                 else:
+                    if isawaitable(result):
+                        result = await result
                     # Single response
                     await self._send_response(websocket, request_id, result)
 
             except JSONRPCError as e:
                 await self._send_error(websocket, request_id, e.code, e.message, e.data)
             except Exception as e:
+                if _is_websocket_closed_error(e):
+                    logger.debug(
+                        "Client disconnected during %s (request %s)",
+                        method_name,
+                        request_id,
+                    )
+                    return
                 logger.error(f"Handler error for {method_name}: {e}", exc_info=True)
                 await self._send_error(
                     websocket,
@@ -154,17 +177,31 @@ class WebSocketGateway:
                 )
 
         except JSONRPCError as e:
-            # Parse/validation error - no request_id available
-            await websocket.send_json(
-                create_error_response(None, e.code, e.message, e.data)
+            await self._send_json_safe(
+                websocket, create_error_response(None, e.code, e.message, e.data)
             )
         except Exception as e:
+            if _is_websocket_closed_error(e):
+                logger.debug("Client disconnected while handling message")
+                return
             logger.error(f"Message handling error: {e}", exc_info=True)
-            await websocket.send_json(
+            await self._send_json_safe(
+                websocket,
                 create_error_response(
                     None, JSONRPCErrorCode.INTERNAL_ERROR, f"Internal error: {str(e)}"
-                )
+                ),
             )
+
+    async def _send_json_safe(self, websocket: WebSocket, payload: Any) -> bool:
+        """Send JSON on the socket; return False if the client already disconnected."""
+        try:
+            await websocket.send_json(payload)
+            return True
+        except Exception as e:
+            if _is_websocket_closed_error(e):
+                logger.debug("WebSocket send skipped (client disconnected)")
+                return False
+            raise
 
     async def _send_response(
         self, websocket: WebSocket, request_id: Optional[Any], result: Any
@@ -172,7 +209,7 @@ class WebSocketGateway:
         """Send JSON-RPC response"""
         if not is_notification({"id": request_id}):
             response = create_response(request_id, result)
-            await websocket.send_json(response)
+            await self._send_json_safe(websocket, response)
 
     async def _send_error(
         self,
@@ -185,7 +222,7 @@ class WebSocketGateway:
         """Send JSON-RPC error"""
         if not is_notification({"id": request_id}):
             response = create_error_response(request_id, code, message, data)
-            await websocket.send_json(response)
+            await self._send_json_safe(websocket, response)
 
     def _allow_request(self, key: str, *, limit: int) -> bool:
         now = time.time()
@@ -193,6 +230,20 @@ class WebSocketGateway:
         window = self._rate_windows[key]
         while window and window[0] < one_minute_ago:
             window.popleft()
+
+        # Prune inactive/empty rate limit windows periodically if dictionary grows too large
+        if len(self._rate_windows) > 1000:
+            inactive_keys = []
+            for k, win in list(self._rate_windows.items()):
+                while win and win[0] < one_minute_ago:
+                    win.popleft()
+                if not win:
+                    inactive_keys.append(k)
+            for k in inactive_keys:
+                del self._rate_windows[k]
+            # Ensure our active window is referenced correctly (or re-created if it was pruned)
+            window = self._rate_windows[key]
+
         if len(window) >= limit:
             return False
         window.append(now)
@@ -282,7 +333,10 @@ async def websocket_gateway(
     except WebSocketDisconnect:
         connection_manager.disconnect(connection_id)
     except Exception as e:
-        logger.error(f"WebSocket error: {e}", exc_info=True)
+        if _is_websocket_closed_error(e):
+            logger.debug("WebSocket closed: %s", connection_id)
+        else:
+            logger.error(f"WebSocket error: {e}", exc_info=True)
         connection_manager.disconnect(connection_id)
 
 

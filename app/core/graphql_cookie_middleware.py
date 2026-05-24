@@ -8,6 +8,8 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
 
+from app.core.middleware import _client_closed_response, _is_client_closed_exception
+
 _ATTR = "graphql_cookie_appliers"
 
 
@@ -27,7 +29,12 @@ class GraphqlResponseCookieMiddleware(BaseHTTPMiddleware):
     """Runs after the route; applies cookie callbacks registered by GraphQL resolvers."""
 
     async def dispatch(self, request: Request, call_next):
-        response = await call_next(request)
+        try:
+            response = await call_next(request)
+        except BaseException as exc:
+            if _is_client_closed_exception(exc):
+                return _client_closed_response()
+            raise
         appliers: List[Callable[[Response], None]] = getattr(request.state, _ATTR, [])
         for fn in appliers:
             fn(response)
