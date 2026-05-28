@@ -1,0 +1,8 @@
+-- Legacy placeholder: this file previously created Supabase Storage buckets and RLS policies.
+-- The backend now uses local filesystem storage under STORAGE_ROOT (see app/config.py and
+-- app/services/local_storage_service.py). Logical bucket names map to subdirectories:
+--   user-uploads, user-avatars, rag-documents (defaults: storage_bucket_* in Settings).
+--
+-- Docker: docker/docker-compose.yml attaches named volume backend_data at /app/data in the
+-- backend container. With defaults, files land under /app/data/storage (STORAGE_ROOT=./data/storage)
+-- alongside chroma and logs. No SQL is required for storage beyond normal Alembic migrations.

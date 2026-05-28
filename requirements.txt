@@ -1,0 +1,80 @@
+# FastAPI and ASGI
+fastapi==0.109.2
+uvicorn[standard]==0.27.1
+strawberry-graphql[fastapi]==0.315.3
+python-multipart==0.0.9
+# websockets 13+ API but <16 (Socket.IO / WS clients)
+websockets>=13,<16
+
+# AI/ML Libraries (RAG chunking uses app-local text splitters; no langchain dependency)
+sentence-transformers==2.5.1
+# 4.38.x pins tokenizers<0.19 (no cp313 Windows wheels — source build needs Rust)
+transformers>=4.46.0,<5
+tokenizers>=0.21.0,<0.22
+torch==2.2.0
+huggingface-hub>=0.26.0,<1
+
+# Vector Database (1.x has NumPy 2–compatible types; native wheels need grpcio + orjson)
+chromadb==1.5.9
+
+# Document Processing
+PyMuPDF==1.23.8
+python-docx==1.1.0
+tiktoken>=0.8.0,<1
+pandas==2.2.3
+openpyxl==3.1.5
+
+# Database (2.0.36+ fixes Python 3.13 TypingOnly / SQLCoreOperations)
+sqlalchemy==2.0.49
+asyncpg>=0.29,<0.31
+greenlet>=3.0,<4
+aiosqlite==0.20.0
+alembic==1.13.1
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0
+# passlib 1.7.4 is incompatible with bcrypt 4.1+ (__about__ removed, strict 72-byte checks in init)
+bcrypt>=4.1.0,<5
+slowapi==0.1.9
+
+# HTTP Client (chromadb 1.x expects httpx 0.26–0.28; starlette 0.36 TestClient breaks on 0.28+)
+httpx>=0.26,<0.28
+aiohttp>=3.10.0,<4
+
+# Caching (Optional Redis)
+redis==5.0.1
+
+# Configuration (pydantic-core pins help Python 3.13+ Windows wheels / avoid broken _pydantic_core)
+python-dotenv>=1.0.0
+pydantic>=2.10.0,<3
+pydantic-core>=2.27.0,<3
+pydantic-settings>=2.6.0
+
+# NumPy 2.x wheels on Python 3.13 (chromadb / ML stack); grpcio for chromadb telemetry path
+numpy>=2.1,<3
+grpcio>=1.68,<2
+
+# HTML Parsing
+beautifulsoup4==4.12.3
+lxml==5.1.0
+
+# Utilities
+tenacity==8.2.3
+structlog==24.1.0
+# Pin regex wheels on Python 3.13 (avoids broken partial installs during ML stack upgrades)
+regex>=2024.11.6
+
+# Realtime / async file I/O
+python-socketio[asyncio_client]>=5.11.0
+aiofiles>=24.1.0
+Pillow>=10.0.0
+
+# AWS SDK
+boto3>=1.35.0
+
+# Testing — prefer requirements-dev.txt for CI; kept here for minimal installs
+pytest==8.0.2
+pytest-asyncio==0.23.5
+
+# Host telemetry dependency
+psutil==7.2.2

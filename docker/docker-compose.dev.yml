@@ -1,0 +1,97 @@
+# Development stack (hot reload) — Postgres + backend + Redis + Chroma + Ollama.
+
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: postgres
+    ports:
+      - '${POSTGRES_EXTERNAL_PORT:-5432}:5432'
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    ports:
+      - '8000:8000'
+    env_file:
+      - ../.env
+    environment:
+      - ENVIRONMENT=development
+      - DATABASE_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/postgres
+      - POSTGRESQL_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/postgres
+    volumes:
+      - ../app:/app/app:cached
+      - backend_data:/app/data
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      chromadb:
+        condition: service_started
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '${REDIS_EXTERNAL_PORT:-6379}:6379'
+    volumes:
+      - redis_dev_data:/data
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  chromadb:
+    image: chromadb/chroma:latest
+    ports:
+      - '8001:8000'
+    volumes:
+      - chroma_dev_data:/chroma/chroma
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma/chroma
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - '11434:11434'
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+
+networks:
+  durgasai_network:
+    driver: bridge
+
+volumes:
+  postgres_dev_data:
+  backend_data:
+  redis_dev_data:
+  chroma_dev_data:
+  ollama_data:

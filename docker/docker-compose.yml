@@ -1,0 +1,111 @@
+# DurgasAI stack: Postgres + backend + Redis + Chroma + Ollama (no Supabase).
+#
+# EC2 / production: only backend publishes host port 8000. Other services stay on
+# durgasai_network. For local debugging via SSH tunnel, set in .env:
+#   POSTGRES_PUBLISH_HOST=127.0.0.1
+#   REDIS_PUBLISH_HOST=127.0.0.1
+#   OLLAMA_PUBLISH_HOST=127.0.0.1
+#   CHROMA_PUBLISH_HOST=127.0.0.1
+
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: postgres
+    ports:
+      - '${POSTGRES_PUBLISH_HOST:-127.0.0.1}:${POSTGRES_EXTERNAL_PORT:-5432}:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - '8000:8000'
+    env_file:
+      - ../.env
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/postgres
+      - POSTGRESQL_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/postgres
+      - REDIS_URL=redis://redis:6379/0
+      - USE_REDIS=true
+      - OLLAMA_BASE_URL=http://ollama:11434/api
+    volumes:
+      - backend_data:/app/data
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      chromadb:
+        condition: service_started
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8000/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '${REDIS_PUBLISH_HOST:-127.0.0.1}:${REDIS_EXTERNAL_PORT:-6379}:6379'
+    volumes:
+      - redis_data:/data
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - '${OLLAMA_PUBLISH_HOST:-127.0.0.1}:11434:11434'
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+
+  chromadb:
+    image: chromadb/chroma:latest
+    ports:
+      - '${CHROMA_PUBLISH_HOST:-127.0.0.1}:8001:8000'
+    volumes:
+      - chroma_data:/chroma/chroma
+    networks:
+      - durgasai_network
+    restart: unless-stopped
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma/chroma
+
+networks:
+  durgasai_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  backend_data:
+  redis_data:
+  ollama_data:
+  chroma_data:

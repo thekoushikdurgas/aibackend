@@ -1,0 +1,203 @@
+# DurgasAI Backend
+
+FastAPI backend with AI agents for the DurgasAI Chrome extension.
+
+## Features
+
+- **WebSocket-Only Architecture**: All operations via single WebSocket endpoint using JSON-RPC 2.0
+- **Multi-Provider LLM Support**: Ollama, Hugging Face, Google Gemini, Groq, NVIDIA, AI21, and more
+- **AI Agents**: Specialized agents for page analysis, content extraction, SEO, and more
+- **RAG System**: ChromaDB-powered semantic search and retrieval
+- **Real-time Streaming**: All operations support real-time streaming responses
+- **Base64 File Uploads**: Unified file handling for images, audio, and documents
+- **Production Ready**: JWT auth, rate limiting, Docker support
+
+## Quick Start
+
+### Prerequisites
+
+- Python 3.10+
+- Ollama (optional, for local models)
+- Redis (optional, for caching)
+
+### Installation
+
+1. Clone and navigate to the backend directory:
+
+```bash
+cd ai.backend
+```
+
+1. Create virtual environment:
+
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# or
+.\venv\Scripts\activate  # Windows
+```
+
+1. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+1. Copy and configure environment:
+
+```bash
+cp .env.example .env
+# Edit .env with your API keys, DATABASE_URL, JWT_SECRET_KEY, etc.
+```
+
+1. Run the server:
+
+```bash
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+### Using Docker
+
+Full reference: **[docker/README.md](./docker/README.md)**.
+
+**Steps (short):**
+
+1. **`cd ai.backend`**
+2. **`cp .env.example .env`** and fill secrets (Compose expects `.env` here). On Linux/macOS you can use **`./scripts/docker-up.sh`** instead of manual `docker compose` — it copies env templates and runs the stack (see [docker/README.md](./docker/README.md)).
+3. **Production-style stack** (Postgres + Redis + ChromaDB + Ollama + API):
+
+   ```bash
+   docker compose --env-file .env -f compose.yaml up -d --build
+   ```
+
+   Root [`compose.yaml`](./compose.yaml) includes [`docker/docker-compose.yml`](./docker/docker-compose.yml); requires **Compose v2.20+** for `include:`.
+
+4. **Development stack** (bind-mount `app/`, `--reload`, Redis + ChromaDB + Ollama):
+
+   ```bash
+   docker compose --env-file .env -f compose.dev.yaml up --build
+   ```
+
+5. Check **`curl http://localhost:8000/health`**.
+
+On **Linux/macOS**, [`scripts/docker-up.sh`](./scripts/docker-up.sh) wraps the same Compose commands as `scripts\docker-up.bat`. For a full local quality gate (same steps as [`codebase.bat`](./codebase.bat)), run **`./codebase.sh`** from `ai.backend`; use **`SKIP_DEV_SERVER=1`** in CI or SSH so the script does not prompt to start uvicorn.
+
+**Endpoints:** HTTP GraphQL `POST http://localhost:8000/graphql`. WebSocket JSON-RPC `ws://localhost:8000/ws/gateway`. Signed file downloads: HTTP `GET` under `STORAGE_URL_PREFIX` (default `/files/...`). Socket.IO (app push): same host and port as the API, path `SOCKETIO_MOUNT_PATH` (default `/realtime`). Published ports are summarized in [docker/README.md](./docker/README.md).
+
+Build context excludes `venv/` and tests via [`.dockerignore`](./.dockerignore).
+
+### GitHub Actions
+
+| Workflow   | File                                                             | Purpose                                                                                                                                                                                                                                                              |
+| ---------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **API CI** | [`.github/workflows/api-ci.yml`](./.github/workflows/api-ci.yml) | On push/PR: **ruff**, **black**, **mypy** (non-blocking), optional `scripts/check_best_practices.py`, **`validate_env`**, **pytest** + coverage with **Postgres 15** service. Installs `requirements.txt` + [`requirements-dev.txt`](./requirements-dev.txt).        |
+| **Deploy** | [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) | After **API CI** on `main` or **workflow_dispatch**: SSH to EC2 (`54.146.221.133` — see [`deploy/EC2.md`](./deploy/EC2.md)), `git reset`, [`deploy/remote-deploy.sh`](./deploy/remote-deploy.sh). Secrets: [`deploy/GITHUB_SECRETS.md`](./deploy/GITHUB_SECRETS.md). |
+
+## API Documentation
+
+**Architecture**: This backend uses **100% WebSocket-only** architecture with **JSON-RPC 2.0** protocol. All operations go through a single WebSocket endpoint.
+
+### WebSocket Endpoint
+
+```
+ws://localhost:8000/ws/gateway
+```
+
+### Documentation
+
+- **Architecture Overview**: See [ARCHITECTURE.md](../ARCHITECTURE.md)
+- **Complete API Reference**: See [API_REFERENCE.md](../API_REFERENCE.md)
+- **Method Handlers**: See `app/api/ws_methods/` directory
+
+### Quick Example
+
+```javascript
+// Connect
+const ws = new WebSocket('ws://localhost:8000/ws/gateway');
+
+// Send request
+ws.send(
+  JSON.stringify({
+    jsonrpc: '2.0',
+    id: 'req-1',
+    method: 'chat.completions',
+    params: {
+      message: 'Hello!',
+      provider: 'groq',
+      stream: true,
+    },
+  })
+);
+
+// Receive streaming responses
+ws.onmessage = (event) => {
+  const response = JSON.parse(event.data);
+  if (response.result.type === 'chunk') {
+    console.log(response.result.content);
+  }
+};
+```
+
+### Available Methods (50+)
+
+**System**: `system.health`, `system.ready`, `system.live`
+
+**Chat**: `chat.completions`, `chat.providers`, `chat.conversations.*`
+
+**Agents**: `agents.list`, `agents.analyze`, `agents.auto_analyze`, `agents.batch_analyze`
+
+**Vision**: `vision.analyze`, `vision.nvidia`
+
+**Multimodal**: `multimodal.text_to_image`, `multimodal.image_to_text`, `multimodal.speech_to_text`, `multimodal.text_to_speech`
+
+**Providers**: `groq.*`, `nvidia.*`, `ollama.*`, and more
+
+**RAG**: `rag.query`, `rag.ingest`, `rag.delete`, `rag.list`
+
+**Auth**: `auth.signup`, `auth.signin`, `auth.signout`, `auth.refresh`, `auth.verify`, `auth.reset_password_request`, `auth.reset_password`, `auth.update_user`, `auth.magic_link`, `auth.oauth_url`
+
+**Storage**: `storage.upload`, `storage.download`, `storage.delete`, `storage.list`, `storage.move`, `storage.get_url`, `storage.create_signed_url`, `storage.buckets.list`
+
+See [docs/API_QUICK_REFERENCE.md](docs/API_QUICK_REFERENCE.md) for complete method list.
+
+## Available Agents
+
+1. **Page Analyzer**: Deep HTML structure analysis
+2. **Content Extractor**: Extract structured data
+3. **SEO Agent**: SEO analysis and recommendations
+4. **Image Analyzer**: Image analysis and optimization
+5. **Research Agent**: Summarization and research
+6. **Council Agent**: Multi-model deliberation with peer review
+7. **Website Scraper**: Comprehensive website analysis with smart scraping
+
+Use the `agents.list` method to get all available agents with descriptions.
+
+## Configuration
+
+All options are defined on the **`Settings`** model in [`app/config.py`](./app/config.py). At runtime, values come from **environment variables** and an optional **`.env`** file in this directory (see [`.env.example`](./.env.example)). Use **UPPER_SNAKE** names that match each field (for example `GROQ_API_KEY`, `DATABASE_URL`, `ENVIRONMENT`).
+
+Legacy `config/*.json` files are no longer used; see [`config/README.md`](./config/README.md) for a short migration note.
+
+## Development
+
+```bash
+# Install dev dependencies
+pip install -r requirements-dev.txt
+
+# Run tests
+pytest
+
+# Format code
+black app/
+isort app/
+```
+
+### Local quality gate (`codebase.bat` / `codebase.sh`)
+
+From `ai.backend`, **`codebase.bat`** (Windows) or **`./codebase.sh`** runs pip install, mypy, black, ruff, pytest, and an import smoke test. On **Windows**, `pip check` often reports many packages as “not supported on this platform” even when imports succeed (binary wheel metadata). **`codebase.bat`** skips `pip check` automatically on **Windows with Python 3.13+**; set **`FORCE_PIP_CHECK=1`** to run it anyway, or **`SKIP_PIP_CHECK=1`** to skip on other setups. In CI (Linux), `pip check` is usually quiet.
+
+For **non-interactive** runs (no “Start API server?” prompt), use **`SKIP_DEV_SERVER=1`** or **`NO_PROMPT=1`** with `codebase.bat`, or **`SKIP_DEV_SERVER=1`** / **`NO_PROMPT=1`** with `codebase.sh`, as documented in the script headers.
+
+## License
+
+MIT

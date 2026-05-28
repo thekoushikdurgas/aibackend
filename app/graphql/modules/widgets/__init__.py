@@ -1,0 +1,1 @@
+# Widget layout GraphQL module

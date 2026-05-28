@@ -1,0 +1,49 @@
+# Build context is the ai.backend repo root (docker/docker-compose.yml build.context: ..; root compose.yaml).
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitattributes
+
+# Local secrets (never bake into images)
+.env
+.env.local
+.env.production
+# Allow documenting env template in repo if needed for tooling (usually not copied into image anyway)
+!.env.example
+
+# Heavy / unnecessary for runtime image
+tests/
+docs/
+reports/
+*.md
+!README.md
+
+# Node / tooling noise if present
+node_modules/

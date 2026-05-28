@@ -1,0 +1,52 @@
+# Dependencies & tooling
+node_modules/
+venv/
+env/
+.venv/
+ENV/
+
+# Python / test / type caches
+**/__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.py[cod]
+*$py.class
+
+# Builds & coverage
+build/
+dist/
+*.egg-info/
+htmlcov/
+.coverage
+coverage.xml
+*.whl
+
+# Secrets & local config (match .gitignore)
+.env
+.env.*
+
+# Large / generated logs (not source)
+error.txt
+**/error.txt
+
+# CI / script generated reports (not hand-edited)
+reports/
+
+# Vendored or nested projects with their own toolchain
+docs/llm-council-master/
+
+# Lockfiles: avoid churn and merge noise
+package-lock.json
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Data & DB artifacts
+*.db
+*.sqlite
+*.sqlite3
+data/

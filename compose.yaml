@@ -1,0 +1,8 @@
+# Compose entrypoint — uses `docker/docker-compose.yml` (Postgres + backend + deps).
+#
+# Manual: docker compose --env-file .env -f compose.yaml up -d
+#
+# Requires Docker Compose v2.20+ (include). Paths under docker/ stay relative to docker/.
+
+include:
+  - path: docker/docker-compose.yml
