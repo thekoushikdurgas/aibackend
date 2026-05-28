@@ -76,10 +76,10 @@ jobs:
 
             mkdir -p "$BACKEND_DIR"
             cd "$BACKEND_DIR"
-
+            sudo chmod 600 .env
             # Env passthrough avoids bash expanding ${…} inside the secret body (would break with set -u).
             printf '%s\n' "${ENV_FILE_CONTENT:-}" > .env
-            chmod 600 .env || true
+            sudo chmod 600 .env || true
 
             bash deploy/remote-deploy.sh
             bash deploy/verify-stack.sh
