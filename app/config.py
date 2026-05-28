@@ -339,6 +339,11 @@ class Settings(BaseSettings):
     # Large prompts (e.g. resume + job description) on remote CPUs often exceed 120s; see error.txt ReadTimeout.
     ollama_completion_timeout_seconds: float = 600.0
 
+    # Gemma Configuration
+    gemma_mode: str = "simulated"  # "simulated", "local", "ollama", "api"
+    gemma_model: str = "google/gemma-3-270m-it"
+    gemma_checkpoint_path: Optional[str] = None
+
     # Council Configuration
     council_min_models: int = 3
     council_max_models: int = 5

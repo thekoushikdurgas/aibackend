@@ -342,6 +342,20 @@ AI_PROVIDER_SECTIONS: Tuple[SectionSpec, ...] = (
             FieldSpec("elevenlabs_base_url", "Base URL", "url"),
         ),
     ),
+    SectionSpec(
+        id="gemma",
+        title="Google Gemma",
+        fields=(
+            FieldSpec(
+                "gemma_mode",
+                "Execution Mode",
+                "enum",
+                enum_options=("simulated", "local", "ollama", "api"),
+            ),
+            FieldSpec("gemma_model", "Default Gemma Model", "string"),
+            FieldSpec("gemma_checkpoint_path", "Checkpoint Path (Local JAX)", "string"),
+        ),
+    ),
 )
 
 
