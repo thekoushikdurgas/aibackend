@@ -137,3 +137,4 @@ Stop or remove the `ollama` service in Compose to save RAM, or leave it unused.
 | CORS errors in browser | `CORS_ORIGINS` includes exact frontend origin |
 | Deploy skips verify | `VERIFY_REQUIRE_DOCKER=1`; docker on PATH for SSH user |
 | `permission denied` on `docker.sock` | After bootstrap: `newgrp docker` or exit SSH and reconnect; or re-run deploy (auto `sudo docker` fallback) |
+| `cannot assign requested address` on `54.x.x.x:11434` | Remove `OLLAMA_PUBLISH_HOST` / `*_PUBLISH_HOST` from `.env` if set to the public IP. Only port **8000** is exposed; Ollama is `http://ollama:11434` inside Compose. |

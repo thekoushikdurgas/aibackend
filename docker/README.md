@@ -28,7 +28,7 @@ docker compose --env-file .env -f compose.yaml up -d --build
 
 ## EC2 production
 
-See [`../deploy/EC2.md`](../deploy/EC2.md). Only **backend** port `8000` is exposed on all interfaces; Postgres, Redis, Ollama, and Chroma bind to **`127.0.0.1`** on the host by default.
+See [`../deploy/EC2.md`](../deploy/EC2.md). Only **backend** port `8000` is published on the host; Postgres, Redis, Ollama, and Chroma are internal to the Compose network only.
 
 ## Notes
 

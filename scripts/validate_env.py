@@ -53,9 +53,40 @@ def _dotenv_keys(path: Path) -> dict[str, str]:
     return out
 
 
+_PUBLISH_HOST_KEYS = (
+    "POSTGRES_PUBLISH_HOST",
+    "REDIS_PUBLISH_HOST",
+    "OLLAMA_PUBLISH_HOST",
+    "CHROMA_PUBLISH_HOST",
+)
+
+
+def _docker_publish_host_issues(env_keys: dict[str, str]) -> list[str]:
+    """Reject binding Docker ports to a public IP (common EC2 mistake)."""
+    issues: list[str] = []
+    allowed = {"127.0.0.1", "0.0.0.0", "localhost", ""}
+    for key in _PUBLISH_HOST_KEYS:
+        val = (env_keys.get(key) or "").strip()
+        if not val or val in allowed:
+            continue
+        if val.startswith("54.") or val.count(".") == 3:
+            issues.append(
+                f"{key}={val!r} — do not use a public EC2 IP for Docker port bind. "
+                "Production compose does not publish db/redis/ollama/chroma ports; "
+                "remove this line or set 127.0.0.1 only for local dev overrides."
+            )
+        elif val not in allowed:
+            issues.append(
+                f"{key}={val!r} — use 127.0.0.1 or 0.0.0.0 if you need host ports "
+                "(production stack uses internal network only)."
+            )
+    return issues
+
+
 def _docker_preflight(env_keys: dict[str, str], *, production: bool) -> list[str]:
     """Warnings for docker compose (see docker/docker-compose.yml)."""
     issues: list[str] = []
+    issues.extend(_docker_publish_host_issues(env_keys))
     pwd = (env_keys.get("POSTGRES_PASSWORD") or "").strip()
     if not pwd:
         issues.append(
@@ -175,6 +206,11 @@ def main(argv: list[str] | None = None) -> int:
         if args.docker:
             for msg in _docker_preflight(keys, production=production):
                 print(f"validate_env: warning: {msg}", file=sys.stderr)
+            publish_bad = _docker_publish_host_issues(keys)
+            for msg in publish_bad:
+                print(f"validate_env: {msg}", file=sys.stderr)
+            if publish_bad and production:
+                return 1
         if args.strict:
             bad = _strict_preflight_from_keys(keys)
             for msg in bad:
@@ -215,6 +251,11 @@ def main(argv: list[str] | None = None) -> int:
         keys = _dotenv_keys(_DOTENV)
         for msg in _docker_preflight(keys, production=settings.is_production):
             print(f"validate_env: warning: {msg}", file=sys.stderr)
+        publish_bad = _docker_publish_host_issues(keys)
+        for msg in publish_bad:
+            print(f"validate_env: {msg}", file=sys.stderr)
+        if publish_bad and settings.is_production:
+            return 1
 
     if args.verbose:
         db = getattr(settings, "database_url", "")

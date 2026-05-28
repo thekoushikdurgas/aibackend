@@ -1,11 +1,9 @@
 # DurgasAI stack: Postgres + backend + Redis + Chroma + Ollama (no Supabase).
 #
-# EC2 / production: only backend publishes host port 8000. Other services stay on
-# durgasai_network. For local debugging via SSH tunnel, set in .env:
-#   POSTGRES_PUBLISH_HOST=127.0.0.1
-#   REDIS_PUBLISH_HOST=127.0.0.1
-#   OLLAMA_PUBLISH_HOST=127.0.0.1
-#   CHROMA_PUBLISH_HOST=127.0.0.1
+# EC2 / production: only backend publishes host port 8000. db/redis/ollama/chromadb
+# are reachable on durgasai_network only (do not set *_PUBLISH_HOST to a public EIP —
+# AWS public IPs are not on the instance NIC and Docker bind will fail).
+# For host port access locally, use compose.dev.yaml or docker-compose.dev.yml.
 
 services:
   db:
@@ -14,8 +12,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_DB: postgres
-    ports:
-      - '${POSTGRES_PUBLISH_HOST:-127.0.0.1}:${POSTGRES_EXTERNAL_PORT:-5432}:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -62,8 +58,6 @@ services:
 
   redis:
     image: redis:7-alpine
-    ports:
-      - '${REDIS_PUBLISH_HOST:-127.0.0.1}:${REDIS_EXTERNAL_PORT:-6379}:6379'
     volumes:
       - redis_data:/data
     networks:
@@ -78,8 +72,6 @@ services:
 
   ollama:
     image: ollama/ollama:latest
-    ports:
-      - '${OLLAMA_PUBLISH_HOST:-127.0.0.1}:11434:11434'
     volumes:
       - ollama_data:/root/.ollama
     networks:
@@ -88,8 +80,6 @@ services:
 
   chromadb:
     image: chromadb/chroma:latest
-    ports:
-      - '${CHROMA_PUBLISH_HOST:-127.0.0.1}:8001:8000'
     volumes:
       - chroma_data:/chroma/chroma
     networks:

@@ -45,7 +45,11 @@ bootstrap_env_files() {
 compose_env_args() {
   local merged
   merged="$(mktemp "${TMPDIR:-/tmp}/aibackend.deploy.compose.XXXXXX.env")"
-  cat .env >"$merged"
+  # Production compose does not publish internal service ports; strip legacy *_PUBLISH_HOST.
+  grep -v -E '^(POSTGRES|REDIS|OLLAMA|CHROMA)_PUBLISH_HOST=' .env >"$merged" 2>/dev/null || true
+  if [[ ! -s "$merged" ]]; then
+    cat .env >"$merged"
+  fi
   chmod 600 "$merged" 2>/dev/null || true
   COMPOSE_MERGED_ENV="$merged"
   COMPOSE_ENV=(--env-file "$COMPOSE_MERGED_ENV")

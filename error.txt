@@ -1,10 +1,21 @@
+ubuntu@ip-172-31-94-206:~/aibackend$ git pull
+Updating 695bb66..2e5d349
+Fast-forward
+ deploy/EC2.md           |   1 +
+ deploy/docker-cli.sh    |  58 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ deploy/ec2-bootstrap.sh |   7 ++++---
+ deploy/remote-deploy.sh |  34 ++++++++++++++++++++--------------
+ deploy/verify-stack.sh  |  18 ++++++++++++------
+ error.txt               | 155 +++++++++++++++++++++++++++++++++++++----------------------------------------------------------------------------------------------------------------------
+ 6 files changed, 132 insertions(+), 141 deletions(-)
+ create mode 100644 deploy/docker-cli.sh
 ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/ec2-bootstrap.sh
 bash deploy/ec2-bootstrap.sh
 [bootstrap] Installing packages...
 Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute InRelease
 Hit:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-updates InRelease
 Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-backports InRelease
-Hit:4 http://security.ubuntu.com/ubuntu resolute-security InRelease       
+Hit:4 http://security.ubuntu.com/ubuntu resolute-security InRelease
 Hit:5 https://download.docker.com/linux/ubuntu resolute InRelease
 Reading package lists... Done
 Reading package lists... Done
@@ -17,22 +28,87 @@ python3 is already the newest version (3.14.3-0ubuntu2).
 Solving dependencies... Done
 0 upgraded, 0 newly installed, 0 to remove and 33 not upgraded.
 [bootstrap] docker compose version: 5.1.4 (need >= 2.20 for compose.yaml include:)
-[bootstrap] Added ubuntu to docker group (log out/in if docker permission denied).
+[bootstrap] Added ubuntu to docker group.
 [bootstrap] Repo already exists at /home/ubuntu/aibackend
 [bootstrap] Done.
   1. Edit /home/ubuntu/aibackend/.env (JWT_SECRET_KEY, API_KEY, POSTGRES_PASSWORD, CORS_ORIGINS, …)
   2. Open security group TCP 8000
-  3. cd /home/ubuntu/aibackend && bash deploy/remote-deploy.sh && bash deploy/verify-stack.sh
-  4. curl -fsS http://127.0.0.1:8000/health
+  3. Exit SSH and reconnect (or run: newgrp docker) so docker.sock works without sudo
+  4. cd /home/ubuntu/aibackend && bash deploy/remote-deploy.sh && bash deploy/verify-stack.sh
+  5. curl -fsS http://127.0.0.1:8000/health
   Note: Do not pip install requirements on the host unless using Python 3.11/3.12.
         Production runs in Docker (python:3.11-slim). Host python3 is only for validate_env --dotenv-only.
   See deploy/EC2.md for GitHub Actions secrets.
 ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/remote-deploy.sh
 bash deploy/remote-deploy.sh
 [deploy] ROOT=/home/ubuntu/aibackend
-[deploy] validate_env (/home/ubuntu/aibackend/venv/bin/python, dotenv-only — host lacks venv; full check runs in backend container)
+[deploy] WARNING: permission denied on docker.sock — using sudo for this run.
+[deploy] Permanent fix: exit SSH and reconnect, or run: newgrp docker
+[deploy] validate_env (/home/ubuntu/aibackend/venv/bin/python, dotenv-only — full check runs in backend container)
 validate_env: OK - .env preflight (dotenv-only)
 [deploy] docker compose --env-file … -f compose.yaml up -d --build
-unable to get image 'aibackend-backend': permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
-unable to get image 'chromadb/chroma:latest': permission denied while trying to connect to the docker API at unix:///var/run/docker.sock
-ubuntu@ip-172-31-94-206:~/aibackend$ 
+[+] pull 37/37
+ ✔ backend                      Skipped No image to be pulled                                                                                                                                                           0.0s
+ ✔ Image redis:7-alpine         Pulled                                                                                                                                                                                  4.7s
+ ✔ Image ollama/ollama:latest   Pulled                                                                                                                                                                                180.6s
+ ✔ Image chromadb/chroma:latest Pulled                                                                                                                                                                                 51.2s
+ ✔ Image postgres:15-alpine     Pulled                                                                                                                                                                                 34.2s
+[+] Building 967.6s (22/22) FINISHED
+ => [internal] load local bake definitions                                                                                                                                                                             0.0s
+ => => reading from stdin 511B                                                                                                                                                                                         0.0s
+ => [internal] load build definition from Dockerfile                                                                                                                                                                   1.5s
+ => => transferring dockerfile: 1.92kB                                                                                                                                                                                 0.0s
+ => [internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                    2.1s
+ => [internal] load .dockerignore                                                                                                                                                                                      0.0s
+ => => transferring context: 733B                                                                                                                                                                                      0.0s 
+ => [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                      2.6s 
+ => => resolve docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                              0.0s 
+ => => sha256:45006ceeeea9e2ca59a046b6f4ac9a212e4b27b3d8d6e7d348b03f0aaccdac99 250B / 250B                                                                                                                             0.0s 
+ => => sha256:8649771fee179d7c2590c94f533aaa5fceb70e36e25dec83672fe836d99577c5 1.29MB / 1.29MB                                                                                                                         0.1s 
+ => => sha256:797d495f2c68eb4664df918d39078ca04612d7ef47c57b5c784f7f6eedd42bf5 14.37MB / 14.37MB                                                                                                                       0.4s
+ => => sha256:5b4d6ff92fc4e14e911b7753c954fac965d48c40fe1075758d284148ccace970 29.78MB / 29.78MB                                                                                                                       0.5s 
+ => => extracting sha256:5b4d6ff92fc4e14e911b7753c954fac965d48c40fe1075758d284148ccace970                                                                                                                              1.0s
+ => => extracting sha256:8649771fee179d7c2590c94f533aaa5fceb70e36e25dec83672fe836d99577c5                                                                                                                              0.1s 
+ => => extracting sha256:797d495f2c68eb4664df918d39078ca04612d7ef47c57b5c784f7f6eedd42bf5                                                                                                                              0.7s 
+ => => extracting sha256:45006ceeeea9e2ca59a046b6f4ac9a212e4b27b3d8d6e7d348b03f0aaccdac99                                                                                                                              0.0s 
+ => [internal] load build context                                                                                                                                                                                      0.2s 
+ => => transferring context: 2.18MB                                                                                                                                                                                    0.2s 
+ => [builder 2/6] WORKDIR /app                                                                                                                                                                                         4.5s 
+ => [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                             17.5s
+ => [stage-1  3/11] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                            7.3s 
+ => [builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                         6.0s 
+ => [builder 5/6] COPY requirements.txt .                                                                                                                                                                              0.1s 
+ => [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                 233.4s 
+ => [stage-1  4/11] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                          128.1s 
+ => [stage-1  5/11] COPY app/ ./app/                                                                                                                                                                                   0.8s 
+ => [stage-1  6/11] COPY config/ ./config/                                                                                                                                                                             0.1s 
+ => [stage-1  7/11] COPY alembic.ini .                                                                                                                                                                                 0.0s 
+ => [stage-1  8/11] COPY alembic/ ./alembic/                                                                                                                                                                           0.1s 
+ => [stage-1  9/11] COPY scripts/validate_env.py ./scripts/validate_env.py                                                                                                                                             0.0s 
+ => [stage-1 10/11] RUN mkdir -p /app/data/chroma /app/data/logs /app/data/storage                                                                                                                                     0.4s 
+ => [stage-1 11/11] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                            1.8s 
+ => exporting to image                                                                                                                                                                                               445.4s 
+ => => exporting layers                                                                                                                                                                                              347.9s 
+ => => exporting manifest sha256:98c4ef8b8cb3bf5692d1968799bf54b4748e9e2dc752da735c55de889c991d4f                                                                                                                      0.0s
+ => => exporting config sha256:aa93ee51b96e34393a504f6ca6cef32ec43dee6421079f9b65697bde3e51953e                                                                                                                        0.0s 
+ => => exporting attestation manifest sha256:ce08566642592ae06943b81ff133c6f5188693bbb94f2461aeb677b1fb126951                                                                                                          0.0s 
+ => => exporting manifest list sha256:e8da6fb40accbbacfb6cd5c27a1996bc2c587445454fe9b6a16ca7987f5ff575                                                                                                                 0.0s 
+ => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                            0.0s 
+ => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                        97.3s 
+ => resolving provenance for metadata file                                                                                                                                                                             0.0s 
+[+] up 8/122
+ ✔ Image aibackend-backend            Built                                                                                                                                                                           968.0s
+ ✔ Network aibackend_durgasai_network Created                                                                                                                                                                           0.1s
+ ✔ Volume aibackend_ollama_data       Created                                                                                                                                                                           0.0s
+ ✔ Volume aibackend_chroma_data       Created                                                                                                                                                                           0.0s
+ ✔ Volume aibackend_postgres_data     Created                                                                                                                                                                           0.0s
+ ✔ Volume aibackend_backend_data      Created                                                                                                                                                                           0.0s
+ ✔ Volume aibackend_redis_data        Created                                                                                                                                                                           0.0s
+ ⠧ Container aibackend-ollama-1       Starting                                                                                                                                                                          1.9s
+ ⠧ Container aibackend-db-1           Starting                                                                                                                                                                          1.9s
+ ⠇ Container aibackend-redis-1        Starting                                                                                                                                                                          1.9s
+ ⠧ Container aibackend-chromadb-1     Starting                                                                                                                                                                          1.9s
+ ✔ Container aibackend-backend-1      Created                                                                                                                                                                           0.1s
+Error response from daemon: failed to set up container networking: driver failed programming external connectivity on endpoint aibackend-ollama-1 (e30790788713f90d1ffd5d446c0d6f7e7aa2a24fbe1f74378168d5daca3a5107): failed to bind host port 54.146.221.133:11434/tcp: cannot assign requested address
+ubuntu@ip-172-31-94-206:~/aibackend$
+
