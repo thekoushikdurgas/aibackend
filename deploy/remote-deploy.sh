@@ -15,6 +15,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 # shellcheck source=deploy/docker-cli.sh
 source "$(dirname "${BASH_SOURCE[0]}")/docker-cli.sh"
+# shellcheck source=deploy/sanitize-dotenv.sh
+source "$(dirname "${BASH_SOURCE[0]}")/sanitize-dotenv.sh"
 
 # Non-login SSH sessions often use a minimal PATH; docker may be in /usr/local/bin or /snap/bin.
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin${PATH:+:$PATH}"
@@ -43,14 +45,16 @@ bootstrap_env_files() {
 }
 
 compose_env_args() {
-  local merged
+  local merged filtered
   merged="$(mktemp "${TMPDIR:-/tmp}/aibackend.deploy.compose.XXXXXX.env")"
-  # Production compose does not publish internal service ports; strip legacy *_PUBLISH_HOST.
-  grep -v -E '^(POSTGRES|REDIS|OLLAMA|CHROMA)_PUBLISH_HOST=' .env >"$merged" 2>/dev/null || true
+  filtered="$(mktemp "${TMPDIR:-/tmp}/aibackend.deploy.filtered.XXXXXX.env")"
+  sanitize_dotenv_for_compose .env "$filtered"
+  grep -v -E '^(POSTGRES|REDIS|OLLAMA|CHROMA)_PUBLISH_HOST=' "$filtered" >"$merged" 2>/dev/null || cp "$filtered" "$merged"
+  rm -f "$filtered"
   if [[ ! -s "$merged" ]]; then
-    cat .env >"$merged"
+    echo "[deploy] ERROR: .env has no valid KEY=VALUE lines for Compose (check for paste corruption like [200~)."
+    exit 1
   fi
-  chmod 600 "$merged" 2>/dev/null || true
   COMPOSE_MERGED_ENV="$merged"
   COMPOSE_ENV=(--env-file "$COMPOSE_MERGED_ENV")
 }

@@ -42,6 +42,9 @@ def _dotenv_keys(path: Path) -> dict[str, str]:
         return out
     for raw in path.read_text(encoding="utf-8", errors="replace").splitlines():
         line = raw.strip()
+        # Bracketed-paste corruption from SSH/nano (e.g. [200~# header)
+        if re.match(r"^\[\d+~", line):
+            line = re.sub(r"^\[\d+~", "", line).lstrip()
         if not line or line.startswith("#"):
             continue
         if "=" not in line:
@@ -59,6 +62,21 @@ _PUBLISH_HOST_KEYS = (
     "OLLAMA_PUBLISH_HOST",
     "CHROMA_PUBLISH_HOST",
 )
+
+
+def _dotenv_corruption_issues(path: Path) -> list[str]:
+    """Detect terminal paste artifacts that break Docker Compose env-file parsing."""
+    issues: list[str] = []
+    if not path.is_file():
+        return issues
+    for raw in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        if re.match(r"^\[\d+~", raw.strip()):
+            issues.append(
+                ".env contains bracketed-paste junk (e.g. [200~ at line start). "
+                "Re-create .env: cp .env.example .env && nano, or paste without bracketed mode."
+            )
+            break
+    return issues
 
 
 def _docker_publish_host_issues(env_keys: dict[str, str]) -> list[str]:
@@ -203,6 +221,9 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         keys = _dotenv_keys(_DOTENV)
         production = (keys.get("ENVIRONMENT") or "").lower() == "production"
+        for msg in _dotenv_corruption_issues(_DOTENV):
+            print(f"validate_env: {msg}", file=sys.stderr)
+            return 1
         if args.docker:
             for msg in _docker_preflight(keys, production=production):
                 print(f"validate_env: warning: {msg}", file=sys.stderr)
