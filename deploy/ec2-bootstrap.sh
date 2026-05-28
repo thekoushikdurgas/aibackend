@@ -28,7 +28,7 @@ echo "[bootstrap] docker compose version: ${COMPOSE_VER:-unknown} (need >= 2.20 
 
 if id ubuntu >/dev/null 2>&1; then
   sudo usermod -aG docker ubuntu || true
-  echo "[bootstrap] Added ubuntu to docker group (log out/in if docker permission denied)."
+  echo "[bootstrap] Added ubuntu to docker group."
 fi
 
 if [[ ! -d "$REPO_ROOT/.git" ]]; then
@@ -50,8 +50,9 @@ fi
 echo "[bootstrap] Done."
 echo "  1. Edit $REPO_ROOT/.env (JWT_SECRET_KEY, API_KEY, POSTGRES_PASSWORD, CORS_ORIGINS, …)"
 echo "  2. Open security group TCP 8000"
-echo "  3. cd $REPO_ROOT && bash deploy/remote-deploy.sh && bash deploy/verify-stack.sh"
-echo "  4. curl -fsS http://127.0.0.1:8000/health"
+echo "  3. Exit SSH and reconnect (or run: newgrp docker) so docker.sock works without sudo"
+echo "  4. cd $REPO_ROOT && bash deploy/remote-deploy.sh && bash deploy/verify-stack.sh"
+echo "  5. curl -fsS http://127.0.0.1:8000/health"
 echo "  Note: Do not pip install requirements on the host unless using Python 3.11/3.12."
 echo "        Production runs in Docker (python:3.11-slim). Host python3 is only for validate_env --dotenv-only."
 echo "  See deploy/EC2.md for GitHub Actions secrets."

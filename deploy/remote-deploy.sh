@@ -13,13 +13,25 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
+# shellcheck source=deploy/docker-cli.sh
+source "$(dirname "${BASH_SOURCE[0]}")/docker-cli.sh"
 
 # Non-login SSH sessions often use a minimal PATH; docker may be in /usr/local/bin or /snap/bin.
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin${PATH:+:$PATH}"
 
 echo "[deploy] ROOT=$ROOT"
 
-if ! docker buildx version >/dev/null 2>&1; then
+if ! command -v docker >/dev/null 2>&1; then
+  echo "[deploy] Docker not available — repo updated only."
+  echo "[deploy] Start the app with: uvicorn app.main:app --host 0.0.0.0 --port 8000"
+  exit 0
+fi
+
+if ! setup_docker_cli "[deploy]"; then
+  exit 1
+fi
+
+if ! "${DOCKER_CMD[@]}" buildx version >/dev/null 2>&1; then
   export DOCKER_BUILDKIT=0
 fi
 
@@ -45,13 +57,7 @@ cleanup_compose_merged_env() {
 
 trap cleanup_compose_merged_env EXIT
 
-if ! command -v docker >/dev/null 2>&1; then
-  echo "[deploy] Docker not available — repo updated only."
-  echo "[deploy] Start the app with: uvicorn app.main:app --host 0.0.0.0 --port 8000"
-  exit 0
-fi
-
-if ! docker compose version >/dev/null 2>&1; then
+if ! dc version >/dev/null 2>&1; then
   echo "[deploy] ERROR: 'docker compose' is not available (Compose v2 plugin missing)."
   echo "[deploy] Install: sudo apt-get update && sudo apt-get install -y docker-compose-plugin && sudo systemctl restart docker"
   exit 1
@@ -64,7 +70,7 @@ _check_compose_version() {
     return 0
   fi
   local short major minor rest
-  short="$(docker compose version --short 2>/dev/null || true)"
+  short="$(dc version --short 2>/dev/null || true)"
   short="${short#v}"
   if [[ -z "$short" ]]; then
     echo "[deploy] WARNING: could not read docker compose version --short; need v${compose_min_major}.${compose_min_minor}+ for compose.yaml (include:)."
@@ -101,7 +107,7 @@ _run_host_validate_env() {
     "$py" scripts/validate_env.py --strict || return 1
     return 0
   fi
-  echo "[deploy] validate_env ($py, dotenv-only — host lacks venv; full check runs in backend container)"
+  echo "[deploy] validate_env ($py, dotenv-only — full check runs in backend container)"
   "$py" scripts/validate_env.py --dotenv-only --docker --strict || return 1
 }
 
@@ -134,9 +140,9 @@ else
 fi
 
 echo "[deploy] docker compose --env-file … ${COMPOSE_FILE_ARGS[*]} up -d --build"
-docker compose "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" pull || true
+dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" pull || true
 set +e
-docker compose "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" up -d --build
+dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" up -d --build
 up_rc=$?
 set -e
 if [[ "$up_rc" -ne 0 ]]; then
@@ -147,7 +153,7 @@ if [[ "${SKIP_ALEMBIC_DEPLOY:-}" != "1" ]]; then
   echo "[deploy] waiting for backend before alembic upgrade head..."
   sleep "${ALEMBIC_WAIT_SECONDS:-10}"
   set +e
-  docker compose "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" exec -T backend alembic upgrade head
+  dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" exec -T backend alembic upgrade head
   alembic_rc=$?
   set -e
   if [[ "$alembic_rc" -ne 0 ]]; then
@@ -158,7 +164,7 @@ fi
 if [[ "${SKIP_VALIDATE_DEPLOY:-}" != "1" ]]; then
   echo "[deploy] validate_env inside backend container"
   set +e
-  docker compose "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" exec -T backend \
+  dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" exec -T backend \
     python scripts/validate_env.py --strict
   container_validate_rc=$?
   set -e

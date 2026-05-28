@@ -15,6 +15,8 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
+# shellcheck source=deploy/docker-cli.sh
+source "$(dirname "${BASH_SOURCE[0]}")/docker-cli.sh"
 
 if [[ ! -f .env ]]; then
   echo "[verify] ERROR: need .env (same as docker-up bootstrap)."
@@ -33,7 +35,11 @@ if ! command -v docker >/dev/null 2>&1; then
   exit 0
 fi
 
-if ! docker compose version >/dev/null 2>&1; then
+if ! setup_docker_cli "[verify]"; then
+  exit 1
+fi
+
+if ! dc version >/dev/null 2>&1; then
   echo "[verify] ERROR: 'docker compose' is not available. Install docker-compose-plugin (same as scripts/docker-up.sh)."
   exit 1
 fi
@@ -61,8 +67,8 @@ else
   exit 1
 fi
 
-dc() {
-  docker compose "${COMPOSE_ARGS[@]}" "$@"
+compose_dc() {
+  dc "${COMPOSE_ARGS[@]}" "$@"
 }
 
 if [[ "${SLEEP_SEC}" != "0" ]]; then
@@ -71,7 +77,7 @@ if [[ "${SLEEP_SEC}" != "0" ]]; then
 fi
 
 echo "[verify] docker compose ps"
-dc ps
+compose_dc ps
 
 echo "[verify] FastAPI GET ${API_URL}/health"
 curl -fsS "${API_URL}/health" >/dev/null
@@ -115,13 +121,13 @@ sys.exit(0)
 PY
 
 echo "[verify] Postgres (docker compose exec db pg_isready)"
-if ! dc exec -T db pg_isready -U postgres >/dev/null 2>&1; then
+if ! compose_dc exec -T db pg_isready -U postgres >/dev/null 2>&1; then
   echo "[verify] ERROR: Postgres not ready (is service name still 'db'?)"
   exit 1
 fi
 
 echo "[verify] Redis (docker compose exec redis redis-cli ping)"
-out=$(dc exec -T redis redis-cli ping 2>/dev/null || true)
+out=$(compose_dc exec -T redis redis-cli ping 2>/dev/null || true)
 if [[ "$out" != "PONG" ]]; then
   echo "[verify] ERROR: expected PONG from redis, got: ${out:-<empty>}"
   exit 1
