@@ -90,19 +90,34 @@ if [[ ! -f .env ]] || [[ ! -s .env ]]; then
   exit 1
 fi
 
+_run_host_validate_env() {
+  local py="$1"
+  if [[ -z "$py" ]]; then
+    return 0
+  fi
+  if "$py" -c "import pydantic_settings" 2>/dev/null; then
+    echo "[deploy] validate_env ($py, full)"
+    "$py" scripts/validate_env.py --docker 1>&2 || true
+    "$py" scripts/validate_env.py --strict || return 1
+    return 0
+  fi
+  echo "[deploy] validate_env ($py, dotenv-only — host lacks venv; full check runs in backend container)"
+  "$py" scripts/validate_env.py --dotenv-only --docker --strict || return 1
+}
+
 if [[ "${SKIP_VALIDATE_DEPLOY:-}" != "1" ]]; then
   _py=""
-  if command -v python3 >/dev/null 2>&1; then
+  if [[ -x "$ROOT/venv/bin/python" ]]; then
+    _py="$ROOT/venv/bin/python"
+  elif command -v python3 >/dev/null 2>&1; then
     _py="python3"
   elif command -v python >/dev/null 2>&1; then
     _py="python"
   fi
   if [[ -n "$_py" ]]; then
-    echo "[deploy] validate_env ($_py)"
-    "$_py" scripts/validate_env.py --docker 1>&2 || true
-    "$_py" scripts/validate_env.py || exit 1
+    _run_host_validate_env "$_py" || exit 1
   else
-    echo "[deploy] WARNING: python not on PATH — skipping validate_env (install python3 or set SKIP_VALIDATE_DEPLOY=1)."
+    echo "[deploy] WARNING: python not on PATH — skipping validate_env (set SKIP_VALIDATE_DEPLOY=1)."
   fi
 fi
 
@@ -137,6 +152,18 @@ if [[ "${SKIP_ALEMBIC_DEPLOY:-}" != "1" ]]; then
   set -e
   if [[ "$alembic_rc" -ne 0 ]]; then
     echo "[deploy] WARNING: alembic upgrade head exited $alembic_rc (set SKIP_ALEMBIC_DEPLOY=1 to skip)."
+  fi
+fi
+
+if [[ "${SKIP_VALIDATE_DEPLOY:-}" != "1" ]]; then
+  echo "[deploy] validate_env inside backend container"
+  set +e
+  docker compose "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" exec -T backend \
+    python scripts/validate_env.py --strict
+  container_validate_rc=$?
+  set -e
+  if [[ "$container_validate_rc" -ne 0 ]]; then
+    echo "[deploy] WARNING: container validate_env exited $container_validate_rc (check .env / ENV_FILE secret)."
   fi
 fi
 

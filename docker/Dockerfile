@@ -54,6 +54,7 @@ COPY app/ ./app/
 COPY config/ ./config/
 COPY alembic.ini .
 COPY alembic/ ./alembic/
+COPY scripts/validate_env.py ./scripts/validate_env.py
 
 # Create data directories (Chroma, logs, local file storage under STORAGE_ROOT)
 RUN mkdir -p /app/data/chroma /app/data/logs /app/data/storage

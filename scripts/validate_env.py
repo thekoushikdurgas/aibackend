@@ -70,6 +70,38 @@ def _docker_preflight(env_keys: dict[str, str], *, production: bool) -> list[str
     return issues
 
 
+def _strict_preflight_from_keys(env_keys: dict[str, str]) -> list[str]:
+    """Production checks using raw .env keys (no pydantic import)."""
+    issues: list[str] = []
+    env = (env_keys.get("ENVIRONMENT") or env_keys.get("environment") or "").strip()
+    if env.lower() != "production":
+        return issues
+
+    jwt = (env_keys.get("JWT_SECRET_KEY") or "").strip()
+    api = (env_keys.get("API_KEY") or "").strip()
+
+    if not jwt or len(jwt) < 32:
+        issues.append(
+            "production: JWT_SECRET_KEY must be set and at least 32 characters."
+        )
+    elif (
+        "change-in-production" in jwt.lower()
+        or jwt == "your-super-secret-jwt-key-change-in-production"
+    ):
+        issues.append(
+            "production: JWT_SECRET_KEY still looks like a development placeholder."
+        )
+
+    if not api or api == "your-api-key-for-extension":
+        issues.append("production: API_KEY must be set to a non-default value.")
+    elif "generate_a_random" in api.lower():
+        issues.append(
+            "production: API_KEY still looks like a template from .env.example."
+        )
+
+    return issues
+
+
 def _strict_preflight(settings: object) -> list[str]:
     """Block obviously unsafe production configuration."""
     issues: list[str] = []
@@ -127,7 +159,30 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="In ENVIRONMENT=production, reject placeholder JWT / API keys.",
     )
+    parser.add_argument(
+        "--dotenv-only",
+        action="store_true",
+        help="Parse .env only (no app imports). Use on EC2 host before Docker build.",
+    )
     args = parser.parse_args(argv)
+
+    if args.dotenv_only:
+        if not _DOTENV.is_file():
+            print(f"validate_env: .env not found at {_DOTENV}", file=sys.stderr)
+            return 1
+        keys = _dotenv_keys(_DOTENV)
+        production = (keys.get("ENVIRONMENT") or "").lower() == "production"
+        if args.docker:
+            for msg in _docker_preflight(keys, production=production):
+                print(f"validate_env: warning: {msg}", file=sys.stderr)
+        if args.strict:
+            bad = _strict_preflight_from_keys(keys)
+            for msg in bad:
+                print(f"validate_env: {msg}", file=sys.stderr)
+            if bad:
+                return 1
+        print("validate_env: OK - .env preflight (dotenv-only)")
+        return 0
 
     try:
         from app.config import clear_base_settings_cache, _base_settings_singleton

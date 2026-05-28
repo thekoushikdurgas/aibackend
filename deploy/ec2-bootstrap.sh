@@ -52,4 +52,6 @@ echo "  1. Edit $REPO_ROOT/.env (JWT_SECRET_KEY, API_KEY, POSTGRES_PASSWORD, COR
 echo "  2. Open security group TCP 8000"
 echo "  3. cd $REPO_ROOT && bash deploy/remote-deploy.sh && bash deploy/verify-stack.sh"
 echo "  4. curl -fsS http://127.0.0.1:8000/health"
+echo "  Note: Do not pip install requirements on the host unless using Python 3.11/3.12."
+echo "        Production runs in Docker (python:3.11-slim). Host python3 is only for validate_env --dotenv-only."
 echo "  See deploy/EC2.md for GitHub Actions secrets."

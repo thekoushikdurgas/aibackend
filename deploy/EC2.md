@@ -125,11 +125,14 @@ Stop or remove the `ollama` service in Compose to save RAM, or leave it unused.
 
 ## Troubleshooting
 
-| Symptom                        | Check                                                  |
-| ------------------------------ | ------------------------------------------------------ |
-| `docker compose` include error | `docker compose version` ≥ 2.20                        |
-| Backend unhealthy              | `docker compose logs backend`                          |
-| Postgres connection refused    | `docker compose ps`; `db` healthy?                     |
-| Ollama timeouts                | Model pulled? `docker compose exec ollama ollama list` |
-| CORS errors in browser         | `CORS_ORIGINS` includes exact frontend origin          |
-| Deploy skips verify            | `VERIFY_REQUIRE_DOCKER=1`; docker on PATH for SSH user |
+| Symptom | Check |
+| ------- | ----- |
+| `validate_env: missing pydantic_settings` on host | Expected without a venv. Use `bash deploy/remote-deploy.sh` (dotenv-only on host, full check in Docker). Do **not** `pip install -r requirements.txt` on Python 3.14. |
+| `torch==2.2.0` not found (host pip) | Host `python3` may be 3.14; torch 2.2 has no wheel. Deploy via **Docker** only. |
+| `python3-venv` / `ensurepip` errors | Optional for host venv; not required for Docker deploy. |
+| `docker compose` include error | `docker compose version` ≥ 2.20 |
+| Backend unhealthy | `docker compose logs backend` |
+| Postgres connection refused | `docker compose ps`; `db` healthy? |
+| Ollama timeouts | Model pulled? `docker compose exec ollama ollama list` |
+| CORS errors in browser | `CORS_ORIGINS` includes exact frontend origin |
+| Deploy skips verify | `VERIFY_REQUIRE_DOCKER=1`; docker on PATH for SSH user |
