@@ -1,176 +1,32 @@
-ubuntu@ip-172-31-94-206:~/aibackend$ git pull origin main
-From https://github.com/thekoushikdurgas/aibackend
- * branch            main       -> FETCH_HEAD
-Updating 2e5d349..119c81f
+ubuntu@ip-172-31-94-206:~/aibackend$ git pull
+Updating 119c81f..f2f3221
 Fast-forward
- .env.example              |  9 +++------
- deploy/EC2.md             |  1 +
- deploy/remote-deploy.sh   |  6 +++++-
- docker/README.md          |  2 +-
- docker/docker-compose.yml | 18 ++++--------------
- error.txt                 | 92 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--------
- scripts/validate_env.py   | 41 +++++++++++++++++++++++++++++++++++++++++
- 7 files changed, 139 insertions(+), 30 deletions(-)
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo nano .env
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo rm .env
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo nano .env
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo docker compose --env-file .env -f compose.yaml down
-failed to read /home/ubuntu/aibackend/.env: line 1: unexpected character "~" in variable name "[200~# ============================================================================="
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo rm .env
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo nano .env
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo docker compose --env-file .env -f compose.yaml down
-[+] down 6/6
- ✔ Container aibackend-backend-1      Removed                                                                                                                                                                           0.0s
- ✔ Container aibackend-ollama-1       Removed                                                                                                                                                                           0.0s
- ✔ Container aibackend-chromadb-1     Removed                                                                                                                                                                           0.0s
- ✔ Container aibackend-db-1           Removed                                                                                                                                                                           0.0s
- ✔ Container aibackend-redis-1        Removed                                                                                                                                                                           0.0s
- ✔ Network aibackend_durgasai_network Removed                                                                                                                                                                           0.1s
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/ec2-bootstrap.sh
-bash deploy/ec2-bootstrap.sh
-[bootstrap] Installing packages...
-Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute InRelease
-Hit:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-updates InRelease
-Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-backports InRelease
-Hit:4 http://security.ubuntu.com/ubuntu resolute-security InRelease       
-Hit:5 https://download.docker.com/linux/ubuntu resolute InRelease
-Reading package lists... Done
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-ca-certificates is already the newest version (20260223).
-curl is already the newest version (8.18.0-1ubuntu2.1).
-git is already the newest version (1:2.53.0-1ubuntu1).
-python3 is already the newest version (3.14.3-0ubuntu2).
-Solving dependencies... Done
-0 upgraded, 0 newly installed, 0 to remove and 33 not upgraded.
-[bootstrap] docker compose version: 5.1.4 (need >= 2.20 for compose.yaml include:)
-[bootstrap] Added ubuntu to docker group.
-[bootstrap] Repo already exists at /home/ubuntu/aibackend
-[bootstrap] Done.
-  1. Edit /home/ubuntu/aibackend/.env (JWT_SECRET_KEY, API_KEY, POSTGRES_PASSWORD, CORS_ORIGINS, …)
-  2. Open security group TCP 8000
-  3. Exit SSH and reconnect (or run: newgrp docker) so docker.sock works without sudo
-  4. cd /home/ubuntu/aibackend && bash deploy/remote-deploy.sh && bash deploy/verify-stack.sh
-  5. curl -fsS http://127.0.0.1:8000/health
-  Note: Do not pip install requirements on the host unless using Python 3.11/3.12.
-        Production runs in Docker (python:3.11-slim). Host python3 is only for validate_env --dotenv-only.
-  See deploy/EC2.md for GitHub Actions secrets.
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/remote-deploy.sh
-bash deploy/remote-deploy.sh
-[deploy] ROOT=/home/ubuntu/aibackend
-[deploy] WARNING: permission denied on docker.sock — using sudo for this run.
-[deploy] Permanent fix: exit SSH and reconnect, or run: newgrp docker
-[deploy] validate_env (/home/ubuntu/aibackend/venv/bin/python, dotenv-only — full check runs in backend container)
-validate_env: OK - .env preflight (dotenv-only)
-[deploy] docker compose --env-file … -f compose.yaml up -d --build
-[+] pull 5/5
- ✔ backend                      Skipped No image to be pulled                                                                                                                                                           0.0s
- ✔ Image redis:7-alpine         Pulled                                                                                                                                                                                  0.7s
- ✔ Image chromadb/chroma:latest Pulled                                                                                                                                                                                  0.5s
- ✔ Image ollama/ollama:latest   Pulled                                                                                                                                                                                  0.6s
- ✔ Image postgres:15-alpine     Pulled                                                                                                                                                                                  0.6s
-[+] Building 4.1s (22/22) FINISHED                                                                                                                                                                                          
- => [internal] load local bake definitions                                                                                                                                                                             0.0s 
- => => reading from stdin 511B                                                                                                                                                                                         0.0s
- => [internal] load build definition from Dockerfile                                                                                                                                                                   0.0s 
- => => transferring dockerfile: 1.92kB                                                                                                                                                                                 0.0s 
- => [internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                    0.2s 
- => [internal] load .dockerignore                                                                                                                                                                                      0.0s
- => => transferring context: 733B                                                                                                                                                                                      0.0s 
- => [internal] load build context                                                                                                                                                                                      0.1s 
- => => transferring context: 32.52kB                                                                                                                                                                                   0.0s 
- => [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                      0.0s 
- => => resolve docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                              0.0s 
- => CACHED [builder 2/6] WORKDIR /app                                                                                                                                                                                  0.0s
- => CACHED [stage-1  3/11] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                     0.0s 
- => CACHED [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                       0.0s 
- => CACHED [builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                  0.0s 
- => CACHED [builder 5/6] COPY requirements.txt .                                                                                                                                                                       0.0s 
- => CACHED [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                            0.0s 
- => CACHED [stage-1  4/11] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                     0.0s 
- => CACHED [stage-1  5/11] COPY app/ ./app/                                                                                                                                                                            0.0s 
- => CACHED [stage-1  6/11] COPY config/ ./config/                                                                                                                                                                      0.0s 
- => CACHED [stage-1  7/11] COPY alembic.ini .                                                                                                                                                                          0.0s 
- => CACHED [stage-1  8/11] COPY alembic/ ./alembic/                                                                                                                                                                    0.0s 
- => [stage-1  9/11] COPY scripts/validate_env.py ./scripts/validate_env.py                                                                                                                                             0.5s 
- => [stage-1 10/11] RUN mkdir -p /app/data/chroma /app/data/logs /app/data/storage                                                                                                                                     0.4s
- => [stage-1 11/11] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                            2.0s
- => exporting to image                                                                                                                                                                                                 0.6s
- => => exporting layers                                                                                                                                                                                                0.3s
- => => exporting manifest sha256:f7cc248fcc0a14b48f37d0ee1b4cb567015fa8aec8c40f539930c458100259fe                                                                                                                      0.0s
- => => exporting config sha256:38bca7ab7beaef7df2cff4fcfc528d0a82413e1e6e342afa13ada51dbbfda719                                                                                                                        0.0s
- => => exporting attestation manifest sha256:13d44b190080856476eef806120991ceffd15a94f7321a139fd6ec4cc9d0affb                                                                                                          0.0s 
- => => exporting manifest list sha256:3f610572e1bb23d410875963504627fb99c6a39d7f4b82f0daf098a6a1d66915                                                                                                                 0.0s 
- => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                            0.0s 
- => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                         0.1s
- => resolving provenance for metadata file                                                                                                                                                                             0.0s
-[+] up 7/7
- ✔ Image aibackend-backend            Built                                                                                                                                                                             4.2s
- ✔ Network aibackend_durgasai_network Created                                                                                                                                                                           0.0s
- ✔ Container aibackend-redis-1        Healthy                                                                                                                                                                          11.3s
- ✔ Container aibackend-db-1           Healthy                                                                                                                                                                           5.8s
- ✔ Container aibackend-ollama-1       Started                                                                                                                                                                           0.7s
- ✔ Container aibackend-chromadb-1     Started                                                                                                                                                                           0.6s
- ✔ Container aibackend-backend-1      Started                                                                                                                                                                          11.4s
-[deploy] waiting for backend before alembic upgrade head...
-INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
-INFO  [alembic.runtime.migration] Will assume transactional DDL.
-INFO  [alembic.runtime.migration] Running upgrade  -> 1e3305a06ba4, add_metrics_tables
-INFO  [alembic.runtime.migration] Running upgrade 1e3305a06ba4 -> a12b34c56d78, add_conversations_tables
-INFO  [alembic.runtime.migration] Running upgrade a12b34c56d78 -> b23c45d67e89, add_cohere_usage_tables
-INFO  [alembic.runtime.migration] Running upgrade b23c45d67e89 -> c7d8e9f0a1b2, add claude_code_sessions
-INFO  [alembic.runtime.migration] Running upgrade c7d8e9f0a1b2 -> d0e1f2a3b4c5, add workflow_definitions workflow_runs widget_layouts
-INFO  [alembic.runtime.migration] Running upgrade d0e1f2a3b4c5 -> e4f5a6b7c8d9, add durgasos_installed_apps
-INFO  [alembic.runtime.migration] Running upgrade e4f5a6b7c8d9 -> f1a2b3c4d5e6, add file_associations to durgasos_installed_apps
-INFO  [alembic.runtime.migration] Running upgrade f1a2b3c4d5e6 -> h8i9j0k1l2m3, add scopes_granted to linked_google_accounts
-INFO  [alembic.runtime.migration] Running upgrade h8i9j0k1l2m3 -> j0k1l2m3n4o5, add todo_board_meta for DurgasOS Kanban Google Tasks list ids
-INFO  [alembic.runtime.migration] Running upgrade j0k1l2m3n4o5 -> m4n5o6p7q8r9, todo_workspaces replaces todo_board_meta (multi-workspace Todo)
-INFO  [alembic.runtime.migration] Running upgrade m4n5o6p7q8r9 -> n5o6p7q8r9s0, todo_workspaces storage + todo_tasks for local Kanban
-INFO  [alembic.runtime.migration] Running upgrade n5o6p7q8r9s0 -> y1z2a3b4c5d6, todo_comments table
-INFO  [alembic.runtime.migration] Running upgrade y1z2a3b4c5d6 -> z7a8b9c0d1e2, roadrash enhancements: medals, friends, elo
-[deploy] validate_env inside backend container
-validate_env: OK - settings load successfully
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/verify-stack.sh
-bash deploy/verify-stack.sh
+ deploy/EC2.md             |   2 ++
+ deploy/remote-deploy.sh   |  14 ++++++++-----
+ deploy/sanitize-dotenv.sh |  25 ++++++++++++++++++++++++
+ deploy/verify-stack.sh    |  26 ++++++++++++++++++++-----
+ error.txt                 | 200 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++---------------------------------------------------------------- 
+ scripts/validate_env.py   |  21 ++++++++++++++++++++
+ 6 files changed, 209 insertions(+), 79 deletions(-)
+ create mode 100644 deploy/sanitize-dotenv.sh
+ubuntu@ip-172-31-94-206:~/aibackend$ [200~curl -fsS http://127.0.0.1:8000/health~
+[200~curl: command not found
+ubuntu@ip-172-31-94-206:~/aibackend$ curl -fsS http://127.0.0.1:8000/health
+{"status":"healthy"}ubuntu@ip-172-31-94-206:~/aibackend$ bash deploy/verify-stack.sh
 [verify] WARNING: permission denied on docker.sock — using sudo for this run.
 [verify] Permanent fix: exit SSH and reconnect, or run: newgrp docker
 [verify] Waiting 15s for containers to become healthy...
 [verify] docker compose ps
-NAME                   IMAGE                    COMMAND                  SERVICE    CREATED              STATUS                        PORTS
-aibackend-backend-1    aibackend-backend        "uvicorn app.main:ap…"   backend    About a minute ago   Up 59 seconds (healthy)       0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
-aibackend-chromadb-1   chromadb/chroma:latest   "dumb-init -- chroma…"   chromadb   About a minute ago   Up About a minute             8000/tcp
-aibackend-db-1         postgres:15-alpine       "docker-entrypoint.s…"   db         About a minute ago   Up About a minute (healthy)   5432/tcp
-aibackend-ollama-1     ollama/ollama:latest     "/bin/ollama serve"      ollama     About a minute ago   Up About a minute             11434/tcp
-aibackend-redis-1      redis:7-alpine           "docker-entrypoint.s…"   redis      About a minute ago   Up About a minute (healthy)   6379/tcp
+NAME                   IMAGE                    COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+aibackend-backend-1    aibackend-backend        "uvicorn app.main:ap…"   backend    34 minutes ago   Up 34 minutes (healthy)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+aibackend-chromadb-1   chromadb/chroma:latest   "dumb-init -- chroma…"   chromadb   34 minutes ago   Up 34 minutes             8000/tcp
+aibackend-db-1         postgres:15-alpine       "docker-entrypoint.s…"   db         34 minutes ago   Up 34 minutes (healthy)   5432/tcp
+aibackend-ollama-1     ollama/ollama:latest     "/bin/ollama serve"      ollama     34 minutes ago   Up 34 minutes             11434/tcp
+aibackend-redis-1      redis:7-alpine           "docker-entrypoint.s…"   redis      34 minutes ago   Up 34 minutes (healthy)   6379/tcp
 [verify] FastAPI GET http://127.0.0.1:8000/health
 [verify] GraphQL systemHealth
 [verify] GraphQL systemReady
 [verify] Postgres (docker compose exec db pg_isready)
-[verify] Redis (docker compose exec redis redis-cli ping)
+[verify] ERROR: Postgres not ready (is service name still 'db'?)
+ubuntu@ip-172-31-94-206:~/aibackend$ 
 
-
-
-
-
-
-
-
-
-
-
-
-^C^C^C[verify] ERROR: expected PONG from redis, got: <empty>
-ubuntu@ip-172-31-94-206:~/aibackend$ ^C
-ubuntu@ip-172-31-94-206:~/aibackend$ ^C
-ubuntu@ip-172-31-94-206:~/aibackend$ ^C
-ubuntu@ip-172-31-94-206:~/aibackend$ ^C
-ubuntu@ip-172-31-94-206:~/aibackend$ ^C
-ubuntu@ip-172-31-94-206:~/aibackend$ ^C
-ubuntu@ip-172-31-94-206:~/aibackend$ ^C
-ubuntu@ip-172-31-94-206:~/aibackend$ ^C
-ubuntu@ip-172-31-94-206:~/aibackend$ ^C
-ubuntu@ip-172-31-94-206:~/aibackend$ ^C
-ubuntu@ip-172-31-94-206:~/aibackend$ ^C
-ubuntu@ip-172-31-94-206:~/aibackend$ ^C
-ubuntu@ip-172-31-94-206:~/aibackend$

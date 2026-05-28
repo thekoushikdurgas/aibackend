@@ -11,7 +11,7 @@ REPO_URL="${EC2_REPO_URL:-https://github.com/thekoushikdurgas/aibackend.git}"
 
 echo "[bootstrap] Installing packages..."
 sudo apt-get update
-sudo apt-get install -y ca-certificates curl git python3
+sudo apt-get install -y ca-certificates curl git python3 coreutils
 
 if ! command -v docker >/dev/null 2>&1; then
   echo "[bootstrap] Installing Docker Engine..."

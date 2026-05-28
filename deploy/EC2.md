@@ -140,3 +140,5 @@ Stop or remove the `ollama` service in Compose to save RAM, or leave it unused.
 | `cannot assign requested address` on `54.x.x.x:11434` | Remove `OLLAMA_PUBLISH_HOST` / `*_PUBLISH_HOST` from `.env` if set to the public IP. Only port **8000** is exposed; Ollama is `http://ollama:11434` inside Compose. |
 | `unexpected character "~" in variable name "[200~` | Corrupted paste in `nano` (bracketed paste). Run `cp .env.example .env`, edit again, or `scp` a clean `.env` from your PC. Deploy scripts now sanitize KEY=VALUE lines automatically. |
 | `verify` Redis `got: <empty>` after long wait | Often a hung `docker exec` (Ctrl+C). Re-run `bash deploy/verify-stack.sh`; script uses timeouts and a container-running fallback. |
+| `verify` Postgres not ready but `db` is healthy | `docker exec` under sudo can fail while the DB is fine. Re-run verify after `git pull`; script falls back to compose health. |
+| `[200~curl: command not found` | Bracketed-paste in SSH terminal — type commands manually or disable bracketed paste in your SSH client. |
