@@ -10,7 +10,7 @@ import httpx
 
 from app.config import settings
 from .base import BaseLLMProvider, LLMConfig, LLMResponse
-from app.services.ollama import OllamaClient, OllamaMode
+from app.services.ollama import OllamaClient, resolve_ollama_mode
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +49,7 @@ class OllamaProvider(BaseLLMProvider):
             base_url=base_url,
             cloud_url=cloud_url,
             api_key=api_key,
-            mode=OllamaMode(mode.lower()) if mode else None,
+            mode=resolve_ollama_mode(mode) if mode else None,
             timeout=timeout,
         )
 

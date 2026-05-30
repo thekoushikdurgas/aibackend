@@ -43,11 +43,12 @@ services:
       - ../.env
     environment:
       - ENVIRONMENT=production
-      - DATABASE_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/postgres
-      - POSTGRESQL_URL=postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-postgres}@db:5432/postgres
+      - DATABASE_URL=postgresql+asyncpg://postgres:Koushik121@54.146.221.133:5432/postgres
+      - POSTGRESQL_URL=postgresql+asyncpg://postgres:Koushik121@54.146.221.133:5432/postgres
       - REDIS_URL=redis://redis:6379/0
       - USE_REDIS=true
       - OLLAMA_BASE_URL=http://ollama:11434/api
+      - OLLAMA_MODE=localhost
       # Avoid loading sentence-transformers/torch on small EC2; use Compose Ollama for embeddings.
       - EMBEDDING_PROVIDER=ollama
       - EMBEDDING_MODEL=nomic-embed-text

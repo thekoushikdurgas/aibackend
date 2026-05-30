@@ -111,11 +111,24 @@ class RekaModelRegistry:
                 response.raise_for_status()
                 data = response.json()
 
-                # Reka API returns array of objects with "id" field
-                # Convert to our format
+                # Reka may return a list or a wrapped object; items may be dicts or ids.
+                if isinstance(data, dict):
+                    raw_items = data.get("data") or data.get("models") or []
+                elif isinstance(data, list):
+                    raw_items = data
+                else:
+                    raw_items = []
+
                 models = []
-                for item in data:
-                    model_id = item.get("id", "")
+                for item in raw_items:
+                    if isinstance(item, str):
+                        model_id = item.strip()
+                    elif isinstance(item, dict):
+                        model_id = str(item.get("id") or item.get("name") or "").strip()
+                    else:
+                        continue
+                    if not model_id:
+                        continue
                     models.append(
                         {
                             "id": model_id,

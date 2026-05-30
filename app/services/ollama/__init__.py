@@ -3,7 +3,7 @@ Ollama Services
 Comprehensive Ollama API integration with localhost and cloud support
 """
 
-from .client import OllamaClient, OllamaMode
+from .client import OllamaClient, OllamaMode, resolve_ollama_mode
 from .models import (
     OllamaModel,
     ModelCategory,
@@ -23,6 +23,7 @@ from .web_search import OllamaWebSearchService
 __all__ = [
     "OllamaClient",
     "OllamaMode",
+    "resolve_ollama_mode",
     "OllamaModel",
     "ModelCategory",
     "ModelProvider",

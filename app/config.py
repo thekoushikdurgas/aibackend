@@ -6,6 +6,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import List, Optional, Union
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Load ai.backend/.env into the process environment before Settings() (uvicorn does not load .env by default).
@@ -335,8 +336,17 @@ class Settings(BaseSettings):
     ollama_base_url: str = "http://localhost:11434/api"
     ollama_cloud_url: str = "https://ollama.com/api"
     ollama_api_key: Optional[str] = None
-    ollama_mode: str = "localhost"  # "localhost" or "cloud"
+    ollama_mode: str = "localhost"  # "localhost" or "cloud" (not a hostname/IP)
     ollama_model: str = "llama3"
+
+    @field_validator("ollama_mode", mode="before")
+    @classmethod
+    def _normalize_ollama_mode(cls, v: object) -> str:
+        s = str(v or "localhost").strip().lower()
+        if s in ("localhost", "cloud"):
+            return s
+        return "localhost"
+
     # Max time to wait for Ollama /api/chat (non-streaming) to finish reading the body.
     # Large prompts (e.g. resume + job description) on remote CPUs often exceed 120s; see error.txt ReadTimeout.
     ollama_completion_timeout_seconds: float = 600.0

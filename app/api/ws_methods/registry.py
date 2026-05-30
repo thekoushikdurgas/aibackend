@@ -51,4 +51,5 @@ WS_METHOD_MODULES = [
     "sudoku",
     "gemma",
     "dev_tool",
+    "os_labs",
 ]

@@ -22,6 +22,35 @@ class OllamaMode(str, Enum):
     CLOUD = "cloud"  # https://ollama.com/api
 
 
+_invalid_ollama_mode_logged = False
+
+
+def resolve_ollama_mode(
+    raw: Optional[str],
+    *,
+    mode: Optional[OllamaMode] = None,
+) -> OllamaMode:
+    """
+    Parse OLLAMA_MODE. EC2 .env sometimes sets the public IP here by mistake;
+    use OLLAMA_BASE_URL for the host, not OLLAMA_MODE.
+    """
+    global _invalid_ollama_mode_logged
+    if isinstance(mode, OllamaMode):
+        return mode
+    src = (raw or "localhost").strip().lower()
+    try:
+        return OllamaMode(src)
+    except ValueError:
+        if not _invalid_ollama_mode_logged:
+            logger.warning(
+                "OLLAMA_MODE=%r is invalid (use 'localhost' or 'cloud'); "
+                "defaulting to 'localhost'. Set the server URL in OLLAMA_BASE_URL, not OLLAMA_MODE.",
+                raw,
+            )
+            _invalid_ollama_mode_logged = True
+        return OllamaMode.LOCALHOST
+
+
 def _normalize_ollama_api_base(url: str) -> str:
     """
     Ensure Ollama REST base ends with /api.
@@ -82,13 +111,8 @@ class OllamaClient:
         self.api_key = api_key or getattr(settings, "ollama_api_key", None)
         self.timeout = timeout
 
-        # Determine mode (avoid getattr default type mismatch with pydantic-mypy)
-        if isinstance(mode, OllamaMode):
-            self.mode = mode
-        else:
-            raw = cast(Optional[str], getattr(settings, "ollama_mode", None))
-            mode_src = raw if raw is not None else "localhost"
-            self.mode = OllamaMode(mode_src.lower())
+        raw = cast(Optional[str], getattr(settings, "ollama_mode", None))
+        self.mode = resolve_ollama_mode(raw, mode=mode)
 
         if self.mode == OllamaMode.CLOUD and not self.api_key:
             logger.warning("Ollama cloud mode requires API key")

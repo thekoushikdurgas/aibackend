@@ -1,5 +1,5 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Sat 05/30/2026  6:32:13.09
+Generated: Sat 05/30/2026 13:25:45.41
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
@@ -71,6 +71,7 @@ E:\durgas_ai\ai.backend\app\api\ws_methods\nvidia.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\ollama.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\openrouter.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\orbit.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\os_labs.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\rag.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\registry.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\reka.py

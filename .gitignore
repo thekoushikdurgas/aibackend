@@ -25,6 +25,7 @@ node_modules/
 
 # Secrets (never commit real credentials)
 .env
+.env.pro
 .env.local
 .env.*.local
 
