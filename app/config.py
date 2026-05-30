@@ -278,6 +278,8 @@ class Settings(BaseSettings):
     # Embeddings Configuration
     embedding_provider: str = "local"
     embedding_model: str = "all-MiniLM-L6-v2"
+    # Skip Chroma/RAG init in lifespan (Docker/EC2); services lazy-init on first use.
+    skip_heavy_startup_init: bool = False
 
     # ChromaDB Configuration
     chroma_persist_dir: str = "./data/chroma"

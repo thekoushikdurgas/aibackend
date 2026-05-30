@@ -48,6 +48,10 @@ services:
       - REDIS_URL=redis://redis:6379/0
       - USE_REDIS=true
       - OLLAMA_BASE_URL=http://ollama:11434/api
+      # Avoid loading sentence-transformers/torch on small EC2; use Compose Ollama for embeddings.
+      - EMBEDDING_PROVIDER=ollama
+      - EMBEDDING_MODEL=nomic-embed-text
+      - SKIP_HEAVY_STARTUP_INIT=true
     volumes:
       - backend_data:/app/data
     depends_on:

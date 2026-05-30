@@ -34,6 +34,7 @@ limiter = Limiter(
     key_func=get_identifier,
     default_limits=[f"{settings.rate_limit_per_minute_anonymous}/minute"],
     storage_uri=storage_uri,
+    in_memory_fallback_enabled=settings.use_redis,
 )
 
 

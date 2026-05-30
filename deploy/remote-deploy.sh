@@ -152,15 +152,35 @@ else
   exit 1
 fi
 
-echo "[deploy] docker compose --env-file … ${COMPOSE_FILE_ARGS[*]} up -d --build"
+compose_dc() {
+  dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" "$@"
+}
+# shellcheck source=deploy/compose-diagnostics.sh
+source "$(dirname "${BASH_SOURCE[0]}")/compose-diagnostics.sh"
+
+echo "[deploy] docker compose --env-file … ${COMPOSE_FILE_ARGS[*]} up -d --build --force-recreate backend"
 dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" pull || true
 set +e
-dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" up -d --build
+dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" up -d --build --force-recreate backend
 up_rc=$?
 set -e
 if [[ "$up_rc" -ne 0 ]]; then
   exit "$up_rc"
 fi
+
+echo "[deploy] waiting for backend container to stay up..."
+_backend_wait=0
+while [[ "$_backend_wait" -lt 90 ]]; do
+  if compose_backend_is_crash_looping; then
+    compose_fail_if_backend_crash_looping "[deploy]" || exit 1
+  fi
+  if compose_backend_is_healthy || compose_backend_is_up; then
+    break
+  fi
+  sleep 3
+  _backend_wait=$((_backend_wait + 3))
+done
+compose_fail_if_backend_crash_looping "[deploy]" || exit 1
 
 if [[ "${SKIP_ALEMBIC_DEPLOY:-}" != "1" ]]; then
   echo "[deploy] waiting for backend before alembic upgrade head..."
@@ -185,5 +205,7 @@ if [[ "${SKIP_VALIDATE_DEPLOY:-}" != "1" ]]; then
     echo "[deploy] WARNING: container validate_env exited $container_validate_rc (check .env / ENV_FILE secret)."
   fi
 fi
+
+compose_fail_if_backend_crash_looping "[deploy]" || exit 1
 
 exit 0

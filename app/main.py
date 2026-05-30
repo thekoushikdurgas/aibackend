@@ -70,19 +70,31 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
     except Exception as e:
         logger.warning(f"Database initialization skipped: {e}")
 
-    try:
-        # Initialize ChromaDB
-        from app.services.rag import get_shared_chroma_vector_store
+    if settings.skip_heavy_startup_init:
+        logger.info(
+            "Skipping Chroma/RAG lifespan init (SKIP_HEAVY_STARTUP_INIT); lazy-init on first use"
+        )
+    else:
+        try:
+            from app.services.rag import get_shared_chroma_vector_store
 
-        vector_store = get_shared_chroma_vector_store()
-        await vector_store.initialize()
-        app.state.vector_store = vector_store
-        logger.info("ChromaDB initialized successfully")
-    except Exception as e:
-        logger.warning(f"ChromaDB initialization skipped: {e}")
+            vector_store = get_shared_chroma_vector_store()
+            await vector_store.initialize()
+            app.state.vector_store = vector_store
+            logger.info("ChromaDB initialized successfully")
+        except Exception as e:
+            logger.warning(f"ChromaDB initialization skipped: {e}")
+
+        try:
+            from app.services.rag.pipeline import rag_pipeline
+
+            await rag_pipeline.initialize()
+            app.state.rag_pipeline = rag_pipeline
+            logger.info("RAG Pipeline initialized successfully")
+        except Exception as e:
+            logger.warning(f"RAG Pipeline initialization skipped: {e}")
 
     try:
-        # Initialize LLM service
         from app.services.llm import get_llm_provider
 
         llm_provider = get_llm_provider()
@@ -90,16 +102,6 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
         logger.info(f"LLM Provider ({settings.default_llm_provider}) initialized")
     except Exception as e:
         logger.warning(f"LLM Provider initialization skipped: {e}")
-
-    try:
-        # Initialize RAG pipeline
-        from app.services.rag.pipeline import rag_pipeline
-
-        await rag_pipeline.initialize()
-        app.state.rag_pipeline = rag_pipeline
-        logger.info("RAG Pipeline initialized successfully")
-    except Exception as e:
-        logger.warning(f"RAG Pipeline initialization skipped: {e}")
 
     if settings.use_redis:
         try:

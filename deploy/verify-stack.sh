@@ -81,6 +81,8 @@ fi
 compose_dc() {
   dc "${COMPOSE_ARGS[@]}" "$@"
 }
+# shellcheck source=deploy/compose-diagnostics.sh
+source "$(dirname "${BASH_SOURCE[0]}")/compose-diagnostics.sh"
 
 VERIFY_EXEC_TIMEOUT="${VERIFY_EXEC_TIMEOUT:-30}"
 
@@ -103,7 +105,10 @@ _wait_backend_compose_healthy() {
   local max_sec="$1"
   local elapsed=0
   while [[ "$elapsed" -lt "$max_sec" ]]; do
-    if compose_dc ps backend 2>/dev/null | grep -qE '\(healthy\)'; then
+    if compose_backend_is_crash_looping; then
+      compose_fail_if_backend_crash_looping "[verify]" || return 1
+    fi
+    if compose_backend_is_healthy; then
       echo "[verify] backend container reports healthy"
       return 0
     fi
@@ -113,8 +118,11 @@ _wait_backend_compose_healthy() {
     sleep 5
     elapsed=$((elapsed + 5))
   done
-  if compose_dc ps backend 2>/dev/null | grep -qiE 'backend'; then
-    echo "[verify] WARNING: backend not healthy within ${max_sec}s — will retry HTTP (Chroma/RAG startup can be slow)"
+  if compose_backend_is_crash_looping; then
+    compose_fail_if_backend_crash_looping "[verify]" || return 1
+  fi
+  if compose_backend_is_up; then
+    echo "[verify] WARNING: backend not healthy within ${max_sec}s — will retry HTTP"
     return 0
   fi
   echo "[verify] ERROR: backend service not running"
@@ -126,13 +134,20 @@ if [[ "${SLEEP_SEC}" != "0" ]]; then
   sleep "${SLEEP_SEC}"
 fi
 
+compose_fail_if_backend_crash_looping "[verify]" || exit 1
+
 _wait_backend_compose_healthy "$BACKEND_HEALTH_WAIT" || exit 1
 
 echo "[verify] docker compose ps"
 compose_dc ps
 
+compose_fail_if_backend_crash_looping "[verify]" || exit 1
+
 echo "[verify] FastAPI GET ${API_URL}/health"
-verify_curl_ok "${API_URL}/health" "GET ${API_URL}/health"
+verify_curl_ok "${API_URL}/health" "GET ${API_URL}/health" || {
+  compose_fail_if_backend_crash_looping "[verify]" || true
+  exit 1
+}
 
 echo "[verify] GraphQL systemHealth"
 verify_curl_post_json "${API_URL}/graphql" '{"query":"{ systemHealth }"}' "GraphQL systemHealth"
