@@ -1,197 +1,216 @@
-E:\durgas_ai\ai.backend>python -m alembic upgrade head
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\alembic\env.py", line 102, in run_migrations_online
-    async with connectable.connect() as connection:
-               ~~~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\ext\asyncio\base.py", line 121, in __aenter__
-    return await self.start(is_ctxmanager=True)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\ext\asyncio\engine.py", line 273, in start
-    await greenlet_spawn(self.sync_engine.connect)
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
-    result = context.throw(*sys.exc_info())
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\engine\base.py", line 3278, in connect
-    return self._connection_cls(self)
-           ~~~~~~~~~~~~~~~~~~~~^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\engine\base.py", line 146, in __init__
-    self._dbapi_connection = engine.raw_connection()
-                             ~~~~~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\engine\base.py", line 3302, in raw_connection
-    return self.pool.connect()
-           ~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\pool\base.py", line 449, in connect
-    return _ConnectionFairy._checkout(self)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\pool\base.py", line 1263, in _checkout
-    fairy = _ConnectionRecord.checkout(pool)
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
-    rec = pool._do_get()
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\pool\impl.py", line 308, in _do_get
-    return self._create_connection()
-           ~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\pool\base.py", line 390, in _create_connection
-    return _ConnectionRecord(self)
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
-    self.__connect()
-    ~~~~~~~~~~~~~~^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\pool\base.py", line 900, in __connect
-    with util.safe_reraise():
-         ~~~~~~~~~~~~~~~~~^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
-    raise exc_value.with_traceback(exc_tb)
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
-    self.dbapi_connection = connection = pool._invoke_creator(self)
-                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\engine\create.py", line 643, in connect
-    return dialect.connect(*cargs, **cparams)
-           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\engine\default.py", line 621, in connect
-    return self.loaded_dbapi.connect(*cargs, **cparams)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 953, in connect
-    await_only(creator_fn(*arg, **kw)),
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
-    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
-           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
-    value = await result
-            ^^^^^^^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\asyncpg\connection.py", line 2443, in connect
-    return await connect_utils._connect(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<22 lines>...
-    )
-    ^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\asyncpg\connect_utils.py", line 1249, in _connect
-    raise last_error or exceptions.TargetServerAttributeNotMatched(
-    ...<2 lines>...
-    )
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\asyncpg\connect_utils.py", line 1218, in _connect
-    conn = await _connect_addr(
-           ^^^^^^^^^^^^^^^^^^^^
-    ...<6 lines>...
-    )
-    ^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\asyncpg\connect_utils.py", line 1054, in _connect_addr
-    return await __connect_addr(params, True, *args)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\asyncpg\connect_utils.py", line 1099, in __connect_addr
-    tr, pr = await connector
-             ^^^^^^^^^^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\asyncpg\connect_utils.py", line 969, in _create_ssl_connection
-    tr, pr = await loop.create_connection(
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<2 lines>...
-        host, port)
-        ^^^^^^^^^^^
-  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 1171, in create_connection
-    raise exceptions[0]
-  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 1146, in create_connection
-    sock = await self._connect_sock(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-        exceptions, addrinfo, laddr_infos)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 1045, in _connect_sock
-    await self.sock_connect(sock, address)
-  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\proactor_events.py", line 728, in sock_connect
-    return await self._proactor.connect(sock, address)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\windows_events.py", line 804, in _poll
-    value = callback(transferred, key, ov)
-  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\windows_events.py", line 600, in finish_connect
-    ov.getresult()
-    ~~~~~~~~~~~~^^
-ConnectionRefusedError: [WinError 1225] The remote computer refused the network connection
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "<frozen runpy>", line 198, in _run_module_as_main
-  File "<frozen runpy>", line 88, in _run_code
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\alembic\__main__.py", line 4, in <module>
-    main(prog="alembic")
-    ~~~~^^^^^^^^^^^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\alembic\config.py", line 636, in main
-    CommandLine(prog=prog).main(argv=argv)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\alembic\config.py", line 626, in main
-    self.run_cmd(cfg, options)
-    ~~~~~~~~~~~~^^^^^^^^^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\alembic\config.py", line 603, in run_cmd
-    fn(
-    ~~^
-        config,
-        ^^^^^^^
-        *[getattr(options, k, None) for k in positional],
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        **{k: getattr(options, k, None) for k in kwarg},
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\alembic\command.py", line 406, in upgrade
-    script.run_env()
-    ~~~~~~~~~~~~~~^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\alembic\script\base.py", line 586, in run_env
-    util.load_python_file(self.dir, "env.py")
-    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\alembic\util\pyfiles.py", line 95, in load_python_file
-    module = load_module_py(module_id, path)
-  File "C:\Users\durga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\alembic\util\pyfiles.py", line 113, in load_module_py
-    spec.loader.exec_module(module)  # type: ignore
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
-  File "E:\durgas_ai\ai.backend\alembic\env.py", line 120, in <module>
-    asyncio.run(run_migrations_online())
-    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 195, in run
-    return runner.run(main)
-           ~~~~~~~~~~^^^^^^
-  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
-  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py", line 725, in run_until_complete
-    return future.result()
-           ~~~~~~~~~~~~~^^
-  File "E:\durgas_ai\ai.backend\alembic\env.py", line 106, in run_migrations_online
-    raise RuntimeError(
-    ...<3 lines>...
-    ) from e
-RuntimeError: Alembic cannot connect to PostgreSQL (timeout, refused, or unreachable). Check VPN/firewall/security groups for the host:port in DATABASE_URL, or use sqlite+aiosqlite:///./data/durgasai.db for local migrations.
-
-E:\durgas_ai\ai.backend>E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m uvicorn app.main:app --reload
-INFO:     Will watch for changes in these directories: ['E:\\durgas_ai\\ai.backend']
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [7072] using StatReload
-INFO:     Started server process [21572]
-INFO:     Waiting for application startup.
-2026-05-30 17:27:57,872 - app.main - INFO - Starting DurgasAI Backend v1.0.0
-2026-05-30 17:27:57,872 - app.main - INFO - Environment: production
-2026-05-30 17:27:57,873 - app.main - INFO - Default LLM Provider: ollama
-2026-05-30 17:28:01,187 - app.main - WARNING - Database initialization skipped: Cannot reach PostgreSQL at DATABASE_URL (refused, timeout, or unreachable). Open firewall/security groups for the host and port, start local Postgres (e.g. Compose with POSTGRES_EXTERNAL_PORT), or set DATABASE_URL=sqlite+aiosqlite:///./data/durgasai.db in .env.
-2026-05-30 17:28:05,490 - app.services.rag.vectorstore - INFO - ChromaDB client initialized at ./data/chroma
-2026-05-30 17:28:05,525 - app.services.rag.vectorstore - INFO - Using collection: durgasai_pages
-2026-05-30 17:28:05,525 - app.services.rag.vectorstore - INFO - ChromaDB initialized
-2026-05-30 17:28:05,526 - app.main - INFO - ChromaDB initialized successfully
-2026-05-30 17:28:05,526 - app.services.rag.pipeline - INFO - RAG Pipeline initialized
-2026-05-30 17:28:05,526 - app.main - INFO - RAG Pipeline initialized successfully
-2026-05-30 17:28:05,526 - app.services.llm.factory - INFO - Created LLM provider instance: ollama
-2026-05-30 17:28:05,527 - app.main - INFO - LLM Provider (ollama) initialized
-2026-05-30 17:28:16,056 - app.main - WARNING - Redis initialization skipped: Error 10061 connecting to 54.146.221.133:6379. 10061.
-INFO:     Application startup complete.
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-2026-05-30 17:28:31,422 - app.main - INFO - Shutting down DurgasAI Backend
-2026-05-30 17:28:31,423 - app.main - INFO - Database connections closed
-2026-05-30 17:28:31,423 - app.services.rag.vectorstore - INFO - ChromaDB connection closed
-2026-05-30 17:28:31,424 - app.main - INFO - Vector store closed
-INFO:     Application shutdown complete.
-INFO:     Finished server process [21572]
-INFO:     Stopping reloader process [7072]
-
-E:\durgas_ai\ai.backend>
-
-E:\durgas_ai\ai.backend>
-
-E:\durgas_ai\ai.backend>
+ubuntu@ip-172-31-94-206:~/aibackend$ git pull
+remote: Enumerating objects: 149, done.
+remote: Counting objects: 100% (66/66), done.
+remote: Total 149 (delta 65), reused 65 (delta 65), pack-reused 83 (from 1)
+Receiving objects: 100% (149/149), 84.87 KiB | 3.14 MiB/s, done.
+Resolving deltas: 100% (90/90), completed with 59 local objects.
+From https://github.com/thekoushikdurgas/aibackend
+   2e5c965..962d9bf  main       -> origin/main
+Updating 2e5c965..962d9bf
+Fast-forward
+ .env.example                                           |   49 ++++++++++++-
+ .github/workflows/api-ci.yml                           |   91 ++++++++++++-----------
+ .gitignore                                             |    1 +
+ MIGRATION.md                                           |    3 +-
+ agent.json                                             |   41 +++++++++++
+ app/api/durgasman.py                                   |    2 +-
+ app/api/library.py                                     |    6 +-
+ app/api/storage_signed_files.py                        |    4 +-
+ app/api/ws_methods/health.py                           |    9 ++-
+ app/api/ws_methods/kafka_health.py                     |   51 +++++++++++++
+ app/api/ws_methods/os_labs.py                          | 1107 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ app/api/ws_methods/pokemon.py                          |  515 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ app/api/ws_methods/registry.py                         |    2 +
+ app/codec/compression.py                               |   50 +++++++++++++
+ app/codec/ffmpeg_util.py                               |   20 +++++
+ app/codec/payload.py                                   |   30 +-------
+ app/codec/pyarrow_util.py                              |   44 +++++++++++
+ app/codec/video.py                                     |   16 +---
+ app/config.py                                          |   47 ++++++++++--
+ app/core/auth.py                                       |    7 +-
+ app/core/metrics.py                                    |   51 +++++++++++++
+ app/core/middleware.py                                 |   51 +++++++++----
+ app/core/redis_manager.py                              |  213 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ app/core/response_cache.py                             |   10 +++
+ app/database/sqlalchemy.py                             |    2 +
+ app/graphql/modules/library/resolvers.py               |    7 +-
+ app/graphql/modules/vsql/resolvers.py                  |    8 +-
+ app/graphql/schema.py                                  |    4 +-
+ app/main.py                                            |   47 ++++++++++++
+ app/models/__init__.py                                 |    8 ++
+ app/models/os_platform.py                              |   78 ++++++++++++++++++++
+ app/models/pokemon.py                                  |   80 ++++++++++++++++++++
+ app/services/claude_code/tool_executor.py              |    4 +-
+ app/services/council/verifier.py                       |    9 ++-
+ app/services/dev_tool/html_fetch.py                    |    5 +-
+ app/services/feedback_service.py                       |   17 ++++-
+ app/services/kafka/__init__.py                         |   18 ++---
+ app/services/kafka/consumer.py                         |  105 ++++++++++++++++++++++++++
+ app/services/kafka/producer.py                         |   75 +++++++++++++++++--
+ app/services/kafka/topics.py                           |   56 +++++++++++++-
+ app/services/kafka/workers/__init__.py                 |    1 +
+ app/services/kafka/workers/file_ingestion.py           |  151 ++++++++++++++++++++++++++++++++++++++
+ app/services/llm/ollama.py                             |    4 +-
+ app/services/local_storage_service.py                  |    6 +-
+ app/services/minio_service.py                          |  198 +++++++++++++++++++++++++++++++++++++++++++++++++
+ app/services/ollama/__init__.py                        |    3 +-
+ app/services/ollama/client.py                          |   38 ++++++++--
+ app/services/rag/vectorstore.py                        |   16 ++++
+ app/services/reka/model_registry.py                    |   21 +++++-
+ app/services/video_service.py                          |   11 ++-
+ app/utils/bs4_attrs.py                                 |    9 +++
+ app/utils/filesystem.py                                |   23 ++++++
+ app/utils/html_parser.py                               |   58 +++++++--------
+ app/video_storage/decoder.py                           |   13 +---
+ app/video_storage/encoder.py                           |   11 +--
+ app/video_storage/parquet_index.py                     |   15 ++--
+ codebase.bat                                           |    4 +-
+ deploy/EC2.md                                          |   47 ++++++------
+ docker/docker-compose.yml                              |  158 +++++++++++++++++++++++++++++++++++++--
+ docker/grafana/dashboards/durgasos_dashboard.json      |  227 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ docker/grafana/provisioning/dashboards/dashboard.yml   |   12 +++
+ docker/grafana/provisioning/datasources/datasource.yml |    9 +++
+ docker/prometheus.yml                                  |   20 +++++
+ docs/tests/test_rag.py                                 |    3 +-
+ docs/tests/test_rag_integration.py                     |    3 +-
+ error.txt                                              |  586 +++++++++++++++++++++++++++++++++++++++++++++++++-----------------------------------------------------------------------------------------------
+ mypy.ini                                               |   37 +++++++++-
+ pyrefly.toml                                           |   11 +--
+ pytest.ini                                             |    2 -
+ reports/durgasai-source-inventory.txt                  |   10 ++-
+ reports/mypy-last.txt                                  |   24 ++++++
+ requirements-dev.txt                                   |    2 +
+ requirements.txt                                       |    5 +-
+ tests/test_effective_database_url.py                   |   27 +++++++
+ 74 files changed, 4043 insertions(+), 665 deletions(-)
+ create mode 100644 agent.json
+ create mode 100644 app/api/ws_methods/kafka_health.py
+ create mode 100644 app/api/ws_methods/os_labs.py
+ create mode 100644 app/api/ws_methods/pokemon.py
+ create mode 100644 app/codec/compression.py
+ create mode 100644 app/codec/ffmpeg_util.py
+ create mode 100644 app/codec/pyarrow_util.py
+ create mode 100644 app/core/metrics.py
+ create mode 100644 app/core/redis_manager.py
+ create mode 100644 app/models/os_platform.py
+ create mode 100644 app/models/pokemon.py
+ create mode 100644 app/services/kafka/consumer.py
+ create mode 100644 app/services/kafka/workers/__init__.py
+ create mode 100644 app/services/kafka/workers/file_ingestion.py
+ create mode 100644 app/services/minio_service.py
+ create mode 100644 app/utils/filesystem.py
+ create mode 100644 docker/grafana/dashboards/durgasos_dashboard.json
+ create mode 100644 docker/grafana/provisioning/dashboards/dashboard.yml
+ create mode 100644 docker/grafana/provisioning/datasources/datasource.yml
+ create mode 100644 docker/prometheus.yml
+ create mode 100644 reports/mypy-last.txt
+ create mode 100644 tests/test_effective_database_url.py
+ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/ec2-bootstrap.sh
+bash deploy/ec2-bootstrap.sh
+[bootstrap] Installing packages...
+Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute InRelease
+Get:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-updates InRelease [136 kB]
+Hit:3 http://security.ubuntu.com/ubuntu resolute-security InRelease
+Hit:4 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-backports InRelease
+Hit:5 https://download.docker.com/linux/ubuntu resolute InRelease
+Get:6 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-updates/main amd64v3 Packages [149 kB]
+Get:7 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-updates/main Translation-en [41.1 kB]
+Fetched 326 kB in 0s (1507 kB/s)
+Reading package lists... Done
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+ca-certificates is already the newest version (20260223).
+curl is already the newest version (8.18.0-1ubuntu2.1).
+git is already the newest version (1:2.53.0-1ubuntu1).
+python3 is already the newest version (3.14.3-0ubuntu2).
+coreutils is already the newest version (9.5-1ubuntu2+0.0.0~ubuntu25).
+Solving dependencies... Done
+0 upgraded, 0 newly installed, 0 to remove and 9 not upgraded.
+[bootstrap] docker compose version: 5.1.4 (need >= 2.20 for compose.yaml include:)
+[bootstrap] Added ubuntu to docker group.
+[bootstrap] Repo already exists at /home/ubuntu/aibackend
+[bootstrap] Done.
+  1. Edit /home/ubuntu/aibackend/.env with nano (no sudo): JWT_SECRET_KEY, API_KEY, POSTGRES_PASSWORD, CORS_ORIGINS, …
+     Then: chmod 600 .env
+  2. Open security group TCP 8000
+  3. Exit SSH and reconnect (or run: newgrp docker) so docker.sock works without sudo
+  4. cd /home/ubuntu/aibackend && bash deploy/remote-deploy.sh && bash deploy/verify-stack.sh
+  5. curl -fsS http://127.0.0.1:8000/health
+  Note: Do not pip install requirements on the host unless using Python 3.11/3.12.
+        Production runs in Docker (python:3.11-slim). Host python3 is only for validate_env --dotenv-only.
+  See deploy/EC2.md for GitHub Actions secrets.
+ubuntu@ip-172-31-94-206:~/aibackend$ sudo rm .env
+ubuntu@ip-172-31-94-206:~/aibackend$ sudo nano .env
+ubuntu@ip-172-31-94-206:~/aibackend$ sudo rm .env
+ubuntu@ip-172-31-94-206:~/aibackend$ sudo nano .env
+ubuntu@ip-172-31-94-206:~/aibackend$ sudo chown ubuntu:ubuntu .env
+sudo chmod 600 .env
+ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/remote-deploy.sh
+bash deploy/remote-deploy.sh
+[deploy] ROOT=/home/ubuntu/aibackend
+[deploy] validate_env (/home/ubuntu/aibackend/venv/bin/python, dotenv-only — full check runs in backend container)
+validate_env: OK - .env preflight (dotenv-only)
+[deploy] docker compose --env-file … -f compose.yaml build backend
+[+] Building 951.1s (22/22) FINISHED
+ => [internal] load local bake definitions                                                                                                                                                                                                                                                                                                  0.0s 
+ => => reading from stdin 511B                                                                                                                                                                                                                                                                                                              0.0s
+ => [internal] load build definition from Dockerfile                                                                                                                                                                                                                                                                                        0.0s 
+ => => transferring dockerfile: 2.04kB                                                                                                                                                                                                                                                                                                      0.0s 
+ => [internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                                                                                                                                         0.1s 
+ => [internal] load .dockerignore                                                                                                                                                                                                                                                                                                           0.0s
+ => => transferring context: 733B                                                                                                                                                                                                                                                                                                           0.0s 
+ => [internal] load build context                                                                                                                                                                                                                                                                                                           0.1s 
+ => => transferring context: 483.18kB                                                                                                                                                                                                                                                                                                       0.0s 
+ => [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                           0.0s 
+ => => resolve docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                                   0.0s 
+ => CACHED [builder 2/6] WORKDIR /app                                                                                                                                                                                                                                                                                                       0.0s
+ => CACHED [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                            0.0s 
+ => CACHED [builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                                                                                                                                       0.0s 
+ => [builder 5/6] COPY requirements.txt .                                                                                                                                                                                                                                                                                                   0.0s 
+ => [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                                                                                                                                      240.9s 
+ => CACHED [stage-1  3/11] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                          0.0s
+ => [stage-1  4/11] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                                                                                                                                               126.5s
+ => [stage-1  5/11] COPY app/ ./app/                                                                                                                                                                                                                                                                                                        1.0s
+ => [stage-1  6/11] COPY config/ ./config/                                                                                                                                                                                                                                                                                                  0.1s
+ => [stage-1  7/11] COPY alembic.ini .                                                                                                                                                                                                                                                                                                      0.0s
+ => [stage-1  8/11] COPY alembic/ ./alembic/                                                                                                                                                                                                                                                                                                0.1s
+ => [stage-1  9/11] COPY scripts/validate_env.py ./scripts/validate_env.py                                                                                                                                                                                                                                                                  0.0s
+ => [stage-1 10/11] RUN mkdir -p /app/data/chroma /app/data/logs /app/data/storage                                                                                                                                                                                                                                                          0.8s
+ => [stage-1 11/11] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                                                                                                                                                 1.9s
+ => exporting to image                                                                                                                                                                                                                                                                                                                    457.7s
+ => => exporting layers                                                                                                                                                                                                                                                                                                                   358.7s
+ => => exporting manifest sha256:f041ca54c74534b3aa5c764e7b3c7ce838f653d07c520c74e9dd835d801f36a3                                                                                                                                                                                                                                           0.0s
+ => => exporting config sha256:f6f0b38ff592f3c063bb6137fd55b7affde1ef77955899b0d8a6ccf24022196a                                                                                                                                                                                                                                             0.0s 
+ => => exporting attestation manifest sha256:d70a92a09e584a567cb4146f5dbed45c9efd54cbf6d27c723fdc1f520f43df9c                                                                                                                                                                                                                               0.0s 
+ => => exporting manifest list sha256:1bc31acf07761e035f4b6d6b002a3e2fc9e327af2be82a99242486f21b32cd8e                                                                                                                                                                                                                                      0.0s 
+ => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                                 0.0s
+ => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                             98.8s 
+ => resolving provenance for metadata file                                                                                                                                                                                                                                                                                                  0.1s
+[+] build 1/1
+ ✔ Image aibackend-backend Built                                                                                                                                                                                                                                                                                                           951.2s
+[deploy] validate_env --import-app (one-off before uvicorn starts)
+[+]  2/2te 2/2
+ ✔ Volume aibackend_kafka_data Created                                                                                                                                                                                                                                                                                                       0.0s
+ ✔ Volume aibackend_minio_data Created                                                                                                                                                                                                                                                                                                       0.0s
+Container aibackend-backend-run-f418e573e6cd Creating 
+Container aibackend-backend-run-f418e573e6cd Created 
+validate_env: OK - settings load successfully
+[deploy] docker compose up -d --force-recreate backend
+[+] pull 11/11
+ ✔ backend                             Skipped No image to be pulled                                                                                                                                                                                                                                                                         0.0s
+ ! Image minio/minio:latest            Interrupted                                                                                                                                                                                                                                                                                           0.1s
+ ! Image redis:7-alpine                Interrupted                                                                                                                                                                                                                                                                                           0.1s
+ ! Image chromadb/chroma:latest        Interrupted                                                                                                                                                                                                                                                                                           0.1s
+ ! Image prom/prometheus:latest        Interrupted                                                                                                                                                                                                                                                                                           0.1s
+ ! Image postgres:15-alpine            Interrupted                                                                                                                                                                                                                                                                                           0.1s
+ ! Image grafana/grafana:latest        Interrupted                                                                                                                                                                                                                                                                                           0.1s
+ ! Image provectuslabs/kafka-ui:latest Interrupted                                                                                                                                                                                                                                                                                           0.1s
+ ! Image ollama/ollama:latest          Interrupted                                                                                                                                                                                                                                                                                           0.1s
+ ! Image dpage/pgadmin4:latest         Interrupted                                                                                                                                                                                                                                                                                           0.1s ✘ Image bitnami/kafka:3.7             Error failed to resolve reference "docker.io/bitnami/kafka:3.7": docker.io/bitnami/kafka:3.7: not found                                                                                                                                                                                               0.1s
+Error response from daemon: failed to resolve reference "docker.io/bitnami/kafka:3.7": docker.io/bitnami/kafka:3.7: not found
+[+] up 2/2
+ ! Image minio/minio:latest Interrupted                                                                                                                                                                                                                                                                                                      0.0s
+ ✘ Image bitnami/kafka:3.7  Error failed to resolve reference "docker.io/bitnami/kafka:3.7": docker.io/bitnami/kafka:3.7: not found                                                                                                                                                                                                          0.0s
+Error response from daemon: failed to resolve reference "docker.io/bitnami/kafka:3.7": docker.io/bitnami/kafka:3.7: not found
+ubuntu@ip-172-31-94-206:~/aibackend$ 
