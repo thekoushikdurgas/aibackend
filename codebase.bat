@@ -267,8 +267,8 @@ if /i "%SKIP_PYREFLY%"=="1" (
     set "SECTION_PYREFLY_STATUS=WARNING"
     call :color_echo "%YELLOW%" "  ! pyrefly not installed — pip install pyrefly (or set SKIP_PYREFLY=1)"
   ) else (
-    call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m pyrefly check --summarize-errors"
-    call "%PY%" %PY_EXTRA% -m pyrefly check --summarize-errors
+    call :color_echo "%YELLOW%" "  Running: !PY! !PY_EXTRA! -m pyrefly check app/ --summarize-errors"
+    call "%PY%" %PY_EXTRA% -m pyrefly check app/ --summarize-errors
     if errorlevel 1 (
       if /i "%PYREFLY_NO_FAIL%"=="1" (
         set /a WARNING_COUNT+=1

@@ -1,0 +1,24 @@
+﻿app\services\scraper\structured_data.py:10: error: Library stubs not installed for "bs4"  [import-untyped]
+app\services\scraper\generic_extractor.py:9: error: Library stubs not installed for "bs4"  [import-untyped]
+app\services\scraper\generic_extractor.py:10: error: Library stubs not installed for "bs4.element"  [import-untyped]
+app\services\rag\document_loader.py:139: error: Skipping analyzing "docx": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+app\utils\html_parser.py:6: error: Library stubs not installed for "bs4"  [import-untyped]
+app\video_storage\decoder.py:156: error: Library stubs not installed for "pandas"  [import-untyped]
+app\services\scraper\export_handler.py:9: error: Library stubs not installed for "pandas"  [import-untyped]
+app\services\scraper\export_handler.py:9: note: Hint: "python3 -m pip install pandas-stubs"
+app\services\video_service.py:14: error: Library stubs not installed for "pandas"  [import-untyped]
+app\services\video_service.py:371: error: No overload variant of "imwrite" matches argument types "BytesIO", "ndarray[tuple[Any, ...], dtype[unsignedinteger[_8Bit]]]", "str"  [call-overload]
+app\services\video_service.py:371: note: Possible overload variants:
+app\services\video_service.py:371: note:     def imwrite(uri: Literal['<bytes>'], im: ArrayLike?, format: Format = ..., **kwargs: Any) -> bytes
+app\services\video_service.py:371: note:     def imwrite(uri: str | bytes | BytesIO | Path | BinaryIO, im: ArrayLike?, format: Format = ..., **kwargs: Any) -> None
+app\services\dev_tool\html_fetch.py:12: error: Library stubs not installed for "bs4"  [import-untyped]
+app\services\llm\bedrock.py:26: error: Skipping analyzing "boto3": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+app\services\s3_storage_adapter.py:15: error: Skipping analyzing "boto3": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+app\services\s3_storage_adapter.py:16: error: Skipping analyzing "botocore.config": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+app\services\s3_storage_adapter.py:17: error: Skipping analyzing "botocore.exceptions": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+app\services\council\verifier.py:13: error: Library stubs not installed for "bs4"  [import-untyped]
+app\services\council\verifier.py:13: note: Hint: "python3 -m pip install types-beautifulsoup4"
+app\services\council\verifier.py:13: note: (or run "mypy --install-types" to install all missing stub packages)
+app\core\socketio.py:10: error: Skipping analyzing "socketio": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+app\core\socketio.py:10: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+Found 16 errors in 12 files (checked 403 source files)

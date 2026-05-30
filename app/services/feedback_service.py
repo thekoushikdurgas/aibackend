@@ -11,6 +11,20 @@ from .video_service import _resolve_video_file, list_video_tables, query_video_d
 FEEDBACK_TABLE = "user_experience"
 
 
+def _normalize_rating_value(r: Any) -> Optional[int]:
+    """Map stored rating column values to int or None for API responses."""
+    if r in (-1, "-1", "", None):
+        return None
+    if isinstance(r, int):
+        return r
+    if isinstance(r, str) and r.lstrip("-").isdigit():
+        return int(r)
+    try:
+        return int(r)
+    except (TypeError, ValueError):
+        return None
+
+
 def ensure_feedback_table(db_id: str) -> None:
     """Create the feedback table if it does not exist."""
     if FEEDBACK_TABLE in list_video_tables(db_id):
@@ -61,8 +75,7 @@ def list_feedback(db_id: str, limit: int = 50) -> List[Dict[str, Any]]:
     rows_out: List[Dict[str, Any]] = []
     for row in result.get("rows") or []:
         item = dict(zip(cols, row))
-        r = item.get("rating")
-        item["rating"] = None if r in (-1, "-1", "", None) else int(r)  # type: ignore[arg-type]
+        item["rating"] = _normalize_rating_value(item.get("rating"))
         rows_out.append(item)
     rows_out.sort(key=lambda x: str(x.get("created_at") or ""), reverse=True)
     return rows_out[:lim]

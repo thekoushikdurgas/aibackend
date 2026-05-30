@@ -20,8 +20,6 @@ try:
 except ImportError:
     pass
 
-from app.config_runtime_overlay import SettingsOverlayProxy  # noqa: E402
-
 
 class Settings(BaseSettings):
     """Application settings from environment and optional .env file."""
@@ -29,7 +27,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=_DOTENV_PATH if _DOTENV_PATH.is_file() else None,
         env_file_encoding="utf-8",
-        extra="ignore",
+        extra="forbid",
         case_sensitive=False,
     )
 
@@ -448,6 +446,11 @@ class Settings(BaseSettings):
     rag_rerank_top_k: int = 5  # top K results to rerank
     rag_context_max_length: int = 4000  # max context length in characters
 
+    # Docker Compose (.env / compose.yaml only; not read by application logic)
+    postgres_password: Optional[str] = None
+    postgres_external_port: Optional[int] = None
+    redis_external_port: Optional[int] = None
+
     # PostgreSQL Configuration (for production)
     postgresql_url: Optional[str] = (
         None  # e.g., "postgresql+asyncpg://user:pass@localhost/db"
@@ -524,5 +527,11 @@ def get_settings():
     return settings
 
 
+def _settings_overlay_proxy():
+    from app.config_runtime_overlay import SettingsOverlayProxy
+
+    return SettingsOverlayProxy(_base_settings_singleton())
+
+
 # Single stable object so imports of `settings` see overlay updates.
-settings: SettingsOverlayProxy = SettingsOverlayProxy(_base_settings_singleton())
+settings = _settings_overlay_proxy()

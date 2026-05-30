@@ -1,5 +1,5 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Sat 05/30/2026 13:25:45.41
+Generated: Sat 05/30/2026 16:35:54.81
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
@@ -85,9 +85,12 @@ E:\durgas_ai\ai.backend\app\api\ws_methods\veo.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\vision.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\workflow_runner.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\__init__.py
+E:\durgas_ai\ai.backend\app\codec\compression.py
+E:\durgas_ai\ai.backend\app\codec\ffmpeg_util.py
 E:\durgas_ai\ai.backend\app\codec\format_constants.py
 E:\durgas_ai\ai.backend\app\codec\frames.py
 E:\durgas_ai\ai.backend\app\codec\payload.py
+E:\durgas_ai\ai.backend\app\codec\pyarrow_util.py
 E:\durgas_ai\ai.backend\app\codec\video.py
 E:\durgas_ai\ai.backend\app\codec\__init__.py
 E:\durgas_ai\ai.backend\app\core\auth.py
@@ -379,6 +382,7 @@ E:\durgas_ai\ai.backend\app\services\scraper\__init__.py
 E:\durgas_ai\ai.backend\app\services\weather\open_meteo.py
 E:\durgas_ai\ai.backend\app\services\weather\__init__.py
 E:\durgas_ai\ai.backend\app\utils\bs4_attrs.py
+E:\durgas_ai\ai.backend\app\utils\filesystem.py
 E:\durgas_ai\ai.backend\app\utils\file_handler.py
 E:\durgas_ai\ai.backend\app\utils\helpers.py
 E:\durgas_ai\ai.backend\app\utils\html_parser.py

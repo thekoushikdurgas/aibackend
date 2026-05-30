@@ -49,6 +49,7 @@ WS_METHOD_MODULES = [
     "orbit",
     "roadrash",
     "sudoku",
+    "pokemon",
     "gemma",
     "dev_tool",
     "os_labs",

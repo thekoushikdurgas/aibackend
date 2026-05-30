@@ -10,6 +10,7 @@ import numpy as np
 
 from .schema import VideoSchema, FrameHeader
 from .exceptions import VideoEncodingError
+from ..codec.compression import zstd_compress
 from ..codec.format_constants import FRAME_WIDTH, FRAME_HEIGHT
 
 
@@ -26,14 +27,8 @@ def _compress(data: bytes, algorithm: str = "zstd", level: int = 3) -> bytes:
     if algo == "zlib":
         return zlib.compress(data, level=max(1, min(int(level), 9)))
     if algo == "zstd":
-        try:
-            import zstandard as zstd  # type: ignore[import-untyped]
-
-            lv = max(1, min(int(level), 22))
-            cctx = zstd.ZstdCompressor(level=lv)
-            return cctx.compress(data)
-        except ImportError:
-            return zlib.compress(data, level=max(1, min(int(level), 9)))
+        lv = max(1, min(int(level), 22))
+        return zstd_compress(data, level=lv)
     return zlib.compress(data, level=9)
 
 

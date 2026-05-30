@@ -1,28 +1,14 @@
 """Encode/decode RGBA frame sequences with FFmpeg (lossless-ish MP4)."""
 
 import os
-import shutil
 import subprocess
 from pathlib import Path
 from typing import List
 
 import numpy as np
 
+from .ffmpeg_util import ffmpeg_executable as _ffmpeg_executable
 from .format_constants import FRAME_HEIGHT, FRAME_WIDTH
-
-
-def _ffmpeg_executable() -> str | None:
-    """Return path to ffmpeg binary (system PATH or imageio-ffmpeg bundle)."""
-    exe = shutil.which("ffmpeg")
-    if exe:
-        return exe
-    try:
-        import imageio_ffmpeg  # type: ignore[import-untyped]
-
-        bundled = imageio_ffmpeg.get_ffmpeg_exe()
-        return bundled if bundled else None
-    except Exception:
-        return None
 
 
 def check_ffmpeg_available() -> bool:

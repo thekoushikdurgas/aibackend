@@ -103,6 +103,9 @@ jobs:
       - name: Type check (mypy)
         run: mypy app/
 
+      - name: Type check (pyrefly)
+        run: pyrefly check app/ --summarize-errors
+
       - name: Optional best-practices check
         if: ${{ hashFiles('scripts/check_best_practices.py') != '' }}
         run: |

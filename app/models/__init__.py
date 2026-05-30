@@ -56,6 +56,12 @@ from .sudoku import (
     SudokuProfileModel,
 )
 
+# Import Pokemon models
+from .pokemon import (
+    PokemonLeaderboardModel,
+    PokemonProfileModel,
+)
+
 __all__ = [
     "ChatRequest",
     "ChatResponse",
@@ -98,4 +104,6 @@ __all__ = [
     "RoadRashFriendModel",
     "SudokuLeaderboardModel",
     "SudokuProfileModel",
+    "PokemonLeaderboardModel",
+    "PokemonProfileModel",
 ]

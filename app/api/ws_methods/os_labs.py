@@ -12,12 +12,14 @@ import subprocess
 import time
 import math
 import random
-from typing import Dict, Any, List, Optional
+import re
+from typing import Dict, Any, Optional, AsyncGenerator
 import psutil
 
 from app.core.jsonrpc import JSONRPCError, JSONRPCErrorCode
 
 logger = logging.getLogger(__name__)
+
 
 # --- GLOBAL SIMULATION STATE ---
 class HardwareSimulator:
@@ -29,9 +31,9 @@ class HardwareSimulator:
         self.fan_rpm = 1200.0
         self.cpu_frequency = 3.6  # GHz
         self.c_state_residency = {
-            "C0": 10.0,   # Active
-            "C1": 15.0,   # Halt
-            "C6": 75.0    # Deep sleep
+            "C0": 10.0,  # Active
+            "C1": 15.0,  # Halt
+            "C6": 75.0,  # Deep sleep
         }
         self.throttling_active = False
         self.turbo_boost = False
@@ -59,7 +61,7 @@ class HardwareSimulator:
             {"temp": 30.0, "rpm": 1000.0},
             {"temp": 50.0, "rpm": 1800.0},
             {"temp": 70.0, "rpm": 3200.0},
-            {"temp": 90.0, "rpm": 5200.0}
+            {"temp": 90.0, "rpm": 5200.0},
         ]
 
     def interpolate_fan_curve(self, temp: float) -> float:
@@ -72,7 +74,7 @@ class HardwareSimulator:
             return nodes[-1]["rpm"]
         for i in range(len(nodes) - 1):
             n1 = nodes[i]
-            n2 = nodes[i+1]
+            n2 = nodes[i + 1]
             if n1["temp"] <= temp <= n2["temp"]:
                 pct = (temp - n1["temp"]) / (n2["temp"] - n1["temp"])
                 return n1["rpm"] + pct * (n2["rpm"] - n1["rpm"])
@@ -100,7 +102,9 @@ class HardwareSimulator:
 
         # 4. GPU Thermal Dynamics Formula
         gpu_heat_gen = (self.gpu_load * 0.6) * (self.gpu_frequency / 1.5)
-        gpu_heat_diss = (self.gpu_temp - self.ambient_temp) * (self.fan_rpm / 3000.0) * 0.18
+        gpu_heat_diss = (
+            (self.gpu_temp - self.ambient_temp) * (self.fan_rpm / 3000.0) * 0.18
+        )
         gpu_temp_delta = (gpu_heat_gen - gpu_heat_diss) * dt
         self.gpu_temp += gpu_temp_delta
         self.gpu_temp = max(self.ambient_temp, min(105.0, self.gpu_temp))
@@ -133,9 +137,13 @@ class HardwareSimulator:
             self.gpu_frequency += (standard_gpu_freq - self.gpu_frequency) * 0.4 * dt
 
         # GPU VRAM & PCIe usage
-        self.vram_usage_gb = 1.2 + (self.gpu_load / 100.0) * 12.0 + random.uniform(-0.1, 0.1)
+        self.vram_usage_gb = (
+            1.2 + (self.gpu_load / 100.0) * 12.0 + random.uniform(-0.1, 0.1)
+        )
         self.vram_usage_gb = max(0.5, min(self.vram_total_gb, self.vram_usage_gb))
-        self.pcie_bandwidth = 0.1 + (self.gpu_load / 100.0) * 28.0 + random.uniform(-0.5, 0.5)
+        self.pcie_bandwidth = (
+            0.1 + (self.gpu_load / 100.0) * 28.0 + random.uniform(-0.5, 0.5)
+        )
         self.pcie_bandwidth = max(0.1, min(32.0, self.pcie_bandwidth))
 
         # 7. C-State residency updates
@@ -149,7 +157,9 @@ class HardwareSimulator:
         # 8. Memory Management updates
         self.page_fault_rate = 5.0 + (self.cpu_load * 0.4) + random.uniform(-2, 2)
         self.page_fault_rate = max(0.0, self.page_fault_rate)
-        self.tlb_hit_rate = 99.9 - (self.page_fault_rate / 100.0) + random.uniform(-0.05, 0.05)
+        self.tlb_hit_rate = (
+            99.9 - (self.page_fault_rate / 100.0) + random.uniform(-0.05, 0.05)
+        )
         self.tlb_hit_rate = max(85.0, min(100.0, self.tlb_hit_rate))
 
         if self.cpu_load > 90.0:
@@ -181,7 +191,7 @@ class HardwareSimulator:
                 "cStates": {
                     "C0": round(self.c_state_residency["C0"], 1),
                     "C1": round(self.c_state_residency["C1"], 1),
-                    "C6": round(self.c_state_residency["C6"], 1)
+                    "C6": round(self.c_state_residency["C6"], 1),
                 },
                 "gpuLoad": round(self.gpu_load, 1),
                 "targetGpuLoad": round(self.target_gpu_load, 1),
@@ -192,16 +202,25 @@ class HardwareSimulator:
                 "gpuFrequency": round(self.gpu_frequency, 2),
                 "tlbHitRate": round(self.tlb_hit_rate, 2),
                 "swapInRate": round(self.swap_in_rate, 2),
-                "swapOutRate": round(self.swap_out_rate, 2)
+                "swapOutRate": round(self.swap_out_rate, 2),
             },
             "host": {
                 "cpuPercent": actual_cpu,
                 "ramPercent": actual_ram,
-                "cores": psutil.cpu_count(logical=True) if hasattr(psutil, "cpu_count") else 4,
+                "cores": (
+                    psutil.cpu_count(logical=True)
+                    if hasattr(psutil, "cpu_count")
+                    else 4
+                ),
                 "platform": sys.platform,
-                "arch": os.environ.get("PROCESSOR_ARCHITECTURE", "x64") if sys.platform == "win32" else "x86_64"
-            }
+                "arch": (
+                    os.environ.get("PROCESSOR_ARCHITECTURE", "x64")
+                    if sys.platform == "win32"
+                    else "x86_64"
+                ),
+            },
         }
+
 
 simulator = HardwareSimulator()
 
@@ -231,10 +250,10 @@ OS_LESSONS = [
                     "To load the final OS GUI desktop",
                     "To allocate page tables in RAM",
                     "To hold the stage-1 bootloader sector to locate the stage-2 bootloader",
-                    "To execute POST diagnostics"
+                    "To execute POST diagnostics",
                 ],
                 "answerIndex": 2,
-                "explanation": "Because an entire bootloader cannot fit inside 512 bytes, the MBR stores a stage-1 bootloader whose only job is to locate and execute a more capable stage-2 bootloader."
+                "explanation": "Because an entire bootloader cannot fit inside 512 bytes, the MBR stores a stage-1 bootloader whose only job is to locate and execute a more capable stage-2 bootloader.",
             },
             {
                 "question": "What happens if PID 1 (init or systemd) unexpectedly terminates?",
@@ -242,12 +261,12 @@ OS_LESSONS = [
                     "A new shell inherits PID 1",
                     "The system operates normally",
                     "The OS kernel panics and the system crashes",
-                    "A warning is logged to syslog and execution continues"
+                    "A warning is logged to syslog and execution continues",
                 ],
                 "answerIndex": 2,
-                "explanation": "PID 1 is the parent of all user space processes and manages orphan reaping. If it dies, the kernel is left without a control loop and triggers a kernel panic."
-            }
-        ]
+                "explanation": "PID 1 is the parent of all user space processes and manages orphan reaping. If it dies, the kernel is left without a control loop and triggers a kernel panic.",
+            },
+        ],
     },
     {
         "id": 2,
@@ -269,16 +288,11 @@ OS_LESSONS = [
         "quiz": [
             {
                 "question": "In which privilege ring does a standard web browser run?",
-                "options": [
-                    "Ring 0",
-                    "Ring 1",
-                    "Ring 3",
-                    "Ring 2"
-                ],
+                "options": ["Ring 0", "Ring 1", "Ring 3", "Ring 2"],
                 "answerIndex": 2,
-                "explanation": "Standard user applications run in Ring 3 (User Mode) to restrict their ability to crash other processes or access raw hardware."
+                "explanation": "Standard user applications run in Ring 3 (User Mode) to restrict their ability to crash other processes or access raw hardware.",
             }
-        ]
+        ],
     },
     {
         "id": 3,
@@ -302,12 +316,12 @@ OS_LESSONS = [
                     "To swap idle pages to the disk partition",
                     "To cache page table translations for fast CPU memory lookups",
                     "To resolve branch prediction targets",
-                    "To act as L1 memory cache"
+                    "To act as L1 memory cache",
                 ],
                 "answerIndex": 1,
-                "explanation": "The TLB is a dedicated hardware cache on the CPU that stores page table lookups, preventing the CPU from needing to resolve the multi-level page table tree for every single memory access."
+                "explanation": "The TLB is a dedicated hardware cache on the CPU that stores page table lookups, preventing the CPU from needing to resolve the multi-level page table tree for every single memory access.",
             }
-        ]
+        ],
     },
     {
         "id": 4,
@@ -332,12 +346,12 @@ OS_LESSONS = [
                     "Inside the inode header",
                     "Inside the directory file containing the entry",
                     "At the beginning of the file's first block on disk",
-                    "Inside the partition Superblock"
+                    "Inside the partition Superblock",
                 ],
                 "answerIndex": 1,
-                "explanation": "Inodes hold metadata but not names. File names are stored inside directory tables mapping files to corresponding inode numbers."
+                "explanation": "Inodes hold metadata but not names. File names are stored inside directory tables mapping files to corresponding inode numbers.",
             }
-        ]
+        ],
     },
     {
         "id": 5,
@@ -360,12 +374,12 @@ OS_LESSONS = [
                     "It runs calculations on the GPU",
                     "It bypasses the CPU for data transmission into RAM, reducing CPU interrupt overhead",
                     "It encrypts incoming packets in Ring 0",
-                    "It converts network streams into hard drive blocks directly"
+                    "It converts network streams into hard drive blocks directly",
                 ],
                 "answerIndex": 1,
-                "explanation": "Without DMA, the CPU would be forced to process interrupts for every incoming byte, consuming the CPU entirely on high-bandwidth channels."
+                "explanation": "Without DMA, the CPU would be forced to process interrupts for every incoming byte, consuming the CPU entirely on high-bandwidth channels.",
             }
-        ]
+        ],
     },
     {
         "id": 6,
@@ -389,12 +403,12 @@ OS_LESSONS = [
                     "A process that consumes all CPU cycles",
                     "A terminated process whose exit status has not yet been read by its parent",
                     "An active process running in user mode without memory maps",
-                    "A thread running in infinite loop"
+                    "A thread running in infinite loop",
                 ],
                 "answerIndex": 1,
-                "explanation": "When a process exits, it retains a minimal PCB entry showing its exit status. It remains a zombie until the parent collects its code using the wait() syscall."
+                "explanation": "When a process exits, it retains a minimal PCB entry showing its exit status. It remains a zombie until the parent collects its code using the wait() syscall.",
             }
-        ]
+        ],
     },
     {
         "id": 7,
@@ -415,16 +429,11 @@ OS_LESSONS = [
         "quiz": [
             {
                 "question": "Which system call is triggered when an application attempts to write text to stdout?",
-                "options": [
-                    "openat",
-                    "write",
-                    "ioctl",
-                    "brk"
-                ],
+                "options": ["openat", "write", "ioctl", "brk"],
                 "answerIndex": 1,
-                "explanation": "The write syscall is called by user space libraries (like printf or print) to write data to file descriptors, where fd 1 represents standard output."
+                "explanation": "The write syscall is called by user space libraries (like printf or print) to write data to file descriptors, where fd 1 represents standard output.",
             }
-        ]
+        ],
     },
     {
         "id": 8,
@@ -449,12 +458,12 @@ OS_LESSONS = [
                     "It loops through active processes in simple FIFO order",
                     "It selects the process with the lowest virtual execution runtime (vruntime)",
                     "It calculates random priority weights",
-                    "It chooses the task with highest page fault rate"
+                    "It chooses the task with highest page fault rate",
                 ],
                 "answerIndex": 1,
-                "explanation": "CFS maintains active tasks in a Red-Black Tree sorted by virtual runtime (vruntime). It always schedules the task with the lowest vruntime to ensure fair CPU sharing."
+                "explanation": "CFS maintains active tasks in a Red-Black Tree sorted by virtual runtime (vruntime). It always schedules the task with the lowest vruntime to ensure fair CPU sharing.",
             }
-        ]
+        ],
     },
     {
         "id": 9,
@@ -481,12 +490,12 @@ OS_LESSONS = [
                     "Execution stack",
                     "Instruction pointer",
                     "Virtual address space (global memory)",
-                    "CPU register state"
+                    "CPU register state",
                 ],
                 "answerIndex": 2,
-                "explanation": "Threads share the global memory space and open descriptors of their parent process. However, they keep independent stacks and register sets to run separately."
+                "explanation": "Threads share the global memory space and open descriptors of their parent process. However, they keep independent stacks and register sets to run separately.",
             }
-        ]
+        ],
     },
     {
         "id": 10,
@@ -511,12 +520,12 @@ OS_LESSONS = [
                     "TCP Sockets",
                     "Unix Pipes",
                     "Shared Memory",
-                    "Message Queues"
+                    "Message Queues",
                 ],
                 "answerIndex": 2,
-                "explanation": "Shared memory maps the same physical RAM frame directly to both processes, meaning they can exchange data without any intermediate kernel buffer copy."
+                "explanation": "Shared memory maps the same physical RAM frame directly to both processes, meaning they can exchange data without any intermediate kernel buffer copy.",
             }
-        ]
+        ],
     },
     {
         "id": 11,
@@ -537,20 +546,16 @@ OS_LESSONS = [
         "quiz": [
             {
                 "question": "Which signal cannot be caught, blocked, or ignored by a user space application?",
-                "options": [
-                    "SIGTERM",
-                    "SIGINT",
-                    "SIGKILL",
-                    "SIGSEGV"
-                ],
+                "options": ["SIGTERM", "SIGINT", "SIGKILL", "SIGSEGV"],
                 "answerIndex": 2,
-                "explanation": "SIGKILL is handled immediately by the kernel scheduler to force terminate a process. It cannot be caught or ignored by any user space signal handler."
+                "explanation": "SIGKILL is handled immediately by the kernel scheduler to force terminate a process. It cannot be caught or ignored by any user space signal handler.",
             }
-        ]
-    }
+        ],
+    },
 ]
 
 # --- METHOD HANDLERS ---
+
 
 async def handle_get_topics(
     params: Dict[str, Any],
@@ -559,6 +564,7 @@ async def handle_get_topics(
 ) -> Dict[str, Any]:
     """Retrieve all OS lessons, visual diagrams, and quiz items."""
     return {"topics": OS_LESSONS}
+
 
 async def handle_run_sandbox(
     params: Dict[str, Any],
@@ -593,19 +599,19 @@ async def handle_run_sandbox(
                 file_path = os.path.join(tmpdir, "sandbox.py")
                 with open(file_path, "w", encoding="utf-8") as f:
                     f.write(code)
-                
+
                 # Limit execution time to 2 seconds max
                 proc = subprocess.run(
                     [sys.executable, file_path],
                     capture_output=True,
                     text=True,
-                    timeout=2.0
+                    timeout=2.0,
                 )
                 return {
                     "stdout": proc.stdout,
                     "stderr": proc.stderr,
                     "exitCode": proc.returncode,
-                    "fallbackUsed": False
+                    "fallbackUsed": False,
                 }
             elif language in ("c", "cpp"):
                 # Check if gcc is available
@@ -622,41 +628,44 @@ async def handle_run_sandbox(
                     ["gcc", file_path, "-o", out_path],
                     capture_output=True,
                     text=True,
-                    timeout=3.0
+                    timeout=3.0,
                 )
                 if compile_proc.returncode != 0:
                     return {
                         "stdout": "",
                         "stderr": compile_proc.stderr,
                         "exitCode": compile_proc.returncode,
-                        "fallbackUsed": False
+                        "fallbackUsed": False,
                     }
-                
+
                 proc = subprocess.run(
-                    [out_path],
-                    capture_output=True,
-                    text=True,
-                    timeout=2.0
+                    [out_path], capture_output=True, text=True, timeout=2.0
                 )
                 return {
                     "stdout": proc.stdout,
                     "stderr": proc.stderr,
                     "exitCode": proc.returncode,
-                    "fallbackUsed": False
+                    "fallbackUsed": False,
                 }
+            else:
+                raise ValueError(f"Unsupported language: {language}")
     except Exception as e:
         # Fallback to smart simulated stdout to ensure frictionless dev setup
-        logger.warning(f"Execution failed or gcc missing: {e}. Returning simulated outputs.")
+        logger.warning(
+            f"Execution failed or gcc missing: {e}. Returning simulated outputs."
+        )
         return {
-            "stdout": simulated_stdout or "Execution completed successfully (simulated environment).\n",
+            "stdout": simulated_stdout
+            or "Execution completed successfully (simulated environment).\n",
             "stderr": "",
             "exitCode": 0,
             "fallbackUsed": True,
-            "fallbackReason": str(e)
+            "fallbackReason": str(e),
         }
 
+
 # Regex to find print/write/mmap concepts in code
-import re
+
 
 async def handle_trace_syscalls(
     params: Dict[str, Any],
@@ -672,63 +681,77 @@ async def handle_trace_syscalls(
 
     # Parse snippet and generate a realistic stream of educational syscall events
     traces = []
-    
+
     # 1. Every program starts with binary load/setup
-    traces.append({
-        "syscall": "execve",
-        "args": f'"/bin/{language}", ["{language}", ...], [/* 24 env vars */]',
-        "result": "0",
-        "ring": 0,
-        "description": "Load the executable, check ELF headers, allocate stack/heap maps, and start execution."
-    })
-    traces.append({
-        "syscall": "brk",
-        "args": "NULL",
-        "result": "0x55d04ae000",
-        "ring": 0,
-        "description": "Request kernel to check system break address to set up early heap memory layout."
-    })
+    traces.append(
+        {
+            "syscall": "execve",
+            "args": f'"/bin/{language}", ["{language}", ...], [/* 24 env vars */]',
+            "result": "0",
+            "ring": 0,
+            "description": "Load the executable, check ELF headers, allocate stack/heap maps, and start execution.",
+        }
+    )
+    traces.append(
+        {
+            "syscall": "brk",
+            "args": "NULL",
+            "result": "0x55d04ae000",
+            "ring": 0,
+            "description": "Request kernel to check system break address to set up early heap memory layout.",
+        }
+    )
 
     # 2. Add library linkages
-    traces.append({
-        "syscall": "openat",
-        "args": 'AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC',
-        "result": "3",
-        "ring": 0,
-        "description": "Locate standard runtime library bindings configuration."
-    })
-    traces.append({
-        "syscall": "mmap",
-        "args": "NULL, 83920, PROT_READ, MAP_PRIVATE, 3, 0",
-        "result": "0x7f4e91a000",
-        "ring": 0,
-        "description": "Map library configurations page frames directly into the process's virtual memory layout."
-    })
-    traces.append({
-        "syscall": "close",
-        "args": "3",
-        "result": "0",
-        "ring": 0,
-        "description": "Release file descriptor index 3 back to the kernel descriptor table."
-    })
+    traces.append(
+        {
+            "syscall": "openat",
+            "args": 'AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC',
+            "result": "3",
+            "ring": 0,
+            "description": "Locate standard runtime library bindings configuration.",
+        }
+    )
+    traces.append(
+        {
+            "syscall": "mmap",
+            "args": "NULL, 83920, PROT_READ, MAP_PRIVATE, 3, 0",
+            "result": "0x7f4e91a000",
+            "ring": 0,
+            "description": "Map library configurations page frames directly into the process's virtual memory layout.",
+        }
+    )
+    traces.append(
+        {
+            "syscall": "close",
+            "args": "3",
+            "result": "0",
+            "ring": 0,
+            "description": "Release file descriptor index 3 back to the kernel descriptor table.",
+        }
+    )
 
     # 3. Analyze user code logic for explicit file/write triggers
     if "open" in code or "fopen" in code:
-        traces.append({
-            "syscall": "openat",
-            "args": 'AT_FDCWD, "file.txt", O_RDWR|O_CREAT, 0666',
-            "result": "3",
-            "ring": 0,
-            "description": "Open file context in read/write mode. Returns descriptor index 3."
-        })
-        traces.append({
-            "syscall": "fstat",
-            "args": "3, {st_mode=S_IFREG|0644, st_size=12, ...}",
-            "result": "0",
-            "ring": 0,
-            "description": "Read file metadata parameters (size, permissions) from disk inode tables."
-        })
-        
+        traces.append(
+            {
+                "syscall": "openat",
+                "args": 'AT_FDCWD, "file.txt", O_RDWR|O_CREAT, 0666',
+                "result": "3",
+                "ring": 0,
+                "description": "Open file context in read/write mode. Returns descriptor index 3.",
+            }
+        )
+        traces.append(
+            {
+                "syscall": "fstat",
+                "args": "3, {st_mode=S_IFREG|0644, st_size=12, ...}",
+                "result": "0",
+                "ring": 0,
+                "description": "Read file metadata parameters (size, permissions) from disk inode tables.",
+            }
+        )
+
     if "print" in code or "printf" in code:
         # Standard stdout is file descriptor 1
         text = "Hello, World!"
@@ -736,60 +759,78 @@ async def handle_trace_syscalls(
             text_match = re.search(r'print\s*\(\s*["\'](.*?)["\']\s*\)', code)
         else:
             text_match = re.search(r'printf\s*\(\s*"(.*?)"', code)
-        
+
         if text_match:
             text = text_match.group(1).replace("\\n", "\n")
-            
-        traces.append({
-            "syscall": "write",
-            "args": f'1, "{text}", {len(text)}',
-            "result": str(len(text)),
-            "ring": 0,
-            "description": "Write buffer string contents directly to file descriptor 1 (stdout console stream)."
-        })
+
+        traces.append(
+            {
+                "syscall": "write",
+                "args": f'1, "{text}", {len(text)}',
+                "result": str(len(text)),
+                "ring": 0,
+                "description": "Write buffer string contents directly to file descriptor 1 (stdout console stream).",
+            }
+        )
 
     if "fork" in code or "multiprocessing" in code:
-        traces.append({
-            "syscall": "clone",
-            "args": "child_stack=0x0, flags=CLONE_VM|CLONE_FS|SIGCHLD",
-            "result": "9421 (child PID)",
-            "ring": 0,
-            "description": "Clone the calling task to instantiate parent and child execution threads."
-        })
-        traces.append({
-            "syscall": "wait4",
-            "args": "9421, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL",
-            "result": "9421",
-            "ring": 0,
-            "description": "Yield CPU control and block the parent thread until child 9421 completes, preventing zombie accumulation."
-        })
+        traces.append(
+            {
+                "syscall": "clone",
+                "args": "child_stack=0x0, flags=CLONE_VM|CLONE_FS|SIGCHLD",
+                "result": "9421 (child PID)",
+                "ring": 0,
+                "description": "Clone the calling task to instantiate parent and child execution threads.",
+            }
+        )
+        traces.append(
+            {
+                "syscall": "wait4",
+                "args": "9421, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL",
+                "result": "9421",
+                "ring": 0,
+                "description": "Yield CPU control and block the parent thread until child 9421 completes, preventing zombie accumulation.",
+            }
+        )
 
-    if "socket" in code or "connect" in code or "requests.get" in code or "fetch" in code:
-        traces.append({
-            "syscall": "socket",
-            "args": "AF_INET, SOCK_STREAM, IPPROTO_IP",
-            "result": "4",
-            "ring": 0,
-            "description": "Create an IPv4 TCP socket channel. Returns descriptor index 4."
-        })
-        traces.append({
-            "syscall": "connect",
-            "args": "4, {sa_family=AF_INET, sin_port=htons(80), sin_addr=inet_addr('127.0.0.1')}, 16",
-            "result": "0",
-            "ring": 0,
-            "description": "Initiate three-way TCP handshake to negotiate system bus network frames exchange."
-        })
-        
+    if (
+        "socket" in code
+        or "connect" in code
+        or "requests.get" in code
+        or "fetch" in code
+    ):
+        traces.append(
+            {
+                "syscall": "socket",
+                "args": "AF_INET, SOCK_STREAM, IPPROTO_IP",
+                "result": "4",
+                "ring": 0,
+                "description": "Create an IPv4 TCP socket channel. Returns descriptor index 4.",
+            }
+        )
+        traces.append(
+            {
+                "syscall": "connect",
+                "args": "4, {sa_family=AF_INET, sin_port=htons(80), sin_addr=inet_addr('127.0.0.1')}, 16",
+                "result": "0",
+                "ring": 0,
+                "description": "Initiate three-way TCP handshake to negotiate system bus network frames exchange.",
+            }
+        )
+
     # 4. Program Exit
-    traces.append({
-        "syscall": "exit_group",
-        "args": "0",
-        "result": "<void>",
-        "ring": 0,
-        "description": "Terminate all active child threads within the process context, flush stream caches, and return exit code 0."
-    })
+    traces.append(
+        {
+            "syscall": "exit_group",
+            "args": "0",
+            "result": "<void>",
+            "ring": 0,
+            "description": "Terminate all active child threads within the process context, flush stream caches, and return exit code 0.",
+        }
+    )
 
     return {"traces": traces}
+
 
 async def handle_trigger_load(
     params: Dict[str, Any],
@@ -802,14 +843,14 @@ async def handle_trigger_load(
 
     gpu_load_pct = float(params.get("gpuLoadPercent", 10.0))
     gpu_load_pct = max(0.0, min(100.0, gpu_load_pct))
-    
+
     simulator.target_cpu_load = load_pct
     simulator.target_gpu_load = gpu_load_pct
-    
+
     # Spawn background stress thread if load is heavy (> 70%) and not already running
     if load_pct > 70.0 and not simulator.running_load_task:
         simulator.running_load_task = True
-        
+
         # Async CPU Stress thread to trigger real core load
         def run_stress():
             t_end = time.time() + 10  # Run for 10 seconds
@@ -823,7 +864,12 @@ async def handle_trigger_load(
 
         asyncio.get_event_loop().run_in_executor(None, run_stress)
 
-    return {"status": "load_updated", "targetCpuLoad": load_pct, "targetGpuLoad": gpu_load_pct}
+    return {
+        "status": "load_updated",
+        "targetCpuLoad": load_pct,
+        "targetGpuLoad": gpu_load_pct,
+    }
+
 
 async def handle_get_telemetry(
     params: Dict[str, Any],
@@ -833,6 +879,7 @@ async def handle_get_telemetry(
     """Fetch live CPU core telemetry and thermal P-states."""
     return simulator.get_payload()
 
+
 async def handle_configure_fan_curve(
     params: Dict[str, Any],
     user: Optional[Dict[str, Any]] = None,
@@ -841,23 +888,25 @@ async def handle_configure_fan_curve(
     """Configure the temperature-to-fan-RPM nodes for the cooling controller."""
     curve = params.get("curve")
     if not isinstance(curve, list):
-        raise JSONRPCError(JSONRPCErrorCode.INVALID_PARAMS, "Curve must be a list of nodes.")
-    
+        raise JSONRPCError(
+            JSONRPCErrorCode.INVALID_PARAMS, "Curve must be a list of nodes."
+        )
+
     validated_curve = []
     for node in curve:
         if not isinstance(node, dict) or "temp" not in node or "rpm" not in node:
-            raise JSONRPCError(JSONRPCErrorCode.INVALID_PARAMS, "Every node must contain 'temp' and 'rpm'.")
-        validated_curve.append({
-            "temp": float(node["temp"]),
-            "rpm": float(node["rpm"])
-        })
-    
+            raise JSONRPCError(
+                JSONRPCErrorCode.INVALID_PARAMS,
+                "Every node must contain 'temp' and 'rpm'.",
+            )
+        validated_curve.append({"temp": float(node["temp"]), "rpm": float(node["rpm"])})
+
     # Sort by temp
     validated_curve.sort(key=lambda x: x["temp"])
     simulator.fan_curve = validated_curve
     return {"status": "fan_curve_updated", "curve": simulator.fan_curve}
 
-from typing import AsyncGenerator
+
 async def handle_simulate_boot(
     params: Dict[str, Any],
     user: Optional[Dict[str, Any]] = None,
@@ -865,57 +914,118 @@ async def handle_simulate_boot(
 ) -> AsyncGenerator[Dict[str, Any], None]:
     """Streams a series of simulated boot log events with real timing delay."""
     boot_mode = params.get("bootMode", "uefi").lower()
-    
+
     yield {"type": "start"}
-    
+
     # Sequence of boot logs: (Stage, Message, Delay)
     logs = [
         # Phase 1: POST
         ("POST", "Initializing Power-On Self-Test (POST)...", 0.3),
         ("POST", "Checking CPU registers and frequency curve limits... OK.", 0.2),
-        ("POST", "Scanning memory slots: 2x 16GB DDR5 identified at 5600 MT/s... OK.", 0.3),
-        ("POST", "Checking PCIe controllers: GPU Link Speed negotiated at x16 Gen5... OK.", 0.3),
-        
+        (
+            "POST",
+            "Scanning memory slots: 2x 16GB DDR5 identified at 5600 MT/s... OK.",
+            0.3,
+        ),
+        (
+            "POST",
+            "Checking PCIe controllers: GPU Link Speed negotiated at x16 Gen5... OK.",
+            0.3,
+        ),
         # Phase 2: Firmware handoff
         ("FIRMWARE", f"Firmware: Initializing in {boot_mode.upper()} mode...", 0.2),
-        ("FIRMWARE", "Enumerating storage volumes: NVMe SSD (512GB) selected as primary boot.", 0.3),
-        ("FIRMWARE", "Reading boot sector via GUID Partition Table (GPT)..." if boot_mode == "uefi" else "Reading Master Boot Record (MBR) sector 0...", 0.4),
-        ("FIRMWARE", "Executing target EFI application: \\EFI\\Boot\\durgasos.efi..." if boot_mode == "uefi" else "Executing Stage-1 Bootloader in MBR...", 0.3),
-        
+        (
+            "FIRMWARE",
+            "Enumerating storage volumes: NVMe SSD (512GB) selected as primary boot.",
+            0.3,
+        ),
+        (
+            "FIRMWARE",
+            (
+                "Reading boot sector via GUID Partition Table (GPT)..."
+                if boot_mode == "uefi"
+                else "Reading Master Boot Record (MBR) sector 0..."
+            ),
+            0.4,
+        ),
+        (
+            "FIRMWARE",
+            (
+                "Executing target EFI application: \\EFI\\Boot\\durgasos.efi..."
+                if boot_mode == "uefi"
+                else "Executing Stage-1 Bootloader in MBR..."
+            ),
+            0.3,
+        ),
         # Phase 3: Stage 2 Loader
-        ("BOOTLOADER", "Stage-2 Bootloader: Loading DurgasOS Kernel image into RAM...", 0.5),
-        ("BOOTLOADER", "Setting up initial page tables and Ring 0 protection boundaries...", 0.3),
-        ("BOOTLOADER", "Decompressing kernel image (vmlinuz-durgas-1.0.0)... Done.", 0.4),
-        
+        (
+            "BOOTLOADER",
+            "Stage-2 Bootloader: Loading DurgasOS Kernel image into RAM...",
+            0.5,
+        ),
+        (
+            "BOOTLOADER",
+            "Setting up initial page tables and Ring 0 protection boundaries...",
+            0.3,
+        ),
+        (
+            "BOOTLOADER",
+            "Decompressing kernel image (vmlinuz-durgas-1.0.0)... Done.",
+            0.4,
+        ),
         # Phase 4: Kernel init
-        ("KERNEL", "Kernel Bootstrapping: Setting up Memory Management Unit (MMU)...", 0.3),
+        (
+            "KERNEL",
+            "Kernel Bootstrapping: Setting up Memory Management Unit (MMU)...",
+            0.3,
+        ),
         ("KERNEL", "Kernel: Probing Symmetric Multiprocessing (SMP)...", 0.2),
-        ("KERNEL", "Kernel: Waking secondary cores (Cores 1-7 initialized, L1/L2 caches warmed)...", 0.4),
-        ("KERNEL", "Kernel: Mounting root filesystem (ext4) on /dev/nvme0n1p2... OK.", 0.4),
-        ("KERNEL", "Kernel: Loading device drivers for PCIe graphics engine (NVIDIA CUDA core)...", 0.5),
-        ("KERNEL", "Kernel: Configuring ACPI daemon and thermal TjMax threshold (95C)...", 0.3),
-        
+        (
+            "KERNEL",
+            "Kernel: Waking secondary cores (Cores 1-7 initialized, L1/L2 caches warmed)...",
+            0.4,
+        ),
+        (
+            "KERNEL",
+            "Kernel: Mounting root filesystem (ext4) on /dev/nvme0n1p2... OK.",
+            0.4,
+        ),
+        (
+            "KERNEL",
+            "Kernel: Loading device drivers for PCIe graphics engine (NVIDIA CUDA core)...",
+            0.5,
+        ),
+        (
+            "KERNEL",
+            "Kernel: Configuring ACPI daemon and thermal TjMax threshold (95C)...",
+            0.3,
+        ),
         # Phase 5: Userspace
-        ("USERSPACE", "Transitioning to User Space: Spawning Process ID 1 (systemd)...", 0.4),
+        (
+            "USERSPACE",
+            "Transitioning to User Space: Spawning Process ID 1 (systemd)...",
+            0.4,
+        ),
         ("USERSPACE", "systemd[1]: Starting system telemetry socket service...", 0.2),
-        ("USERSPACE", "systemd[1]: Loading graphical window manager engine (DurgasOS Desktop)...", 0.4),
-        ("USERSPACE", "DurgasOS: Ready. Shell initialized on Ring 3 boundary.", 0.1)
+        (
+            "USERSPACE",
+            "systemd[1]: Loading graphical window manager engine (DurgasOS Desktop)...",
+            0.4,
+        ),
+        ("USERSPACE", "DurgasOS: Ready. Shell initialized on Ring 3 boundary.", 0.1),
     ]
-    
+
     for stage, message, delay in logs:
         yield {
             "type": "chunk",
             "stage": stage,
             "message": message,
-            "timestamp": time.time()
+            "timestamp": time.time(),
         }
         await asyncio.sleep(delay)
-        
-    yield {
-        "type": "done",
-        "status": "boot_completed",
-        "bootMode": boot_mode
-    }
+
+    yield {"type": "done", "status": "boot_completed", "bootMode": boot_mode}
+
 
 def get_methods() -> Dict[str, Any]:
     """Register methods for the registry mapping."""

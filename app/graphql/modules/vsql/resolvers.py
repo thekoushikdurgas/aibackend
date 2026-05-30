@@ -500,7 +500,9 @@ class Mutation:
                 )
                 return _csv_analysis_result(payload)
             finally:
-                shutil.rmtree(dest_dir, ignore_errors=True)
+                from app.utils.filesystem import safe_rmtree
+
+                safe_rmtree(dest_dir)
         except Exception as e:
             raise ValueError(str(e))
 
@@ -819,7 +821,9 @@ class Mutation:
                     payload_frame_count=int(fc),
                 )
         except Exception as e:
-            shutil.rmtree(dest_dir, ignore_errors=True)
+            from app.utils.filesystem import safe_rmtree
+
+            safe_rmtree(dest_dir)
             raise ValueError(f"Decode failed: {e}") from e
         finally:
             tmp_mp4.unlink(missing_ok=True)

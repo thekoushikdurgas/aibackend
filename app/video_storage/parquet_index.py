@@ -33,13 +33,9 @@ _FRAME_PAYLOAD_BYTES = 1280 * 720 * 3
 
 
 def _try_import_pyarrow():
-    try:
-        import pyarrow as pa  # type: ignore[import-untyped]
-        import pyarrow.parquet as pq  # type: ignore[import-untyped]
+    from ..codec.pyarrow_util import try_import_pyarrow
 
-        return pa, pq
-    except ImportError:
-        return None, None
+    return try_import_pyarrow()
 
 
 # ---------------------------------------------------------------------------
@@ -221,7 +217,12 @@ def export_as_arrow(csv_content: str, output_path: Path) -> Dict[str, Any]:
         logger.warning("pyarrow not installed — Arrow export skipped.")
         return {"rows": 0, "columns": 0, "file_size_bytes": 0, "elapsed_ms": 0.0}
 
-    import pyarrow.ipc as ipc  # type: ignore[import-untyped]
+    from ..codec.pyarrow_util import try_import_pyarrow_ipc
+
+    ipc = try_import_pyarrow_ipc(pa)
+    if ipc is None:
+        logger.warning("pyarrow.ipc not available — Arrow export skipped.")
+        return {"rows": 0, "columns": 0, "file_size_bytes": 0, "elapsed_ms": 0.0}
 
     t0 = time.perf_counter()
 

@@ -49,7 +49,7 @@ from app.graphql.modules.vsql import VsqlQuery, VsqlMutation
 
 
 @strawberry.type
-class Query(  # type: ignore[misc]
+class Query(
     VsqlQuery,
     AuthQuery,
     ChatQuery,
@@ -80,7 +80,7 @@ class Query(  # type: ignore[misc]
 
 
 @strawberry.type
-class Mutation(  # type: ignore[misc]
+class Mutation(
     VsqlMutation,
     AuthMutation,
     ChatMutation,

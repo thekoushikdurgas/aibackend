@@ -23,7 +23,8 @@ def temp_dir():
     # Cleanup
     import shutil
 
-    shutil.rmtree(temp_path, ignore_errors=True)
+    if os.path.isdir(temp_path):
+        shutil.rmtree(temp_path)
 
 
 @pytest.fixture

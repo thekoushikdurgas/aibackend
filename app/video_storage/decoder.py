@@ -9,6 +9,7 @@ import numpy as np
 
 from .schema import FrameHeader, VideoSchema
 from .exceptions import VideoDecodingError, FrameHeaderError
+from ..codec.compression import zstd_decompress
 from ..codec.format_constants import FRAME_WIDTH, FRAME_HEIGHT
 
 # zstd magic bytes (first 4 bytes of a zstd frame)
@@ -19,15 +20,9 @@ def _decompress(data: bytes) -> bytes:
     """Decompress *data*, auto-detecting zstd vs zlib by inspecting magic bytes."""
     if data[:4] == _ZSTD_MAGIC:
         try:
-            import zstandard as zstd  # type: ignore[import-untyped]
-
-            dctx = zstd.ZstdDecompressor()
-            return dctx.decompress(data)
-        except ImportError:
-            raise VideoDecodingError(
-                "zstandard package required to decompress zstd-encoded data. "
-                "Install it with: pip install zstandard"
-            )
+            return zstd_decompress(data)
+        except ValueError as e:
+            raise VideoDecodingError(str(e)) from e
     # Fall back to zlib (legacy VSQC streams).
     try:
         return zlib.decompress(data)

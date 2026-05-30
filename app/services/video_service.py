@@ -9,7 +9,7 @@ from io import BytesIO
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
-import imageio.v2 as imageio
+import numpy as np
 import pandas as pd
 
 from ..storage import (
@@ -364,11 +364,14 @@ def get_frame_preview(
         if not frames:
             return {"error": "No frames available"}
         safe_index = max(0, min(int(frame_index), len(frames) - 1))
-        buffer = BytesIO()
+        from PIL import Image
+
         t0 = time.perf_counter()
-        imageio.imwrite(buffer, frames[safe_index], format="png")  # type: ignore[call-overload]
-        dt_ms = (time.perf_counter() - t0) * 1000.0
+        frame_arr = np.asarray(frames[safe_index], dtype=np.uint8)
+        buffer = BytesIO()
+        Image.fromarray(frame_arr).save(buffer, format="PNG")
         png = buffer.getvalue()
+        dt_ms = (time.perf_counter() - t0) * 1000.0
         b64 = base64.b64encode(png).decode("ascii")
         tbl = (
             _clean_table_name(table_name)

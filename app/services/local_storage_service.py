@@ -9,7 +9,6 @@ import hashlib
 import hmac
 import json
 import logging
-import shutil
 import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, cast
@@ -288,8 +287,9 @@ class LocalFileStorage:
 
     def delete_bucket(self, bucket_name: str) -> None:
         p = _bucket_dir(bucket_name)
-        if p.is_dir():
-            shutil.rmtree(p, ignore_errors=True)
+        from app.utils.filesystem import safe_rmtree
+
+        safe_rmtree(p)
 
 
 def get_local_file_storage(use_admin: bool = False) -> LocalFileStorage:

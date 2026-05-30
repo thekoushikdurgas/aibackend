@@ -11,6 +11,7 @@ import struct
 import zlib
 from typing import Tuple
 
+from .compression import zstd_compress, zstd_decompress
 from .format_constants import (
     HEADER_SIZE,
     MAGIC_VSQL_COMPRESSED,
@@ -23,31 +24,6 @@ MAGIC_VSQL_ZSTD = b"VSQZ"
 
 # All known magics accepted on decode.
 _KNOWN_MAGICS = {MAGIC_VSQL_RAW, MAGIC_VSQL_COMPRESSED, MAGIC_VSQL_ZSTD}
-
-
-def _zstd_compress(data: bytes, level: int = 3) -> bytes:
-    """Compress with zstd; fall back to zlib if zstandard is unavailable."""
-    try:
-        import zstandard as zstd  # type: ignore[import-untyped]
-
-        cctx = zstd.ZstdCompressor(level=level)
-        return cctx.compress(data)
-    except ImportError:
-        return zlib.compress(data, level=6)
-
-
-def _zstd_decompress(data: bytes) -> bytes:
-    """Decompress zstd data; fall back gracefully."""
-    try:
-        import zstandard as zstd  # type: ignore[import-untyped]
-
-        dctx = zstd.ZstdDecompressor()
-        return dctx.decompress(data)
-    except ImportError:
-        raise ValueError(
-            "zstandard package required to decompress VSQZ streams. "
-            "Install it with: pip install zstandard"
-        )
 
 
 def encode_data_to_stream(
@@ -70,7 +46,7 @@ def encode_data_to_stream(
             payload = zlib.compress(data_bytes, level=9)
             magic = MAGIC_VSQL_COMPRESSED
         else:
-            payload = _zstd_compress(data_bytes)
+            payload = zstd_compress(data_bytes)
             magic = MAGIC_VSQL_ZSTD
     else:
         payload = data_bytes
@@ -120,5 +96,5 @@ def decode_stream_to_data(stream: bytes) -> bytes:
     if magic == MAGIC_VSQL_COMPRESSED:
         return zlib.decompress(payload)
     if magic == MAGIC_VSQL_ZSTD:
-        return _zstd_decompress(payload)
+        return zstd_decompress(payload)
     return payload

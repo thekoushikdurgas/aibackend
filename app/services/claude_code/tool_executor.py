@@ -149,8 +149,8 @@ def _grep_search(
         ):
             continue
         try:
-            data = path.read_text(encoding="utf-8", errors="ignore")
-        except OSError:
+            data = path.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
             continue
         for i, line in enumerate(data.splitlines(), 1):
             if rx.search(line):

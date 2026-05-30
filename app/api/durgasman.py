@@ -72,7 +72,7 @@ async def durgasman_proxy(req: ProxyRequest) -> Dict[str, Any]:
                 try:
                     data = response.text
                 except Exception:
-                    data = raw_content.decode("utf-8", errors="ignore")
+                    data = raw_content.decode("utf-8", errors="replace")
 
             return {
                 "status": response.status_code,

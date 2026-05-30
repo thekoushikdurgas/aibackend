@@ -5,7 +5,7 @@ HTML parsing utilities for page analysis
 from typing import Any, Dict, List, Optional
 from bs4 import BeautifulSoup
 
-from .bs4_attrs import soup_attr_str
+from .bs4_attrs import soup_attr_str, tag_attr_str
 from .helpers import sanitize_text, truncate_text
 
 
@@ -29,14 +29,14 @@ class HTMLParser:
         meta_tags = []
         for meta in self.soup.find_all("meta"):
             meta_dict = {}
-            if soup_attr_str(meta.get("name")):
-                meta_dict["name"] = soup_attr_str(meta.get("name"))
-            if soup_attr_str(meta.get("property")):
-                meta_dict["property"] = soup_attr_str(meta.get("property"))
-            if soup_attr_str(meta.get("content")):
-                meta_dict["content"] = soup_attr_str(meta.get("content"))
-            if soup_attr_str(meta.get("http-equiv")):
-                meta_dict["http_equiv"] = soup_attr_str(meta.get("http-equiv"))
+            if tag_attr_str(meta, "name"):
+                meta_dict["name"] = tag_attr_str(meta, "name")
+            if tag_attr_str(meta, "property"):
+                meta_dict["property"] = tag_attr_str(meta, "property")
+            if tag_attr_str(meta, "content"):
+                meta_dict["content"] = tag_attr_str(meta, "content")
+            if tag_attr_str(meta, "http-equiv"):
+                meta_dict["http_equiv"] = tag_attr_str(meta, "http-equiv")
             if meta_dict:
                 meta_tags.append(meta_dict)
         return meta_tags
@@ -45,12 +45,12 @@ class HTMLParser:
         """Extract meta description"""
         meta = self.soup.find("meta", attrs={"name": "description"})
         if meta:
-            return soup_attr_str(meta.get("content")) or None
+            return tag_attr_str(meta, "content") or None
 
         # Try og:description as fallback
         og_meta = self.soup.find("meta", attrs={"property": "og:description"})
         if og_meta:
-            return soup_attr_str(og_meta.get("content")) or None
+            return tag_attr_str(og_meta, "content") or None
 
         return None
 
@@ -68,10 +68,10 @@ class HTMLParser:
         for a in self.soup.find_all("a", href=True):
             links.append(
                 {
-                    "href": soup_attr_str(a.get("href")),
+                    "href": tag_attr_str(a, "href"),
                     "text": a.get_text(strip=True)[:100],
-                    "rel": soup_attr_str(a.get("rel")),
-                    "target": soup_attr_str(a.get("target")),
+                    "rel": tag_attr_str(a, "rel"),
+                    "target": tag_attr_str(a, "target"),
                 }
             )
         return links
@@ -82,13 +82,13 @@ class HTMLParser:
         for img in self.soup.find_all("img"):
             images.append(
                 {
-                    "src": img.get("src"),
-                    "alt": img.get("alt", ""),
-                    "title": img.get("title"),
-                    "width": img.get("width"),
-                    "height": img.get("height"),
-                    "loading": img.get("loading"),
-                    "has_alt": bool(img.get("alt")),
+                    "src": tag_attr_str(img, "src"),
+                    "alt": tag_attr_str(img, "alt"),
+                    "title": tag_attr_str(img, "title"),
+                    "width": tag_attr_str(img, "width"),
+                    "height": tag_attr_str(img, "height"),
+                    "loading": tag_attr_str(img, "loading"),
+                    "has_alt": bool(tag_attr_str(img, "alt")),
                 }
             )
         return images
@@ -146,35 +146,31 @@ class HTMLParser:
 
         # Get canonical URL
         canonical = self.soup.find("link", rel="canonical")
-        canonical_url = (
-            soup_attr_str(canonical.get("href")) or None if canonical else None
-        )
+        canonical_url = tag_attr_str(canonical, "href") or None if canonical else None
 
         # Get robots meta
         robots = self.soup.find("meta", attrs={"name": "robots"})
-        robots_content = (
-            soup_attr_str(robots.get("content")) or None if robots else None
-        )
+        robots_content = tag_attr_str(robots, "content") or None if robots else None
 
         # Get Open Graph data
         og_data: Dict[str, str] = {}
         for meta in self.soup.find_all("meta"):
-            prop = soup_attr_str(meta.get("property"))
+            prop = tag_attr_str(meta, "property")
             if not prop.startswith("og:"):
                 continue
             key = prop.replace("og:", "")
-            val = soup_attr_str(meta.get("content"))
+            val = tag_attr_str(meta, "content")
             if key:
                 og_data[key] = val
 
         # Get Twitter Card data
         twitter_data: Dict[str, str] = {}
         for meta in self.soup.find_all("meta"):
-            name = soup_attr_str(meta.get("name"))
+            name = tag_attr_str(meta, "name")
             if not name.startswith("twitter:"):
                 continue
             key = name.replace("twitter:", "")
-            val = soup_attr_str(meta.get("content"))
+            val = tag_attr_str(meta, "content")
             if key:
                 twitter_data[key] = val
 

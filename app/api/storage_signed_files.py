@@ -219,7 +219,9 @@ async def finalize_upload(
         raise HTTPException(status_code=500, detail="Failed to merge chunks")
     finally:
         # Clean up temp folder
-        shutil.rmtree(temp_dir, ignore_errors=True)
+        from app.utils.filesystem import safe_rmtree
+
+        safe_rmtree(temp_dir)
 
     # Generate thumbnail if it's an image
     from app.services.local_storage_service import _HAS_PIL

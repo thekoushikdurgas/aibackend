@@ -11,10 +11,11 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import httpx
 from bs4 import BeautifulSoup
+from bs4.element import Tag
 
 from app.config import settings
 from app.services.rag.retriever import RAGRetriever
-from app.utils.bs4_attrs import soup_attr_str
+from app.utils.bs4_attrs import tag_attr_str
 
 logger = logging.getLogger(__name__)
 
@@ -83,7 +84,7 @@ async def verify_claim_web(claim: str) -> Optional[VerifiedClaim]:
             a = el.find("a", href=True)
             if not a:
                 continue
-            href_raw = soup_attr_str(a.get("href"))
+            href_raw = tag_attr_str(a, "href")
             if not href_raw or href_raw.startswith("//duckduckgo.com"):
                 continue
             href = href_raw.strip()
@@ -94,7 +95,9 @@ async def verify_claim_web(claim: str) -> Optional[VerifiedClaim]:
             candidates.append((href, title, snippet))
     if not candidates:
         for a in soup.find_all("a", href=True, limit=40):
-            href_raw = soup_attr_str(a.get("href")).strip()
+            if not isinstance(a, Tag):
+                continue
+            href_raw = tag_attr_str(a, "href").strip()
             if not href_raw.startswith("http") or "duckduckgo" in href_raw:
                 continue
             t = a.get_text(" ", strip=True)

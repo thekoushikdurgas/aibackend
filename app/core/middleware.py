@@ -22,20 +22,22 @@ logger = logging.getLogger(__name__)
 _CLIENT_CLOSED_STATUS = 499
 
 
-def _is_exception_group(exc: BaseException) -> bool:
-    """True for ExceptionGroup / BaseExceptionGroup (Python 3.11+ task groups)."""
-    return type(exc).__name__ in ("ExceptionGroup", "BaseExceptionGroup")
+def _exception_subexceptions(exc: BaseException) -> tuple[BaseException, ...]:
+    """Return nested exceptions from ExceptionGroup / BaseExceptionGroup (3.11+)."""
+    subs = getattr(exc, "exceptions", None)
+    if isinstance(subs, tuple):
+        return subs
+    return ()
 
 
 def _find_client_disconnect(exc: BaseException) -> Optional[ClientDisconnect]:
     """Return ClientDisconnect from exc or from a BaseHTTPMiddleware ExceptionGroup."""
     if isinstance(exc, ClientDisconnect):
         return exc
-    if _is_exception_group(exc):
-        for sub in exc.exceptions:  # type: ignore[attr-defined]
-            found = _find_client_disconnect(sub)
-            if found is not None:
-                return found
+    for sub in _exception_subexceptions(exc):
+        found = _find_client_disconnect(sub)
+        if found is not None:
+            return found
     return None
 
 
@@ -43,11 +45,7 @@ def _is_no_response_returned(exc: BaseException) -> bool:
     """True when BaseHTTPMiddleware reports an already-disconnected client."""
     if isinstance(exc, RuntimeError) and str(exc) == "No response returned.":
         return True
-    if _is_exception_group(exc):
-        return any(
-            _is_no_response_returned(sub) for sub in exc.exceptions  # type: ignore[attr-defined]
-        )
-    return False
+    return any(_is_no_response_returned(sub) for sub in _exception_subexceptions(exc))
 
 
 def _is_client_closed_exception(exc: BaseException) -> bool:

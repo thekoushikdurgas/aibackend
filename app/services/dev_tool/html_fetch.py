@@ -11,6 +11,8 @@ from urllib.parse import urljoin, urlparse
 import httpx
 from bs4 import BeautifulSoup
 
+from app.utils.bs4_attrs import tag_attr_str
+
 logger = logging.getLogger(__name__)
 
 MAX_RESPONSE_BYTES = 2 * 1024 * 1024
@@ -156,8 +158,7 @@ def parse_page_assets(html: str, page_url: str) -> Dict[str, Any]:
     title = title_el.get_text(strip=True) if title_el else ""
     desc_el = soup.find("meta", attrs={"name": "description"})
     description = ""
-    if desc_el and desc_el.get("content"):
-        description = str(desc_el["content"])
+    description = tag_attr_str(desc_el, "content")
 
     return {
         "html": html,

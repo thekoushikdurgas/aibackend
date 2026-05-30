@@ -288,13 +288,13 @@ async def library_chat(
         books = (await db.execute(stmt)).scalars().all()
 
     if not books:
-        books_list = []
+        books_list: List[LibraryBookModel] = []
     else:
         books_list = list(books)
 
     book_context_parts: List[str] = []
     for idx, b in enumerate(books_list):
-        d = book_row_to_dict(b)  # type: ignore[arg-type]
+        d = book_row_to_dict(b)
         if d["borrowingStatus"] == "borrowed":
             borrow_line = (
                 f"(Borrowed by {d.get('borrower')}, due {d.get('returnDueDate')})"
@@ -368,7 +368,7 @@ async def library_chat(
     citations: List[Dict[str, Any]] = []
     lower_out = text_output.lower()
     for b in books_list:
-        d = book_row_to_dict(b)  # type: ignore[arg-type]
+        d = book_row_to_dict(b)
         title_l = d["title"].lower()
         author_l = d["author"].lower()
         if title_l in lower_out or author_l in lower_out or title_l in query.lower():

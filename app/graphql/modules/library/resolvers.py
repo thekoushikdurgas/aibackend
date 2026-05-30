@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Optional, cast
 
 import strawberry
 from graphql import GraphQLError
@@ -573,4 +573,7 @@ class LibraryMutation:
                 )
             )
             await db.commit()
-        return {"status": "success", "timestamp": now, "deviceCount": len(devices)}  # type: ignore[return-value]
+        return cast(
+            JSON,
+            {"status": "success", "timestamp": now, "deviceCount": len(devices)},
+        )
