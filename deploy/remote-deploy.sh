@@ -7,7 +7,8 @@
 #   SKIP_COMPOSE_VERSION_CHECK=1 — skip warning when Compose is older than v2.20
 #     (root compose.yaml uses include:).
 #   SKIP_ALEMBIC_DEPLOY=1 — skip `alembic upgrade head` in the backend container.
-#   ALEMBIC_WAIT_SECONDS — seconds to wait before alembic (default 10).
+#   ALEMBIC_WAIT_SECONDS — seconds to wait before alembic (default 15).
+#   VERIFY_SLEEP_SECONDS — passed through when verify-stack.sh runs after this script (default 30 in verify).
 
 set -euo pipefail
 
@@ -163,7 +164,7 @@ fi
 
 if [[ "${SKIP_ALEMBIC_DEPLOY:-}" != "1" ]]; then
   echo "[deploy] waiting for backend before alembic upgrade head..."
-  sleep "${ALEMBIC_WAIT_SECONDS:-10}"
+  sleep "${ALEMBIC_WAIT_SECONDS:-15}"
   set +e
   dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" exec -T backend alembic upgrade head
   alembic_rc=$?

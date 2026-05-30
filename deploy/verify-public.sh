@@ -5,15 +5,18 @@
 
 set -euo pipefail
 
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck source=deploy/verify-http.sh
+source "$ROOT/deploy/verify-http.sh"
+
 API_URL="${PUBLIC_API_URL:-http://54.146.221.133:8000}"
 API_URL="${API_URL%/}"
+VERIFY_HTTP_TIMEOUT="${VERIFY_HTTP_TIMEOUT:-30}"
 
 echo "[verify-public] GET ${API_URL}/health"
-curl -fsS --max-time 30 "${API_URL}/health" >/dev/null
+verify_curl_ok "${API_URL}/health" "GET ${API_URL}/health"
 
 echo "[verify-public] GraphQL systemHealth"
-curl -fsS --max-time 30 -X POST "${API_URL}/graphql" \
-  -H 'Content-Type: application/json' \
-  -d '{"query":"{ systemHealth }"}' >/dev/null
+verify_curl_post_json "${API_URL}/graphql" '{"query":"{ systemHealth }"}' "GraphQL systemHealth"
 
 echo "[verify-public] OK — ${API_URL} is reachable."

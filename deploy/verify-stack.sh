@@ -4,7 +4,10 @@
 #
 # Environment:
 #   VERIFY_API_URL          default http://127.0.0.1:8000 (same port as HTTP + WebSocket gateway)
-#   VERIFY_SLEEP_SECONDS    wait before checks (default 15)
+#   VERIFY_SLEEP_SECONDS    initial wait before HTTP probes (default 30)
+#   VERIFY_BACKEND_HEALTH_SECONDS — wait for backend (healthy) in compose ps (default 180)
+#   VERIFY_HTTP_RETRIES     curl attempts per URL (default 30)
+#   VERIFY_HTTP_INTERVAL    seconds between curl retries (default 5)
 #   VERIFY_STRICT_READY     if 1, fail when GraphQL systemReady status is not_ready (default 0)
 #   VERIFY_REQUIRE_DOCKER   if 1, fail when docker is missing instead of skipping (default 0)
 #
@@ -21,6 +24,8 @@ source "$(dirname "${BASH_SOURCE[0]}")/docker-cli.sh"
 source "$(dirname "${BASH_SOURCE[0]}")/sanitize-dotenv.sh"
 # shellcheck source=deploy/dotenv-perms.sh
 source "$(dirname "${BASH_SOURCE[0]}")/dotenv-perms.sh"
+# shellcheck source=deploy/verify-http.sh
+source "$(dirname "${BASH_SOURCE[0]}")/verify-http.sh"
 
 if [[ ! -f .env ]]; then
   echo "[verify] ERROR: need .env (same as docker-up bootstrap)."
@@ -51,8 +56,9 @@ if ! dc version >/dev/null 2>&1; then
 fi
 
 API_URL="${VERIFY_API_URL:-http://127.0.0.1:8000}"
-SLEEP_SEC="${VERIFY_SLEEP_SECONDS:-15}"
+SLEEP_SEC="${VERIFY_SLEEP_SECONDS:-30}"
 STRICT_READY="${VERIFY_STRICT_READY:-0}"
+BACKEND_HEALTH_WAIT="${VERIFY_BACKEND_HEALTH_SECONDS:-180}"
 
 VERIFY_COMPOSE_ENV_COPY=""
 cleanup_verify_compose_env() {
@@ -93,19 +99,44 @@ _compose_service_healthy() {
   compose_dc ps "$svc" 2>/dev/null | grep -qiE 'up|healthy'
 }
 
+_wait_backend_compose_healthy() {
+  local max_sec="$1"
+  local elapsed=0
+  while [[ "$elapsed" -lt "$max_sec" ]]; do
+    if compose_dc ps backend 2>/dev/null | grep -qE '\(healthy\)'; then
+      echo "[verify] backend container reports healthy"
+      return 0
+    fi
+    if [[ "$elapsed" -gt 0 ]] && (( elapsed % 20 == 0 )); then
+      echo "[verify] waiting for backend healthy (${elapsed}s / ${max_sec}s)..."
+    fi
+    sleep 5
+    elapsed=$((elapsed + 5))
+  done
+  if compose_dc ps backend 2>/dev/null | grep -qiE 'backend'; then
+    echo "[verify] WARNING: backend not healthy within ${max_sec}s — will retry HTTP (Chroma/RAG startup can be slow)"
+    return 0
+  fi
+  echo "[verify] ERROR: backend service not running"
+  return 1
+}
+
 if [[ "${SLEEP_SEC}" != "0" ]]; then
-  echo "[verify] Waiting ${SLEEP_SEC}s for containers to become healthy..."
+  echo "[verify] Waiting ${SLEEP_SEC}s before probing API..."
   sleep "${SLEEP_SEC}"
 fi
+
+_wait_backend_compose_healthy "$BACKEND_HEALTH_WAIT" || exit 1
 
 echo "[verify] docker compose ps"
 compose_dc ps
 
 echo "[verify] FastAPI GET ${API_URL}/health"
-curl -fsS "${API_URL}/health" >/dev/null
+verify_curl_ok "${API_URL}/health" "GET ${API_URL}/health"
 
 echo "[verify] GraphQL systemHealth"
-hq=$(curl -fsS -X POST "${API_URL}/graphql" \
+verify_curl_post_json "${API_URL}/graphql" '{"query":"{ systemHealth }"}' "GraphQL systemHealth"
+hq=$(curl -fsS --max-time "${VERIFY_HTTP_TIMEOUT:-15}" -X POST "${API_URL}/graphql" \
   -H 'Content-Type: application/json' \
   -d '{"query":"{ systemHealth }"}')
 VERIFY_BODY="$hq" python3 << 'PY'
@@ -119,7 +150,8 @@ sys.exit(0)
 PY
 
 echo "[verify] GraphQL systemReady"
-rq=$(curl -fsS -X POST "${API_URL}/graphql" \
+verify_curl_post_json "${API_URL}/graphql" '{"query":"{ systemReady }"}' "GraphQL systemReady"
+rq=$(curl -fsS --max-time "${VERIFY_HTTP_TIMEOUT:-15}" -X POST "${API_URL}/graphql" \
   -H 'Content-Type: application/json' \
   -d '{"query":"{ systemReady }"}')
 VERIFY_BODY="$rq" VERIFY_STRICT_READY="$STRICT_READY" python3 << 'PY'

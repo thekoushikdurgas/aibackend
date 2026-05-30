@@ -27,6 +27,16 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
+    # One worker: lifespan init (Chroma/RAG/LLM) runs once; four workers caused slow starts and curl resets on small EC2.
+    command:
+      - uvicorn
+      - app.main:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - '8000'
+      - --workers
+      - '1'
     ports:
       - '8000:8000'
     env_file:
@@ -52,9 +62,10 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:8000/health']
-      interval: 30s
+      interval: 15s
       timeout: 10s
-      retries: 3
+      retries: 5
+      start_period: 120s
 
   redis:
     image: redis:7-alpine
