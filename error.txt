@@ -1,5 +1,3 @@
-Microsoft Windows [Version 10.0.26100.8246]
-(c) Microsoft Corporation. All rights reserved.
 
 E:\durgas_ai\ai.backend>codebase.bat
 
@@ -54,14 +52,8 @@ Requirement already satisfied: slowapi==0.1.9 in .\venv\Lib\site-packages (from 
 Requirement already satisfied: httpx<0.28,>=0.26 in .\venv\Lib\site-packages (from -r requirements.txt (line 43)) (0.27.2)
 Requirement already satisfied: aiohttp<4,>=3.10.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 44)) (3.13.5)
 Requirement already satisfied: redis==5.0.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 47)) (5.0.1)
-Collecting aiokafka<0.12,>=0.10.0 (from -r requirements.txt (line 48))
-  Downloading aiokafka-0.11.0.tar.gz (564 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 564.7/564.7 kB 1.7 MB/s  0:00:00
-  Installing build dependencies ... done
-  Getting requirements to build wheel ... done
-  Preparing metadata (pyproject.toml) ... done
-Collecting minio<8,>=7.2.0 (from -r requirements.txt (line 49))
-  Downloading minio-7.2.20-py3-none-any.whl.metadata (6.5 kB)
+Requirement already satisfied: aiokafka<0.12,>=0.10.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 48)) (0.11.0)
+Requirement already satisfied: minio<8,>=7.2.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 49)) (7.2.20)
 Requirement already satisfied: prometheus-client<1,>=0.19.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 50)) (0.25.0)
 Requirement already satisfied: python-dotenv>=1.0.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 53)) (1.0.1)
 Requirement already satisfied: pydantic<3,>=2.10.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 54)) (2.13.4)
@@ -177,12 +169,9 @@ Requirement already satisfied: frozenlist>=1.1.1 in .\venv\Lib\site-packages (fr
 Requirement already satisfied: multidict<7.0,>=4.5 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 44)) (6.7.0)
 Requirement already satisfied: propcache>=0.2.0 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 44)) (0.4.1)
 Requirement already satisfied: yarl<2.0,>=1.17.0 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 44)) (1.22.0)
-Collecting async-timeout (from aiokafka<0.12,>=0.10.0->-r requirements.txt (line 48))
-  Downloading async_timeout-5.0.1-py3-none-any.whl.metadata (5.1 kB)
-Collecting argon2-cffi (from minio<8,>=7.2.0->-r requirements.txt (line 49))
-  Downloading argon2_cffi-25.1.0-py3-none-any.whl.metadata (4.1 kB)
-Collecting pycryptodome (from minio<8,>=7.2.0->-r requirements.txt (line 49))
-  Downloading pycryptodome-3.23.0-cp37-abi3-win_amd64.whl.metadata (3.5 kB)
+Requirement already satisfied: async-timeout in .\venv\Lib\site-packages (from aiokafka<0.12,>=0.10.0->-r requirements.txt (line 48)) (5.0.1)
+Requirement already satisfied: argon2-cffi in .\venv\Lib\site-packages (from minio<8,>=7.2.0->-r requirements.txt (line 49)) (25.1.0)
+Requirement already satisfied: pycryptodome in .\venv\Lib\site-packages (from minio<8,>=7.2.0->-r requirements.txt (line 49)) (3.23.0)
 Requirement already satisfied: urllib3 in .\venv\Lib\site-packages (from minio<8,>=7.2.0->-r requirements.txt (line 49)) (2.3.0)
 Requirement already satisfied: annotated-types>=0.6.0 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 54)) (0.7.0)
 Requirement already satisfied: typing-inspection>=0.4.2 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 54)) (0.4.2)
@@ -223,8 +212,7 @@ Requirement already satisfied: mdurl~=0.1 in .\venv\Lib\site-packages (from mark
 Requirement already satisfied: wsproto in .\venv\Lib\site-packages (from simple-websocket>=0.10.0->python-engineio>=4.11.0->python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 73)) (1.3.2)
 Requirement already satisfied: shellingham>=1.3.0 in .\venv\Lib\site-packages (from typer>=0.9.0->chromadb==1.5.9->-r requirements.txt (line 18)) (1.5.4)
 Requirement already satisfied: annotated-doc>=0.0.2 in .\venv\Lib\site-packages (from typer>=0.9.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.0.4)
-Collecting argon2-cffi-bindings (from argon2-cffi->minio<8,>=7.2.0->-r requirements.txt (line 49))
-  Downloading argon2_cffi_bindings-25.1.0-cp39-abi3-win_amd64.whl.metadata (7.5 kB)
+Requirement already satisfied: argon2-cffi-bindings in .\venv\Lib\site-packages (from argon2-cffi->minio<8,>=7.2.0->-r requirements.txt (line 49)) (25.1.0)
 Requirement already satisfied: humanfriendly>=9.1 in .\venv\Lib\site-packages (from coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 18)) (10.0)
 Requirement already satisfied: pyreadline3 in .\venv\Lib\site-packages (from humanfriendly>=9.1->coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 18)) (3.5.4)
 Requirement already satisfied: oauthlib>=3.0.0 in .\venv\Lib\site-packages (from requests-oauthlib->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (3.3.1)
@@ -232,80 +220,272 @@ Requirement already satisfied: joblib>=1.3.0 in .\venv\Lib\site-packages (from s
 Requirement already satisfied: threadpoolctl>=3.2.0 in .\venv\Lib\site-packages (from scikit-learn->sentence-transformers==2.5.1->-r requirements.txt (line 10)) (3.6.0)
 Requirement already satisfied: mpmath<1.4,>=1.1.0 in .\venv\Lib\site-packages (from sympy->torch==2.2.0->-r requirements.txt (line 14)) (1.3.0)
 Requirement already satisfied: types-webencodings in .\venv\Lib\site-packages (from types-html5lib->types-beautifulsoup4>=4.12.0->-r requirements-dev.txt (line 21)) (0.5.0.20260408)
-Downloading minio-7.2.20-py3-none-any.whl (93 kB)
-Downloading argon2_cffi-25.1.0-py3-none-any.whl (14 kB)
-Downloading argon2_cffi_bindings-25.1.0-cp39-abi3-win_amd64.whl (31 kB)
-Downloading async_timeout-5.0.1-py3-none-any.whl (6.2 kB)
-Downloading pycryptodome-3.23.0-cp37-abi3-win_amd64.whl (1.8 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 4.9 MB/s  0:00:00
-Building wheels for collected packages: aiokafka
-  Building wheel for aiokafka (pyproject.toml) ... done
-  Created wheel for aiokafka: filename=aiokafka-0.11.0-cp313-cp313-win_amd64.whl size=343009 sha256=5a680095e149741cdebbe655f79e28f4ef1b973c55e959f68d0bff55e5200195
-  Stored in directory: d:\wpsystem\s-1-5-21-4120518818-1680545741-1758238196-1001\appdata\local\packages\pythonsoftwarefoundation.python.3.13_qbz5n2kfra8p0\localcache\local\pip\cache\wheels\99\11\26\1e34bef383e233548a2181ac4c6c657c480fb9d1c6707fcf08
-Successfully built aiokafka
-Installing collected packages: pycryptodome, async-timeout, argon2-cffi-bindings, aiokafka, argon2-cffi, minio
-Successfully installed aiokafka-0.11.0 argon2-cffi-25.1.0 argon2-cffi-bindings-25.1.0 async-timeout-5.0.1 minio-7.2.20 pycryptodome-3.23.0
   OK Dependencies installed
 
 [2/10] Environment validation (preflight)...
 ----------------------------------------
   Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  scripts\validate_env.py
-Traceback (most recent call last):
-  File "E:\durgas_ai\ai.backend\scripts\validate_env.py", line 354, in <module>
-    raise SystemExit(main())
-                     ~~~~^^
-  File "E:\durgas_ai\ai.backend\scripts\validate_env.py", line 282, in main
-    from app.config import clear_base_settings_cache, _base_settings_singleton
-  File "E:\durgas_ai\ai.backend\app\config.py", line 553, in <module>
-    settings = _settings_overlay_proxy()
-  File "E:\durgas_ai\ai.backend\app\config.py", line 549, in _settings_overlay_proxy
-    return SettingsOverlayProxy(_base_settings_singleton())
-                                ~~~~~~~~~~~~~~~~~~~~~~~~^^
-  File "E:\durgas_ai\ai.backend\app\config.py", line 533, in _base_settings_singleton
-    return Settings()
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\pydantic_settings\main.py", line 247, in __init__
-    super().__init__(**__pydantic_self__.__class__._settings_build_values(sources, init_kwargs))
-    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\pydantic\main.py", line 263, in __init__
-    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
-pydantic_core._pydantic_core.ValidationError: 12 validation errors for Settings
-kafka_external_port
-  Extra inputs are not permitted [type=extra_forbidden, input_value='9092', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
-kafka_ui_port
-  Extra inputs are not permitted [type=extra_forbidden, input_value='8080', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
-minio_api_port
-  Extra inputs are not permitted [type=extra_forbidden, input_value='9000', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
-minio_console_port
-  Extra inputs are not permitted [type=extra_forbidden, input_value='9001', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
-chroma_external_port
-  Extra inputs are not permitted [type=extra_forbidden, input_value='8001', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
-prometheus_port
-  Extra inputs are not permitted [type=extra_forbidden, input_value='9090', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
-grafana_port
-  Extra inputs are not permitted [type=extra_forbidden, input_value='3001', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
-grafana_user
-  Extra inputs are not permitted [type=extra_forbidden, input_value='admin', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
-grafana_password
-  Extra inputs are not permitted [type=extra_forbidden, input_value='durgasos', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
-pgadmin_port
-  Extra inputs are not permitted [type=extra_forbidden, input_value='5050', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
-pgadmin_email
-  Extra inputs are not permitted [type=extra_forbidden, input_value='admin@durgasos.local', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
-pgadmin_password
-  Extra inputs are not permitted [type=extra_forbidden, input_value='durgasos', input_type=str]
-    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
-  X validate_env failed ΓÇö fix .env or use ENV_VALIDATE_NO_FAIL=1 / SKIP_CODEGEN=1
+validate_env: OK - settings load successfully
+  OK Environment validation passed
+
+[3/10] Type checking (mypy)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m mypy app/
+app\services\kafka\consumer.py:47: error: "None" has no attribute "start"  [attr-defined]
+app\services\kafka\consumer.py:64: error: "None" has no attribute "__aiter__" (not async iterable)  [attr-defined]
+app\services\kafka\workers\file_ingestion.py:127: error: Skipping analyzing "fitz": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+app\services\kafka\workers\file_ingestion.py:127: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+Found 3 errors in 2 files (checked 413 source files)
+   mypy issues (warning only; set MYPY_STRICT=1 to fail)
+
+[3b/10] Pyrefly (static analysis)...
+----------------------------------------
+  Checking for pyrefly module...
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pyrefly check app/ --summarize-errors
+ERROR Type `Unknown | None` is not an async iterable [not-iterable]
+  --> app\services\kafka\consumer.py:64:34
+   |
+64 |                 async for msg in self._consumer:
+   |                                  ^^^^^^^^^^^^^^
+   |
+ERROR No attribute `open` in module `fitz` [missing-attribute]
+   --> app\services\kafka\workers\file_ingestion.py:128:19
+    |
+128 |             doc = fitz.open(stream=data, filetype="pdf")
+    |                   ^^^^^^^^^
+    |
+=== Error Summary ===
+
+Top 30 Files by Error Count:
+E:\durgas_ai\ai.backend\app\services\kafka\consumer.py: 1 error
+  not-iterable: 1
+E:\durgas_ai\ai.backend\app\services\kafka\workers\file_ingestion.py: 1 error
+  missing-attribute: 1
+
+Top Errors by Count:
+not-iterable: 1 instance
+missing-attribute: 1 instance
+ INFO 2 errors (99 warnings not shown)
+  X pyrefly check failed ΓÇö fix errors or set PYREFLY_NO_FAIL=1 for warning-only
+
+[4/10] Formatting checks (black)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m black --check app scripts tests docs\tests
+would reformat E:\durgas_ai\ai.backend\app\api\ws_methods\kafka_health.py
+would reformat E:\durgas_ai\ai.backend\app\api\ws_methods\health.py
+would reformat E:\durgas_ai\ai.backend\app\core\metrics.py
+would reformat E:\durgas_ai\ai.backend\app\core\response_cache.py
+would reformat E:\durgas_ai\ai.backend\app\core\middleware.py
+would reformat E:\durgas_ai\ai.backend\app\core\redis_manager.py
+would reformat E:\durgas_ai\ai.backend\app\api\ws_methods\os_labs.py
+would reformat E:\durgas_ai\ai.backend\app\models\os_platform.py
+would reformat E:\durgas_ai\ai.backend\app\main.py
+would reformat E:\durgas_ai\ai.backend\app\services\kafka\consumer.py
+would reformat E:\durgas_ai\ai.backend\app\services\kafka\producer.py
+would reformat E:\durgas_ai\ai.backend\app\services\kafka\workers\file_ingestion.py
+would reformat E:\durgas_ai\ai.backend\app\services\minio_service.py
+would reformat E:\durgas_ai\ai.backend\app\services\rag\vectorstore.py
+
+Oh no! 💥 💔 💥
+14 files would be reformatted, 457 files would be left unchanged.
+  X black --check failed - run: black
+
+[4b/10] Prettier (Markdown, JSON, YAML)...
+----------------------------------------
+  Running: npm ci (or npm install) then npm run format:check
+
+added 1 package, and audited 2 packages in 7s
+
+1 package is looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> format:check
+> prettier --check .
+
+Checking formatting...
+[warn] agent.json
+[warn] deploy/EC2.md
+[warn] docker/docker-compose.yml
+[warn] Code style issues found in 3 files. Run Prettier with --write to fix.
+  check failed ΓÇö run: npm run format
+
+[5/10] Linting (ruff)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m ruff check
+app\core\redis_manager.py:9:8: F401 [*] `asyncio` imported but unused
+   |
+ 7 | from __future__ import annotations
+ 8 |
+ 9 | import asyncio
+   |        ^^^^^^^ F401
+10 | import json
+11 | import logging
+   |
+   = help: Remove unused import: `asyncio`
+
+app\main.py:19:49: F401 [*] `app.core.redis_manager.get_redis` imported but unused
+   |
+17 | from app.config import settings
+18 | from app.services.kafka.producer import close_producer
+19 | from app.core.redis_manager import get_redis as get_redis_manager, close_redis
+   |                                                 ^^^^^^^^^^^^^^^^^ F401
+20 | from app.utils.logging_filters import OptionalApiKeyWarningFilter
+21 | from app.api.auth_session import router as auth_session_router
+   |
+   = help: Remove unused import
+
+app\main.py:19:68: F401 [*] `app.core.redis_manager.close_redis` imported but unused
+   |
+17 | from app.config import settings
+18 | from app.services.kafka.producer import close_producer
+19 | from app.core.redis_manager import get_redis as get_redis_manager, close_redis
+   |                                                                    ^^^^^^^^^^^ F401
+20 | from app.utils.logging_filters import OptionalApiKeyWarningFilter
+21 | from app.api.auth_session import router as auth_session_router
+   |
+   = help: Remove unused import
+
+app\models\os_platform.py:12:52: F401 [*] `sqlalchemy.ForeignKey` imported but unused
+   |
+10 | from typing import Any, Dict, Optional
+11 |
+12 | from sqlalchemy import JSON, BigInteger, DateTime, ForeignKey, String, Text
+   |                                                    ^^^^^^^^^^ F401
+13 | from sqlalchemy.orm import Mapped, mapped_column
+   |
+   = help: Remove unused import: `sqlalchemy.ForeignKey`
+
+app\services\kafka\consumer.py:8:30: F401 [*] `typing.Dict` imported but unused
+   |
+ 6 | import json
+ 7 | import logging
+ 8 | from typing import Callable, Dict, List, Optional
+   |                              ^^^^ F401
+ 9 |
+10 | from app.config import settings
+   |
+   = help: Remove unused import: `typing.Dict`
+
+app\services\kafka\workers\file_ingestion.py:10:8: F401 [*] `uuid` imported but unused
+   |
+ 9 | import logging
+10 | import uuid
+   |        ^^^^ F401
+11 | from typing import Any, Dict, Optional
+   |
+   = help: Remove unused import: `uuid`
+
+app\services\minio_service.py:16:31: F401 [*] `typing.List` imported but unused
+   |
+14 | from datetime import timedelta
+15 | from pathlib import Path
+16 | from typing import Any, Dict, List, Optional
+   |                               ^^^^ F401
+17 |
+18 | from app.config import settings
+   |
+   = help: Remove unused import: `typing.List`
+
+app\services\minio_service.py:97:27: F401 [*] `minio.Minio` imported but unused
+   |
+95 |     try:
+96 |         import io
+97 |         from minio import Minio  # type: ignore[import]
+   |                           ^^^^^ F401
+98 |
+99 |         def _upload():
+   |
+   = help: Remove unused import: `minio.Minio`
+
+Found 8 errors.
+[*] 8 fixable with the `--fix` option.
+  X ruff check failed
+
+[6/10] Running tests (pytest)...
+----------------------------------------
+  ENVIRONMENT=test
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pytest tests/
+=========================== test session starts ===========================
+platform win32 -- Python 3.13.13, pytest-8.0.2, pluggy-1.6.0 -- E:\durgas_ai\ai.backend\venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: E:\durgas_ai\ai.backend
+configfile: pytest.ini
+plugins: anyio-4.13.0, asyncio-0.23.5, cov-4.1.0
+asyncio: mode=Mode.AUTO
+collected 30 items
+
+tests/council/hallucination_eval/test_eval_harness.py::test_eval_harness_smoke PASSED [  3%]
+tests/council/test_verifier_rag.py::test_verify_unsupported_empty_hits PASSED [  6%]
+tests/council/test_verifier_rag.py::test_verify_supported_with_strong_match PASSED [ 10%]
+tests/test_dev_tool.py::test_strip_code_fences PASSED                [ 13%]
+tests/test_dev_tool.py::test_truncate_html PASSED                    [ 16%]
+tests/test_dev_tool.py::test_minify_prompt_contains_language PASSED  [ 20%]
+tests/test_dev_tool.py::test_regex_schema_has_required_fields PASSED [ 23%]
+tests/test_effective_database_url.py::test_sqlite_database_url_wins_in_production PASSED [ 26%]
+tests/test_effective_database_url.py::test_compose_only_env_vars_do_not_fail_settings PASSED [ 30%]
+tests/test_effective_database_url.py::test_postgresql_preferred_when_database_url_is_not_sqlite PASSED [ 33%]
+tests/test_graphql_schema.py::test_schema_introspection_has_auth_mutations PASSED [ 36%]
+tests/test_graphql_schema.py::test_schema_has_chat_query_fields PASSED [ 40%]
+tests/test_graphql_schema.py::test_gql_user_type_exposes_profile_fields PASSED [ 43%]
+tests/test_graphql_schema.py::test_host_stats_resolver PASSED        [ 46%]
+tests/test_library_api.py::test_library_statistics_requires_auth PASSED [ 50%]
+tests/test_library_api.py::test_library_statistics_ok PASSED         [ 53%]
+tests/test_library_api.py::test_library_chat_requires_query PASSED   [ 56%]
+tests/test_library_api.py::test_library_chat_ok PASSED               [ 60%]
+tests/test_library_api.py::test_owner_isolation_books_seeded_per_owner PASSED [ 63%]
+tests/test_library_api.py::test_schema_has_library_fields PASSED     [ 66%]
+tests/test_library_service.py::test_validate_rating_bounds PASSED    [ 70%]
+tests/test_library_service.py::test_validate_library_id_rejects_path_injection PASSED [ 73%]
+tests/test_library_service.py::test_compute_statistics_empty PASSED  [ 76%]
+tests/test_library_service.py::test_compute_statistics_with_books PASSED [ 80%]
+tests/test_open_meteo_weather.py::test_c_to_f PASSED                 [ 83%]
+tests/test_open_meteo_weather.py::test_wmo_weather_summary PASSED    [ 86%]
+tests/test_open_meteo_weather.py::test_normalize_open_meteo_payload_shape PASSED [ 90%]
+tests/test_open_meteo_weather.py::test_fetch_weather_forecast_with_mock_transport PASSED [ 93%]
+tests/test_ws_gateway.py::test_gateway_streams_async_generator_handler PASSED [ 96%]
+tests/test_ws_gateway.py::test_gateway_streams_async_handler_returning_generator PASSED [100%]
+
+=========================== 30 passed in 56.91s ===========================
+  OK Tests passed
+
+[6b] Coverage skipped (set RUN_TEST_COVERAGE=1 for pytest --cov=app)
+
+[7/10] API best-practices checklist...
+----------------------------------------
+  Output: reports\check_report_bat.json
+Best-practices score: 59.5/100
+  OK Best-practices check passed
+
+[8/10] Final format (black)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m black app scripts tests docs\tests
+reformatted E:\durgas_ai\ai.backend\app\api\ws_methods\kafka_health.py
+reformatted E:\durgas_ai\ai.backend\app\api\ws_methods\health.py
+reformatted E:\durgas_ai\ai.backend\app\core\metrics.py
+reformatted E:\durgas_ai\ai.backend\app\core\response_cache.py
+reformatted E:\durgas_ai\ai.backend\app\core\middleware.py
+reformatted E:\durgas_ai\ai.backend\app\core\redis_manager.py
+reformatted E:\durgas_ai\ai.backend\app\models\os_platform.py
+reformatted E:\durgas_ai\ai.backend\app\api\ws_methods\os_labs.py
+reformatted E:\durgas_ai\ai.backend\app\main.py
+reformatted E:\durgas_ai\ai.backend\app\services\kafka\producer.py
+reformatted E:\durgas_ai\ai.backend\app\services\kafka\consumer.py
+reformatted E:\durgas_ai\ai.backend\app\services\kafka\workers\file_ingestion.py
+reformatted E:\durgas_ai\ai.backend\app\services\minio_service.py
+reformatted E:\durgas_ai\ai.backend\app\services\rag\vectorstore.py
+
+All done! ✨ 🍰 ✨
+14 files reformatted, 457 files left unchanged.
+  OK black formatting applied
+
+[9/10] Install / import integrity...
+----------------------------------------
+  Skipping pip check (Windows Python 3.13+; set FORCE_PIP_CHECK=1 to run)
+  Import smoke: from app.main import app
+  OK app.main import succeeded
+
 
 ========================================
   SUMMARY
@@ -315,19 +495,20 @@ Section Status:
   [0] Source inventory:              PASSED
   [0b] Docker hint:                   DONE
   [1] Pip dependencies:              PASSED
-  [2] Environment validate:          FAILED
-  [3] mypy:                          SKIPPED
-  [3b] pyrefly:                      SKIPPED
-  [4] black --check:                 SKIPPED
-  [4b] Prettier:                     SKIPPED
-  [5] ruff check:                    SKIPPED
-  [6] pytest:                        SKIPPED
+  [2] Environment validate:          PASSED
+  [3] mypy:                          WARNING
+  [3b] pyrefly:                      FAILED
+  [4] black --check:                 FIXED
+  [4b] Prettier:                     WARNING
+  [5] ruff check:                    FAILED
+  [6] pytest:                        PASSED
   [6b] pytest coverage:              SKIPPED
-  [7] Best practices:               SKIPPED
-  [8] black (apply):                 SKIPPED
-  [9] pip check + import app:        SKIPPED
+  [7] Best practices:               PASSED
+  [8] black (apply):                 PASSED
+  [9] pip check + import app:        PASSED
 
-  X Found 1 error(s)
+  X Found 2 error(s)
+  Found 2 warning(s)
 
   Please fix the errors before proceeding.
 

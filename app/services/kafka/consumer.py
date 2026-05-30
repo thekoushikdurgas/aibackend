@@ -5,9 +5,12 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-from typing import Callable, Dict, List, Optional
+from typing import TYPE_CHECKING, Callable, List, Optional
 
 from app.config import settings
+
+if TYPE_CHECKING:
+    from aiokafka import AIOKafkaConsumer
 
 logger = logging.getLogger(__name__)
 
@@ -24,17 +27,20 @@ class KafkaConsumerGroup:
         self.topics = topics
         self.group_id = group_id
         self.handler = handler
-        self._consumer = None
+        self._consumer: Optional[AIOKafkaConsumer] = None
         self._task: Optional[asyncio.Task] = None
         self._running = False
 
     async def start(self) -> None:
         """Start the consumer background task."""
         if not settings.kafka_bootstrap_servers:
-            logger.info("Kafka not configured — consumer '%s' is a no-op", self.group_id)
+            logger.info(
+                "Kafka not configured — consumer '%s' is a no-op", self.group_id
+            )
             return
         try:
-            from aiokafka import AIOKafkaConsumer  # type: ignore[import]
+            from aiokafka import AIOKafkaConsumer
+
             self._consumer = AIOKafkaConsumer(
                 *self.topics,
                 bootstrap_servers=settings.kafka_bootstrap_servers,
@@ -53,15 +59,20 @@ class KafkaConsumerGroup:
                 self.topics,
             )
         except ImportError:
-            logger.warning("aiokafka not installed — consumer '%s' is a no-op", self.group_id)
+            logger.warning(
+                "aiokafka not installed — consumer '%s' is a no-op", self.group_id
+            )
         except Exception as exc:
             logger.warning("Kafka consumer '%s' startup failed: %s", self.group_id, exc)
 
     async def _consume_loop(self) -> None:
         """Main message processing loop."""
+        consumer = self._consumer
+        if consumer is None:
+            return
         while self._running:
             try:
-                async for msg in self._consumer:
+                async for msg in consumer:
                     try:
                         await self.handler(
                             topic=msg.topic,
@@ -72,7 +83,10 @@ class KafkaConsumerGroup:
                         )
                         try:
                             from app.core.metrics import KAFKA_CONSUMED_EVENTS_TOTAL
-                            KAFKA_CONSUMED_EVENTS_TOTAL.labels(topic=msg.topic, group_id=self.group_id).inc()
+
+                            KAFKA_CONSUMED_EVENTS_TOTAL.labels(
+                                topic=msg.topic, group_id=self.group_id
+                            ).inc()
                         except Exception:
                             pass
                     except Exception as exc:

@@ -246,6 +246,7 @@ class ChromaVectorStore(VectorDBBase):
 
         # Search with embedding
         import time
+
         start_time = time.time()
         results = collection.query(
             query_embeddings=[query_embedding],
@@ -256,6 +257,7 @@ class ChromaVectorStore(VectorDBBase):
         duration = time.time() - start_time
         try:
             from app.core.metrics import CHROMADB_QUERY_DURATION_SECONDS
+
             CHROMADB_QUERY_DURATION_SECONDS.labels(operation="search").observe(duration)
         except Exception:
             pass
@@ -306,6 +308,7 @@ class ChromaVectorStore(VectorDBBase):
 
         # Search
         import time
+
         start_time = time.time()
         results = collection.query(
             query_embeddings=[query_embedding],
@@ -316,7 +319,10 @@ class ChromaVectorStore(VectorDBBase):
         duration = time.time() - start_time
         try:
             from app.core.metrics import CHROMADB_QUERY_DURATION_SECONDS
-            CHROMADB_QUERY_DURATION_SECONDS.labels(operation="search_sync").observe(duration)
+
+            CHROMADB_QUERY_DURATION_SECONDS.labels(operation="search_sync").observe(
+                duration
+            )
         except Exception:
             pass
 

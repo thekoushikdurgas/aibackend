@@ -21,7 +21,8 @@ async def _get_producer():
     if not settings.kafka_bootstrap_servers:
         return None
     try:
-        from aiokafka import AIOKafkaProducer  # type: ignore[import]
+        from aiokafka import AIOKafkaProducer
+
         _producer = AIOKafkaProducer(
             bootstrap_servers=settings.kafka_bootstrap_servers,
             value_serializer=lambda v: json.dumps(v, default=str).encode("utf-8"),
@@ -60,6 +61,7 @@ async def publish_json(
         logger.debug("kafka_sent topic=%s key=%s", topic, key)
         try:
             from app.core.metrics import KAFKA_PUBLISHED_EVENTS_TOTAL
+
             KAFKA_PUBLISHED_EVENTS_TOTAL.labels(topic=topic).inc()
         except Exception:
             pass

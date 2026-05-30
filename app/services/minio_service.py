@@ -13,7 +13,7 @@ import uuid
 from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 from app.config import settings
 
@@ -38,7 +38,8 @@ def _get_client():
     if not endpoint:
         return None
     try:
-        from minio import Minio  # type: ignore[import]
+        from minio import Minio
+
         client = Minio(
             endpoint=endpoint,
             access_key=getattr(settings, "minio_access_key", "minioadmin"),
@@ -94,7 +95,6 @@ async def upload_bytes(
 
     try:
         import io
-        from minio import Minio  # type: ignore[import]
 
         def _upload():
             _ensure_bucket(client, bucket)
@@ -132,6 +132,7 @@ async def presigned_upload_url(
     ext = Path(filename).suffix
     object_key = f"presigned/{uuid.uuid4().hex}{ext}"
     try:
+
         def _get_url():
             _ensure_bucket(client, bucket)
             return client.presigned_put_object(
@@ -139,6 +140,7 @@ async def presigned_upload_url(
                 object_name=object_key,
                 expires=timedelta(seconds=expires_seconds),
             )
+
         url = await _run_sync(_get_url)
         return url
     except Exception as exc:
@@ -156,12 +158,14 @@ async def presigned_download_url(
     if client is None:
         return None
     try:
+
         def _get_url():
             return client.presigned_get_object(
                 bucket_name=bucket,
                 object_name=key,
                 expires=timedelta(seconds=expires_seconds),
             )
+
         return await _run_sync(_get_url)
     except Exception as exc:
         logger.error("MinIO download URL failed: %s", exc)
@@ -174,11 +178,13 @@ async def download_bytes(bucket: str, key: str) -> Optional[bytes]:
     if client is None:
         return None
     try:
+
         def _download():
             response = client.get_object(bucket_name=bucket, object_name=key)
             data = response.read()
             response.close()
             return data
+
         return await _run_sync(_download)
     except Exception as exc:
         logger.error("MinIO download failed: %s", exc)

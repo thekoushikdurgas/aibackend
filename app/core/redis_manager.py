@@ -6,7 +6,6 @@ Provides: caching, pub/sub, job progress tracking, distributed locks, rate limit
 
 from __future__ import annotations
 
-import asyncio
 import json
 import logging
 from typing import Any, AsyncIterator, Dict, Optional
@@ -39,7 +38,8 @@ async def get_redis():
     if not settings.use_redis:
         return None
     try:
-        import redis.asyncio as aioredis  # type: ignore[import]
+        import redis.asyncio as aioredis
+
         client = aioredis.from_url(
             settings.redis_url,
             decode_responses=True,
@@ -69,6 +69,7 @@ async def close_redis() -> None:
 
 
 # ── Cache layer ──────────────────────────────────────────────────────────────
+
 
 async def cache_set(key: str, value: Any, ttl: int = 300) -> None:
     """Store a JSON-serializable value with a TTL (seconds)."""
@@ -107,8 +108,13 @@ async def cache_delete(key: str) -> None:
 
 # ── Job progress tracking ────────────────────────────────────────────────────
 
+
 async def job_set_progress(
-    job_id: str, status: str, progress: int = 0, meta: Optional[Dict] = None, ttl: int = 3600
+    job_id: str,
+    status: str,
+    progress: int = 0,
+    meta: Optional[Dict] = None,
+    ttl: int = 3600,
 ) -> None:
     """Persist live job state to Redis (visible to polling frontend)."""
     r = await get_redis()
@@ -137,6 +143,7 @@ async def job_get_progress(job_id: str) -> Optional[Dict]:
 
 # ── Distributed lock ─────────────────────────────────────────────────────────
 
+
 class RedisLock:
     """Simple SET NX + TTL distributed mutex."""
 
@@ -163,6 +170,7 @@ class RedisLock:
 
 
 # ── Pub/Sub helpers ──────────────────────────────────────────────────────────
+
 
 async def publish(channel: str, message: Any) -> None:
     """Publish a message to a Redis pub/sub channel."""
@@ -195,6 +203,7 @@ async def subscribe(channel: str) -> AsyncIterator[Any]:
 
 
 # ── Sliding-window rate limiter ───────────────────────────────────────────────
+
 
 async def rate_check(identifier: str, limit: int, window_seconds: int = 60) -> bool:
     """Returns True if the request is allowed, False if rate limited."""

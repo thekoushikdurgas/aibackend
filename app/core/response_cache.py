@@ -109,12 +109,14 @@ async def cached_json_response(
     if hit is not None:
         try:
             from app.core.metrics import REDIS_CACHE_ACCESS_TOTAL
+
             REDIS_CACHE_ACCESS_TOTAL.labels(result="hit").inc()
         except Exception:
             pass
         return hit
     try:
         from app.core.metrics import REDIS_CACHE_ACCESS_TOTAL
+
         REDIS_CACHE_ACCESS_TOTAL.labels(result="miss").inc()
     except Exception:
         pass

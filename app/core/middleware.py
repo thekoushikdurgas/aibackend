@@ -110,15 +110,16 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
             recorded = True
             try:
                 duration = time.time() - start_time
-                from app.core.metrics import HTTP_REQUESTS_TOTAL, HTTP_REQUEST_DURATION_SECONDS
+                from app.core.metrics import (
+                    HTTP_REQUESTS_TOTAL,
+                    HTTP_REQUEST_DURATION_SECONDS,
+                )
+
                 HTTP_REQUESTS_TOTAL.labels(
-                    method=request.method,
-                    endpoint=request.url.path,
-                    status=str(status)
+                    method=request.method, endpoint=request.url.path, status=str(status)
                 ).inc()
                 HTTP_REQUEST_DURATION_SECONDS.labels(
-                    method=request.method,
-                    endpoint=request.url.path
+                    method=request.method, endpoint=request.url.path
                 ).observe(duration)
             except Exception:
                 pass

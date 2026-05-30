@@ -7,8 +7,7 @@ Subscribes to file.uploaded → downloads from MinIO → extracts text
 from __future__ import annotations
 
 import logging
-import uuid
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, cast
 
 from app.services.kafka import topics
 
@@ -38,9 +37,14 @@ async def handle_file_uploaded(
     # 1. Download file bytes from MinIO
     try:
         from app.services.minio_service import download_bytes
+
         raw_bytes = await download_bytes(bucket, minio_key)
         if raw_bytes is None:
-            logger.error("file_ingestion: MinIO download returned None for %s/%s", bucket, minio_key)
+            logger.error(
+                "file_ingestion: MinIO download returned None for %s/%s",
+                bucket,
+                minio_key,
+            )
             return
     except Exception as exc:
         logger.error("file_ingestion: MinIO download error: %s", exc)
@@ -57,6 +61,7 @@ async def handle_file_uploaded(
     doc_ids = []
     try:
         from app.services.rag import get_shared_chroma_vector_store
+
         vector_store = get_shared_chroma_vector_store()
         if not vector_store._initialized:
             await vector_store.initialize()
@@ -92,9 +97,13 @@ async def handle_file_uploaded(
             from app.utils.helpers import utc_now
 
             async with AsyncSessionLocal() as db:
-                row = (await db.execute(
-                    select(FileMetadataModel).where(FileMetadataModel.id == file_metadata_id)
-                )).scalar_one_or_none()
+                row = (
+                    await db.execute(
+                        select(FileMetadataModel).where(
+                            FileMetadataModel.id == file_metadata_id
+                        )
+                    )
+                ).scalar_one_or_none()
                 if row:
                     row.embedding_id = doc_ids[0] if doc_ids else None
                     row.embedded_at = utc_now()
@@ -105,6 +114,7 @@ async def handle_file_uploaded(
     # 5. Publish file.embedded event
     try:
         from app.services.kafka import publish_json
+
         await publish_json(
             topics.FILE_EMBEDDED,
             {
@@ -124,12 +134,13 @@ def _extract_text(data: bytes, filename: str) -> str:
     filename_lower = filename.lower()
     try:
         if filename_lower.endswith(".pdf"):
-            import fitz  # PyMuPDF
+            fitz = cast(Any, __import__("fitz", fromlist=[""]))
             doc = fitz.open(stream=data, filetype="pdf")
             return "\n".join(page.get_text() for page in doc)
         elif filename_lower.endswith(".docx"):
             from docx import Document
             import io
+
             doc = Document(io.BytesIO(data))
             return "\n".join(para.text for para in doc.paragraphs)
         else:

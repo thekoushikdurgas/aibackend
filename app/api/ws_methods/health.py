@@ -39,6 +39,7 @@ async def handle_system_health(
         tasks.append(_check_redis_health())
 
     from app.api.ws_methods.kafka_health import check_kafka_health, check_minio_health
+
     tasks.append(check_kafka_health())
     tasks.append(check_minio_health())
 
@@ -66,10 +67,14 @@ async def handle_system_health(
         services.append({"name": "redis", "status": "not_initialized"})
 
     # Kafka
-    services.append(results_dict.get("kafka", {"name": "kafka", "status": "not_initialized"}))
+    services.append(
+        results_dict.get("kafka", {"name": "kafka", "status": "not_initialized"})
+    )
 
     # MinIO
-    services.append(results_dict.get("minio", {"name": "minio", "status": "not_initialized"}))
+    services.append(
+        results_dict.get("minio", {"name": "minio", "status": "not_initialized"})
+    )
 
     unhealthy = [
         s for s in services if s.get("status") not in {"healthy", "not_initialized"}
