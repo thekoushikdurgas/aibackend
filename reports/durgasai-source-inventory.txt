@@ -1,10 +1,11 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Thu 05/28/2026  8:04:58.99
+Generated: Sat 05/30/2026  6:32:13.09
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
 E:\durgas_ai\ai.backend\app\config_runtime_overlay.py
 E:\durgas_ai\ai.backend\app\main.py
+E:\durgas_ai\ai.backend\app\storage.py
 E:\durgas_ai\ai.backend\app\__init__.py
 E:\durgas_ai\ai.backend\app\agents\base.py
 E:\durgas_ai\ai.backend\app\agents\content_extractor.py
@@ -17,9 +18,17 @@ E:\durgas_ai\ai.backend\app\agents\seo_agent.py
 E:\durgas_ai\ai.backend\app\agents\website_scraper.py
 E:\durgas_ai\ai.backend\app\agents\__init__.py
 E:\durgas_ai\ai.backend\app\api\auth_session.py
+E:\durgas_ai\ai.backend\app\api\cloud.py
+E:\durgas_ai\ai.backend\app\api\dev_tool.py
+E:\durgas_ai\ai.backend\app\api\durgasman.py
 E:\durgas_ai\ai.backend\app\api\jobs.py
+E:\durgas_ai\ai.backend\app\api\library.py
+E:\durgas_ai\ai.backend\app\api\repo_reverse.py
+E:\durgas_ai\ai.backend\app\api\search.py
 E:\durgas_ai\ai.backend\app\api\storage_signed_files.py
+E:\durgas_ai\ai.backend\app\api\supply_chain.py
 E:\durgas_ai\ai.backend\app\api\time_travel.py
+E:\durgas_ai\ai.backend\app\api\vsql_download.py
 E:\durgas_ai\ai.backend\app\api\ws_gateway.py
 E:\durgas_ai\ai.backend\app\api\__init__.py
 E:\durgas_ai\ai.backend\app\api\schemas\ai_provider_settings.py
@@ -36,10 +45,12 @@ E:\durgas_ai\ai.backend\app\api\ws_methods\cohere.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\council.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\deepgram.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\deepinfra.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\dev_tool.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\eden.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\elevenlabs.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\embeddings.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\fal.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\gemma.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\gmail.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\google_calendar.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\google_drive.py
@@ -68,10 +79,16 @@ E:\durgas_ai\ai.backend\app\api\ws_methods\roadrash.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\scraper.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\stability.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\storage.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\sudoku.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\veo.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\vision.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\workflow_runner.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\__init__.py
+E:\durgas_ai\ai.backend\app\codec\format_constants.py
+E:\durgas_ai\ai.backend\app\codec\frames.py
+E:\durgas_ai\ai.backend\app\codec\payload.py
+E:\durgas_ai\ai.backend\app\codec\video.py
+E:\durgas_ai\ai.backend\app\codec\__init__.py
 E:\durgas_ai\ai.backend\app\core\auth.py
 E:\durgas_ai\ai.backend\app\core\connection_manager.py
 E:\durgas_ai\ai.backend\app\core\graphql_cookie_middleware.py
@@ -128,6 +145,8 @@ E:\durgas_ai\ai.backend\app\graphql\modules\installed_apps\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\installed_apps\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\jobs\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\jobs\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\library\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\library\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\linked_accounts\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\linked_accounts\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\media\resolvers.py
@@ -149,6 +168,10 @@ E:\durgas_ai\ai.backend\app\graphql\modules\tools\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\tools\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\vision\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\vision\__init__.py
+E:\durgas_ai\ai.backend\app\graphql\modules\vsql\resolvers.py
+E:\durgas_ai\ai.backend\app\graphql\modules\vsql\types.py
+E:\durgas_ai\ai.backend\app\graphql\modules\vsql\uploads.py
+E:\durgas_ai\ai.backend\app\graphql\modules\vsql\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\weather\resolvers.py
 E:\durgas_ai\ai.backend\app\graphql\modules\weather\__init__.py
 E:\durgas_ai\ai.backend\app\graphql\modules\widgets\resolvers.py
@@ -158,19 +181,30 @@ E:\durgas_ai\ai.backend\app\graphql\modules\workflows\__init__.py
 E:\durgas_ai\ai.backend\app\models\app_schemas.py
 E:\durgas_ai\ai.backend\app\models\claude_code_session.py
 E:\durgas_ai\ai.backend\app\models\conversation.py
+E:\durgas_ai\ai.backend\app\models\dev_tool.py
 E:\durgas_ai\ai.backend\app\models\durgasos_desktop.py
+E:\durgas_ai\ai.backend\app\models\library.py
 E:\durgas_ai\ai.backend\app\models\metrics.py
 E:\durgas_ai\ai.backend\app\models\roadrash.py
 E:\durgas_ai\ai.backend\app\models\schemas.py
+E:\durgas_ai\ai.backend\app\models\sudoku.py
 E:\durgas_ai\ai.backend\app\models\user.py
 E:\durgas_ai\ai.backend\app\models\__init__.py
 E:\durgas_ai\ai.backend\app\services\ai_service.py
+E:\durgas_ai\ai.backend\app\services\auth_vsql_service.py
+E:\durgas_ai\ai.backend\app\services\csv_analysis_service.py
 E:\durgas_ai\ai.backend\app\services\document_service.py
+E:\durgas_ai\ai.backend\app\services\feedback_service.py
+E:\durgas_ai\ai.backend\app\services\library_service.py
 E:\durgas_ai\ai.backend\app\services\local_storage_service.py
+E:\durgas_ai\ai.backend\app\services\perf_event_log.py
+E:\durgas_ai\ai.backend\app\services\perf_event_store.py
 E:\durgas_ai\ai.backend\app\services\rag_chat_service.py
 E:\durgas_ai\ai.backend\app\services\s3_storage_adapter.py
+E:\durgas_ai\ai.backend\app\services\search_service.py
 E:\durgas_ai\ai.backend\app\services\storage_service.py
 E:\durgas_ai\ai.backend\app\services\user_provisioning.py
+E:\durgas_ai\ai.backend\app\services\video_service.py
 E:\durgas_ai\ai.backend\app\services\__init__.py
 E:\durgas_ai\ai.backend\app\services\ai21\answer.py
 E:\durgas_ai\ai.backend\app\services\ai21\completion.py
@@ -218,6 +252,10 @@ E:\durgas_ai\ai.backend\app\services\council\policy.py
 E:\durgas_ai\ai.backend\app\services\council\prompts.py
 E:\durgas_ai\ai.backend\app\services\council\verifier.py
 E:\durgas_ai\ai.backend\app\services\council\__init__.py
+E:\durgas_ai\ai.backend\app\services\dev_tool\gemini_client.py
+E:\durgas_ai\ai.backend\app\services\dev_tool\html_fetch.py
+E:\durgas_ai\ai.backend\app\services\dev_tool\prompts.py
+E:\durgas_ai\ai.backend\app\services\dev_tool\__init__.py
 E:\durgas_ai\ai.backend\app\services\fal\audio_generation.py
 E:\durgas_ai\ai.backend\app\services\fal\client.py
 E:\durgas_ai\ai.backend\app\services\fal\image_generation.py
@@ -346,6 +384,22 @@ E:\durgas_ai\ai.backend\app\utils\html_parser.py
 E:\durgas_ai\ai.backend\app\utils\logging_filters.py
 E:\durgas_ai\ai.backend\app\utils\telemetry.py
 E:\durgas_ai\ai.backend\app\utils\__init__.py
+E:\durgas_ai\ai.backend\app\video_storage\binary_pages.py
+E:\durgas_ai\ai.backend\app\video_storage\crud.py
+E:\durgas_ai\ai.backend\app\video_storage\decoder.py
+E:\durgas_ai\ai.backend\app\video_storage\encoder.py
+E:\durgas_ai\ai.backend\app\video_storage\engine.py
+E:\durgas_ai\ai.backend\app\video_storage\exceptions.py
+E:\durgas_ai\ai.backend\app\video_storage\integrity.py
+E:\durgas_ai\ai.backend\app\video_storage\manifest.py
+E:\durgas_ai\ai.backend\app\video_storage\page_index.py
+E:\durgas_ai\ai.backend\app\video_storage\parquet_index.py
+E:\durgas_ai\ai.backend\app\video_storage\query.py
+E:\durgas_ai\ai.backend\app\video_storage\schema.py
+E:\durgas_ai\ai.backend\app\video_storage\segments.py
+E:\durgas_ai\ai.backend\app\video_storage\__init__.py
+E:\durgas_ai\ai.backend\app\video_storage\performance\metrics.py
+E:\durgas_ai\ai.backend\app\video_storage\performance\__init__.py
 
 === scripts ===
 E:\durgas_ai\ai.backend\scripts\check_best_practices.py
@@ -353,7 +407,11 @@ E:\durgas_ai\ai.backend\scripts\postman_to_manifest.py
 E:\durgas_ai\ai.backend\scripts\validate_env.py
 
 === tests ===
+E:\durgas_ai\ai.backend\tests\conftest.py
+E:\durgas_ai\ai.backend\tests\test_dev_tool.py
 E:\durgas_ai\ai.backend\tests\test_graphql_schema.py
+E:\durgas_ai\ai.backend\tests\test_library_api.py
+E:\durgas_ai\ai.backend\tests\test_library_service.py
 E:\durgas_ai\ai.backend\tests\test_open_meteo_weather.py
 E:\durgas_ai\ai.backend\tests\test_ws_gateway.py
 E:\durgas_ai\ai.backend\tests\council\test_verifier_rag.py

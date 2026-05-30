@@ -48,5 +48,7 @@ WS_METHOD_MODULES = [
     "notifications",
     "orbit",
     "roadrash",
+    "sudoku",
     "gemma",
+    "dev_tool",
 ]

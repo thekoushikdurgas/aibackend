@@ -50,6 +50,12 @@ from .roadrash import (
     RoadRashProfileModel,
 )
 
+# Import Sudoku models
+from .sudoku import (
+    SudokuLeaderboardModel,
+    SudokuProfileModel,
+)
+
 __all__ = [
     "ChatRequest",
     "ChatResponse",
@@ -90,4 +96,6 @@ __all__ = [
     "RoadRashLeaderboardModel",
     "RoadRashProfileModel",
     "RoadRashFriendModel",
+    "SudokuLeaderboardModel",
+    "SudokuProfileModel",
 ]

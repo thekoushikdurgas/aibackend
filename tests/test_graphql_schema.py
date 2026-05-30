@@ -56,6 +56,7 @@ def test_schema_has_chat_query_fields():
     assert "websocketGatewayStatus" in names
     assert "storageSignedHttpUrl" in names
     assert "hostStats" in names
+    assert "libraryBooks" in names
 
 
 def test_gql_user_type_exposes_profile_fields():

@@ -28,6 +28,7 @@ from app.graphql.modules.google_tasks.resolvers import (
     GoogleTasksQuery,
 )
 from app.graphql.modules.todos.resolvers import TodosMutation, TodosQuery
+from app.graphql.modules.library.resolvers import LibraryMutation, LibraryQuery
 from app.graphql.modules.storage.resolvers import StorageMutation, StorageQuery
 from app.graphql.modules.tools.resolvers import ToolsMutation
 from app.graphql.modules.vision.resolvers import VisionMutation
@@ -44,10 +45,12 @@ from app.graphql.modules.linked_accounts.resolvers import (
 )
 from app.graphql.modules.github.resolvers import GithubMutation, GithubQuery
 from app.graphql.modules.jobs.resolvers import JobsQuery
+from app.graphql.modules.vsql import VsqlQuery, VsqlMutation
 
 
 @strawberry.type
 class Query(  # type: ignore[misc]
+    VsqlQuery,
     AuthQuery,
     ChatQuery,
     AgentsQuery,
@@ -60,6 +63,7 @@ class Query(  # type: ignore[misc]
     GoogleDriveQuery,
     GoogleTasksQuery,
     TodosQuery,
+    LibraryQuery,
     MetricsQuery,
     ProvidersQuery,
     HealthQuery,
@@ -77,6 +81,7 @@ class Query(  # type: ignore[misc]
 
 @strawberry.type
 class Mutation(  # type: ignore[misc]
+    VsqlMutation,
     AuthMutation,
     ChatMutation,
     AgentsMutation,
@@ -96,6 +101,7 @@ class Mutation(  # type: ignore[misc]
     RuntimeSettingsMutation,
     GoogleTasksMutation,
     TodosMutation,
+    LibraryMutation,
 ):
     """Root GraphQL mutation (modular mix-ins)."""
 

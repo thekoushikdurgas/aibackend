@@ -125,20 +125,20 @@ Stop or remove the `ollama` service in Compose to save RAM, or leave it unused.
 
 ## Troubleshooting
 
-| Symptom | Check |
-| ------- | ----- |
-| `validate_env: missing pydantic_settings` on host | Expected without a venv. Use `bash deploy/remote-deploy.sh` (dotenv-only on host, full check in Docker). Do **not** `pip install -r requirements.txt` on Python 3.14. |
-| `torch==2.2.0` not found (host pip) | Host `python3` may be 3.14; torch 2.2 has no wheel. Deploy via **Docker** only. |
-| `python3-venv` / `ensurepip` errors | Optional for host venv; not required for Docker deploy. |
-| `docker compose` include error | `docker compose version` ≥ 2.20 |
-| Backend unhealthy | `docker compose logs backend` |
-| Postgres connection refused | `docker compose ps`; `db` healthy? |
-| Ollama timeouts | Model pulled? `docker compose exec ollama ollama list` |
-| CORS errors in browser | `CORS_ORIGINS` includes exact frontend origin |
-| Deploy skips verify | `VERIFY_REQUIRE_DOCKER=1`; docker on PATH for SSH user |
-| `permission denied` on `docker.sock` | After bootstrap: `newgrp docker` or exit SSH and reconnect; or re-run deploy (auto `sudo docker` fallback) |
-| `cannot assign requested address` on `54.x.x.x:11434` | Remove `OLLAMA_PUBLISH_HOST` / `*_PUBLISH_HOST` from `.env` if set to the public IP. Only port **8000** is exposed; Ollama is `http://ollama:11434` inside Compose. |
-| `unexpected character "~" in variable name "[200~` | Corrupted paste in `nano` (bracketed paste). Run `cp .env.example .env`, edit again, or `scp` a clean `.env` from your PC. Deploy scripts now sanitize KEY=VALUE lines automatically. |
-| `verify` Redis `got: <empty>` after long wait | Often a hung `docker exec` (Ctrl+C). Re-run `bash deploy/verify-stack.sh`; script uses timeouts and a container-running fallback. |
-| `verify` Postgres not ready but `db` is healthy | `docker exec` under sudo can fail while the DB is fine. Re-run verify after `git pull`; script falls back to compose health. |
-| `[200~curl: command not found` | Bracketed-paste in SSH terminal — type commands manually or disable bracketed paste in your SSH client. |
+| Symptom                                               | Check                                                                                                                                                                                 |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `validate_env: missing pydantic_settings` on host     | Expected without a venv. Use `bash deploy/remote-deploy.sh` (dotenv-only on host, full check in Docker). Do **not** `pip install -r requirements.txt` on Python 3.14.                 |
+| `torch==2.2.0` not found (host pip)                   | Host `python3` may be 3.14; torch 2.2 has no wheel. Deploy via **Docker** only.                                                                                                       |
+| `python3-venv` / `ensurepip` errors                   | Optional for host venv; not required for Docker deploy.                                                                                                                               |
+| `docker compose` include error                        | `docker compose version` ≥ 2.20                                                                                                                                                       |
+| Backend unhealthy                                     | `docker compose logs backend`                                                                                                                                                         |
+| Postgres connection refused                           | `docker compose ps`; `db` healthy?                                                                                                                                                    |
+| Ollama timeouts                                       | Model pulled? `docker compose exec ollama ollama list`                                                                                                                                |
+| CORS errors in browser                                | `CORS_ORIGINS` includes exact frontend origin                                                                                                                                         |
+| Deploy skips verify                                   | `VERIFY_REQUIRE_DOCKER=1`; docker on PATH for SSH user                                                                                                                                |
+| `permission denied` on `docker.sock`                  | After bootstrap: `newgrp docker` or exit SSH and reconnect; or re-run deploy (auto `sudo docker` fallback)                                                                            |
+| `cannot assign requested address` on `54.x.x.x:11434` | Remove `OLLAMA_PUBLISH_HOST` / `*_PUBLISH_HOST` from `.env` if set to the public IP. Only port **8000** is exposed; Ollama is `http://ollama:11434` inside Compose.                   |
+| `unexpected character "~" in variable name "[200~`    | Corrupted paste in `nano` (bracketed paste). Run `cp .env.example .env`, edit again, or `scp` a clean `.env` from your PC. Deploy scripts now sanitize KEY=VALUE lines automatically. |
+| `verify` Redis `got: <empty>` after long wait         | Often a hung `docker exec` (Ctrl+C). Re-run `bash deploy/verify-stack.sh`; script uses timeouts and a container-running fallback.                                                     |
+| `verify` Postgres not ready but `db` is healthy       | `docker exec` under sudo can fail while the DB is fine. Re-run verify after `git pull`; script falls back to compose health.                                                          |
+| `[200~curl: command not found`                        | Bracketed-paste in SSH terminal — type commands manually or disable bracketed paste in your SSH client.                                                                               |

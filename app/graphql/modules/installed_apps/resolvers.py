@@ -47,6 +47,7 @@ _KNOWN_APP_IDS = frozenset(
         "resume",
         "void-ide",
         "viewer",
+        "sudoku",
     }
 )
 

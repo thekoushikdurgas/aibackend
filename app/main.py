@@ -19,7 +19,15 @@ from app.utils.logging_filters import OptionalApiKeyWarningFilter
 from app.api.auth_session import router as auth_session_router
 from app.api.storage_signed_files import router as storage_signed_files_router
 from app.api.time_travel import router as time_travel_router
+from app.api.supply_chain import router as supply_chain_router
 from app.api.ws_gateway import websocket_gateway_router
+from app.api.search import router as search_router
+from app.api.cloud import router as cloud_router
+from app.api.vsql_download import router as vsql_download_router
+from app.api.durgasman import router as durgasman_router
+from app.api.dev_tool import router as dev_tool_router
+from app.api.library import router as library_router
+from app.api.repo_reverse import router as repo_reverse_router
 from app.core.graphql_cookie_middleware import GraphqlResponseCookieMiddleware
 from app.core.middleware import (
     CorrelationIdMiddleware,
@@ -188,7 +196,9 @@ cors_origins = list(
 
 # Middleware: last added = outermost (runs first on incoming request).
 # Target order: CORS -> CorrelationId -> RequestLogging -> ErrorHandler -> Gzip -> routes
-app.add_middleware(GZipMiddleware, minimum_size=1000)
+# GZip + Starlette TestClient can leave gzip streams open on teardown (Python 3.13+).
+if not settings.is_test:
+    app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(ErrorHandlerMiddleware)
 app.add_middleware(RequestLoggingMiddleware)
 app.add_middleware(CorrelationIdMiddleware)
@@ -205,6 +215,14 @@ mount_socketio(app)
 
 app.include_router(auth_session_router)
 app.include_router(time_travel_router, prefix="/api")
+app.include_router(supply_chain_router)
+app.include_router(search_router, prefix="/api")
+app.include_router(cloud_router, prefix="/api")
+app.include_router(vsql_download_router)
+app.include_router(durgasman_router, prefix="/api")
+app.include_router(dev_tool_router, prefix="/api")
+app.include_router(library_router, prefix="/api")
+app.include_router(repo_reverse_router, prefix="/api")
 
 _files_prefix = (settings.storage_url_prefix or "/files").rstrip("/") or "/files"
 app.include_router(storage_signed_files_router, prefix=_files_prefix)

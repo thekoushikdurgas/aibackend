@@ -18,6 +18,8 @@ from app.models import claude_code_session  # noqa: F401
 from app.models import user as app_user_models  # noqa: F401
 from app.models import durgasos_desktop  # noqa: F401
 from app.models import roadrash  # noqa: F401
+from app.models import sudoku  # noqa: F401
+from app.models import library  # noqa: F401
 
 logger = logging.getLogger(__name__)
 
