@@ -33,7 +33,7 @@ alembic==1.13.1
 
 # Authentication & Security
 python-jose[cryptography]==3.3.0
-# PyJWT provides `import jwt` (auth_vsql_service); python-jose uses `from jose import jwt` — not interchangeable
+# PyJWT (`import jwt`) — app.core.auth and auth_vsql_service; python-jose kept for legacy deps only
 PyJWT>=2.8.0,<3
 # passlib 1.7.4 is incompatible with bcrypt 4.1+ (__about__ removed, strict 72-byte checks in init)
 bcrypt>=4.1.0,<5
@@ -45,6 +45,9 @@ aiohttp>=3.10.0,<4
 
 # Caching (Optional Redis)
 redis==5.0.1
+aiokafka>=0.10.0,<0.12
+minio>=7.2.0,<8
+prometheus-client>=0.19.0,<1
 
 # Configuration (pydantic-core pins help Python 3.13+ Windows wheels / avoid broken _pydantic_core)
 python-dotenv>=1.0.0

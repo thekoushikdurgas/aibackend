@@ -5,7 +5,7 @@ Pokémon database models for leaderboard scores and cloud save profiles.
 import uuid
 from typing import Any, Dict
 
-from sqlalchemy import Boolean, Column, DateTime, Integer, JSON, String
+from sqlalchemy import Column, DateTime, Integer, JSON, String
 
 from app.models.metrics import Base
 from app.utils.helpers import utc_now

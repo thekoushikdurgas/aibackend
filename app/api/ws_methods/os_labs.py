@@ -566,6 +566,72 @@ async def handle_get_topics(
     return {"topics": OS_LESSONS}
 
 
+async def handle_search_topics(
+    params: Dict[str, Any],
+    user: Optional[Dict[str, Any]] = None,
+    connection_id: Optional[str] = None,
+) -> Dict[str, Any]:
+    """Search OS lessons using ChromaDB semantic search."""
+    query = params.get("query", "").strip()
+    if not query:
+        return {"results": []}
+
+    # Lazy-seed topics into ChromaDB on first search
+    from app.services.rag import get_shared_chroma_vector_store
+    vector_store = get_shared_chroma_vector_store()
+    if not vector_store._initialized:
+        await vector_store.initialize()
+
+    collection_name = "os_academy"
+    try:
+        client = vector_store.client
+        collection = client.get_or_create_collection(
+            name=collection_name, metadata={"hnsw:space": "cosine"}
+        )
+        if collection.count() == 0:
+            logger.info("Seeding OS Academy lessons into ChromaDB...")
+            from app.services.rag.embeddings import get_embedding_service
+            embedding_service = get_embedding_service()
+            for topic in OS_LESSONS:
+                doc_id = f"lesson_{topic['id']}"
+                content = f"Title: {topic['title']}\nFocus: {topic['coreFocus']}\nContent: {topic['content']}"
+                emb = embedding_service.embed_text(content)
+                collection.add(
+                    ids=[doc_id],
+                    embeddings=[emb],
+                    documents=[content],
+                    metadatas=[{"topic_id": topic["id"], "title": topic["title"]}]
+                )
+    except Exception as e:
+        logger.warning("Failed to check/seed os_academy collection: %s", e)
+
+    # Search the collection
+    try:
+        from app.services.rag.embeddings import get_embedding_service
+        emb_service = get_embedding_service()
+        query_emb = emb_service.embed_text(query)
+        res = collection.query(
+            query_embeddings=[query_emb],
+            n_results=3,
+            include=["documents", "metadatas", "distances"]
+        )
+        results = []
+        if res and "ids" in res and res["ids"]:
+            for i in range(len(res["ids"][0])):
+                meta = res["metadatas"][0][i] if res["metadatas"] else {}
+                dist = res["distances"][0][i] if res["distances"] else 1.0
+                results.append({
+                    "topicId": meta.get("topic_id"),
+                    "title": meta.get("title"),
+                    "content": res["documents"][0][i] if res["documents"] else "",
+                    "similarity": round(1.0 - dist, 4)
+                })
+        return {"results": results}
+    except Exception as e:
+        logger.error("Failed to query os_academy collection: %s", e)
+        raise JSONRPCError(JSONRPCErrorCode.INTERNAL_ERROR, f"Semantic search failed: {str(e)}")
+
+
 async def handle_run_sandbox(
     params: Dict[str, Any],
     user: Optional[Dict[str, Any]] = None,
@@ -1031,6 +1097,7 @@ def get_methods() -> Dict[str, Any]:
     """Register methods for the registry mapping."""
     return {
         "os_labs.get_topics": handle_get_topics,
+        "os_labs.search_topics": handle_search_topics,
         "os_labs.run_sandbox": handle_run_sandbox,
         "os_labs.trace_syscalls": handle_trace_syscalls,
         "os_labs.trigger_load": handle_trigger_load,

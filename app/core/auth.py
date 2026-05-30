@@ -12,7 +12,8 @@ import bcrypt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials, APIKeyHeader
 
-from jose import JWTError, jwt
+import jwt
+from jwt.exceptions import PyJWTError
 from starlette.requests import Request
 
 from app.config import settings
@@ -135,7 +136,7 @@ def decode_token_payload(token: str) -> dict:
         return jwt.decode(
             token, settings.jwt_secret_key, algorithms=[settings.jwt_algorithm]
         )
-    except JWTError as e:
+    except PyJWTError as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=f"Invalid token: {str(e)}",
@@ -151,7 +152,7 @@ def try_decode_token(token: Optional[str]) -> Optional[dict]:
         return jwt.decode(
             token, settings.jwt_secret_key, algorithms=[settings.jwt_algorithm]
         )
-    except JWTError:
+    except PyJWTError:
         return None
 
 

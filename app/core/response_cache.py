@@ -107,7 +107,17 @@ async def cached_json_response(
 ) -> Any:
     hit = await cache_get_json(request, key)
     if hit is not None:
+        try:
+            from app.core.metrics import REDIS_CACHE_ACCESS_TOTAL
+            REDIS_CACHE_ACCESS_TOTAL.labels(result="hit").inc()
+        except Exception:
+            pass
         return hit
+    try:
+        from app.core.metrics import REDIS_CACHE_ACCESS_TOTAL
+        REDIS_CACHE_ACCESS_TOTAL.labels(result="miss").inc()
+    except Exception:
+        pass
     data = await factory()
     await cache_set_json(request, key, data, ttl_seconds)
     return data

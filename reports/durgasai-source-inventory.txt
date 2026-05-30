@@ -1,5 +1,5 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Sat 05/30/2026 16:35:54.81
+Generated: Sat 05/30/2026 17:52:59.34
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
@@ -72,6 +72,7 @@ E:\durgas_ai\ai.backend\app\api\ws_methods\ollama.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\openrouter.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\orbit.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\os_labs.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\pokemon.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\rag.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\registry.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\reka.py
@@ -189,6 +190,7 @@ E:\durgas_ai\ai.backend\app\models\dev_tool.py
 E:\durgas_ai\ai.backend\app\models\durgasos_desktop.py
 E:\durgas_ai\ai.backend\app\models\library.py
 E:\durgas_ai\ai.backend\app\models\metrics.py
+E:\durgas_ai\ai.backend\app\models\pokemon.py
 E:\durgas_ai\ai.backend\app\models\roadrash.py
 E:\durgas_ai\ai.backend\app\models\schemas.py
 E:\durgas_ai\ai.backend\app\models\sudoku.py
@@ -414,6 +416,7 @@ E:\durgas_ai\ai.backend\scripts\validate_env.py
 === tests ===
 E:\durgas_ai\ai.backend\tests\conftest.py
 E:\durgas_ai\ai.backend\tests\test_dev_tool.py
+E:\durgas_ai\ai.backend\tests\test_effective_database_url.py
 E:\durgas_ai\ai.backend\tests\test_graphql_schema.py
 E:\durgas_ai\ai.backend\tests\test_library_api.py
 E:\durgas_ai\ai.backend\tests\test_library_service.py

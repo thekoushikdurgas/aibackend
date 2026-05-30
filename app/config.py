@@ -313,6 +313,15 @@ class Settings(BaseSettings):
     # Kafka (optional; producer no-ops when unset)
     kafka_bootstrap_servers: Optional[str] = None
 
+    # MinIO Object Storage
+    minio_endpoint: Optional[str] = None
+    minio_access_key: str = "minioadmin"
+    minio_secret_key: str = "minioadmin"
+    minio_secure: bool = False
+
+    # ChromaDB Server Mode (overrides PersistentClient when set)
+    chroma_server_url: Optional[str] = None
+
     # CORS
     cors_origins: str = "chrome-extension://,http://localhost:3000"
 
@@ -500,8 +509,15 @@ class Settings(BaseSettings):
         """
         Return the database URL to use at runtime.
 
-        In production, prefer postgresql_url when available.
+        When ``database_url`` points at SQLite, it always wins so local ``.env`` can
+        keep ``DATABASE_URL=sqlite+aiosqlite:///./data/durgasai.db`` while
+        ``POSTGRESQL_URL`` remains set for deployed production.
+
+        Otherwise, in production, prefer ``postgresql_url`` when configured.
         """
+        url = (self.database_url or "").strip()
+        if "sqlite" in url.lower():
+            return url
         if (
             self.database_prefer_postgresql_in_production
             and self.is_production

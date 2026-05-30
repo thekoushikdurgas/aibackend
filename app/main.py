@@ -15,6 +15,8 @@ from starlette.requests import ClientDisconnect
 from strawberry.fastapi.context import CustomContext
 
 from app.config import settings
+from app.services.kafka.producer import close_producer
+from app.core.redis_manager import get_redis as get_redis_manager, close_redis
 from app.utils.logging_filters import OptionalApiKeyWarningFilter
 from app.api.auth_session import router as auth_session_router
 from app.api.storage_signed_files import router as storage_signed_files_router
@@ -114,6 +116,29 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
         except Exception as e:
             logger.warning(f"Redis initialization skipped: {e}")
 
+    # Initialize Kafka producer
+    try:
+        from app.services.kafka.producer import _get_producer
+        await _get_producer()
+        logger.info("Kafka producer initialized")
+    except Exception as e:
+        logger.warning(f"Kafka initialization skipped: {e}")
+
+    # Initialize Kafka consumers
+    try:
+        from app.services.kafka import topics, KafkaConsumerGroup
+        from app.services.kafka.workers.file_ingestion import handle_file_uploaded
+        file_consumer = KafkaConsumerGroup(
+            topics=[topics.FILE_UPLOADED],
+            group_id="durgasos-file-ingestion",
+            handler=handle_file_uploaded,
+        )
+        await file_consumer.start()
+        app.state.kafka_consumers = [file_consumer]
+        logger.info("Kafka consumers started")
+    except Exception as e:
+        logger.warning(f"Kafka consumer initialization skipped: {e}")
+
     yield
 
     # Shutdown
@@ -163,6 +188,21 @@ async def lifespan(app: FastAPI) -> AsyncGenerator:
             logger.info("Redis connections closed")
     except Exception as e:
         logger.warning(f"Redis cleanup error: {e}")
+
+    # Stop Kafka consumers
+    try:
+        if hasattr(app.state, "kafka_consumers"):
+            for consumer in app.state.kafka_consumers:
+                await consumer.stop()
+            logger.info("Kafka consumers stopped")
+    except Exception as e:
+        logger.warning(f"Kafka consumer cleanup error: {e}")
+
+    # Stop Kafka producer
+    try:
+        await close_producer()
+    except Exception as e:
+        logger.warning(f"Kafka producer cleanup error: {e}")
 
 
 _docs = "/docs" if settings.debug else None
@@ -251,6 +291,13 @@ app.add_middleware(GraphqlResponseCookieMiddleware)
 async def health():
     """Minimal liveness for load balancers (GET-only exception to GraphQL HTTP API)."""
     return {"status": "healthy"}
+
+
+@app.get("/metrics", tags=["Metrics"])
+async def metrics():
+    """Expose Prometheus metrics for scraping."""
+    from app.core.metrics import get_metrics_response
+    return get_metrics_response()
 
 
 def _unwrap_client_disconnect(exc: BaseException) -> ClientDisconnect | None:

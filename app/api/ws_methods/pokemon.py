@@ -5,9 +5,7 @@ Pokémon WebSocket JSON-RPC 2.0 Method Handlers
 import json
 import logging
 import random
-import time
-import uuid
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 from sqlalchemy import select
 
@@ -408,6 +406,7 @@ async def handle_pokemon_ai_select_move(
     - AI Active Pokémon: {ai_active.get('name')} (HP: {ai_active.get('hp')}/{ai_active.get('maxHp')}, Types: {ai_active.get('types')})
       Moves Available: {', '.join([m.get('name') for m in ai_active.get('moves', [])])}
     - Player Active Pokémon: {player_active.get('name')} (HP: {player_active.get('hp')}/{player_active.get('maxHp')}, Types: {player_active.get('types')})
+    - AI Bench: {', '.join(p.get('name', '?') for p in ai_team if p.get('hp', 0) > 0) or 'none'}
     - Field Effects: Weather = {weather}, Terrain = {terrain}
     - Recent Battle History: {json.dumps(battle_log[-4:])}
     

@@ -21,6 +21,7 @@ from app.models import roadrash  # noqa: F401
 from app.models import sudoku  # noqa: F401
 from app.models import library  # noqa: F401
 from app.models import pokemon  # noqa: F401
+from app.models import os_platform  # noqa: F401
 
 logger = logging.getLogger(__name__)
 

@@ -245,12 +245,20 @@ class ChromaVectorStore(VectorDBBase):
         collection = self.get_collection()
 
         # Search with embedding
+        import time
+        start_time = time.time()
         results = collection.query(
             query_embeddings=[query_embedding],
             n_results=top_k,
             where=filter,
             include=["documents", "metadatas", "distances"],
         )
+        duration = time.time() - start_time
+        try:
+            from app.core.metrics import CHROMADB_QUERY_DURATION_SECONDS
+            CHROMADB_QUERY_DURATION_SECONDS.labels(operation="search").observe(duration)
+        except Exception:
+            pass
 
         # Convert to VectorSearchResult objects
         search_results = []
@@ -297,12 +305,20 @@ class ChromaVectorStore(VectorDBBase):
             include.append("embeddings")
 
         # Search
+        import time
+        start_time = time.time()
         results = collection.query(
             query_embeddings=[query_embedding],
             n_results=k,
             where=filter,
             include=include,
         )
+        duration = time.time() - start_time
+        try:
+            from app.core.metrics import CHROMADB_QUERY_DURATION_SECONDS
+            CHROMADB_QUERY_DURATION_SECONDS.labels(operation="search_sync").observe(duration)
+        except Exception:
+            pass
 
         # Format results
         formatted = []

@@ -100,9 +100,33 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
         # Log request
         logger.info(f"Request{cid_part}: {request.method} {request.url.path}")
 
+        status_code = 500
+        recorded = False
+
+        def record_req_metrics(status: int):
+            nonlocal recorded
+            if recorded:
+                return
+            recorded = True
+            try:
+                duration = time.time() - start_time
+                from app.core.metrics import HTTP_REQUESTS_TOTAL, HTTP_REQUEST_DURATION_SECONDS
+                HTTP_REQUESTS_TOTAL.labels(
+                    method=request.method,
+                    endpoint=request.url.path,
+                    status=str(status)
+                ).inc()
+                HTTP_REQUEST_DURATION_SECONDS.labels(
+                    method=request.method,
+                    endpoint=request.url.path
+                ).observe(duration)
+            except Exception:
+                pass
+
         # Process request
         try:
             response = await call_next(request)
+            status_code = response.status_code
         except BaseException as exc:
             if _is_client_closed_exception(exc):
                 logger.info(
@@ -110,7 +134,9 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
                     request.method,
                     request.url.path,
                 )
+                record_req_metrics(_CLIENT_CLOSED_STATUS)
                 return _client_closed_response()
+            record_req_metrics(500)
             raise
 
         if response.status_code == 400 and request.url.path.rstrip("/").endswith(
@@ -126,6 +152,7 @@ class RequestLoggingMiddleware(BaseHTTPMiddleware):
 
         # Calculate duration
         duration = time.time() - start_time
+        record_req_metrics(status_code)
 
         # Log response
         logger.info(
