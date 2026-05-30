@@ -35,7 +35,8 @@ compose_fail_if_backend_crash_looping() {
     compose_backend_status_line | sed "s/^/${prefix}   /"
     compose_print_backend_logs 100 "$prefix"
     echo "${prefix} Fix hints:"
-    echo "${prefix}   - git pull && bash deploy/remote-deploy.sh  (uses 1 uvicorn worker + Ollama embeddings)"
+    echo "${prefix}   - Check logs for ModuleNotFoundError — add package to requirements.txt and rebuild"
+    echo "${prefix}   - git pull && bash deploy/remote-deploy.sh  (rebuilds backend image)"
     echo "${prefix}   - Set EMBEDDING_PROVIDER=ollama in .env for small EC2 (avoid loading torch locally)"
     echo "${prefix}   - docker compose … up -d --build --force-recreate backend"
     return 1

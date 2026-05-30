@@ -69,6 +69,10 @@ python-socketio[asyncio_client]>=5.11.0
 aiofiles>=24.1.0
 Pillow>=10.0.0
 
+# Video / frame export (app.services.video_service, app.codec.video)
+imageio>=2.34.0,<3
+imageio-ffmpeg>=0.5.0
+
 # AWS SDK
 boto3>=1.35.0
 

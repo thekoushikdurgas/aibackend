@@ -158,10 +158,12 @@ compose_dc() {
 # shellcheck source=deploy/compose-diagnostics.sh
 source "$(dirname "${BASH_SOURCE[0]}")/compose-diagnostics.sh"
 
-echo "[deploy] docker compose --env-file … ${COMPOSE_FILE_ARGS[*]} up -d --build --force-recreate backend"
+echo "[deploy] docker compose --env-file … ${COMPOSE_FILE_ARGS[*]} build backend"
+dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" build backend
+echo "[deploy] docker compose up -d --force-recreate backend"
 dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" pull || true
 set +e
-dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" up -d --build --force-recreate backend
+dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" up -d --force-recreate backend
 up_rc=$?
 set -e
 if [[ "$up_rc" -ne 0 ]]; then
@@ -198,11 +200,13 @@ if [[ "${SKIP_VALIDATE_DEPLOY:-}" != "1" ]]; then
   echo "[deploy] validate_env inside backend container"
   set +e
   dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" exec -T backend \
-    python scripts/validate_env.py --strict
+    python scripts/validate_env.py --strict --import-app
   container_validate_rc=$?
   set -e
   if [[ "$container_validate_rc" -ne 0 ]]; then
-    echo "[deploy] WARNING: container validate_env exited $container_validate_rc (check .env / ENV_FILE secret)."
+    echo "[deploy] ERROR: container validate_env --import-app exited $container_validate_rc."
+    compose_print_backend_logs 60 "[deploy]"
+    exit 1
   fi
 fi
 

@@ -6,6 +6,7 @@ Run from ai.backend root, for example:
   python scripts/validate_env.py -v
   python scripts/validate_env.py --docker
   python scripts/validate_env.py --strict
+  python scripts/validate_env.py --import-app
 
 Run with --help for option descriptions.
 """
@@ -236,6 +237,11 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Parse .env only (no app imports). Use on EC2 host before Docker build.",
     )
+    parser.add_argument(
+        "--import-app",
+        action="store_true",
+        help="Import app.main after settings load (catches missing pip deps before uvicorn).",
+    )
     args = parser.parse_args(argv)
 
     if args.dotenv_only:
@@ -311,6 +317,21 @@ def main(argv: list[str] | None = None) -> int:
         for msg in publish_bad:
             print(f"validate_env: {msg}", file=sys.stderr)
         if publish_bad and settings.is_production:
+            return 1
+
+    if args.import_app:
+        try:
+            import app.main  # noqa: F401
+        except ModuleNotFoundError as exc:
+            name = getattr(exc, "name", None) or str(exc)
+            print(
+                f"validate_env: app.main import failed — missing module '{name}'. "
+                "Add it to requirements.txt and rebuild the Docker image.",
+                file=sys.stderr,
+            )
+            return 1
+        except Exception as exc:
+            print(f"validate_env: app.main import failed: {exc}", file=sys.stderr)
             return 1
 
     if args.verbose:
