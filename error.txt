@@ -1,165 +1,339 @@
-ubuntu@ip-172-31-94-206:~/aibackend$ git pull
-remote: Enumerating objects: 10, done.
-remote: Counting objects: 100% (10/10), done.
-remote: Compressing objects: 100% (3/3), done.
-remote: Total 10 (delta 7), reused 10 (delta 7), pack-reused 0 (from 0)
-Unpacking objects: 100% (10/10), 5.89 KiB | 548.00 KiB/s, done.
-From https://github.com/thekoushikdurgas/aibackend
-   962d9bf..88de7e2  main       -> origin/main
-Updating 962d9bf..88de7e2
-Fast-forward
- deploy/EC2.md             |   1 +
- docker/docker-compose.yml |  39 +++++++++++++++--------------
- error.txt                 | 413 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-------------------------------------------------------------------------------------------------------------------------------------------------
- mypy.ini                  |  24 ++++++++++++++++++
- reports/mypy-last.txt     |  34 ++++++++-----------------
- 5 files changed, 272 insertions(+), 239 deletions(-)
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/remote-deploy.sh
-bash deploy/remote-deploy.sh
-[deploy] ROOT=/home/ubuntu/aibackend
-[deploy] validate_env (/home/ubuntu/aibackend/venv/bin/python, dotenv-only — full check runs in backend container)
-validate_env: OK - .env preflight (dotenv-only)
-[deploy] docker compose --env-file … -f compose.yaml build backend
-[+] Building 0.8s (22/22) FINISHED
- => [internal] load local bake definitions                                                                                                                                                                                                                                                                                                  0.0s
- => => reading from stdin 511B                                                                                                                                                                                                                                                                                                              0.0s
- => [internal] load build definition from Dockerfile                                                                                                                                                                                                                                                                                        0.0s
- => => transferring dockerfile: 2.04kB                                                                                                                                                                                                                                                                                                      0.0s
- => [internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                                                                                                                                         0.2s
- => [internal] load .dockerignore                                                                                                                                                                                                                                                                                                           0.0s
- => => transferring context: 733B                                                                                                                                                                                                                                                                                                           0.0s
- => [internal] load build context                                                                                                                                                                                                                                                                                                           0.1s
- => => transferring context: 26.57kB                                                                                                                                                                                                                                                                                                        0.1s
- => [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                           0.0s
- => => resolve docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                                   0.0s
- => CACHED [builder 2/6] WORKDIR /app                                                                                                                                                                                                                                                                                                       0.0s
- => CACHED [stage-1  3/11] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                          0.0s
- => CACHED [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                            0.0s
- => CACHED [builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                                                                                                                                       0.0s
- => CACHED [builder 5/6] COPY requirements.txt .                                                                                                                                                                                                                                                                                            0.0s
- => CACHED [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                                                                                                                                 0.0s
- => CACHED [stage-1  4/11] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                                                                                                                                          0.0s
- => CACHED [stage-1  5/11] COPY app/ ./app/                                                                                                                                                                                                                                                                                                 0.0s
- => CACHED [stage-1  6/11] COPY config/ ./config/                                                                                                                                                                                                                                                                                           0.0s
- => CACHED [stage-1  7/11] COPY alembic.ini .                                                                                                                                                                                                                                                                                               0.0s
- => CACHED [stage-1  8/11] COPY alembic/ ./alembic/                                                                                                                                                                                                                                                                                         0.0s
- => CACHED [stage-1  9/11] COPY scripts/validate_env.py ./scripts/validate_env.py                                                                                                                                                                                                                                                           0.0s
- => CACHED [stage-1 10/11] RUN mkdir -p /app/data/chroma /app/data/logs /app/data/storage                                                                                                                                                                                                                                                   0.0s
- => CACHED [stage-1 11/11] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                                                                                                                                          0.0s
- => exporting to image                                                                                                                                                                                                                                                                                                                      0.1s
- => => exporting layers                                                                                                                                                                                                                                                                                                                     0.0s
- => => exporting manifest sha256:f041ca54c74534b3aa5c764e7b3c7ce838f653d07c520c74e9dd835d801f36a3                                                                                                                                                                                                                                           0.0s
- => => exporting config sha256:f6f0b38ff592f3c063bb6137fd55b7affde1ef77955899b0d8a6ccf24022196a                                                                                                                                                                                                                                             0.0s
- => => exporting attestation manifest sha256:c0ddd053230c064ade3ac14bd23287d4a65c6d1c68230fbb8deb423e3c1af6a1                                                                                                                                                                                                                               0.0s
- => => exporting manifest list sha256:ca0510261a0c8695ad88f32950b5b3268727960192cc29a9383b3fb5052462f0                                                                                                                                                                                                                                      0.0s
- => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                                 0.0s
- => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                              0.0s 
- => resolving provenance for metadata file                                                                                                                                                                                                                                                                                                  0.0s
-[+] build 1/1
- ✔ Image aibackend-backend Built                                                                                                                                                                                                                                                                                                             0.9s
-[deploy] validate_env --import-app (one-off before uvicorn starts)
-Container aibackend-backend-run-f45f06bd0495 Creating 
-Container aibackend-backend-run-f45f06bd0495 Created 
-validate_env: OK - settings load successfully
-[deploy] docker compose up -d --force-recreate backend
-[+] pull 77/77
- ✔ backend                             Skipped No image to be pulled                                                                                                                                                                                                                                                                         0.0s
- ✔ Image prom/prometheus:latest        Pulled                                                                                                                                                                                                                                                                                               54.4s
- ✔ Image apache/kafka:3.7.1            Pulled                                                                                                                                                                                                                                                                                               55.2s
- ✔ Image redis:7-alpine                Pulled                                                                                                                                                                                                                                                                                                3.6s
- ✔ Image provectuslabs/kafka-ui:latest Pulled                                                                                                                                                                                                                                                                                               51.4s
- ✔ Image chromadb/chroma:latest        Pulled                                                                                                                                                                                                                                                                                                1.8s
- ✔ Image grafana/grafana:latest        Pulled                                                                                                                                                                                                                                                                                               64.9s
- ✔ Image dpage/pgadmin4:latest         Pulled                                                                                                                                                                                                                                                                                               60.0s
- ✔ Image minio/minio:latest            Pulled                                                                                                                                                                                                                                                                                               43.2s
- ✔ Image ollama/ollama:latest          Pulled                                                                                                                                                                                                                                                                                                1.8s
- ✔ Image postgres:15-alpine            Pulled                                                                                                                                                                                                                                                                                                4.2s
-[+] up 6/6
- ✘ Container aibackend-kafka-1    Error dependency kafka failed to start                                                                                                                                                                                                                                                                   176.0s
- ✔ Container aibackend-chromadb-1 Started                                                                                                                                                                                                                                                                                                   10.5s
- ✔ Container aibackend-minio-1    Healthy                                                                                                                                                                                                                                                                                                   16.0s
- ✔ Container aibackend-db-1       Healthy                                                                                                                                                                                                                                                                                                   15.5s ✔ Container aibackend-redis-1    Healthy                                                                                                                                                                                                                                                                                                   20.5s
- ✔ Container aibackend-backend-1  Recreated                                                                                                                                                                                                                                                                                                  6.6s
-dependency failed to start: container aibackend-kafka-1 is unhealthy
-ubuntu@ip-172-31-94-206:~/aibackend$ docker compose --env-file .env -f compose.yaml down
-[+] down 8/8
- ✔ Container aibackend-backend-1      Removed                                                                                                                                                                                                                                                                                                0.2s
- ✔ Container aibackend-ollama-1       Removed                                                                                                                                                                                                                                                                                                0.3s
- ✔ Container aibackend-chromadb-1     Removed                                                                                                                                                                                                                                                                                                0.4s
- ✔ Container aibackend-redis-1        Removed                                                                                                                                                                                                                                                                                                0.5s
- ✔ Container aibackend-kafka-1        Removed                                                                                                                                                                                                                                                                                                1.2s
- ✔ Container aibackend-minio-1        Removed                                                                                                                                                                                                                                                                                                0.5s
- ✔ Container aibackend-db-1           Removed                                                                                                                                                                                                                                                                                                0.4s
- ✔ Network aibackend_durgasai_network Removed                                                                                                                                                                                                                                                                                                0.1s
-ubuntu@ip-172-31-94-206:~/aibackend$ docker volume rm aibackend_kafka_data
-aibackend_kafka_data
-ubuntu@ip-172-31-94-206:~/aibackend$ bash deploy/remote-deploy.sh
-[deploy] ROOT=/home/ubuntu/aibackend
-[deploy] validate_env (/home/ubuntu/aibackend/venv/bin/python, dotenv-only — full check runs in backend container)
-validate_env: OK - .env preflight (dotenv-only)
-[deploy] docker compose --env-file … -f compose.yaml build backend
-[+] Building 0.6s (22/22) FINISHED
- => [internal] load local bake definitions                                                                                                                                                                                                                                                                                                  0.0s 
- => => reading from stdin 511B                                                                                                                                                                                                                                                                                                              0.0s
- => [internal] load build definition from Dockerfile                                                                                                                                                                                                                                                                                        0.0s 
- => => transferring dockerfile: 2.04kB                                                                                                                                                                                                                                                                                                      0.0s 
- => [internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                                                                                                                                         0.1s 
- => [internal] load .dockerignore                                                                                                                                                                                                                                                                                                           0.0s
- => => transferring context: 733B                                                                                                                                                                                                                                                                                                           0.0s 
- => [internal] load build context                                                                                                                                                                                                                                                                                                           0.0s 
- => => transferring context: 26.57kB                                                                                                                                                                                                                                                                                                        0.0s 
- => [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                           0.0s 
- => => resolve docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                                   0.0s 
- => CACHED [builder 2/6] WORKDIR /app                                                                                                                                                                                                                                                                                                       0.0s 
- => CACHED [stage-1  3/11] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                          0.0s 
- => CACHED [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                            0.0s
- => CACHED [builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                                                                                                                                       0.0s 
- => CACHED [builder 5/6] COPY requirements.txt .                                                                                                                                                                                                                                                                                            0.0s 
- => CACHED [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                                                                                                                                 0.0s 
- => CACHED [stage-1  4/11] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                                                                                                                                          0.0s 
- => CACHED [stage-1  5/11] COPY app/ ./app/                                                                                                                                                                                                                                                                                                 0.0s 
- => CACHED [stage-1  6/11] COPY config/ ./config/                                                                                                                                                                                                                                                                                           0.0s 
- => CACHED [stage-1  7/11] COPY alembic.ini .                                                                                                                                                                                                                                                                                               0.0s 
- => CACHED [stage-1  8/11] COPY alembic/ ./alembic/                                                                                                                                                                                                                                                                                         0.0s 
- => CACHED [stage-1  9/11] COPY scripts/validate_env.py ./scripts/validate_env.py                                                                                                                                                                                                                                                           0.0s 
- => CACHED [stage-1 10/11] RUN mkdir -p /app/data/chroma /app/data/logs /app/data/storage                                                                                                                                                                                                                                                   0.0s 
- => CACHED [stage-1 11/11] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                                                                                                                                          0.0s 
- => exporting to image                                                                                                                                                                                                                                                                                                                      0.2s 
- => => exporting layers                                                                                                                                                                                                                                                                                                                     0.0s 
- => => exporting manifest sha256:f041ca54c74534b3aa5c764e7b3c7ce838f653d07c520c74e9dd835d801f36a3                                                                                                                                                                                                                                           0.0s
- => => exporting config sha256:f6f0b38ff592f3c063bb6137fd55b7affde1ef77955899b0d8a6ccf24022196a                                                                                                                                                                                                                                             0.0s 
- => => exporting attestation manifest sha256:e48d19dbe34067cec930e01b2918e3fbe43c518f08a143573368098229213d00                                                                                                                                                                                                                               0.1s 
- => => exporting manifest list sha256:588d461a0fceaf7ea850f9a11cbcd4c1b36bd38f6723c118eb41670e2c94e704                                                                                                                                                                                                                                      0.0s 
- => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                                 0.0s 
- => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                              0.0s
- => resolving provenance for metadata file                                                                                                                                                                                                                                                                                                  0.0s 
-[+] build 1/1
- ✔ Image aibackend-backend Built                                                                                                                                                                                                                                                                                                             0.7s
-[deploy] validate_env --import-app (one-off before uvicorn starts)
-[+]  2/2te 2/2
- ✔ Network aibackend_durgasai_network Created                                                                                                                                                                                                                                                                                                0.1s
- ✔ Volume aibackend_kafka_data        Created                                                                                                                                                                                                                                                                                                0.0s
-Container aibackend-backend-run-28c2cad94727 Creating 
-Container aibackend-backend-run-28c2cad94727 Created 
-validate_env: OK - settings load successfully
-[deploy] docker compose up -d --force-recreate backend
-[+] pull 11/11
- ✔ backend                             Skipped No image to be pulled                                                                                                                                                                                                                                                                         0.0s
- ✔ Image minio/minio:latest            Pulled                                                                                                                                                                                                                                                                                                0.8s
- ✔ Image grafana/grafana:latest        Pulled                                                                                                                                                                                                                                                                                                0.9s
- ✔ Image chromadb/chroma:latest        Pulled                                                                                                                                                                                                                                                                                                0.8s
- ✔ Image dpage/pgadmin4:latest         Pulled                                                                                                                                                                                                                                                                                                1.0s
- ✔ Image provectuslabs/kafka-ui:latest Pulled                                                                                                                                                                                                                                                                                                0.6s ✔ Image prom/prometheus:latest        Pulled                                                                                                                                                                                                                                                                                                0.8s
- ✔ Image ollama/ollama:latest          Pulled                                                                                                                                                                                                                                                                                                0.7s
- ✔ Image apache/kafka:3.7.1            Pulled                                                                                                                                                                                                                                                                                                0.9s
- ✔ Image redis:7-alpine                Pulled                                                                                                                                                                                                                                                                                                0.9s
- ✔ Image postgres:15-alpine            Pulled                                                                                                                                                                                                                                                                                                0.9s
-[+] up 6/6
- ✔ Container aibackend-db-1       Healthy                                                                                                                                                                                                                                                                                                    6.6s
- ✘ Container aibackend-kafka-1    Error dependency kafka failed to start                                                                                                                                                                                                                                                                   167.1s
- ✔ Container aibackend-redis-1    Healthy                                                                                                                                                                                                                                                                                                   11.1s
- ✔ Container aibackend-minio-1    Healthy                                                                                                                                                                                                                                                                                                    6.1s
- ✔ Container aibackend-chromadb-1 Started                                                                                                                                                                                                                                                                                                    0.7s
- ✔ Container aibackend-backend-1  Created                                                                                                                                                                                                                                                                                                    0.1s
-dependency failed to start: container aibackend-kafka-1 is unhealthy
-ubuntu@ip-172-31-94-206:~/aibackend$ 
+Microsoft Windows [Version 10.0.26100.8246]
+(c) Microsoft Corporation. All rights reserved.
+
+E:\durgas_ai\ai.backend>codebase.bat
+
+========================================
+  DURGASAI BACKEND (FASTAPI) STATE CHECK
+========================================
+
+Current directory: E:\durgas_ai\ai.backend
+Using venv Python: E:\durgas_ai\ai.backend\venv\Scripts\python.exe
+
+[0] Python source inventory (app / scripts / tests)...
+----------------------------------------
+  Output: reports\durgasai-source-inventory.txt
+  OK Inventory written
+
+[0b] Docker Compose (optional)
+----------------------------------------
+  Copy .env.example to .env; set POSTGRES_PASSWORD, JWT_SECRET_KEY, API_KEY.
+  Start: docker compose --env-file .env -f compose.yaml up -d --build
+  See docker\README.md and scripts\docker-up.bat
+
+[1/10] Dependencies (pip)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pip install --upgrade pip
+Requirement already satisfied: pip in .\venv\Lib\site-packages (26.1.1)
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  -m pip install --no-warn-script-location -r requirements.txt -r requirements-dev.txt
+Requirement already satisfied: fastapi==0.109.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 2)) (0.109.2)
+Requirement already satisfied: uvicorn==0.27.1 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.27.1)
+Requirement already satisfied: strawberry-graphql==0.315.3 in .\venv\Lib\site-packages (from strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (0.315.3)
+Requirement already satisfied: python-multipart==0.0.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 5)) (0.0.9)
+Requirement already satisfied: websockets<16,>=13 in .\venv\Lib\site-packages (from -r requirements.txt (line 7)) (15.0.1)
+Requirement already satisfied: sentence-transformers==2.5.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 10)) (2.5.1)
+Requirement already satisfied: transformers<5,>=4.46.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 12)) (4.55.4)
+Requirement already satisfied: tokenizers<0.22,>=0.21.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 13)) (0.21.4)
+Requirement already satisfied: torch==2.2.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 14)) (2.2.0)
+Requirement already satisfied: huggingface-hub<1,>=0.26.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 15)) (0.36.2)
+Requirement already satisfied: chromadb==1.5.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 18)) (1.5.9)
+Requirement already satisfied: PyMuPDF==1.23.8 in .\venv\Lib\site-packages (from -r requirements.txt (line 21)) (1.23.8)
+Requirement already satisfied: python-docx==1.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 22)) (1.1.0)
+Requirement already satisfied: tiktoken<1,>=0.8.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 23)) (0.13.0)
+Requirement already satisfied: pandas==2.2.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 24)) (2.2.3)
+Requirement already satisfied: openpyxl==3.1.5 in .\venv\Lib\site-packages (from -r requirements.txt (line 25)) (3.1.5)
+Requirement already satisfied: sqlalchemy==2.0.49 in .\venv\Lib\site-packages (from -r requirements.txt (line 28)) (2.0.49)
+Requirement already satisfied: asyncpg<0.31,>=0.29 in .\venv\Lib\site-packages (from -r requirements.txt (line 29)) (0.30.0)
+Requirement already satisfied: greenlet<4,>=3.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 30)) (3.5.0)
+Requirement already satisfied: aiosqlite==0.20.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 31)) (0.20.0)
+Requirement already satisfied: alembic==1.13.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 32)) (1.13.1)
+Requirement already satisfied: python-jose==3.3.0 in .\venv\Lib\site-packages (from python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (3.3.0)
+Requirement already satisfied: PyJWT<3,>=2.8.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 37)) (2.12.1)
+Requirement already satisfied: bcrypt<5,>=4.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 39)) (4.3.0)
+Requirement already satisfied: slowapi==0.1.9 in .\venv\Lib\site-packages (from -r requirements.txt (line 40)) (0.1.9)
+Requirement already satisfied: httpx<0.28,>=0.26 in .\venv\Lib\site-packages (from -r requirements.txt (line 43)) (0.27.2)
+Requirement already satisfied: aiohttp<4,>=3.10.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 44)) (3.13.5)
+Requirement already satisfied: redis==5.0.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 47)) (5.0.1)
+Collecting aiokafka<0.12,>=0.10.0 (from -r requirements.txt (line 48))
+  Downloading aiokafka-0.11.0.tar.gz (564 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 564.7/564.7 kB 1.7 MB/s  0:00:00
+  Installing build dependencies ... done
+  Getting requirements to build wheel ... done
+  Preparing metadata (pyproject.toml) ... done
+Collecting minio<8,>=7.2.0 (from -r requirements.txt (line 49))
+  Downloading minio-7.2.20-py3-none-any.whl.metadata (6.5 kB)
+Requirement already satisfied: prometheus-client<1,>=0.19.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 50)) (0.25.0)
+Requirement already satisfied: python-dotenv>=1.0.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 53)) (1.0.1)
+Requirement already satisfied: pydantic<3,>=2.10.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 54)) (2.13.4)
+Requirement already satisfied: pydantic-core<3,>=2.27.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 55)) (2.46.4)
+Requirement already satisfied: pydantic-settings>=2.6.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 56)) (2.14.1)
+Requirement already satisfied: numpy<3,>=2.1 in .\venv\Lib\site-packages (from -r requirements.txt (line 59)) (2.4.6)
+Requirement already satisfied: grpcio<2,>=1.68 in .\venv\Lib\site-packages (from -r requirements.txt (line 60)) (1.80.0)
+Requirement already satisfied: beautifulsoup4==4.12.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 63)) (4.12.3)
+Requirement already satisfied: lxml==5.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 64)) (5.1.0)
+Requirement already satisfied: tenacity==8.2.3 in .\venv\Lib\site-packages (from -r requirements.txt (line 67)) (8.2.3)
+Requirement already satisfied: structlog==24.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 68)) (24.1.0)
+Requirement already satisfied: regex>=2024.11.6 in .\venv\Lib\site-packages (from -r requirements.txt (line 70)) (2026.5.9)
+Requirement already satisfied: python-socketio>=5.11.0 in .\venv\Lib\site-packages (from python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 73)) (5.16.1)
+Requirement already satisfied: aiofiles>=24.1.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 74)) (25.1.0)
+Requirement already satisfied: Pillow>=10.0.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 75)) (12.0.0)
+Requirement already satisfied: imageio<3,>=2.34.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 78)) (2.37.3)
+Requirement already satisfied: imageio-ffmpeg>=0.5.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 79)) (0.6.0)
+Requirement already satisfied: boto3>=1.35.0 in .\venv\Lib\site-packages (from -r requirements.txt (line 82)) (1.42.14)
+Requirement already satisfied: pytest==8.0.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 85)) (8.0.2)
+Requirement already satisfied: pytest-asyncio==0.23.5 in .\venv\Lib\site-packages (from -r requirements.txt (line 86)) (0.23.5)
+Requirement already satisfied: psutil==7.2.2 in .\venv\Lib\site-packages (from -r requirements.txt (line 89)) (7.2.2)
+Requirement already satisfied: pytest-cov==4.1.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 7)) (4.1.0)
+Requirement already satisfied: black==24.2.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 10)) (24.2.0)
+Requirement already satisfied: isort==5.13.2 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 11)) (5.13.2)
+Requirement already satisfied: flake8==7.0.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 12)) (7.0.0)
+Requirement already satisfied: mypy==1.8.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 13)) (1.8.0)
+Requirement already satisfied: ruff==0.8.4 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 14)) (0.8.4)
+Requirement already satisfied: pyrefly==1.0.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 15)) (1.0.0)
+Requirement already satisfied: types-openpyxl>=3.1.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 18)) (3.1.5.20260508)
+Requirement already satisfied: types-psutil>=7.0.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 19)) (7.2.2.20260518)
+Requirement already satisfied: types-python-jose>=3.3.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 20)) (3.5.0.20260408)
+Requirement already satisfied: types-beautifulsoup4>=4.12.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 21)) (4.12.0.20250516)
+Requirement already satisfied: pandas-stubs>=2.2.0 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 22)) (3.0.0.260204)
+Requirement already satisfied: mkdocs==1.5.3 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 25)) (1.5.3)
+Requirement already satisfied: mkdocs-material==9.5.9 in .\venv\Lib\site-packages (from -r requirements-dev.txt (line 26)) (9.5.9)
+Requirement already satisfied: starlette<0.37.0,>=0.36.3 in .\venv\Lib\site-packages (from fastapi==0.109.2->-r requirements.txt (line 2)) (0.36.3)
+Requirement already satisfied: typing-extensions>=4.8.0 in .\venv\Lib\site-packages (from fastapi==0.109.2->-r requirements.txt (line 2)) (4.15.0)
+Requirement already satisfied: click>=7.0 in .\venv\Lib\site-packages (from uvicorn==0.27.1->uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (8.4.0)
+Requirement already satisfied: h11>=0.8 in .\venv\Lib\site-packages (from uvicorn==0.27.1->uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.16.0)
+Requirement already satisfied: graphql-core<3.4.0,>=3.2.0 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (3.2.8)
+Requirement already satisfied: python-dateutil>=2.7 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (2.9.0.post0)
+Requirement already satisfied: packaging>=23 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (26.2)
+Requirement already satisfied: cross-web>=0.6.0 in .\venv\Lib\site-packages (from strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (0.6.0)
+Requirement already satisfied: tqdm in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (4.67.3)
+Requirement already satisfied: scikit-learn in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.8.0)
+Requirement already satisfied: scipy in .\venv\Lib\site-packages (from sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.16.3)
+Requirement already satisfied: filelock in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 14)) (3.29.0)
+Requirement already satisfied: sympy in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 14)) (1.14.0)
+Requirement already satisfied: networkx in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 14)) (3.6.1)
+Requirement already satisfied: jinja2 in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 14)) (3.1.6)
+Requirement already satisfied: fsspec in .\venv\Lib\site-packages (from torch==2.2.0->-r requirements.txt (line 14)) (2026.4.0)
+Requirement already satisfied: build>=1.0.3 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (1.3.0)
+Requirement already satisfied: pybase64>=1.4.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (1.4.3)
+Requirement already satisfied: onnxruntime>=1.14.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (1.23.2)
+Requirement already satisfied: opentelemetry-api>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (1.39.1)
+Requirement already satisfied: opentelemetry-exporter-otlp-proto-grpc>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (1.39.1)
+Requirement already satisfied: opentelemetry-sdk>=1.2.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (1.39.1)
+Requirement already satisfied: pypika>=0.48.9 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (0.48.9)
+Requirement already satisfied: overrides>=7.3.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (7.7.0)
+Requirement already satisfied: importlib-resources in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (6.5.2)
+Requirement already satisfied: typer>=0.9.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (0.25.1)
+Requirement already satisfied: kubernetes>=28.1.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (34.1.0)
+Requirement already satisfied: pyyaml>=6.0.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (6.0.3)
+Requirement already satisfied: mmh3>=4.0.1 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (5.2.0)
+Requirement already satisfied: orjson>=3.9.12 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (3.11.9)
+Requirement already satisfied: rich>=10.11.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (15.0.0)
+Requirement already satisfied: jsonschema>=4.19.0 in .\venv\Lib\site-packages (from chromadb==1.5.9->-r requirements.txt (line 18)) (4.26.0)
+Requirement already satisfied: PyMuPDFb==1.23.7 in .\venv\Lib\site-packages (from PyMuPDF==1.23.8->-r requirements.txt (line 21)) (1.23.7)
+Requirement already satisfied: pytz>=2020.1 in .\venv\Lib\site-packages (from pandas==2.2.3->-r requirements.txt (line 24)) (2025.2)
+Requirement already satisfied: tzdata>=2022.7 in .\venv\Lib\site-packages (from pandas==2.2.3->-r requirements.txt (line 24)) (2026.2)
+Requirement already satisfied: et-xmlfile in .\venv\Lib\site-packages (from openpyxl==3.1.5->-r requirements.txt (line 25)) (2.0.0)
+Requirement already satisfied: Mako in .\venv\Lib\site-packages (from alembic==1.13.1->-r requirements.txt (line 32)) (1.3.10)
+Requirement already satisfied: ecdsa!=0.15 in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (0.19.1)
+Requirement already satisfied: rsa in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (4.9.1)
+Requirement already satisfied: pyasn1 in .\venv\Lib\site-packages (from python-jose==3.3.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (0.6.1)
+Requirement already satisfied: limits>=2.3 in .\venv\Lib\site-packages (from slowapi==0.1.9->-r requirements.txt (line 40)) (5.6.0)
+Requirement already satisfied: soupsieve>1.2 in .\venv\Lib\site-packages (from beautifulsoup4==4.12.3->-r requirements.txt (line 63)) (2.8)
+Requirement already satisfied: iniconfig in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 85)) (2.3.0)
+Requirement already satisfied: pluggy<2.0,>=1.3.0 in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 85)) (1.6.0)
+Requirement already satisfied: colorama in .\venv\Lib\site-packages (from pytest==8.0.2->-r requirements.txt (line 85)) (0.4.6)
+Requirement already satisfied: coverage>=5.2.1 in .\venv\Lib\site-packages (from coverage[toml]>=5.2.1->pytest-cov==4.1.0->-r requirements-dev.txt (line 7)) (7.13.5)
+Requirement already satisfied: mypy-extensions>=0.4.3 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (1.1.0)
+Requirement already satisfied: pathspec>=0.9.0 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (1.1.1)
+Requirement already satisfied: platformdirs>=2 in .\venv\Lib\site-packages (from black==24.2.0->-r requirements-dev.txt (line 10)) (4.9.6)
+Requirement already satisfied: mccabe<0.8.0,>=0.7.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (0.7.0)
+Requirement already satisfied: pycodestyle<2.12.0,>=2.11.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (2.11.1)
+Requirement already satisfied: pyflakes<3.3.0,>=3.2.0 in .\venv\Lib\site-packages (from flake8==7.0.0->-r requirements-dev.txt (line 12)) (3.2.0)
+Requirement already satisfied: ghp-import>=1.0 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 25)) (2.1.0)
+Requirement already satisfied: markdown>=3.2.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 25)) (3.10.2)
+Requirement already satisfied: markupsafe>=2.0.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 25)) (3.0.3)
+Requirement already satisfied: mergedeep>=1.3.4 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 25)) (1.3.4)
+Requirement already satisfied: pyyaml-env-tag>=0.1 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 25)) (1.1)
+Requirement already satisfied: watchdog>=2.0 in .\venv\Lib\site-packages (from mkdocs==1.5.3->-r requirements-dev.txt (line 25)) (6.0.0)
+Requirement already satisfied: babel~=2.10 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 26)) (2.18.0)
+Requirement already satisfied: mkdocs-material-extensions~=1.3 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 26)) (1.3.1)
+Requirement already satisfied: paginate~=0.5 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 26)) (0.5.7)
+Requirement already satisfied: pygments~=2.16 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 26)) (2.20.0)
+Requirement already satisfied: pymdown-extensions~=10.2 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 26)) (10.21.2)
+Requirement already satisfied: requests~=2.26 in .\venv\Lib\site-packages (from mkdocs-material==9.5.9->-r requirements-dev.txt (line 26)) (2.34.2)
+Requirement already satisfied: cryptography>=3.4.0 in .\venv\Lib\site-packages (from python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (46.0.3)
+Requirement already satisfied: httptools>=0.5.0 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (0.7.1)
+Requirement already satisfied: watchfiles>=0.13 in .\venv\Lib\site-packages (from uvicorn[standard]==0.27.1->-r requirements.txt (line 3)) (1.1.1)
+Requirement already satisfied: safetensors>=0.4.3 in .\venv\Lib\site-packages (from transformers<5,>=4.46.0->-r requirements.txt (line 12)) (0.7.0)
+Requirement already satisfied: anyio in .\venv\Lib\site-packages (from httpx<0.28,>=0.26->-r requirements.txt (line 43)) (4.13.0)
+Requirement already satisfied: certifi in .\venv\Lib\site-packages (from httpx<0.28,>=0.26->-r requirements.txt (line 43)) (2026.5.20)
+Requirement already satisfied: httpcore==1.* in .\venv\Lib\site-packages (from httpx<0.28,>=0.26->-r requirements.txt (line 43)) (1.0.9)
+Requirement already satisfied: idna in .\venv\Lib\site-packages (from httpx<0.28,>=0.26->-r requirements.txt (line 43)) (3.16)
+Requirement already satisfied: sniffio in .\venv\Lib\site-packages (from httpx<0.28,>=0.26->-r requirements.txt (line 43)) (1.3.1)
+Requirement already satisfied: aiohappyeyeballs>=2.5.0 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 44)) (2.6.1)
+Requirement already satisfied: aiosignal>=1.4.0 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 44)) (1.4.0)
+Requirement already satisfied: attrs>=17.3.0 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 44)) (25.4.0)
+Requirement already satisfied: frozenlist>=1.1.1 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 44)) (1.8.0)
+Requirement already satisfied: multidict<7.0,>=4.5 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 44)) (6.7.0)
+Requirement already satisfied: propcache>=0.2.0 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 44)) (0.4.1)
+Requirement already satisfied: yarl<2.0,>=1.17.0 in .\venv\Lib\site-packages (from aiohttp<4,>=3.10.0->-r requirements.txt (line 44)) (1.22.0)
+Collecting async-timeout (from aiokafka<0.12,>=0.10.0->-r requirements.txt (line 48))
+  Downloading async_timeout-5.0.1-py3-none-any.whl.metadata (5.1 kB)
+Collecting argon2-cffi (from minio<8,>=7.2.0->-r requirements.txt (line 49))
+  Downloading argon2_cffi-25.1.0-py3-none-any.whl.metadata (4.1 kB)
+Collecting pycryptodome (from minio<8,>=7.2.0->-r requirements.txt (line 49))
+  Downloading pycryptodome-3.23.0-cp37-abi3-win_amd64.whl.metadata (3.5 kB)
+Requirement already satisfied: urllib3 in .\venv\Lib\site-packages (from minio<8,>=7.2.0->-r requirements.txt (line 49)) (2.3.0)
+Requirement already satisfied: annotated-types>=0.6.0 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 54)) (0.7.0)
+Requirement already satisfied: typing-inspection>=0.4.2 in .\venv\Lib\site-packages (from pydantic<3,>=2.10.0->-r requirements.txt (line 54)) (0.4.2)
+Requirement already satisfied: charset_normalizer<4,>=2 in .\venv\Lib\site-packages (from requests~=2.26->mkdocs-material==9.5.9->-r requirements-dev.txt (line 26)) (3.4.7)
+Requirement already satisfied: bidict>=0.21.0 in .\venv\Lib\site-packages (from python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 73)) (0.23.1)
+Requirement already satisfied: python-engineio>=4.11.0 in .\venv\Lib\site-packages (from python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 73)) (4.13.1)
+Requirement already satisfied: botocore<1.43.0,>=1.42.14 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 82)) (1.42.14)
+Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 82)) (1.0.1)
+Requirement already satisfied: s3transfer<0.17.0,>=0.16.0 in .\venv\Lib\site-packages (from boto3>=1.35.0->-r requirements.txt (line 82)) (0.16.0)
+Requirement already satisfied: six>=1.5 in .\venv\Lib\site-packages (from python-dateutil>=2.7->strawberry-graphql==0.315.3->strawberry-graphql[fastapi]==0.315.3->-r requirements.txt (line 4)) (1.17.0)
+Requirement already satisfied: types-pyasn1 in .\venv\Lib\site-packages (from types-python-jose>=3.3.0->-r requirements-dev.txt (line 20)) (0.6.0.20260408)
+Requirement already satisfied: types-html5lib in .\venv\Lib\site-packages (from types-beautifulsoup4>=4.12.0->-r requirements-dev.txt (line 21)) (1.1.11.20260518)
+Requirement already satisfied: pyproject_hooks in .\venv\Lib\site-packages (from build>=1.0.3->chromadb==1.5.9->-r requirements.txt (line 18)) (1.2.0)
+Requirement already satisfied: cffi>=2.0.0 in .\venv\Lib\site-packages (from cryptography>=3.4.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (2.0.0)
+Requirement already satisfied: pycparser in .\venv\Lib\site-packages (from cffi>=2.0.0->cryptography>=3.4.0->python-jose[cryptography]==3.3.0->-r requirements.txt (line 35)) (3.0)
+Requirement already satisfied: jsonschema-specifications>=2023.03.6 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 18)) (2025.9.1)
+Requirement already satisfied: referencing>=0.28.4 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.37.0)
+Requirement already satisfied: rpds-py>=0.25.0 in .\venv\Lib\site-packages (from jsonschema>=4.19.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.30.0)
+Requirement already satisfied: google-auth>=1.0.1 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (2.53.0)
+Requirement already satisfied: websocket-client!=0.40.0,!=0.41.*,!=0.42.*,>=0.32.0 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (1.9.0)
+Requirement already satisfied: requests-oauthlib in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (2.0.0)
+Requirement already satisfied: durationpy>=0.7 in .\venv\Lib\site-packages (from kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.10)
+Requirement already satisfied: pyasn1-modules>=0.2.1 in .\venv\Lib\site-packages (from google-auth>=1.0.1->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.4.2)
+Requirement already satisfied: deprecated>=1.2 in .\venv\Lib\site-packages (from limits>=2.3->slowapi==0.1.9->-r requirements.txt (line 40)) (1.3.1)
+Requirement already satisfied: wrapt<3,>=1.10 in .\venv\Lib\site-packages (from deprecated>=1.2->limits>=2.3->slowapi==0.1.9->-r requirements.txt (line 40)) (1.17.3)
+Requirement already satisfied: coloredlogs in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 18)) (15.0.1)
+Requirement already satisfied: flatbuffers in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 18)) (25.9.23)
+Requirement already satisfied: protobuf in .\venv\Lib\site-packages (from onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 18)) (6.33.6)
+Requirement already satisfied: importlib-metadata<8.8.0,>=6.0 in .\venv\Lib\site-packages (from opentelemetry-api>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 18)) (8.7.0)
+Requirement already satisfied: zipp>=3.20 in .\venv\Lib\site-packages (from importlib-metadata<8.8.0,>=6.0->opentelemetry-api>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 18)) (3.23.0)
+Requirement already satisfied: googleapis-common-protos~=1.57 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 18)) (1.75.0)
+Requirement already satisfied: opentelemetry-exporter-otlp-proto-common==1.39.1 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 18)) (1.39.1)
+Requirement already satisfied: opentelemetry-proto==1.39.1 in .\venv\Lib\site-packages (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 18)) (1.39.1)
+Requirement already satisfied: opentelemetry-semantic-conventions==0.60b1 in .\venv\Lib\site-packages (from opentelemetry-sdk>=1.2.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.60b1)
+Requirement already satisfied: simple-websocket>=0.10.0 in .\venv\Lib\site-packages (from python-engineio>=4.11.0->python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 73)) (1.1.0)
+Requirement already satisfied: markdown-it-py>=2.2.0 in .\venv\Lib\site-packages (from rich>=10.11.0->chromadb==1.5.9->-r requirements.txt (line 18)) (4.2.0)
+Requirement already satisfied: mdurl~=0.1 in .\venv\Lib\site-packages (from markdown-it-py>=2.2.0->rich>=10.11.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.1.2)
+Requirement already satisfied: wsproto in .\venv\Lib\site-packages (from simple-websocket>=0.10.0->python-engineio>=4.11.0->python-socketio>=5.11.0->python-socketio[asyncio_client]>=5.11.0->-r requirements.txt (line 73)) (1.3.2)
+Requirement already satisfied: shellingham>=1.3.0 in .\venv\Lib\site-packages (from typer>=0.9.0->chromadb==1.5.9->-r requirements.txt (line 18)) (1.5.4)
+Requirement already satisfied: annotated-doc>=0.0.2 in .\venv\Lib\site-packages (from typer>=0.9.0->chromadb==1.5.9->-r requirements.txt (line 18)) (0.0.4)
+Collecting argon2-cffi-bindings (from argon2-cffi->minio<8,>=7.2.0->-r requirements.txt (line 49))
+  Downloading argon2_cffi_bindings-25.1.0-cp39-abi3-win_amd64.whl.metadata (7.5 kB)
+Requirement already satisfied: humanfriendly>=9.1 in .\venv\Lib\site-packages (from coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 18)) (10.0)
+Requirement already satisfied: pyreadline3 in .\venv\Lib\site-packages (from humanfriendly>=9.1->coloredlogs->onnxruntime>=1.14.1->chromadb==1.5.9->-r requirements.txt (line 18)) (3.5.4)
+Requirement already satisfied: oauthlib>=3.0.0 in .\venv\Lib\site-packages (from requests-oauthlib->kubernetes>=28.1.0->chromadb==1.5.9->-r requirements.txt (line 18)) (3.3.1)
+Requirement already satisfied: joblib>=1.3.0 in .\venv\Lib\site-packages (from scikit-learn->sentence-transformers==2.5.1->-r requirements.txt (line 10)) (1.5.2)
+Requirement already satisfied: threadpoolctl>=3.2.0 in .\venv\Lib\site-packages (from scikit-learn->sentence-transformers==2.5.1->-r requirements.txt (line 10)) (3.6.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in .\venv\Lib\site-packages (from sympy->torch==2.2.0->-r requirements.txt (line 14)) (1.3.0)
+Requirement already satisfied: types-webencodings in .\venv\Lib\site-packages (from types-html5lib->types-beautifulsoup4>=4.12.0->-r requirements-dev.txt (line 21)) (0.5.0.20260408)
+Downloading minio-7.2.20-py3-none-any.whl (93 kB)
+Downloading argon2_cffi-25.1.0-py3-none-any.whl (14 kB)
+Downloading argon2_cffi_bindings-25.1.0-cp39-abi3-win_amd64.whl (31 kB)
+Downloading async_timeout-5.0.1-py3-none-any.whl (6.2 kB)
+Downloading pycryptodome-3.23.0-cp37-abi3-win_amd64.whl (1.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 4.9 MB/s  0:00:00
+Building wheels for collected packages: aiokafka
+  Building wheel for aiokafka (pyproject.toml) ... done
+  Created wheel for aiokafka: filename=aiokafka-0.11.0-cp313-cp313-win_amd64.whl size=343009 sha256=5a680095e149741cdebbe655f79e28f4ef1b973c55e959f68d0bff55e5200195
+  Stored in directory: d:\wpsystem\s-1-5-21-4120518818-1680545741-1758238196-1001\appdata\local\packages\pythonsoftwarefoundation.python.3.13_qbz5n2kfra8p0\localcache\local\pip\cache\wheels\99\11\26\1e34bef383e233548a2181ac4c6c657c480fb9d1c6707fcf08
+Successfully built aiokafka
+Installing collected packages: pycryptodome, async-timeout, argon2-cffi-bindings, aiokafka, argon2-cffi, minio
+Successfully installed aiokafka-0.11.0 argon2-cffi-25.1.0 argon2-cffi-bindings-25.1.0 async-timeout-5.0.1 minio-7.2.20 pycryptodome-3.23.0
+  OK Dependencies installed
+
+[2/10] Environment validation (preflight)...
+----------------------------------------
+  Running: E:\durgas_ai\ai.backend\venv\Scripts\python.exe  scripts\validate_env.py
+Traceback (most recent call last):
+  File "E:\durgas_ai\ai.backend\scripts\validate_env.py", line 354, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "E:\durgas_ai\ai.backend\scripts\validate_env.py", line 282, in main
+    from app.config import clear_base_settings_cache, _base_settings_singleton
+  File "E:\durgas_ai\ai.backend\app\config.py", line 553, in <module>
+    settings = _settings_overlay_proxy()
+  File "E:\durgas_ai\ai.backend\app\config.py", line 549, in _settings_overlay_proxy
+    return SettingsOverlayProxy(_base_settings_singleton())
+                                ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "E:\durgas_ai\ai.backend\app\config.py", line 533, in _base_settings_singleton
+    return Settings()
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\pydantic_settings\main.py", line 247, in __init__
+    super().__init__(**__pydantic_self__.__class__._settings_build_values(sources, init_kwargs))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\durgas_ai\ai.backend\venv\Lib\site-packages\pydantic\main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 12 validation errors for Settings
+kafka_external_port
+  Extra inputs are not permitted [type=extra_forbidden, input_value='9092', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+kafka_ui_port
+  Extra inputs are not permitted [type=extra_forbidden, input_value='8080', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+minio_api_port
+  Extra inputs are not permitted [type=extra_forbidden, input_value='9000', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+minio_console_port
+  Extra inputs are not permitted [type=extra_forbidden, input_value='9001', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+chroma_external_port
+  Extra inputs are not permitted [type=extra_forbidden, input_value='8001', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+prometheus_port
+  Extra inputs are not permitted [type=extra_forbidden, input_value='9090', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+grafana_port
+  Extra inputs are not permitted [type=extra_forbidden, input_value='3001', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+grafana_user
+  Extra inputs are not permitted [type=extra_forbidden, input_value='admin', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+grafana_password
+  Extra inputs are not permitted [type=extra_forbidden, input_value='durgasos', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+pgadmin_port
+  Extra inputs are not permitted [type=extra_forbidden, input_value='5050', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+pgadmin_email
+  Extra inputs are not permitted [type=extra_forbidden, input_value='admin@durgasos.local', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+pgadmin_password
+  Extra inputs are not permitted [type=extra_forbidden, input_value='durgasos', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.13/v/extra_forbidden
+  X validate_env failed ΓÇö fix .env or use ENV_VALIDATE_NO_FAIL=1 / SKIP_CODEGEN=1
+
+========================================
+  SUMMARY
+========================================
+
+Section Status:
+  [0] Source inventory:              PASSED
+  [0b] Docker hint:                   DONE
+  [1] Pip dependencies:              PASSED
+  [2] Environment validate:          FAILED
+  [3] mypy:                          SKIPPED
+  [3b] pyrefly:                      SKIPPED
+  [4] black --check:                 SKIPPED
+  [4b] Prettier:                     SKIPPED
+  [5] ruff check:                    SKIPPED
+  [6] pytest:                        SKIPPED
+  [6b] pytest coverage:              SKIPPED
+  [7] Best practices:               SKIPPED
+  [8] black (apply):                 SKIPPED
+  [9] pip check + import app:        SKIPPED
+
+  X Found 1 error(s)
+
+  Please fix the errors before proceeding.
+
+========================================
+  CHECK COMPLETE
+========================================
+
+
+E:\durgas_ai\ai.backend>

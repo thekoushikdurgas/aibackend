@@ -1,5 +1,5 @@
 DURGASAI BACKEND - Python modules under app\, scripts\, tests\
-Generated: Sat 05/30/2026 17:52:59.34
+Generated: Sat 05/30/2026 21:28:25.66
 
 === app ===
 E:\durgas_ai\ai.backend\app\config.py
@@ -63,6 +63,7 @@ E:\durgas_ai\ai.backend\app\api\ws_methods\health.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\hyperbolic.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\ide.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\imagen.py
+E:\durgas_ai\ai.backend\app\api\ws_methods\kafka_health.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\metrics.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\multimodal.py
 E:\durgas_ai\ai.backend\app\api\ws_methods\nlp.py
@@ -99,8 +100,10 @@ E:\durgas_ai\ai.backend\app\core\connection_manager.py
 E:\durgas_ai\ai.backend\app\core\graphql_cookie_middleware.py
 E:\durgas_ai\ai.backend\app\core\http_session_cookies.py
 E:\durgas_ai\ai.backend\app\core\jsonrpc.py
+E:\durgas_ai\ai.backend\app\core\metrics.py
 E:\durgas_ai\ai.backend\app\core\middleware.py
 E:\durgas_ai\ai.backend\app\core\rate_limiter.py
+E:\durgas_ai\ai.backend\app\core\redis_manager.py
 E:\durgas_ai\ai.backend\app\core\response_cache.py
 E:\durgas_ai\ai.backend\app\core\session_cookies.py
 E:\durgas_ai\ai.backend\app\core\socketio.py
@@ -190,6 +193,7 @@ E:\durgas_ai\ai.backend\app\models\dev_tool.py
 E:\durgas_ai\ai.backend\app\models\durgasos_desktop.py
 E:\durgas_ai\ai.backend\app\models\library.py
 E:\durgas_ai\ai.backend\app\models\metrics.py
+E:\durgas_ai\ai.backend\app\models\os_platform.py
 E:\durgas_ai\ai.backend\app\models\pokemon.py
 E:\durgas_ai\ai.backend\app\models\roadrash.py
 E:\durgas_ai\ai.backend\app\models\schemas.py
@@ -203,6 +207,7 @@ E:\durgas_ai\ai.backend\app\services\document_service.py
 E:\durgas_ai\ai.backend\app\services\feedback_service.py
 E:\durgas_ai\ai.backend\app\services\library_service.py
 E:\durgas_ai\ai.backend\app\services\local_storage_service.py
+E:\durgas_ai\ai.backend\app\services\minio_service.py
 E:\durgas_ai\ai.backend\app\services\perf_event_log.py
 E:\durgas_ai\ai.backend\app\services\perf_event_store.py
 E:\durgas_ai\ai.backend\app\services\rag_chat_service.py
@@ -287,9 +292,12 @@ E:\durgas_ai\ai.backend\app\services\hyperbolic\vision.py
 E:\durgas_ai\ai.backend\app\services\hyperbolic\__init__.py
 E:\durgas_ai\ai.backend\app\services\image\deepinfra_image.py
 E:\durgas_ai\ai.backend\app\services\image\__init__.py
+E:\durgas_ai\ai.backend\app\services\kafka\consumer.py
 E:\durgas_ai\ai.backend\app\services\kafka\producer.py
 E:\durgas_ai\ai.backend\app\services\kafka\topics.py
 E:\durgas_ai\ai.backend\app\services\kafka\__init__.py
+E:\durgas_ai\ai.backend\app\services\kafka\workers\file_ingestion.py
+E:\durgas_ai\ai.backend\app\services\kafka\workers\__init__.py
 E:\durgas_ai\ai.backend\app\services\llm\ai21.py
 E:\durgas_ai\ai.backend\app\services\llm\anyscale.py
 E:\durgas_ai\ai.backend\app\services\llm\base.py

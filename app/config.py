@@ -459,6 +459,18 @@ class Settings(BaseSettings):
     postgres_password: Optional[str] = None
     postgres_external_port: Optional[int] = None
     redis_external_port: Optional[int] = None
+    kafka_external_port: Optional[int] = None
+    kafka_ui_port: Optional[int] = None
+    minio_api_port: Optional[int] = None
+    minio_console_port: Optional[int] = None
+    chroma_external_port: Optional[int] = None
+    prometheus_port: Optional[int] = None
+    grafana_port: Optional[int] = None
+    grafana_user: Optional[str] = None
+    grafana_password: Optional[str] = None
+    pgadmin_port: Optional[int] = None
+    pgadmin_email: Optional[str] = None
+    pgadmin_password: Optional[str] = None
 
     # PostgreSQL Configuration (for production)
     postgresql_url: Optional[str] = (
