@@ -35,12 +35,31 @@ def _mask_database_url(url: str) -> str:
     return url
 
 
+def _read_dotenv_lines(path: Path) -> tuple[list[str], str | None]:
+    """Read .env lines; return (lines, error_message) on permission or I/O failure."""
+    if not path.is_file():
+        return [], None
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except PermissionError:
+        return [], (
+            f"permission denied reading {path}. "
+            "Do not use sudo on .env — fix: sudo chown $USER:$USER .env && chmod 600 .env"
+        )
+    except OSError as exc:
+        return [], f"cannot read {path}: {exc}"
+    return text.splitlines(), None
+
+
 def _dotenv_keys(path: Path) -> dict[str, str]:
     """Minimal KEY=VALUE parse (no multiline values). Used for Compose-only vars."""
     out: dict[str, str] = {}
     if not path.is_file():
         return out
-    for raw in path.read_text(encoding="utf-8", errors="replace").splitlines():
+    lines, err = _read_dotenv_lines(path)
+    if err:
+        raise PermissionError(err)
+    for raw in lines:
         line = raw.strip()
         # Bracketed-paste corruption from SSH/nano (e.g. [200~# header)
         if re.match(r"^\[\d+~", line):
@@ -69,7 +88,11 @@ def _dotenv_corruption_issues(path: Path) -> list[str]:
     issues: list[str] = []
     if not path.is_file():
         return issues
-    for raw in path.read_text(encoding="utf-8", errors="replace").splitlines():
+    lines, err = _read_dotenv_lines(path)
+    if err:
+        issues.append(err)
+        return issues
+    for raw in lines:
         if re.match(r"^\[\d+~", raw.strip()):
             issues.append(
                 ".env contains bracketed-paste junk (e.g. [200~ at line start). "
@@ -219,7 +242,15 @@ def main(argv: list[str] | None = None) -> int:
         if not _DOTENV.is_file():
             print(f"validate_env: .env not found at {_DOTENV}", file=sys.stderr)
             return 1
-        keys = _dotenv_keys(_DOTENV)
+        _, read_err = _read_dotenv_lines(_DOTENV)
+        if read_err:
+            print(f"validate_env: {read_err}", file=sys.stderr)
+            return 1
+        try:
+            keys = _dotenv_keys(_DOTENV)
+        except PermissionError as exc:
+            print(f"validate_env: {exc}", file=sys.stderr)
+            return 1
         production = (keys.get("ENVIRONMENT") or "").lower() == "production"
         for msg in _dotenv_corruption_issues(_DOTENV):
             print(f"validate_env: {msg}", file=sys.stderr)
@@ -269,7 +300,11 @@ def main(argv: list[str] | None = None) -> int:
             return 1
 
     if args.docker:
-        keys = _dotenv_keys(_DOTENV)
+        try:
+            keys = _dotenv_keys(_DOTENV)
+        except PermissionError as exc:
+            print(f"validate_env: {exc}", file=sys.stderr)
+            return 1
         for msg in _docker_preflight(keys, production=settings.is_production):
             print(f"validate_env: warning: {msg}", file=sys.stderr)
         publish_bad = _docker_publish_host_issues(keys)

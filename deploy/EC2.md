@@ -31,7 +31,8 @@ bash deploy/ec2-bootstrap.sh
 git clone https://github.com/thekoushikdurgas/aibackend.git /home/ubuntu/aibackend
 cd /home/ubuntu/aibackend
 cp .env.example .env
-nano .env   # production values — see below
+nano .env   # production values — see below (do **not** use sudo nano / sudo chmod on .env)
+chmod 600 .env
 ```
 
 **Required production `.env` fields:**
@@ -136,6 +137,7 @@ Stop or remove the `ollama` service in Compose to save RAM, or leave it unused.
 | Ollama timeouts                                       | Model pulled? `docker compose exec ollama ollama list`                                                                                                                                |
 | CORS errors in browser                                | `CORS_ORIGINS` includes exact frontend origin                                                                                                                                         |
 | Deploy skips verify                                   | `VERIFY_REQUIRE_DOCKER=1`; docker on PATH for SSH user                                                                                                                                |
+| `Permission denied` on `.env` / `validate_env`        | `.env` is root-owned from `sudo nano` or `sudo chmod 600 .env`. Fix: `sudo chown ubuntu:ubuntu .env && chmod 600 .env`, then re-run deploy. Edit with `nano .env` only (no sudo).     |
 | `permission denied` on `docker.sock`                  | After bootstrap: `newgrp docker` or exit SSH and reconnect; or re-run deploy (auto `sudo docker` fallback)                                                                            |
 | `cannot assign requested address` on `54.x.x.x:11434` | Remove `OLLAMA_PUBLISH_HOST` / `*_PUBLISH_HOST` from `.env` if set to the public IP. Only port **8000** is exposed; Ollama is `http://ollama:11434` inside Compose.                   |
 | `unexpected character "~" in variable name "[200~`    | Corrupted paste in `nano` (bracketed paste). Run `cp .env.example .env`, edit again, or `scp` a clean `.env` from your PC. Deploy scripts now sanitize KEY=VALUE lines automatically. |

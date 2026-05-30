@@ -19,11 +19,15 @@ cd "$ROOT"
 source "$(dirname "${BASH_SOURCE[0]}")/docker-cli.sh"
 # shellcheck source=deploy/sanitize-dotenv.sh
 source "$(dirname "${BASH_SOURCE[0]}")/sanitize-dotenv.sh"
+# shellcheck source=deploy/dotenv-perms.sh
+source "$(dirname "${BASH_SOURCE[0]}")/dotenv-perms.sh"
 
 if [[ ! -f .env ]]; then
   echo "[verify] ERROR: need .env (same as docker-up bootstrap)."
   exit 1
 fi
+
+ensure_dotenv_readable .env || exit 1
 
 # Match remote-deploy.sh: SSH shells may omit directories where docker is installed.
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin${PATH:+:$PATH}"

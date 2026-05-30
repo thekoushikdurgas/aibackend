@@ -44,11 +44,13 @@ fi
 cd "$REPO_ROOT"
 if [[ ! -f .env ]] && [[ -f .env.example ]]; then
   cp -f .env.example .env
+  chmod 600 .env 2>/dev/null || true
   echo "[bootstrap] Created .env from .env.example — edit secrets before production deploy."
 fi
 
 echo "[bootstrap] Done."
-echo "  1. Edit $REPO_ROOT/.env (JWT_SECRET_KEY, API_KEY, POSTGRES_PASSWORD, CORS_ORIGINS, …)"
+echo "  1. Edit $REPO_ROOT/.env with nano (no sudo): JWT_SECRET_KEY, API_KEY, POSTGRES_PASSWORD, CORS_ORIGINS, …"
+echo "     Then: chmod 600 .env"
 echo "  2. Open security group TCP 8000"
 echo "  3. Exit SSH and reconnect (or run: newgrp docker) so docker.sock works without sudo"
 echo "  4. cd $REPO_ROOT && bash deploy/remote-deploy.sh && bash deploy/verify-stack.sh"

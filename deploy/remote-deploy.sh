@@ -17,6 +17,8 @@ cd "$ROOT"
 source "$(dirname "${BASH_SOURCE[0]}")/docker-cli.sh"
 # shellcheck source=deploy/sanitize-dotenv.sh
 source "$(dirname "${BASH_SOURCE[0]}")/sanitize-dotenv.sh"
+# shellcheck source=deploy/dotenv-perms.sh
+source "$(dirname "${BASH_SOURCE[0]}")/dotenv-perms.sh"
 
 # Non-login SSH sessions often use a minimal PATH; docker may be in /usr/local/bin or /snap/bin.
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin${PATH:+:$PATH}"
@@ -98,6 +100,8 @@ _check_compose_version() {
 _check_compose_version
 
 bootstrap_env_files
+
+ensure_dotenv_readable .env || exit 1
 
 if [[ ! -f .env ]] || [[ ! -s .env ]]; then
   echo "[deploy] ERROR: .env is missing or empty. Set ENV_FILE secret or add .env on the server."
