@@ -324,9 +324,11 @@ def main(argv: list[str] | None = None) -> int:
             import app.main  # noqa: F401
         except ModuleNotFoundError as exc:
             name = getattr(exc, "name", None) or str(exc)
+            hint = "Add it to requirements.txt and rebuild the Docker image."
+            if name == "jwt":
+                hint = "Add PyJWT to requirements.txt (provides `import jwt`), then rebuild."
             print(
-                f"validate_env: app.main import failed — missing module '{name}'. "
-                "Add it to requirements.txt and rebuild the Docker image.",
+                f"validate_env: app.main import failed — missing module '{name}'. {hint}",
                 file=sys.stderr,
             )
             return 1

@@ -1,452 +1,130 @@
-ubuntu@ip-172-31-94-206:~/aibackend$ git pull
-Updating 835a5ab..ec95bf4
-Fast-forward
- deploy/EC2.md             |   1 +
- deploy/remote-deploy.sh   |   5 +++--
- deploy/verify-http.sh     |  59 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- deploy/verify-public.sh   |  11 +++++++----
- deploy/verify-stack.sh    |  44 ++++++++++++++++++++++++++++++++++++++------
- docker/Dockerfile         |   8 ++++----
- docker/docker-compose.yml |  15 +++++++++++++--
- error.txt                 | 101 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------------
- 8 files changed, 208 insertions(+), 36 deletions(-)
- create mode 100644 deploy/verify-http.sh
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/remote-deploy.sh
-bash deploy/remote-deploy.sh
+ubuntu@ip-172-31-94-206:~/aibackend$ bash deploy/remote-deploy.sh
 [deploy] ROOT=/home/ubuntu/aibackend
 [deploy] validate_env (/home/ubuntu/aibackend/venv/bin/python, dotenv-only — full check runs in backend container)
 validate_env: OK - .env preflight (dotenv-only)
-[deploy] docker compose --env-file … -f compose.yaml up -d --build
+[deploy] docker compose --env-file … -f compose.yaml build backend
+[+] Building 980.7s (22/22) FINISHED
+ => [internal] load local bake definitions                                                                                                                                                                                                                                                                                                  0.0s
+ => => reading from stdin 511B                                                                                                                                                                                                                                                                                                              0.0s
+ => [internal] load build definition from Dockerfile                                                                                                                                                                                                                                                                                        0.0s
+ => => transferring dockerfile: 2.04kB                                                                                                                                                                                                                                                                                                      0.0s
+ => [internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                                                                                                                                         0.1s
+ => [internal] load .dockerignore                                                                                                                                                                                                                                                                                                           0.0s
+ => => transferring context: 733B                                                                                                                                                                                                                                                                                                           0.0s
+ => [internal] load build context                                                                                                                                                                                                                                                                                                           0.0s
+ => => transferring context: 25.80kB                                                                                                                                                                                                                                                                                                        0.0s
+ => [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                           0.0s
+ => => resolve docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                                   0.0s
+ => CACHED [builder 2/6] WORKDIR /app                                                                                                                                                                                                                                                                                                       0.0s
+ => CACHED [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                            0.0s
+ => CACHED [builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                                                                                                                                       0.0s
+ => CACHED [builder 5/6] COPY requirements.txt .                                                                                                                                                                                                                                                                                            0.0s
+ => [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                                                                                                                                      246.8s
+ => CACHED [stage-1  3/11] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                          0.0s
+ => [stage-1  4/11] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                                                                                                                                               138.3s
+ => [stage-1  5/11] COPY app/ ./app/                                                                                                                                                                                                                                                                                                        1.1s
+ => [stage-1  6/11] COPY config/ ./config/                                                                                                                                                                                                                                                                                                  0.1s
+ => [stage-1  7/11] COPY alembic.ini .                                                                                                                                                                                                                                                                                                      0.0s
+ => [stage-1  8/11] COPY alembic/ ./alembic/                                                                                                                                                                                                                                                                                                0.1s
+ => [stage-1  9/11] COPY scripts/validate_env.py ./scripts/validate_env.py                                                                                                                                                                                                                                                                  0.0s
+ => [stage-1 10/11] RUN mkdir -p /app/data/chroma /app/data/logs /app/data/storage                                                                                                                                                                                                                                                          0.3s
+ => [stage-1 11/11] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                                                                                                                                                 1.8s
+ => exporting to image                                                                                                                                                                                                                                                                                                                    463.4s
+ => => exporting layers                                                                                                                                                                                                                                                                                                                   365.1s
+ => => exporting manifest sha256:9a6f1b313643964f125711a884d8a6c47ccc626793520e8c74311cd18062c1c7                                                                                                                                                                                                                                           0.0s
+ => => exporting config sha256:fccc3ea836b93df58085523caa8eae3a26dd7afc565366f77b8bf29598e01e08                                                                                                                                                                                                                                             0.0s
+ => => exporting attestation manifest sha256:fa42d265a9fe6b86be1cc118c491df97d76c20e06c2c05868f0202e7e0852559                                                                                                                                                                                                                               0.0s
+ => => exporting manifest list sha256:add053bf46810cab8ccc4a1e4210ba2cfafd2452269af83d286e222a59c98b9f                                                                                                                                                                                                                                      0.0s
+ => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                                 0.0s
+ => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                             98.0s
+ => resolving provenance for metadata file                                                                                                                                                                                                                                                                                                  0.0s
+[+] build 1/1
+ ✔ Image aibackend-backend Built                                                                                                                                                                                                                                                                                                           980.8s
+[deploy] docker compose up -d --force-recreate backend
 [+] pull 5/5
- ✔ backend                      Skipped No image to be pulled                                                                                                                                                                                                                                                                                                 0.0s
- ✔ Image postgres:15-alpine     Pulled                                                                                                                                                                                                                                                                                                                        0.5s
- ✔ Image redis:7-alpine         Pulled                                                                                                                                                                                                                                                                                                                        0.5s
- ✔ Image ollama/ollama:latest   Pulled                                                                                                                                                                                                                                                                                                                        0.4s
- ✔ Image chromadb/chroma:latest Pulled                                                                                                                                                                                                                                                                                                                        0.4s
-[+] Building 0.6s (22/22) FINISHED
- => [internal] load local bake definitions                                                                                                                                                                                                                                                                                                                   0.0s 
- => => reading from stdin 511B                                                                                                                                                                                                                                                                                                                               0.0s
- => [internal] load build definition from Dockerfile                                                                                                                                                                                                                                                                                                         0.0s 
- => => transferring dockerfile: 2.04kB                                                                                                                                                                                                                                                                                                                       0.0s 
- => [internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                                                                                                                                                          0.1s 
- => [internal] load .dockerignore                                                                                                                                                                                                                                                                                                                            0.0s
- => => transferring context: 733B                                                                                                                                                                                                                                                                                                                            0.0s 
- => [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                                            0.0s 
- => => resolve docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                                                    0.0s 
- => [internal] load build context                                                                                                                                                                                                                                                                                                                            0.0s 
- => => transferring context: 25.80kB                                                                                                                                                                                                                                                                                                                         0.0s 
- => CACHED [builder 2/6] WORKDIR /app                                                                                                                                                                                                                                                                                                                        0.0s
- => CACHED [stage-1  3/11] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                                           0.0s 
- => CACHED [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                             0.0s 
- => CACHED [builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                                                                                                                                                        0.0s 
- => CACHED [builder 5/6] COPY requirements.txt .                                                                                                                                                                                                                                                                                                             0.0s 
- => CACHED [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                                                                                                                                                  0.0s 
- => CACHED [stage-1  4/11] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                                                                                                                                                           0.0s 
- => CACHED [stage-1  5/11] COPY app/ ./app/                                                                                                                                                                                                                                                                                                                  0.0s
- => CACHED [stage-1  6/11] COPY config/ ./config/                                                                                                                                                                                                                                                                                                            0.0s 
- => CACHED [stage-1  7/11] COPY alembic.ini .                                                                                                                                                                                                                                                                                                                0.0s 
- => CACHED [stage-1  8/11] COPY alembic/ ./alembic/                                                                                                                                                                                                                                                                                                          0.0s 
- => CACHED [stage-1  9/11] COPY scripts/validate_env.py ./scripts/validate_env.py                                                                                                                                                                                                                                                                            0.0s 
- => CACHED [stage-1 10/11] RUN mkdir -p /app/data/chroma /app/data/logs /app/data/storage                                                                                                                                                                                                                                                                    0.0s 
- => CACHED [stage-1 11/11] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                                                                                                                                                           0.0s 
- => exporting to image                                                                                                                                                                                                                                                                                                                                       0.2s 
- => => exporting layers                                                                                                                                                                                                                                                                                                                                      0.0s 
- => => exporting manifest sha256:6d7f4029aa9af2e927467cdc7ab351fdff10b2c9304cd4b9359b391781264f78                                                                                                                                                                                                                                                            0.0s 
- => => exporting config sha256:adc108d3d1d97bf30754c8cebc7d2a879ca56a3f78aa33ce8f1e07a8ce15087b                                                                                                                                                                                                                                                              0.0s 
- => => exporting attestation manifest sha256:059dab6777ddc7eca359cd5e16fff0da53d8878a9f523fe53e9c1067f56c06e3                                                                                                                                                                                                                                                0.0s 
- => => exporting manifest list sha256:a68e27352d89098f51cfd828896e06651f5066a486008929a89624860e7f28a2                                                                                                                                                                                                                                                       0.0s 
- => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                                                  0.0s
- => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                                               0.0s 
- => resolving provenance for metadata file                                                                                                                                                                                                                                                                                                                   0.0s
-[+] up 6/6
- ✔ Image aibackend-backend        Built                                                                                                                                                                                                                                                                                                                       0.7s
- ✔ Container aibackend-db-1       Healthy                                                                                                                                                                                                                                                                                                                     0.9s
- ✔ Container aibackend-redis-1    Healthy                                                                                                                                                                                                                                                                                                                     0.9s
- ✔ Container aibackend-ollama-1   Running                                                                                                                                                                                                                                                                                                                     0.0s
- ✔ Container aibackend-chromadb-1 Running                                                                                                                                                                                                                                                                                                                     0.0s
- ✔ Container aibackend-backend-1  Started                                                                                                                                                                                                                                                                                                                     1.1s
-[deploy] waiting for backend before alembic upgrade head...
-INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
-INFO  [alembic.runtime.migration] Will assume transactional DDL.
-[deploy] validate_env inside backend container
-validate_env: OK - settings load successfully
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/verify-stack.sh
-bash deploy/verify-stack.sh
-[verify] Waiting 30s before probing API...
-[verify] waiting for backend healthy (20s / 180s)...
-[verify] waiting for backend healthy (40s / 180s)...
-[verify] waiting for backend healthy (60s / 180s)...
-[verify] waiting for backend healthy (80s / 180s)...
-[verify] waiting for backend healthy (100s / 180s)...
-[verify] waiting for backend healthy (120s / 180s)...
-[verify] waiting for backend healthy (140s / 180s)...
-[verify] waiting for backend healthy (160s / 180s)...
-[verify] WARNING: backend not healthy within 180s — will retry HTTP (Chroma/RAG startup can be slow)
-[verify] docker compose ps
-NAME                   IMAGE                    COMMAND                  SERVICE    CREATED         STATUS                          PORTS
-aibackend-backend-1    aibackend-backend        "uvicorn app.main:ap…"   backend    4 minutes ago   Restarting (1) 21 seconds ago
-aibackend-chromadb-1   chromadb/chroma:latest   "dumb-init -- chroma…"   chromadb   46 hours ago    Up 32 minutes                   8000/tcp
-aibackend-db-1         postgres:15-alpine       "docker-entrypoint.s…"   db         46 hours ago    Up 32 minutes (healthy)         5432/tcp
-aibackend-ollama-1     ollama/ollama:latest     "/bin/ollama serve"      ollama     46 hours ago    Up 32 minutes                   11434/tcp
-aibackend-redis-1      redis:7-alpine           "docker-entrypoint.s…"   redis      46 hours ago    Up 32 minutes (healthy)         6379/tcp
-[verify] FastAPI GET http://127.0.0.1:8000/health
-[verify] GET http://127.0.0.1:8000/health not ready (1/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (2/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (3/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (4/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (5/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (6/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (7/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (8/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (9/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (10/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (11/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (12/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (13/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (14/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (15/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (16/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (17/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (18/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (19/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (20/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (21/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (22/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (23/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (24/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (25/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (26/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (27/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (28/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (29/30), retry in 5s...
-[verify] ERROR: GET http://127.0.0.1:8000/health failed after 30 attempts.
-[verify]   last curl: curl: (7) Failed to connect to 127.0.0.1 port 8000 after 0 ms: Could not connect to server
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/ec2-bootstrap.sh
-bash deploy/ec2-bootstrap.sh
-[bootstrap] Installing packages...
-Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute InRelease
-Hit:2 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-updates InRelease
-Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-backports InRelease
-Hit:4 http://security.ubuntu.com/ubuntu resolute-security InRelease
-Hit:5 https://download.docker.com/linux/ubuntu resolute InRelease
-Reading package lists... Done
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-ca-certificates is already the newest version (20260223).
-curl is already the newest version (8.18.0-1ubuntu2.1).
-git is already the newest version (1:2.53.0-1ubuntu1).
-python3 is already the newest version (3.14.3-0ubuntu2).
-coreutils is already the newest version (9.5-1ubuntu2+0.0.0~ubuntu25).
-Solving dependencies... Done
-0 upgraded, 0 newly installed, 0 to remove and 9 not upgraded.
-[bootstrap] docker compose version: 5.1.4 (need >= 2.20 for compose.yaml include:)
-[bootstrap] Added ubuntu to docker group.
-[bootstrap] Repo already exists at /home/ubuntu/aibackend
-[bootstrap] Done.
-  1. Edit /home/ubuntu/aibackend/.env with nano (no sudo): JWT_SECRET_KEY, API_KEY, POSTGRES_PASSWORD, CORS_ORIGINS, …
-     Then: chmod 600 .env
-  2. Open security group TCP 8000
-  3. Exit SSH and reconnect (or run: newgrp docker) so docker.sock works without sudo
-  4. cd /home/ubuntu/aibackend && bash deploy/remote-deploy.sh && bash deploy/verify-stack.sh
-  5. curl -fsS http://127.0.0.1:8000/health
-  Note: Do not pip install requirements on the host unless using Python 3.11/3.12.
-        Production runs in Docker (python:3.11-slim). Host python3 is only for validate_env --dotenv-only.
-  See deploy/EC2.md for GitHub Actions secrets.
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo chown ubuntu:ubuntu .env
-sudo chmod 600 .env
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/remote-deploy.sh
-bash deploy/remote-deploy.sh
-[deploy] ROOT=/home/ubuntu/aibackend
-[deploy] validate_env (/home/ubuntu/aibackend/venv/bin/python, dotenv-only — full check runs in backend container)
-validate_env: OK - .env preflight (dotenv-only)
-[deploy] docker compose --env-file … -f compose.yaml up -d --build
-[+] pull 5/5
- ✔ backend                      Skipped No image to be pulled                                                                                                                                                                                                                                                                                                 0.0s
- ✔ Image chromadb/chroma:latest Pulled                                                                                                                                                                                                                                                                                                                        0.4s
- ✔ Image postgres:15-alpine     Pulled                                                                                                                                                                                                                                                                                                                        0.5s
- ✔ Image redis:7-alpine         Pulled                                                                                                                                                                                                                                                                                                                        0.4s
- ✔ Image ollama/ollama:latest   Pulled                                                                                                                                                                                                                                                                                                                        0.4s
-[+] Building 0.6s (22/22) FINISHED
- => [internal] load local bake definitions                                                                                                                                                                                                                                                                                                                   0.0s 
- => => reading from stdin 511B                                                                                                                                                                                                                                                                                                                               0.0s
- => [internal] load build definition from Dockerfile                                                                                                                                                                                                                                                                                                         0.0s 
- => => transferring dockerfile: 2.04kB                                                                                                                                                                                                                                                                                                                       0.0s 
- => [internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                                                                                                                                                          0.1s 
- => [internal] load .dockerignore                                                                                                                                                                                                                                                                                                                            0.0s
- => => transferring context: 733B                                                                                                                                                                                                                                                                                                                            0.0s 
- => [internal] load build context                                                                                                                                                                                                                                                                                                                            0.0s 
- => => transferring context: 25.80kB                                                                                                                                                                                                                                                                                                                         0.0s 
- => [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                                            0.0s 
- => => resolve docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                                                    0.0s 
- => CACHED [builder 2/6] WORKDIR /app                                                                                                                                                                                                                                                                                                                        0.0s
- => CACHED [stage-1  3/11] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                                           0.0s 
- => CACHED [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                             0.0s 
- => CACHED [builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                                                                                                                                                        0.0s 
- => CACHED [builder 5/6] COPY requirements.txt .                                                                                                                                                                                                                                                                                                             0.0s 
- => CACHED [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                                                                                                                                                  0.0s 
- => CACHED [stage-1  4/11] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                                                                                                                                                           0.0s
- => CACHED [stage-1  5/11] COPY app/ ./app/                                                                                                                                                                                                                                                                                                                  0.0s 
- => CACHED [stage-1  6/11] COPY config/ ./config/                                                                                                                                                                                                                                                                                                            0.0s 
- => CACHED [stage-1  7/11] COPY alembic.ini .                                                                                                                                                                                                                                                                                                                0.0s 
- => CACHED [stage-1  8/11] COPY alembic/ ./alembic/                                                                                                                                                                                                                                                                                                          0.0s 
- => CACHED [stage-1  9/11] COPY scripts/validate_env.py ./scripts/validate_env.py                                                                                                                                                                                                                                                                            0.0s 
- => CACHED [stage-1 10/11] RUN mkdir -p /app/data/chroma /app/data/logs /app/data/storage                                                                                                                                                                                                                                                                    0.0s 
- => CACHED [stage-1 11/11] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                                                                                                                                                           0.0s 
- => exporting to image                                                                                                                                                                                                                                                                                                                                       0.1s 
- => => exporting layers                                                                                                                                                                                                                                                                                                                                      0.0s 
- => => exporting manifest sha256:6d7f4029aa9af2e927467cdc7ab351fdff10b2c9304cd4b9359b391781264f78                                                                                                                                                                                                                                                            0.0s 
- => => exporting config sha256:adc108d3d1d97bf30754c8cebc7d2a879ca56a3f78aa33ce8f1e07a8ce15087b                                                                                                                                                                                                                                                              0.0s 
- => => exporting attestation manifest sha256:1586e125e7481cdd033ccad3ed7394c894c37368d3503c9a83b513ae14da423a                                                                                                                                                                                                                                                0.0s 
- => => exporting manifest list sha256:e560baf0f0de19669351f8ccc8e1268db640e97e35b935e8827c5153235347c6                                                                                                                                                                                                                                                       0.0s 
- => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                                                  0.0s 
- => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                                               0.0s 
- => resolving provenance for metadata file                                                                                                                                                                                                                                                                                                                   0.0s
-[+] up 6/6
- ✔ Image aibackend-backend        Built                                                                                                                                                                                                                                                                                                                       0.7s
- ✔ Container aibackend-chromadb-1 Running                                                                                                                                                                                                                                                                                                                     0.0s
- ✔ Container aibackend-redis-1    Healthy                                                                                                                                                                                                                                                                                                                     0.7s
- ✔ Container aibackend-db-1       Healthy                                                                                                                                                                                                                                                                                                                     0.7s
- ✔ Container aibackend-ollama-1   Running                                                                                                                                                                                                                                                                                                                     0.0s
- ✔ Container aibackend-backend-1  Started                                                                                                                                                                                                                                                                                                                     0.9s
-[deploy] waiting for backend before alembic upgrade head...
-INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
-INFO  [alembic.runtime.migration] Will assume transactional DDL.
-[deploy] validate_env inside backend container
-validate_env: OK - settings load successfully
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/verify-stack.sh
-bash deploy/verify-stack.sh
-[verify] Waiting 30s before probing API...
-[verify] waiting for backend healthy (20s / 180s)...
-[verify] waiting for backend healthy (40s / 180s)...
-[verify] waiting for backend healthy (60s / 180s)...
-[verify] waiting for backend healthy (80s / 180s)...
-[verify] waiting for backend healthy (100s / 180s)...
-[verify] waiting for backend healthy (120s / 180s)...
-[verify] waiting for backend healthy (140s / 180s)...
-[verify] waiting for backend healthy (160s / 180s)...
-[verify] WARNING: backend not healthy within 180s — will retry HTTP (Chroma/RAG startup can be slow)
-[verify] docker compose ps
-NAME                   IMAGE                    COMMAND                  SERVICE    CREATED         STATUS                          PORTS
-aibackend-backend-1    aibackend-backend        "uvicorn app.main:ap…"   backend    3 minutes ago   Restarting (1) 18 seconds ago
-aibackend-chromadb-1   chromadb/chroma:latest   "dumb-init -- chroma…"   chromadb   46 hours ago    Up 40 minutes                   8000/tcp
-aibackend-db-1         postgres:15-alpine       "docker-entrypoint.s…"   db         46 hours ago    Up 40 minutes (healthy)         5432/tcp
-aibackend-ollama-1     ollama/ollama:latest     "/bin/ollama serve"      ollama     46 hours ago    Up 40 minutes                   11434/tcp
-aibackend-redis-1      redis:7-alpine           "docker-entrypoint.s…"   redis      46 hours ago    Up 40 minutes (healthy)         6379/tcp
-[verify] FastAPI GET http://127.0.0.1:8000/health
-[verify] GET http://127.0.0.1:8000/health not ready (1/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (2/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (3/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (4/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (5/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (6/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (7/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (8/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (9/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (10/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (11/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (12/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (13/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (14/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (15/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (16/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (17/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (18/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (19/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (20/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (21/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (22/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (23/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (24/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (25/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (26/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (27/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (28/30), retry in 5s...
-[verify] GET http://127.0.0.1:8000/health not ready (29/30), retry in 5s...
-[verify] ERROR: GET http://127.0.0.1:8000/health failed after 30 attempts.
-[verify]   last curl: curl: (7) Failed to connect to 127.0.0.1 port 8000 after 0 ms: Could not connect to server
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo shutdown -r now
-ubuntu@ip-172-31-94-206:~/aibackend$ Read from remote host ec2-54-146-221-133.compute-1.amazonaws.com: Connection reset by peer
-Connection to ec2-54-146-221-133.compute-1.amazonaws.com closed.
-client_loop: send disconnect: Connection reset by peer
-
-durga@ryuzaki23 MINGW64 /e/ayan/contact360
-$ ssh -i "contact360app.pem" ubuntu@ec2-54-146-221-133.compute-1.amazonaws.com
-Welcome to Ubuntu 26.04 LTS (GNU/Linux 7.0.0-1004-aws x86_64)
-
- * Documentation:  https://docs.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/pro
-
- System information as of Sat May 30 01:28:39 UTC 2026
-
-  System load:  1.24               Processes:             158
-  Usage of /:   41.0% of 95.85GB   Users logged in:       0
-  Memory usage: 27%                IPv4 address for enX0: 172.31.94.206
-  Swap usage:   0%
-
- * Ubuntu Pro delivers the most comprehensive open source security and
-   compliance features.
-
-   https://ubuntu.com/aws/pro
-
-Expanded Security Maintenance for Applications is not enabled.
-
-16 updates can be applied immediately.
-To see these additional updates run: apt list --upgradable
-
-1 additional security update can be applied with ESM Apps.
-Learn more about enabling ESM Apps service at https://ubuntu.com/esm
-
-
-Last login: Sat May 30 01:28:40 2026 from 223.185.132.73
-ubuntu@ip-172-31-94-206:~$ ls
-aibackend
-ubuntu@ip-172-31-94-206:~$ cd aibackend
-ubuntu@ip-172-31-94-206:~/aibackend$ (New-Object Net.WebClient).DownloadFile("https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe", "$env:Temp\GoogleCloudSDKInstaller.exe")
-
-& $env:Temp\GoogleCloudSDKInstaller.exe
-    ^C
-ubuntu@ip-172-31-94-206:~/aibackend$ git pull
-remote: Enumerating objects: 30, done.
-remote: Counting objects: 100% (30/30), done.
-remote: Compressing objects: 100% (2/2), done.
-remote: Total 16 (delta 14), reused 16 (delta 14), pack-reused 0 (from 0)
-Unpacking objects: 100% (16/16), 4.91 KiB | 209.00 KiB/s, done.
-From https://github.com/thekoushikdurgas/aibackend
-   ec95bf4..43f2462  main       -> origin/main
-Updating ec95bf4..43f2462
-error: Your local changes to the following files would be overwritten by merge:
-        deploy/remote-deploy.sh
-        deploy/verify-stack.sh
-Please commit your changes or stash them before you merge.
-Aborting
-ubuntu@ip-172-31-94-206:~/aibackend$ git stash
-Saved working directory and index state WIP on main: ec95bf4 1
-ubuntu@ip-172-31-94-206:~/aibackend$ git pull
-Updating ec95bf4..43f2462
-Fast-forward
- .env.example                  |   3 +++
- app/config.py                 |   2 ++
- app/core/rate_limiter.py      |   1 +
- app/main.py                   |  42 ++++++++++++++++++++++--------------------
- deploy/EC2.md                 |   1 +
- deploy/compose-diagnostics.sh |  44 ++++++++++++++++++++++++++++++++++++++++++++
- deploy/remote-deploy.sh       |  26 ++++++++++++++++++++++++--
- deploy/verify-stack.sh        |  23 +++++++++++++++++++----
- docker/docker-compose.yml     |   4 ++++
- error.txt                     | 161 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++----------------------------------------------------
- 10 files changed, 229 insertions(+), 78 deletions(-)
- create mode 100644 deploy/compose-diagnostics.sh
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/ec2-bootstrap.sh
-bash deploy/ec2-bootstrap.sh
-[bootstrap] Installing packages...
-Hit:1 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute InRelease
-Hit:2 http://security.ubuntu.com/ubuntu resolute-security InRelease
-Hit:3 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-updates InRelease
-Hit:4 http://us-east-1.ec2.archive.ubuntu.com/ubuntu resolute-backports InRelease
-Hit:5 https://download.docker.com/linux/ubuntu resolute InRelease
-Reading package lists... Done
-Reading package lists... Done
-Building dependency tree... Done
-Reading state information... Done
-ca-certificates is already the newest version (20260223).
-curl is already the newest version (8.18.0-1ubuntu2.1).
-git is already the newest version (1:2.53.0-1ubuntu1).
-python3 is already the newest version (3.14.3-0ubuntu2).
-coreutils is already the newest version (9.5-1ubuntu2+0.0.0~ubuntu25).
-Solving dependencies... Done
-0 upgraded, 0 newly installed, 0 to remove and 9 not upgraded.
-[bootstrap] docker compose version: 5.1.4 (need >= 2.20 for compose.yaml include:)
-[bootstrap] Added ubuntu to docker group.
-[bootstrap] Repo already exists at /home/ubuntu/aibackend
-[bootstrap] Done.
-  1. Edit /home/ubuntu/aibackend/.env with nano (no sudo): JWT_SECRET_KEY, API_KEY, POSTGRES_PASSWORD, CORS_ORIGINS, …
-     Then: chmod 600 .env
-  2. Open security group TCP 8000
-  3. Exit SSH and reconnect (or run: newgrp docker) so docker.sock works without sudo
-  4. cd /home/ubuntu/aibackend && bash deploy/remote-deploy.sh && bash deploy/verify-stack.sh
-  5. curl -fsS http://127.0.0.1:8000/health
-  Note: Do not pip install requirements on the host unless using Python 3.11/3.12.
-        Production runs in Docker (python:3.11-slim). Host python3 is only for validate_env --dotenv-only.
-  See deploy/EC2.md for GitHub Actions secrets.
-ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/remote-deploy.sh
-bash deploy/remote-deploy.sh
-[deploy] ROOT=/home/ubuntu/aibackend
-[deploy] validate_env (/home/ubuntu/aibackend/venv/bin/python, dotenv-only — full check runs in backend container)
-validate_env: OK - .env preflight (dotenv-only)
-[deploy] docker compose --env-file … -f compose.yaml up -d --build --force-recreate backend
-[+] pull 5/5
- ✔ backend                      Skipped No image to be pulled                                                                                                                                                                                                                                                                                                 0.0s
- ✔ Image postgres:15-alpine     Pulled                                                                                                                                                                                                                                                                                                                        0.6s
- ✔ Image redis:7-alpine         Pulled                                                                                                                                                                                                                                                                                                                        0.5s
- ✔ Image ollama/ollama:latest   Pulled                                                                                                                                                                                                                                                                                                                        0.5s
- ✔ Image chromadb/chroma:latest Pulled                                                                                                                                                                                                                                                                                                                        0.5s
-[+] Building 4.2s (22/22) FINISHED
- => [internal] load local bake definitions                                                                                                                                                                                                                                                                                                                   0.0s 
- => => reading from stdin 511B                                                                                                                                                                                                                                                                                                                               0.0s
- => [internal] load build definition from Dockerfile                                                                                                                                                                                                                                                                                                         0.0s
- => => transferring dockerfile: 2.04kB                                                                                                                                                                                                                                                                                                                       0.0s 
- => [internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                                                                                                                                                          0.2s 
- => [internal] load .dockerignore                                                                                                                                                                                                                                                                                                                            0.0s
- => => transferring context: 733B                                                                                                                                                                                                                                                                                                                            0.0s 
- => [internal] load build context                                                                                                                                                                                                                                                                                                                            0.1s 
- => => transferring context: 57.53kB                                                                                                                                                                                                                                                                                                                         0.1s 
- => [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                                            0.0s 
- => => resolve docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                                                    0.0s 
- => CACHED [builder 2/6] WORKDIR /app                                                                                                                                                                                                                                                                                                                        0.0s
- => CACHED [stage-1  3/11] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                                           0.0s 
- => CACHED [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                             0.0s 
- => CACHED [builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                                                                                                                                                        0.0s 
- => CACHED [builder 5/6] COPY requirements.txt .                                                                                                                                                                                                                                                                                                             0.0s 
- => CACHED [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                                                                                                                                                  0.0s 
- => CACHED [stage-1  4/11] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                                                                                                                                                           0.0s 
- => [stage-1  5/11] COPY app/ ./app/                                                                                                                                                                                                                                                                                                                         0.4s 
- => [stage-1  6/11] COPY config/ ./config/                                                                                                                                                                                                                                                                                                                   0.0s
- => [stage-1  7/11] COPY alembic.ini .                                                                                                                                                                                                                                                                                                                       0.0s 
- => [stage-1  8/11] COPY alembic/ ./alembic/                                                                                                                                                                                                                                                                                                                 0.1s 
- => [stage-1  9/11] COPY scripts/validate_env.py ./scripts/validate_env.py                                                                                                                                                                                                                                                                                   0.0s
- => [stage-1 10/11] RUN mkdir -p /app/data/chroma /app/data/logs /app/data/storage                                                                                                                                                                                                                                                                           0.3s 
- => [stage-1 11/11] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                                                                                                                                                                  1.7s
- => exporting to image                                                                                                                                                                                                                                                                                                                                       0.9s
- => => exporting layers                                                                                                                                                                                                                                                                                                                                      0.5s
- => => exporting manifest sha256:1ac2acfbed0a4dddd87c83db41c195e9492e73b1f7d1da2f1f22936adf4472da                                                                                                                                                                                                                                                            0.0s
- => => exporting config sha256:0a223c1710d1839705b1dc664c7a7f9cddc64c61ed4aefd17b0727b767223dc4                                                                                                                                                                                                                                                              0.0s
- => => exporting attestation manifest sha256:f0562674d8c722921ba08a393fcd52b79ae49d760e20a812e2790c922688f8f9                                                                                                                                                                                                                                                0.0s 
- => => exporting manifest list sha256:1621e9462d6f09749c34a5e959be74f89c35cb0c7284a0ad0503a212d04c9152                                                                                                                                                                                                                                                       0.0s 
- => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                                                  0.0s 
- => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                                               0.3s
- => resolving provenance for metadata file                                                                                                                                                                                                                                                                                                                   0.0s
-[+] up 5/5
- ✔ Image aibackend-backend        Built                                                                                                                                                                                                                                                                                                                       4.3s
- ✔ Container aibackend-redis-1    Healthy                                                                                                                                                                                                                                                                                                                     0.9s
- ✔ Container aibackend-chromadb-1 Running                                                                                                                                                                                                                                                                                                                     0.0s
- ✔ Container aibackend-db-1       Healthy                                                                                                                                                                                                                                                                                                                     0.9s
- ✔ Container aibackend-backend-1  Started                                                                                                                                                                                                                                                                                                                     1.1s
+ ✔ backend                      Skipped No image to be pulled                                                                                                                                                                                                                                                                                0.0s
+ ✔ Image postgres:15-alpine     Pulled                                                                                                                                                                                                                                                                                                       3.6s
+ ✔ Image redis:7-alpine         Pulled                                                                                                                                                                                                                                                                                                       3.5s
+ ✔ Image ollama/ollama:latest   Pulled                                                                                                                                                                                                                                                                                                       3.3s
+ ✔ Image chromadb/chroma:latest Pulled                                                                                                                                                                                                                                                                                                       3.4s
+[+] up 4/4
+ ✔ Container aibackend-db-1       Healthy                                                                                                                                                                                                                                                                                                    9.7s
+ ✔ Container aibackend-redis-1    Healthy                                                                                                                                                                                                                                                                                                    9.7s
+ ✔ Container aibackend-chromadb-1 Running                                                                                                                                                                                                                                                                                                    0.0s
+ ✔ Container aibackend-backend-1  Started                                                                                                                                                                                                                                                                                                    9.9s
 [deploy] waiting for backend container to stay up...
 [deploy] waiting for backend before alembic upgrade head...
 INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
 INFO  [alembic.runtime.migration] Will assume transactional DDL.
 [deploy] validate_env inside backend container
-validate_env: OK - settings load successfully
+[deploy] ERROR: container validate_env --import-app exited 137.
+[deploy] --- backend logs (last 60 lines) ---
+backend-1  |     sys.exit(main())
+backend-1  |              ^^^^^^
+backend-1  |   File "/opt/venv/lib/python3.11/site-packages/click/core.py", line 1524, in __call__
+backend-1  |     return self.main(*args, **kwargs)
+backend-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1  |   File "/opt/venv/lib/python3.11/site-packages/click/core.py", line 1445, in main
+backend-1  |     rv = self.invoke(ctx)
+backend-1  |          ^^^^^^^^^^^^^^^^
+backend-1  |   File "/opt/venv/lib/python3.11/site-packages/click/core.py", line 1308, in invoke
+backend-1  |     return ctx.invoke(self.callback, **ctx.params)
+backend-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1  |   File "/opt/venv/lib/python3.11/site-packages/click/core.py", line 877, in invoke
+backend-1  |     return callback(*args, **kwargs)
+backend-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/main.py", line 418, in main
+backend-1  |     run(
+backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
+backend-1  |     server.run()
+backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/server.py", line 62, in run
+backend-1  |     return asyncio.run(self.serve(sockets=sockets))
+backend-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+backend-1  |     return runner.run(main)
+backend-1  |            ^^^^^^^^^^^^^^^^
+backend-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+backend-1  |     return self._loop.run_until_complete(task)
+backend-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1  |   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/server.py", line 69, in serve
+backend-1  |     config.load()
+backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/config.py", line 458, in load
+backend-1  |     self.loaded_app = import_from_string(self.app)
+backend-1  |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/importer.py", line 24, in import_from_string
+backend-1  |     raise exc from None
+backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/importer.py", line 21, in import_from_string
+backend-1  |     module = importlib.import_module(module_str)
+backend-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1  |   File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+backend-1  |     return _bootstrap._gcd_import(name[level:], package, level)
+backend-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1  |   File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+backend-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+backend-1  |   File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+backend-1  |   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+backend-1  |   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+backend-1  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+backend-1  |   File "/app/app/main.py", line 41, in <module>
+backend-1  |     from app.graphql.context import get_graphql_context
+backend-1  |   File "/app/app/graphql/__init__.py", line 3, in <module>
+backend-1  |     from app.graphql.schema import schema
+backend-1  |   File "/app/app/graphql/schema.py", line 48, in <module>
+backend-1  |     from app.graphql.modules.vsql import VsqlQuery, VsqlMutation
+backend-1  |   File "/app/app/graphql/modules/vsql/__init__.py", line 3, in <module>
+backend-1  |     from app.graphql.modules.vsql.resolvers import Query as VsqlQuery
+backend-1  |   File "/app/app/graphql/modules/vsql/resolvers.py", line 40, in <module>
+backend-1  |     from app.services import auth_vsql_service
+backend-1  |   File "/app/app/services/auth_vsql_service.py", line 10, in <module>
+backend-1  |     import jwt
+backend-1  | ModuleNotFoundError: No module named 'jwt'
 ubuntu@ip-172-31-94-206:~/aibackend$ sudo chmod +x deploy/verify-stack.sh
 bash deploy/verify-stack.sh
 [verify] Waiting 30s before probing API...
 [verify] ERROR: backend container is crash-looping (exit 1 / Restarting).
-[verify]   aibackend-backend-1   aibackend-backend   "uvicorn app.main:ap…"   backend   About a minute ago   Restarting (1) 3 seconds ago   
+[verify]   aibackend-backend-1   aibackend-backend   "uvicorn app.main:ap…"   backend   About a minute ago   Up Less than a second (health: starting)   0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
 [verify] --- backend logs (last 100 lines) ---
-backend-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-backend-1  |   File "/opt/venv/lib/python3.11/site-packages/click/core.py", line 877, in invoke
-backend-1  |     return callback(*args, **kwargs)
-backend-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
-backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/main.py", line 418, in main
-backend-1  |     run(
-backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
-backend-1  |     server.run()
-backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/server.py", line 62, in run
-backend-1  |     return asyncio.run(self.serve(sockets=sockets))
-backend-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-backend-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
 backend-1  |     return runner.run(main)
 backend-1  |            ^^^^^^^^^^^^^^^^
 backend-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
@@ -472,13 +150,19 @@ backend-1  |   File "<frozen importlib._bootstrap>", line 1147, in _find_and_loa
 backend-1  |   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
 backend-1  |   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
 backend-1  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
-backend-1  |   File "/app/app/main.py", line 26, in <module>
-backend-1  |     from app.api.vsql_download import router as vsql_download_router
-backend-1  |   File "/app/app/api/vsql_download.py", line 11, in <module>
-backend-1  |     from app.services import video_service
-backend-1  |   File "/app/app/services/video_service.py", line 12, in <module>
-backend-1  |     import imageio.v2 as imageio
-backend-1  | ModuleNotFoundError: No module named 'imageio'
+backend-1  |   File "/app/app/main.py", line 41, in <module>
+backend-1  |     from app.graphql.context import get_graphql_context
+backend-1  |   File "/app/app/graphql/__init__.py", line 3, in <module>
+backend-1  |     from app.graphql.schema import schema
+backend-1  |   File "/app/app/graphql/schema.py", line 48, in <module>
+backend-1  |     from app.graphql.modules.vsql import VsqlQuery, VsqlMutation
+backend-1  |   File "/app/app/graphql/modules/vsql/__init__.py", line 3, in <module>
+backend-1  |     from app.graphql.modules.vsql.resolvers import Query as VsqlQuery
+backend-1  |   File "/app/app/graphql/modules/vsql/resolvers.py", line 40, in <module>
+backend-1  |     from app.services import auth_vsql_service
+backend-1  |   File "/app/app/services/auth_vsql_service.py", line 10, in <module>
+backend-1  |     import jwt
+backend-1  | ModuleNotFoundError: No module named 'jwt'
 backend-1  | Traceback (most recent call last):
 backend-1  |   File "/opt/venv/bin/uvicorn", line 6, in <module>
 backend-1  |     sys.exit(main())
@@ -528,30 +212,75 @@ backend-1  |   File "<frozen importlib._bootstrap>", line 1147, in _find_and_loa
 backend-1  |   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
 backend-1  |   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
 backend-1  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
-backend-1  |   File "/app/app/main.py", line 26, in <module>
-backend-1  |     from app.api.vsql_download import router as vsql_download_router
-backend-1  |   File "/app/app/api/vsql_download.py", line 11, in <module>
-backend-1  |     from app.services import video_service
-backend-1  |   File "/app/app/services/video_service.py", line 12, in <module>
-backend-1  |     import imageio.v2 as imageio
-backend-1  | ModuleNotFoundError: No module named 'imageio'
+backend-1  |   File "/app/app/main.py", line 41, in <module>
+backend-1  |     from app.graphql.context import get_graphql_context
+backend-1  |   File "/app/app/graphql/__init__.py", line 3, in <module>
+backend-1  |     from app.graphql.schema import schema
+backend-1  |   File "/app/app/graphql/schema.py", line 48, in <module>
+backend-1  |     from app.graphql.modules.vsql import VsqlQuery, VsqlMutation
+backend-1  |   File "/app/app/graphql/modules/vsql/__init__.py", line 3, in <module>
+backend-1  |     from app.graphql.modules.vsql.resolvers import Query as VsqlQuery
+backend-1  |   File "/app/app/graphql/modules/vsql/resolvers.py", line 40, in <module>
+backend-1  |     from app.services import auth_vsql_service
+backend-1  |   File "/app/app/services/auth_vsql_service.py", line 10, in <module>
+backend-1  |     import jwt
+backend-1  | ModuleNotFoundError: No module named 'jwt'
 [verify] Fix hints:
-[verify]   - git pull && bash deploy/remote-deploy.sh  (uses 1 uvicorn worker + Ollama embeddings)
+[verify]   - Check logs for ModuleNotFoundError — add package to requirements.txt and rebuild
+[verify]   - git pull && bash deploy/remote-deploy.sh  (rebuilds backend image)
 [verify]   - Set EMBEDDING_PROVIDER=ollama in .env for small EC2 (avoid loading torch locally)
 [verify]   - docker compose … up -d --build --force-recreate backend
-ubuntu@ip-172-31-94-206:~/aibackend$ docker compose --env-file .env -f compose.yaml logs backend --tail 100
-backend-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-backend-1  |   File "/opt/venv/lib/python3.11/site-packages/click/core.py", line 877, in invoke
-backend-1  |     return callback(*args, **kwargs)
-backend-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
-backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/main.py", line 418, in main
-backend-1  |     run(
-backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/main.py", line 587, in run
-backend-1  |     server.run()
-backend-1  |   File "/opt/venv/lib/python3.11/site-packages/uvicorn/server.py", line 62, in run
-backend-1  |     return asyncio.run(self.serve(sockets=sockets))
-backend-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-backend-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+ubuntu@ip-172-31-94-206:~/aibackend$ curl -fsS http://127.0.0.1:8000/health
+curl: (7) Failed to connect to 127.0.0.1 port 8000 after 1 ms: Could not connect to server
+ubuntu@ip-172-31-94-206:~/aibackend$ docker compose --env-file .env -f compose.yaml build --no-cache backend
+[+] Building 999.1s (22/22) FINISHED                                                                                                                                                                                                                                                                                                             
+ => [internal] load local bake definitions                                                                                                                                                                                                                                                                                                  0.0s
+ => => reading from stdin 535B                                                                                                                                                                                                                                                                                                              0.0s
+ => [internal] load build definition from Dockerfile                                                                                                                                                                                                                                                                                        0.0s
+ => => transferring dockerfile: 2.04kB                                                                                                                                                                                                                                                                                                      0.0s
+ => [internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                                                                                                                                                         0.4s
+ => [internal] load .dockerignore                                                                                                                                                                                                                                                                                                           0.0s
+ => => transferring context: 733B                                                                                                                                                                                                                                                                                                           0.0s
+ => [internal] load build context                                                                                                                                                                                                                                                                                                           0.1s
+ => => transferring context: 25.80kB                                                                                                                                                                                                                                                                                                        0.1s
+ => [builder 1/6] FROM docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                           0.0s
+ => => resolve docker.io/library/python:3.11-slim@sha256:a3ab0b966bc4e91546a033e22093cb840908979487a9fc0e6e38295747e49ac0                                                                                                                                                                                                                   0.0s
+ => CACHED [builder 2/6] WORKDIR /app                                                                                                                                                                                                                                                                                                       0.0s
+ => [builder 3/6] RUN apt-get update && apt-get install -y --no-install-recommends     build-essential     gcc     g++     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                  17.7s
+ => [stage-1  3/11] RUN apt-get update && apt-get install -y --no-install-recommends     libpq5     curl     && rm -rf /var/lib/apt/lists/*                                                                                                                                                                                                 8.6s
+ => [builder 4/6] RUN python -m venv /opt/venv                                                                                                                                                                                                                                                                                              6.4s
+ => [builder 5/6] COPY requirements.txt .                                                                                                                                                                                                                                                                                                   0.1s
+ => [builder 6/6] RUN pip install --no-cache-dir --upgrade pip &&     pip install --no-cache-dir -r requirements.txt                                                                                                                                                                                                                      244.9s
+ => [stage-1  4/11] COPY --from=builder /opt/venv /opt/venv                                                                                                                                                                                                                                                                               136.7s
+ => [stage-1  5/11] COPY app/ ./app/                                                                                                                                                                                                                                                                                                        1.1s
+ => [stage-1  6/11] COPY config/ ./config/                                                                                                                                                                                                                                                                                                  0.1s
+ => [stage-1  7/11] COPY alembic.ini .                                                                                                                                                                                                                                                                                                      0.0s
+ => [stage-1  8/11] COPY alembic/ ./alembic/                                                                                                                                                                                                                                                                                                0.1s
+ => [stage-1  9/11] COPY scripts/validate_env.py ./scripts/validate_env.py                                                                                                                                                                                                                                                                  0.0s
+ => [stage-1 10/11] RUN mkdir -p /app/data/chroma /app/data/logs /app/data/storage                                                                                                                                                                                                                                                          0.4s
+ => [stage-1 11/11] RUN adduser --disabled-password --gecos "" appuser &&     chown -R appuser:appuser /app                                                                                                                                                                                                                                 1.8s
+ => exporting to image                                                                                                                                                                                                                                                                                                                    460.6s
+ => => exporting layers                                                                                                                                                                                                                                                                                                                   361.7s
+ => => exporting manifest sha256:27269e8a329cb213ac7cc64d1c50a8d6346c6c325ad59d89cd9e48ab45a1fbc7                                                                                                                                                                                                                                           0.0s
+ => => exporting config sha256:51671edcf89cea4ed9127df59e59f5e2789e0a0cf649490d712d2c22441bab45                                                                                                                                                                                                                                             0.0s
+ => => exporting attestation manifest sha256:9385ecfb1aec57813f3ef86c4617a3be7e7efd71dc91e65d7d1ed2da2a6090c5                                                                                                                                                                                                                               0.0s
+ => => exporting manifest list sha256:c03f9e03bed1f1c8bdc85e935579d7859c735707c26a137e3d0318b9e35970db                                                                                                                                                                                                                                      0.0s
+ => => naming to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                                 0.0s
+ => => unpacking to docker.io/library/aibackend-backend:latest                                                                                                                                                                                                                                                                             98.7s
+ => resolving provenance for metadata file                                                                                                                                                                                                                                                                                                  0.0s
+[+] build 1/1
+ ✔ Image aibackend-backend Built                                                                                                                                                                                                                                                                                                           999.2s
+ubuntu@ip-172-31-94-206:~/aibackend$ docker compose --env-file .env -f compose.yaml up -d --force-recreate backend
+bash deploy/verify-stack.sh
+[+] up 4/4
+ ✔ Container aibackend-db-1       Healthy                                                                                                                                                                                                                                                                                                    6.5s
+ ✔ Container aibackend-redis-1    Healthy                                                                                                                                                                                                                                                                                                    6.5s
+ ✔ Container aibackend-chromadb-1 Running                                                                                                                                                                                                                                                                                                    0.0s
+ ✔ Container aibackend-backend-1  Started                                                                                                                                                                                                                                                                                                    6.7s
+[verify] Waiting 30s before probing API...
+[verify] ERROR: backend container is crash-looping (exit 1 / Restarting).
+[verify]   aibackend-backend-1   aibackend-backend   "uvicorn app.main:ap…"   backend   48 seconds ago   Restarting (1) 3 seconds ago   
+[verify] --- backend logs (last 100 lines) ---
 backend-1  |     return runner.run(main)
 backend-1  |            ^^^^^^^^^^^^^^^^
 backend-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
@@ -577,13 +306,19 @@ backend-1  |   File "<frozen importlib._bootstrap>", line 1147, in _find_and_loa
 backend-1  |   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
 backend-1  |   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
 backend-1  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
-backend-1  |   File "/app/app/main.py", line 26, in <module>
-backend-1  |     from app.api.vsql_download import router as vsql_download_router
-backend-1  |   File "/app/app/api/vsql_download.py", line 11, in <module>
-backend-1  |     from app.services import video_service
-backend-1  |   File "/app/app/services/video_service.py", line 12, in <module>
-backend-1  |     import imageio.v2 as imageio
-backend-1  | ModuleNotFoundError: No module named 'imageio'
+backend-1  |   File "/app/app/main.py", line 41, in <module>
+backend-1  |     from app.graphql.context import get_graphql_context
+backend-1  |   File "/app/app/graphql/__init__.py", line 3, in <module>
+backend-1  |     from app.graphql.schema import schema
+backend-1  |   File "/app/app/graphql/schema.py", line 48, in <module>
+backend-1  |     from app.graphql.modules.vsql import VsqlQuery, VsqlMutation
+backend-1  |   File "/app/app/graphql/modules/vsql/__init__.py", line 3, in <module>
+backend-1  |     from app.graphql.modules.vsql.resolvers import Query as VsqlQuery
+backend-1  |   File "/app/app/graphql/modules/vsql/resolvers.py", line 40, in <module>
+backend-1  |     from app.services import auth_vsql_service
+backend-1  |   File "/app/app/services/auth_vsql_service.py", line 10, in <module>
+backend-1  |     import jwt
+backend-1  | ModuleNotFoundError: No module named 'jwt'
 backend-1  | Traceback (most recent call last):
 backend-1  |   File "/opt/venv/bin/uvicorn", line 6, in <module>
 backend-1  |     sys.exit(main())
@@ -633,20 +368,22 @@ backend-1  |   File "<frozen importlib._bootstrap>", line 1147, in _find_and_loa
 backend-1  |   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
 backend-1  |   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
 backend-1  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
-backend-1  |   File "/app/app/main.py", line 26, in <module>
-backend-1  |     from app.api.vsql_download import router as vsql_download_router
-backend-1  |   File "/app/app/api/vsql_download.py", line 11, in <module>
-backend-1  |     from app.services import video_service
-backend-1  |   File "/app/app/services/video_service.py", line 12, in <module>
-backend-1  |     import imageio.v2 as imageio
-backend-1  | ModuleNotFoundError: No module named 'imageio'
-ubuntu@ip-172-31-94-206:~/aibackend$ docker compose --env-file .env -f compose.yaml exec ollama ollama pull nomic-embed-text
-pulling manifest
-pulling 970aa74c0a90: 100% ▕████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏ 274 MB
-pulling c71d239df917: 100% ▕████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏  11 KB
-pulling ce4a164fc046: 100% ▕████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏   17 B
-pulling 31df23ea7daa: 100% ▕████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏  420 B
-verifying sha256 digest
-writing manifest
-success
+backend-1  |   File "/app/app/main.py", line 41, in <module>
+backend-1  |     from app.graphql.context import get_graphql_context
+backend-1  |   File "/app/app/graphql/__init__.py", line 3, in <module>
+backend-1  |     from app.graphql.schema import schema
+backend-1  |   File "/app/app/graphql/schema.py", line 48, in <module>
+backend-1  |     from app.graphql.modules.vsql import VsqlQuery, VsqlMutation
+backend-1  |   File "/app/app/graphql/modules/vsql/__init__.py", line 3, in <module>
+backend-1  |     from app.graphql.modules.vsql.resolvers import Query as VsqlQuery
+backend-1  |   File "/app/app/graphql/modules/vsql/resolvers.py", line 40, in <module>
+backend-1  |     from app.services import auth_vsql_service
+backend-1  |   File "/app/app/services/auth_vsql_service.py", line 10, in <module>
+backend-1  |     import jwt
+backend-1  | ModuleNotFoundError: No module named 'jwt'
+[verify] Fix hints:
+[verify]   - Check logs for ModuleNotFoundError — add package to requirements.txt and rebuild
+[verify]   - git pull && bash deploy/remote-deploy.sh  (rebuilds backend image)
+[verify]   - Set EMBEDDING_PROVIDER=ollama in .env for small EC2 (avoid loading torch locally)
+[verify]   - docker compose … up -d --build --force-recreate backend
 ubuntu@ip-172-31-94-206:~/aibackend$

@@ -160,6 +160,16 @@ source "$(dirname "${BASH_SOURCE[0]}")/compose-diagnostics.sh"
 
 echo "[deploy] docker compose --env-file … ${COMPOSE_FILE_ARGS[*]} build backend"
 dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" build backend
+
+if [[ "${SKIP_VALIDATE_DEPLOY:-}" != "1" ]]; then
+  echo "[deploy] validate_env --import-app (one-off before uvicorn starts)"
+  dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" run --rm --no-deps -T backend \
+    python scripts/validate_env.py --strict --import-app || {
+    echo "[deploy] ERROR: validate_env --import-app failed (missing pip dep or OOM exit 137)."
+    exit 1
+  }
+fi
+
 echo "[deploy] docker compose up -d --force-recreate backend"
 dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" pull || true
 set +e
@@ -197,16 +207,14 @@ if [[ "${SKIP_ALEMBIC_DEPLOY:-}" != "1" ]]; then
 fi
 
 if [[ "${SKIP_VALIDATE_DEPLOY:-}" != "1" ]]; then
-  echo "[deploy] validate_env inside backend container"
+  echo "[deploy] validate_env --strict (running backend)"
   set +e
   dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" exec -T backend \
-    python scripts/validate_env.py --strict --import-app
+    python scripts/validate_env.py --strict
   container_validate_rc=$?
   set -e
   if [[ "$container_validate_rc" -ne 0 ]]; then
-    echo "[deploy] ERROR: container validate_env --import-app exited $container_validate_rc."
-    compose_print_backend_logs 60 "[deploy]"
-    exit 1
+    echo "[deploy] WARNING: container validate_env exited $container_validate_rc."
   fi
 fi
 
