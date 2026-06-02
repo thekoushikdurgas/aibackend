@@ -10,7 +10,7 @@ def test_sqlite_database_url_wins_in_production(monkeypatch):
     monkeypatch.setenv("DATABASE_URL", "sqlite+aiosqlite:///./data/durgasai.db")
     monkeypatch.setenv(
         "POSTGRESQL_URL",
-        "postgresql+asyncpg://user:pass@54.146.221.133:5432/postgres",
+        "postgresql+asyncpg://user:pass@54.164.157.59:5432/postgres",
     )
     clear_base_settings_cache()
     settings = Settings()

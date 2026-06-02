@@ -15,6 +15,17 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
+def _inc_consumed_metric(topic: str, group_id: str) -> None:
+    try:
+        from app.core.metrics import KAFKA_CONSUMED_EVENTS_TOTAL
+
+        KAFKA_CONSUMED_EVENTS_TOTAL.labels(topic=topic, group_id=group_id).inc()
+    except ImportError:
+        pass
+    except Exception as exc:
+        logger.debug("kafka consumed metric unavailable: %s", exc)
+
+
 class KafkaConsumerGroup:
     """Manages an async Kafka consumer subscribed to multiple topics."""
 
@@ -81,14 +92,7 @@ class KafkaConsumerGroup:
                             key=msg.key,
                             payload=msg.value,
                         )
-                        try:
-                            from app.core.metrics import KAFKA_CONSUMED_EVENTS_TOTAL
-
-                            KAFKA_CONSUMED_EVENTS_TOTAL.labels(
-                                topic=msg.topic, group_id=self.group_id
-                            ).inc()
-                        except Exception:
-                            pass
+                        _inc_consumed_metric(msg.topic, self.group_id)
                     except Exception as exc:
                         logger.error(
                             "Kafka handler error topic=%s offset=%s: %s",

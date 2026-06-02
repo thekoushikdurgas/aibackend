@@ -1,13 +1,13 @@
-# EC2 deployment (54.146.221.133)
+# EC2 deployment (54.164.157.59)
 
 Production API: **HTTP** on port **8000** (no TLS in this setup).
 
 | Endpoint          | URL                                                        |
 | ----------------- | ---------------------------------------------------------- |
-| Health            | `http://54.146.221.133:8000/health`                        |
-| GraphQL           | `http://54.146.221.133:8000/graphql`                       |
-| WebSocket gateway | `ws://54.146.221.133:8000/ws/gateway`                      |
-| Socket.IO         | `http://54.146.221.133:8000/realtime` (default mount path) |
+| Health            | `http://54.164.157.59:8000/health`                        |
+| GraphQL           | `http://54.164.157.59:8000/graphql`                       |
+| WebSocket gateway | `ws://54.164.157.59:8000/ws/gateway`                      |
+| Socket.IO         | `http://54.164.157.59:8000/realtime` (default mount path) |
 
 ## One-time host setup
 
@@ -69,7 +69,7 @@ curl -fsS http://127.0.0.1:8000/health
 From your laptop (security group must allow 8000):
 
 ```bash
-curl -fsS http://54.146.221.133:8000/health
+curl -fsS http://54.164.157.59:8000/health
 # or
 bash deploy/verify-public.sh
 ```
@@ -82,7 +82,7 @@ Repository: [thekoushikdurgas/aibackend](https://github.com/thekoushikdurgas/aib
 
 | Secret        | Example / notes                        |
 | ------------- | -------------------------------------- |
-| `EC2_HOST`    | `54.146.221.133`                       |
+| `EC2_HOST`    | `54.164.157.59`                       |
 | `EC2_USER`    | `ubuntu`                               |
 | `EC2_SSH_KEY` | Full PEM private key for the instance  |
 | `ENV_FILE`    | Entire production `.env` file contents |
@@ -108,8 +108,8 @@ See also [GITHUB_SECRETS.md](GITHUB_SECRETS.md) for a copy-paste checklist.
 In `durgasos/.env` (or hosting provider env):
 
 ```env
-NEXT_PUBLIC_BACKEND_URL=http://54.146.221.133:8000
-BACKEND_GRAPHQL_URL=http://54.146.221.133:8000/graphql
+NEXT_PUBLIC_BACKEND_URL=http://54.164.157.59:8000
+BACKEND_GRAPHQL_URL=http://54.164.157.59:8000/graphql
 ```
 
 Match `CORS_ORIGINS` on the API with your Next.js origin (e.g. `https://your-app.vercel.app`).

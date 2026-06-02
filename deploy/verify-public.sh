@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Optional: verify API reachable from outside the EC2 host (run from laptop or CI).
 #
-#   PUBLIC_API_URL=http://54.146.221.133:8000 bash deploy/verify-public.sh
+#   PUBLIC_API_URL=http://54.164.157.59:8000 bash deploy/verify-public.sh
 
 set -euo pipefail
 
@@ -9,7 +9,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # shellcheck source=deploy/verify-http.sh
 source "$ROOT/deploy/verify-http.sh"
 
-API_URL="${PUBLIC_API_URL:-http://54.146.221.133:8000}"
+API_URL="${PUBLIC_API_URL:-http://54.164.157.59:8000}"
 API_URL="${API_URL%/}"
 VERIFY_HTTP_TIMEOUT="${VERIFY_HTTP_TIMEOUT:-30}"
 

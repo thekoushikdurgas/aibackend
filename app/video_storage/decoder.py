@@ -1,6 +1,7 @@
 """Video frame to data decoder."""
 
 import json
+import logging
 import struct
 import zlib
 from typing import Iterator, List, Optional, Union, Any
@@ -11,6 +12,8 @@ from .schema import FrameHeader, VideoSchema
 from .exceptions import VideoDecodingError, FrameHeaderError
 from ..codec.compression import zstd_decompress
 from ..codec.format_constants import FRAME_WIDTH, FRAME_HEIGHT
+
+logger = logging.getLogger(__name__)
 
 # zstd magic bytes (first 4 bytes of a zstd frame)
 _ZSTD_MAGIC = b"\x28\xb5\x2f\xfd"
@@ -303,7 +306,8 @@ class DataDecoder:
 
             return True
 
-        except Exception:
+        except Exception as exc:
+            logger.debug("frame validation failed: %s", exc, exc_info=True)
             return False
 
     def _calculate_expected_frame_count(self, header: FrameHeader) -> int:
@@ -349,5 +353,6 @@ class DataDecoder:
         try:
             schema = self.get_schema_from_frames(frames)
             return schema.row_count
-        except Exception:
+        except Exception as exc:
+            logger.debug("row count from frames failed: %s", exc, exc_info=True)
             return 0

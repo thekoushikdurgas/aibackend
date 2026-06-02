@@ -8,9 +8,12 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import Any, AsyncIterator, Dict, Optional
+from typing import TYPE_CHECKING, Any, AsyncIterator, Dict, Optional
 
 from app.config import settings
+
+if TYPE_CHECKING:
+    from redis.asyncio import Redis
 
 logger = logging.getLogger(__name__)
 
@@ -27,10 +30,10 @@ CHAN_OS_NOTIFICATIONS = "os.notifications"
 CHAN_WORKFLOW_EVENTS = "workflow.events"
 CHAN_SYSTEM_HEALTH = "system.health"
 
-_redis_client = None
+_redis_client: Optional[Redis] = None
 
 
-async def get_redis():
+async def get_redis() -> Optional[Redis]:
     """Get or create the shared async Redis client."""
     global _redis_client
     if _redis_client is not None:
@@ -165,8 +168,10 @@ class RedisLock:
         if self._redis is not None:
             try:
                 await self._redis.delete(self.key)
-            except Exception:
-                pass
+            except Exception as exc:
+                logger.debug(
+                    "lock release failed for %s: %s", self.key, exc, exc_info=True
+                )
 
 
 # ── Pub/Sub helpers ──────────────────────────────────────────────────────────

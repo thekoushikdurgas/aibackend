@@ -13,9 +13,12 @@ import uuid
 from concurrent.futures import ThreadPoolExecutor
 from datetime import timedelta
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import TYPE_CHECKING, Any, Dict, Optional
 
 from app.config import settings
+
+if TYPE_CHECKING:
+    from minio import Minio
 
 logger = logging.getLogger(__name__)
 
@@ -26,10 +29,10 @@ BUCKET_DOCUMENTS = "rag-documents"
 BUCKET_ARTIFACTS = "artifacts"
 
 _executor = ThreadPoolExecutor(max_workers=4)
-_minio_client = None
+_minio_client: Optional[Minio] = None
 
 
-def _get_client():
+def _get_client() -> Optional[Minio]:
     """Synchronously get or create the Minio client."""
     global _minio_client
     if _minio_client is not None:

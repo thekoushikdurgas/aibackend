@@ -4,16 +4,30 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import Any, Dict, Optional
+from typing import TYPE_CHECKING, Any, Dict, Optional
 
 from app.config import settings
 
+if TYPE_CHECKING:
+    from aiokafka import AIOKafkaProducer
+
 logger = logging.getLogger(__name__)
 
-_producer = None
+_producer: Optional[AIOKafkaProducer] = None
 
 
-async def _get_producer():
+def _inc_published_metric(topic: str) -> None:
+    try:
+        from app.core.metrics import KAFKA_PUBLISHED_EVENTS_TOTAL
+
+        KAFKA_PUBLISHED_EVENTS_TOTAL.labels(topic=topic).inc()
+    except ImportError:
+        pass
+    except Exception as exc:
+        logger.debug("kafka published metric unavailable: %s", exc)
+
+
+async def _get_producer() -> Optional[AIOKafkaProducer]:
     """Lazy-initialize aiokafka producer on first use."""
     global _producer
     if _producer is not None:
@@ -59,12 +73,7 @@ async def publish_json(
     try:
         await producer.send_and_wait(topic, value=payload, key=key)
         logger.debug("kafka_sent topic=%s key=%s", topic, key)
-        try:
-            from app.core.metrics import KAFKA_PUBLISHED_EVENTS_TOTAL
-
-            KAFKA_PUBLISHED_EVENTS_TOTAL.labels(topic=topic).inc()
-        except Exception:
-            pass
+        _inc_published_metric(topic)
     except Exception as exc:
         logger.warning("kafka_send_failed topic=%s error=%s", topic, exc)
 
