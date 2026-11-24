@@ -64,8 +64,19 @@ htmlcov/
 
 # Distribution / packaging
 *.whl
+<<<<<<< Updated upstream
 config.bat
 
 # Local EC2 provision metadata / env copies (never commit)
 deploy/.ec2-instance.env
 deploy/.env.ec2
+=======
+
+# Local EC2 provision metadata (instance id / EIP)
+deploy/.ec2-instance.env
+
+
+deploy/.env.ec2
+deploy/.ec2-instance.env
+
+>>>>>>> Stashed changes

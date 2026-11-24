@@ -447,9 +447,44 @@ def list_models(
     return models
 
 
+# Curated chat IDs known to work with a free build.nvidia.com API key (trial/rate-limited).
+# Prefer these at the front of picker lists; catalog rotates — keep IDs that stay callable.
+RECOMMENDED_FREE_CHAT_MODELS: List[str] = [
+    "nvidia/nemotron-3.5-bolt-e4b",
+    "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "deepseek-ai/deepseek-v4.1-flash",
+    "minimaxai/minimax-m3.1-flash",
+    "nvidia/llama-3.3-nemotron-super-49b-v1",
+    "meta/llama-3.1-8b-instruct",
+    "google/gemma-2-9b-it",
+    "mistralai/mistral-nemotron",
+]
+
+
+def get_recommended_free_chat_models() -> List[str]:
+    """Return curated free-trial-friendly chat model IDs (stable order)."""
+    return list(RECOMMENDED_FREE_CHAT_MODELS)
+
+
 def get_chat_models() -> List[str]:
     """Get list of all chat model IDs"""
     return [m.id for m in list_models(category=ModelCategory.CHAT)]
+
+
+def merge_chat_model_ids(
+    preferred: List[str],
+    *extra_lists: List[str],
+) -> List[str]:
+    """Deduplicate model IDs, keeping ``preferred`` order first."""
+    seen: Set[str] = set()
+    out: List[str] = []
+    for group in (preferred, *extra_lists):
+        for mid in group:
+            if not mid or mid in seen:
+                continue
+            seen.add(mid)
+            out.append(mid)
+    return out
 
 
 def get_vision_models() -> List[str]:

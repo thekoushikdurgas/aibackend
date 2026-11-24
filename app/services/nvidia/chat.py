@@ -10,7 +10,13 @@ from typing import Any, AsyncIterator, Dict, List, Optional
 from app.config import settings
 from app.services.llm.base import BaseLLMProvider, LLMConfig, LLMResponse
 from .client import NVIDIAClient, BaseURLType
-from .models import get_model, get_chat_models, validate_model
+from .models import (
+    get_model,
+    get_chat_models,
+    get_recommended_free_chat_models,
+    merge_chat_model_ids,
+    validate_model,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -267,8 +273,24 @@ class NVIDIAChatService(BaseLLMProvider):
         return await self.client.health_check(BaseURLType.INTEGRATE)
 
     async def list_models(self) -> List[str]:
-        """List all available chat models"""
-        return get_chat_models()
+        """List chat models: live catalog when keyed, else recommended + static registry."""
+        recommended = get_recommended_free_chat_models()
+        static = get_chat_models()
+        live: List[str] = []
+        if self.client.api_key:
+            try:
+                response = await self.client.get("models", url_type=BaseURLType.INTEGRATE)
+                data = response.json()
+                items = data.get("data") if isinstance(data, dict) else None
+                if isinstance(items, list):
+                    for item in items:
+                        if isinstance(item, dict) and item.get("id"):
+                            live.append(str(item["id"]))
+                        elif isinstance(item, str):
+                            live.append(item)
+            except Exception as e:
+                logger.warning("NVIDIA live model list failed, using static catalog: %s", e)
+        return merge_chat_model_ids(recommended, live, static)
 
     async def get_model_info(self, model_id: str) -> Optional[Dict[str, Any]]:
         """

@@ -238,12 +238,33 @@ async def handle_chat_providers(
         try:
             provider = LLMProviderFactory.get_provider(name)
             healthy = await provider.health_check()
-            models = await provider.list_models() if healthy else []
+            try:
+                models = await provider.list_models()
+            except Exception:
+                models = []
+            if not healthy and name == "nvidia" and not models:
+                from app.services.nvidia.models import (
+                    get_recommended_free_chat_models,
+                    get_chat_models,
+                    merge_chat_model_ids,
+                )
+
+                models = merge_chat_model_ids(
+                    get_recommended_free_chat_models(), get_chat_models()
+                )
             row = {
                 "name": name,
                 "status": "available" if healthy else "unavailable",
                 "models": models[:10],
             }
+            if not healthy and name == "nvidia":
+                row["hint"] = "Add NVIDIA API key in Settings"
+                has_key = bool(
+                    getattr(getattr(provider, "client", None), "api_key", None)
+                )
+                row["needs_api_key"] = not has_key
+                if has_key:
+                    row["hint"] = "NVIDIA API unreachable — check key or network"
             providers.append(enrich_provider_info(name, row))
         except Exception as e:
             row = {"name": name, "status": "error", "error": str(e), "models": []}
@@ -258,7 +279,7 @@ async def handle_chat_provider_models(
     connection_id: Optional[str] = None,
 ) -> Dict[str, Any]:
     """Handle chat.providers.{provider_name}.models method"""
-    provider_name = params.get("provider_name")
+    provider_name = params.get("provider_name") or params.get("provider")
     if not provider_name:
         raise JSONRPCError(
             JSONRPCErrorCode.INVALID_PARAMS, "Missing required parameter: provider_name"
@@ -267,11 +288,52 @@ async def handle_chat_provider_models(
     try:
         provider = LLMProviderFactory.get_provider(provider_name)
         healthy = await provider.health_check()
+        models: list = []
+        try:
+            models = await provider.list_models()
+        except Exception as list_err:
+            logger.warning(
+                "list_models failed for %s (healthy=%s): %s",
+                provider_name,
+                healthy,
+                list_err,
+            )
+            models = []
 
         if not healthy:
-            return {"provider": provider_name, "status": "unavailable", "models": []}
+            hint = None
+            needs_api_key = False
+            if provider_name.lower() == "nvidia":
+                hint = "Add NVIDIA API key in Settings"
+                needs_api_key = not bool(
+                    getattr(
+                        getattr(provider, "client", None),
+                        "api_key",
+                        None,
+                    )
+                    or False
+                )
+                if not models:
+                    from app.services.nvidia.models import (
+                        get_recommended_free_chat_models,
+                        get_chat_models,
+                        merge_chat_model_ids,
+                    )
 
-        models = await provider.list_models()
+                    models = merge_chat_model_ids(
+                        get_recommended_free_chat_models(), get_chat_models()
+                    )
+            payload: Dict[str, Any] = {
+                "provider": provider_name,
+                "status": "unavailable",
+                "default_model": getattr(provider, "default_model", None),
+                "models": models,
+            }
+            if hint:
+                payload["hint"] = hint
+            if needs_api_key:
+                payload["needs_api_key"] = True
+            return payload
 
         return {
             "provider": provider_name,
