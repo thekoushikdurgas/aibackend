@@ -1,4 +1,5 @@
-# Deploy backend Docker stack on EC2 after API CI passes on main, or via workflow_dispatch.
+# Deploy backend Docker Compose stack on EC2 after API CI passes on main, or via workflow_dispatch.
+# This is EC2 + Docker — not AWS Lambda.
 #
 # Secrets (GitHub → Settings → Secrets and variables → Actions):
 #   EC2_HOST, EC2_USER, EC2_SSH_KEY — SSH access
@@ -13,15 +14,16 @@
 #   DEPLOY_SUBDIR — e.g. ai.backend when the repo is a monorepo (default empty = clone root is backend)
 #   VERIFY_SLEEP_SECONDS — seconds to wait before health checks (optional)
 #   VERIFY_STRICT_READY — set to 1 to fail deploy if GraphQL systemReady is not_ready (optional)
-#   VERIFY_REQUIRE_DOCKER — set to 1 to fail verify when docker is missing (default 0 = skip verify)
+#   VERIFY_REQUIRE_DOCKER — set to 0 only to skip verify when docker is missing (default 1 = fail)
 #   SKIP_VALIDATE_DEPLOY — set to 1 to skip python validate_env in remote-deploy.sh (not recommended)
 #   SKIP_COMPOSE_VERSION_CHECK — set to 1 on the server to silence Compose v2.20+ include: warnings
+#   PUBLIC_VERIFY — set to 0 to skip the Actions-runner public /health check (default 1)
 #
-# EC2 host setup: deploy/EC2.md and deploy/GITHUB_SECRETS.md
+# EC2 host setup: deploy/EC2.md, deploy/GITHUB_SECRETS.md, deploy/bootstrap-git-on-ec2.sh
+# One-shot secrets: deploy/setup-github-secrets.ps1 (requires gh auth)
 #
-# Optional: EC2_SSH_KEY_PASSPHRASE for encrypted keys (extend appleboy/ssh-action if needed).
-#
-# Requires Docker Compose v2.20+ on the host (root compose.yaml uses include:).
+# Requires Docker Compose v2.20+ on the host (compose.prod.yaml / compose.yaml use include:).
+# Torch image builds often exceed appleboy's default 10m command_timeout — keep it high.
 
 name: Deploy API to EC2
 
@@ -36,7 +38,7 @@ jobs:
   deploy:
     name: Deploy to EC2
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 90
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'workflow_run' &&
@@ -44,8 +46,29 @@ jobs:
        github.event.workflow_run.head_branch == 'main')
 
     steps:
+      - name: Require deploy secrets
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          EC2_USER: ${{ secrets.EC2_USER }}
+          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+          ENV_FILE: ${{ secrets.ENV_FILE }}
+        run: |
+          set -euo pipefail
+          missing=0
+          for name in EC2_HOST EC2_USER EC2_SSH_KEY ENV_FILE; do
+            eval "val=\${$name:-}"
+            if [ -z "$val" ]; then
+              echo "::error::Missing Actions secret: $name (see deploy/GITHUB_SECRETS.md)"
+              missing=1
+            fi
+          done
+          if [ "$missing" -ne 0 ]; then
+            exit 1
+          fi
+          echo "Deploy secrets present (values not logged)."
+
       - name: Deploy and verify via SSH
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.0
         env:
           ENV_FILE_CONTENT: ${{ secrets.ENV_FILE }}
         with:
@@ -53,12 +76,17 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
+          # Default appleboy timeout is 10m; backend image build needs far longer.
+          command_timeout: 60m
+          script_stop: true
           envs: ENV_FILE_CONTENT
           script: |
             set -euo pipefail
             export VERIFY_SLEEP_SECONDS="${{ vars.VERIFY_SLEEP_SECONDS }}"
             export VERIFY_STRICT_READY="${{ vars.VERIFY_STRICT_READY }}"
-            export VERIFY_REQUIRE_DOCKER="${{ vars.VERIFY_REQUIRE_DOCKER }}"
+            # Default require Docker verify so a silent skip cannot greenlight a broken deploy.
+            _vrd="${{ vars.VERIFY_REQUIRE_DOCKER }}"
+            export VERIFY_REQUIRE_DOCKER="${_vrd:-1}"
             export SKIP_VALIDATE_DEPLOY="${{ vars.SKIP_VALIDATE_DEPLOY }}"
             export SKIP_COMPOSE_VERSION_CHECK="${{ vars.SKIP_COMPOSE_VERSION_CHECK }}"
 
@@ -66,20 +94,70 @@ jobs:
             REPO_ROOT="${REPO_ROOT:-/home/ubuntu/aibackend}"
             SUB="${{ vars.DEPLOY_SUBDIR }}"
             SUB="${SUB:-}"
+            REPO_URL="${{ vars.EC2_REPO_URL }}"
+            REPO_URL="${REPO_URL:-https://github.com/thekoushikdurgas/aibackend.git}"
+
+            if [ ! -d "$REPO_ROOT/.git" ]; then
+              echo "[deploy] No git checkout at $REPO_ROOT — cloning $REPO_URL"
+              mkdir -p "$(dirname "$REPO_ROOT")"
+              if [ -d "$REPO_ROOT" ] && [ -f "$REPO_ROOT/.env" ]; then
+                cp -a "$REPO_ROOT/.env" /tmp/aibackend.env.preserve
+              fi
+              if [ -d "$REPO_ROOT" ] && [ ! -d "$REPO_ROOT/.git" ]; then
+                mv "$REPO_ROOT" "${REPO_ROOT}.pre-git.$$"
+              fi
+              git clone --branch main --single-branch "$REPO_URL" "$REPO_ROOT"
+              if [ -f /tmp/aibackend.env.preserve ]; then
+                cp -a /tmp/aibackend.env.preserve "$REPO_ROOT/.env"
+                chmod 600 "$REPO_ROOT/.env"
+                rm -f /tmp/aibackend.env.preserve
+              fi
+            fi
 
             BACKEND_DIR="$REPO_ROOT"
             if [ -n "$SUB" ]; then BACKEND_DIR="$REPO_ROOT/$SUB"; fi
 
             cd "$REPO_ROOT"
+            git remote set-url origin "$REPO_URL" || git remote add origin "$REPO_URL"
             git fetch origin main
+            git checkout -B main origin/main
             git reset --hard origin/main
+            git clean -fd -e .env -e 'data/' -e '.venv/' -e 'venv/'
 
             mkdir -p "$BACKEND_DIR"
             cd "$BACKEND_DIR"
             # Env passthrough avoids bash expanding ${…} inside the secret body (would break with set -u).
             # Write as SSH user (not root) so validate_env and compose can read .env.
-            printf '%s\n' "${ENV_FILE_CONTENT:-}" > .env
-            chmod 600 .env
+            if [ -n "${ENV_FILE_CONTENT:-}" ]; then
+              printf '%s\n' "${ENV_FILE_CONTENT}" > .env
+              chmod 600 .env
+            elif [ ! -s .env ]; then
+              echo "[deploy] ERROR: ENV_FILE secret empty and .env missing on host"
+              exit 1
+            fi
+
+            # Prefer production compose entry (sidecars loopback-bound).
+            test -f compose.prod.yaml || test -f compose.yaml
 
             bash deploy/remote-deploy.sh
             bash deploy/verify-stack.sh
+
+      - name: Public health check from Actions runner
+        if: ${{ vars.PUBLIC_VERIFY != '0' }}
+        env:
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+        run: |
+          set -euo pipefail
+          url="http://${EC2_HOST}:8000/health"
+          echo "Probing $url"
+          for i in $(seq 1 20); do
+            if curl -fsS --max-time 15 "$url"; then
+              echo
+              echo "Public health OK"
+              exit 0
+            fi
+            echo "attempt $i failed; sleep 5"
+            sleep 5
+          done
+          echo "::error::Public /health failed for $url"
+          exit 1

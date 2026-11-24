@@ -225,7 +225,8 @@ app = FastAPI(
 app.state.limiter = limiter
 
 # Configure CORS — explicit origins only (credentials=True is incompatible with "*").
-cors_origins = list(
+# chrome-extension:// in CORS_ORIGINS is a marker: match any extension id via regex.
+_cors_raw = list(
     dict.fromkeys(
         settings.cors_origins_list
         + [
@@ -233,8 +234,19 @@ cors_origins = list(
             "http://127.0.0.1:8501",
             "http://localhost:3000",
             "http://127.0.0.1:3000",
+            "http://44.208.230.7:8000",
         ]
     )
+)
+_allow_chrome_ext = any(
+    o == "chrome-extension://" or o.startswith("chrome-extension://") for o in _cors_raw
+)
+cors_origins = [
+    o for o in _cors_raw if o != "chrome-extension://" and not o.startswith("chrome-extension://")
+]
+# Keep exact chrome-extension://<id> entries if someone listed a full id.
+cors_origins.extend(
+    o for o in _cors_raw if o.startswith("chrome-extension://") and len(o) > len("chrome-extension://")
 )
 
 # Middleware: last added = outermost (runs first on incoming request).
@@ -248,6 +260,7 @@ app.add_middleware(CorrelationIdMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=cors_origins,
+    allow_origin_regex=r"^chrome-extension://[a-p]{32}$" if _allow_chrome_ext else None,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

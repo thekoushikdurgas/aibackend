@@ -13,6 +13,7 @@ WS_METHOD_MODULES = [
     "health",
     "rag",
     "metrics",
+    "settings_ai_providers",
     "nvidia",
     "groq",
     "ollama",

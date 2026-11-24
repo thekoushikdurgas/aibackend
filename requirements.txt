@@ -2,6 +2,8 @@
 fastapi==0.109.2
 uvicorn[standard]==0.27.1
 strawberry-graphql[fastapi]==0.315.3
+# graphql-core 3.3+ removed ExecutionContext (breaks strawberry 0.315 import)
+graphql-core>=3.2.3,<3.3
 python-multipart==0.0.9
 # websockets 13+ API but <16 (Socket.IO / WS clients)
 websockets>=13,<16

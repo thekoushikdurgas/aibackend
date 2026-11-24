@@ -3,9 +3,12 @@
 # Services: PostgreSQL, Redis, ChromaDB, Kafka (KRaft), MinIO, Ollama,
 #           Prometheus, Grafana, Kafka-UI, pgAdmin, backend.
 #
-# Local dev: docker compose -f docker/docker-compose.yml up -d
-# Production: only backend publishes host port 8000; set *_EXTERNAL_PORT=0
-#             to suppress host-port bindings for internal services.
+# Local / EC2: docker compose --env-file .env -f compose.yaml up -d
+# Production EC2: prefer compose.prod.yaml (same stack; docs + deploy use it).
+#
+# Sidecar host ports bind to 127.0.0.1 only (not 0.0.0.0). Backend keeps
+# 8000:8000 for the public API. COMPOSE_PUBLISH_HOST overrides the bind
+# address if you intentionally need LAN access on a trusted network.
 
 services:
   db:
@@ -25,7 +28,7 @@ services:
       - durgasai_network
     restart: unless-stopped
     ports:
-      - '${POSTGRES_EXTERNAL_PORT:-5432}:5432'
+      - '${COMPOSE_PUBLISH_HOST:-127.0.0.1}:${POSTGRES_EXTERNAL_PORT:-5432}:5432'
 
   backend:
     build:
@@ -72,8 +75,7 @@ services:
         condition: service_started
       kafka:
         condition: service_healthy
-      minio:
-        condition: service_healthy
+      # minio is optional — enable with compose profile `minio` (see compose.prod.yaml)
     networks:
       - durgasai_network
     restart: unless-stopped
@@ -98,7 +100,7 @@ services:
       timeout: 5s
       retries: 5
     ports:
-      - '${REDIS_EXTERNAL_PORT:-6379}:6379'
+      - '${COMPOSE_PUBLISH_HOST:-127.0.0.1}:${REDIS_EXTERNAL_PORT:-6379}:6379'
 
   ollama:
     image: ollama/ollama:latest
@@ -120,7 +122,7 @@ services:
       - PERSIST_DIRECTORY=/chroma/chroma
       - ANONYMIZED_TELEMETRY=FALSE
     ports:
-      - '${CHROMA_EXTERNAL_PORT:-8001}:8000'
+      - '${COMPOSE_PUBLISH_HOST:-127.0.0.1}:${CHROMA_EXTERNAL_PORT:-8001}:8000'
 
   # Official Apache image (Bitnami public tags were removed from Docker Hub in 2025).
   kafka:
@@ -150,7 +152,7 @@ services:
     volumes:
       - kafka_data:/var/lib/kafka/data
     ports:
-      - '${KAFKA_EXTERNAL_PORT:-9092}:9092'
+      - '${COMPOSE_PUBLISH_HOST:-127.0.0.1}:${KAFKA_EXTERNAL_PORT:-9092}:9092'
     healthcheck:
       # apache/kafka installs scripts under /opt/kafka/bin (not on PATH).
       test:
@@ -172,12 +174,13 @@ services:
       - KAFKA_CLUSTERS_0_NAME=durgasos-local
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
     ports:
-      - '${KAFKA_UI_PORT:-8080}:8080'
+      - '${COMPOSE_PUBLISH_HOST:-127.0.0.1}:${KAFKA_UI_PORT:-8080}:8080'
     depends_on:
       kafka:
         condition: service_healthy
 
   minio:
+    # Prefer Docker Hub; if anonymous pull is denied, omit via compose.prod.yaml profile `minio`.
     image: minio/minio:latest
     networks:
       - durgasai_network
@@ -189,8 +192,8 @@ services:
     volumes:
       - minio_data:/data
     ports:
-      - '${MINIO_API_PORT:-9000}:9000'
-      - '${MINIO_CONSOLE_PORT:-9001}:9001'
+      - '${COMPOSE_PUBLISH_HOST:-127.0.0.1}:${MINIO_API_PORT:-9000}:9000'
+      - '${COMPOSE_PUBLISH_HOST:-127.0.0.1}:${MINIO_CONSOLE_PORT:-9001}:9001'
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
       interval: 15s
@@ -212,7 +215,7 @@ services:
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
     ports:
-      - '${PROMETHEUS_PORT:-9090}:9090'
+      - '${COMPOSE_PUBLISH_HOST:-127.0.0.1}:${PROMETHEUS_PORT:-9090}:9090'
 
   grafana:
     image: grafana/grafana:latest
@@ -229,7 +232,7 @@ services:
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
       - ./grafana/dashboards:/etc/grafana/dashboards:ro
     ports:
-      - '${GRAFANA_PORT:-3001}:3000'
+      - '${COMPOSE_PUBLISH_HOST:-127.0.0.1}:${GRAFANA_PORT:-3001}:3000'
     depends_on:
       - prometheus
 
@@ -244,7 +247,7 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     ports:
-      - '${PGADMIN_PORT:-5050}:80'
+      - '${COMPOSE_PUBLISH_HOST:-127.0.0.1}:${PGADMIN_PORT:-5050}:80'
     depends_on:
       db:
         condition: service_healthy

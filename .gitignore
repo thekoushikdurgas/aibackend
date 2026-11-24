@@ -24,7 +24,9 @@ wheels/
 node_modules/
 
 # Secrets (never commit real credentials)
+.env
 .env.pro
+.env.local
 .env.*.local
 
 # Virtual Environment
@@ -34,6 +36,7 @@ ENV/
 .venv
 
 # IDE
+.vscode/
 .idea/
 *.swp
 *.swo
@@ -62,3 +65,7 @@ htmlcov/
 # Distribution / packaging
 *.whl
 config.bat
+
+# Local EC2 provision metadata / env copies (never commit)
+deploy/.ec2-instance.env
+deploy/.env.ec2

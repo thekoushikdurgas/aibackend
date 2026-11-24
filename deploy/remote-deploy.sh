@@ -142,13 +142,16 @@ fi
 
 compose_env_args
 
+# Prefer production entry (EC2 Docker — not Lambda); fall back to compose.yaml / docker/.
 COMPOSE_FILE_ARGS=()
-if [[ -f compose.yaml ]]; then
+if [[ -f compose.prod.yaml ]]; then
+  COMPOSE_FILE_ARGS=(-f compose.prod.yaml)
+elif [[ -f compose.yaml ]]; then
   COMPOSE_FILE_ARGS=(-f compose.yaml)
 elif [[ -f docker/docker-compose.yml ]]; then
   COMPOSE_FILE_ARGS=(-f docker/docker-compose.yml)
 else
-  echo "[deploy] ERROR: No compose.yaml or docker/docker-compose.yml found under $ROOT"
+  echo "[deploy] ERROR: No compose.prod.yaml, compose.yaml, or docker/docker-compose.yml under $ROOT"
   exit 1
 fi
 
@@ -157,6 +160,60 @@ compose_dc() {
 }
 # shellcheck source=deploy/compose-diagnostics.sh
 source "$(dirname "${BASH_SOURCE[0]}")/compose-diagnostics.sh"
+
+# minio is optional (compose.prod.yaml profile); Docker Hub often denies pulls.
+DEPLOY_DEPS=(db redis chromadb kafka ollama)
+
+_wait_dep_healthy() {
+  local svc="$1"
+  local max_sec="${2:-180}"
+  local elapsed=0
+  # chromadb / ollama may lack a healthcheck — "running" is enough.
+  while [[ "$elapsed" -lt "$max_sec" ]]; do
+    if compose_dc ps "$svc" 2>/dev/null | grep -qiE '\(healthy\)'; then
+      echo "[deploy] dependency $svc is healthy"
+      return 0
+    fi
+    if compose_dc ps "$svc" 2>/dev/null | grep -qiE 'Up '; then
+      if [[ "$svc" == "chromadb" || "$svc" == "ollama" ]]; then
+        echo "[deploy] dependency $svc is up (no healthcheck required)"
+        return 0
+      fi
+    fi
+    if compose_dc ps "$svc" 2>/dev/null | grep -qiE 'Restarting|Exited \(1\)|dead'; then
+      echo "[deploy] ERROR: dependency $svc is crash-looping"
+      compose_dc logs "$svc" --tail 50 2>&1 || true
+      return 1
+    fi
+    sleep 5
+    elapsed=$((elapsed + 5))
+  done
+  if compose_dc ps "$svc" 2>/dev/null | grep -qiE 'Up |healthy'; then
+    echo "[deploy] WARNING: dependency $svc not healthy within ${max_sec}s but appears up — continuing"
+    return 0
+  fi
+  echo "[deploy] ERROR: dependency $svc not ready within ${max_sec}s"
+  compose_dc ps "$svc" 2>&1 || true
+  compose_dc logs "$svc" --tail 50 2>&1 || true
+  return 1
+}
+
+echo "[deploy] docker compose --env-file … ${COMPOSE_FILE_ARGS[*]} pull (deps)"
+dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" pull "${DEPLOY_DEPS[@]}" || true
+
+echo "[deploy] docker compose up -d ${DEPLOY_DEPS[*]}"
+set +e
+dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" up -d "${DEPLOY_DEPS[@]}"
+deps_up_rc=$?
+set -e
+if [[ "$deps_up_rc" -ne 0 ]]; then
+  echo "[deploy] ERROR: failed to start dependency services (exit $deps_up_rc)"
+  exit "$deps_up_rc"
+fi
+
+for _dep in "${DEPLOY_DEPS[@]}"; do
+  _wait_dep_healthy "$_dep" "${DEPLOY_DEP_WAIT_SECONDS:-180}" || exit 1
+done
 
 echo "[deploy] docker compose --env-file … ${COMPOSE_FILE_ARGS[*]} build backend"
 dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" build backend
@@ -171,7 +228,6 @@ if [[ "${SKIP_VALIDATE_DEPLOY:-}" != "1" ]]; then
 fi
 
 echo "[deploy] docker compose up -d --force-recreate backend"
-dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" pull || true
 set +e
 dc "${COMPOSE_ENV[@]}" "${COMPOSE_FILE_ARGS[@]}" up -d --force-recreate backend
 up_rc=$?

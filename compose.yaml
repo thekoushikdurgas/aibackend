@@ -1,6 +1,10 @@
 # Compose entrypoint — uses `docker/docker-compose.yml` (Postgres + backend + deps).
 #
 # Manual: docker compose --env-file .env -f compose.yaml up -d
+# EC2 production: prefer compose.prod.yaml (deploy/remote-deploy.sh uses it when present).
+#
+# Sidecar ports bind to 127.0.0.1 by default; only backend :8000 is intended for
+# public access (see deploy/EC2.md). This is EC2 Docker Compose — not AWS Lambda.
 #
 # Requires Docker Compose v2.20+ (include). Paths under docker/ stay relative to docker/.
 

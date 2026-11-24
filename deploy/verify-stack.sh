@@ -69,12 +69,15 @@ trap cleanup_verify_compose_env EXIT
 VERIFY_COMPOSE_ENV_COPY="$(mktemp "${TMPDIR:-/tmp}/aibackend.verify.compose.XXXXXX.env")"
 sanitize_dotenv_for_compose .env "$VERIFY_COMPOSE_ENV_COPY"
 
-if [[ -f compose.yaml ]]; then
+# Prefer production entry on EC2 (compose.prod.yaml); same stack as compose.yaml.
+if [[ -f compose.prod.yaml ]]; then
+  COMPOSE_ARGS=(--env-file "$VERIFY_COMPOSE_ENV_COPY" -f compose.prod.yaml)
+elif [[ -f compose.yaml ]]; then
   COMPOSE_ARGS=(--env-file "$VERIFY_COMPOSE_ENV_COPY" -f compose.yaml)
 elif [[ -f docker/docker-compose.yml ]]; then
   COMPOSE_ARGS=(--env-file "$VERIFY_COMPOSE_ENV_COPY" -f docker/docker-compose.yml)
 else
-  echo "[verify] ERROR: compose.yaml or docker/docker-compose.yml not found"
+  echo "[verify] ERROR: compose.prod.yaml, compose.yaml, or docker/docker-compose.yml not found"
   exit 1
 fi
 
@@ -218,5 +221,36 @@ if [[ "$out" != "PONG" ]]; then
   echo "[verify] ERROR: expected PONG from redis, got: ${out:-<empty>} (check: compose_dc logs redis)"
   exit 1
 fi
+
+# Light WebSocket smoke (same host:port as HTTP). Optional; skip if python lacks websockets.
+echo "[verify] WebSocket /ws/gateway smoke"
+set +e
+VERIFY_WS_URL="${API_URL/http/ws}/ws/gateway" \
+  _run_timeout "${VERIFY_EXEC_TIMEOUT:-30}" python3 - << 'PY'
+import asyncio, json, os, sys
+url = os.environ.get("VERIFY_WS_URL", "ws://127.0.0.1:8000/ws/gateway")
+try:
+    import websockets
+except ImportError:
+    print("[verify] SKIP: python websockets not installed on host")
+    sys.exit(0)
+
+async def main():
+    try:
+        async with websockets.connect(url, open_timeout=10, close_timeout=5) as ws:
+            await ws.send(json.dumps({"jsonrpc": "2.0", "id": 1, "method": "ping", "params": {}}))
+            try:
+                await asyncio.wait_for(ws.recv(), timeout=5)
+            except asyncio.TimeoutError:
+                pass  # connection open is enough
+        print("[verify] WebSocket gateway accepted connection")
+    except Exception as e:
+        print(f"[verify] WARNING: WebSocket smoke failed: {e}")
+        # Non-fatal — HTTP stack already verified
+        sys.exit(0)
+
+asyncio.run(main())
+PY
+set -e
 
 echo "[verify] OK — FastAPI, GraphQL, Postgres, Redis checks passed."

@@ -1,4 +1,4 @@
-# DurgasAI Backend
+﻿# DurgasAI Backend
 
 FastAPI backend with AI agents for the DurgasAI Chrome extension.
 
@@ -91,7 +91,7 @@ Build context excludes `venv/` and tests via [`.dockerignore`](./.dockerignore).
 | Workflow   | File                                                             | Purpose                                                                                                                                                                                                                                                              |
 | ---------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **API CI** | [`.github/workflows/api-ci.yml`](./.github/workflows/api-ci.yml) | On push/PR: **ruff**, **black**, **mypy** (non-blocking), optional `scripts/check_best_practices.py`, **`validate_env`**, **pytest** + coverage with **Postgres 15** service. Installs `requirements.txt` + [`requirements-dev.txt`](./requirements-dev.txt).        |
-| **Deploy** | [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) | After **API CI** on `main` or **workflow_dispatch**: SSH to EC2 (`54.164.157.59` — see [`deploy/EC2.md`](./deploy/EC2.md)), `git reset`, [`deploy/remote-deploy.sh`](./deploy/remote-deploy.sh). Secrets: [`deploy/GITHUB_SECRETS.md`](./deploy/GITHUB_SECRETS.md). |
+| **Deploy** | [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml) | **EC2 Docker Compose** (not Lambda). After **API CI** on `main` or **workflow_dispatch**: SSH to EC2 (`44.208.230.7` — [`deploy/EC2.md`](./deploy/EC2.md)), `git reset`, [`deploy/remote-deploy.sh`](./deploy/remote-deploy.sh) via `compose.prod.yaml`. Secrets: [`deploy/GITHUB_SECRETS.md`](./deploy/GITHUB_SECRETS.md). SG hardening: [`deploy/harden-sg.md`](./deploy/harden-sg.md). |
 
 ## API Documentation
 
@@ -194,9 +194,9 @@ isort app/
 
 ### Local quality gate (`codebase.bat` / `codebase.sh`)
 
-From `ai.backend`, **`codebase.bat`** (Windows) or **`./codebase.sh`** runs pip install, mypy, black, ruff, pytest, and an import smoke test. On **Windows**, `pip check` often reports many packages as “not supported on this platform” even when imports succeed (binary wheel metadata). **`codebase.bat`** skips `pip check` automatically on **Windows with Python 3.13+**; set **`FORCE_PIP_CHECK=1`** to run it anyway, or **`SKIP_PIP_CHECK=1`** to skip on other setups. In CI (Linux), `pip check` is usually quiet.
+From `ai.backend`, **`codebase.bat`** (Windows) or **`./codebase.sh`** runs pip install, mypy, black, ruff, pytest, and an import smoke test. On **Windows**, `pip check` often reports many packages as â€œnot supported on this platformâ€ even when imports succeed (binary wheel metadata). **`codebase.bat`** skips `pip check` automatically on **Windows with Python 3.13+**; set **`FORCE_PIP_CHECK=1`** to run it anyway, or **`SKIP_PIP_CHECK=1`** to skip on other setups. In CI (Linux), `pip check` is usually quiet.
 
-For **non-interactive** runs (no “Start API server?” prompt), use **`SKIP_DEV_SERVER=1`** or **`NO_PROMPT=1`** with `codebase.bat`, or **`SKIP_DEV_SERVER=1`** / **`NO_PROMPT=1`** with `codebase.sh`, as documented in the script headers.
+For **non-interactive** runs (no â€œStart API server?â€ prompt), use **`SKIP_DEV_SERVER=1`** or **`NO_PROMPT=1`** with `codebase.bat`, or **`SKIP_DEV_SERVER=1`** / **`NO_PROMPT=1`** with `codebase.sh`, as documented in the script headers.
 
 ## License
 

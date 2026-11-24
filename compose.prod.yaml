@@ -1,0 +1,34 @@
+# Production EC2 entry — Docker Compose on a single host (not Lambda).
+#
+# Same services as compose.yaml; sidecars bind to 127.0.0.1 via
+# docker/docker-compose.yml (COMPOSE_PUBLISH_HOST default). Only backend
+# publishes the public API on host port 8000.
+#
+# MinIO is profile-gated (`minio`) because Docker Hub often denies anonymous
+# pulls of minio/minio from some hosts. Enable with: --profile minio
+# Backend uses local/S3 storage when MinIO is absent.
+#
+# Manual:
+#   docker compose --env-file .env -f compose.prod.yaml up -d --build
+#
+# Deploy scripts prefer this file when present (see deploy/remote-deploy.sh).
+#
+# Requires Docker Compose v2.20+ (include).
+
+include:
+  - path: compose.yaml
+
+services:
+  minio:
+    profiles: [minio]
+
+  backend:
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      chromadb:
+        condition: service_started
+      kafka:
+        condition: service_healthy

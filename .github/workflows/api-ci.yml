@@ -23,12 +23,14 @@ on:
       - 'docs/**'
       - '.env.example'
       - 'compose.yaml'
+      - 'compose.prod.yaml'
       - 'compose.dev.yaml'
       - 'package.json'
       - 'package-lock.json'
       - '.prettierrc.json'
       - '.prettierignore'
       - '.github/workflows/api-ci.yml'
+      - '.github/workflows/deploy.yml'
   pull_request:
     branches: [main, develop]
     paths:
@@ -45,12 +47,14 @@ on:
       - 'docs/**'
       - '.env.example'
       - 'compose.yaml'
+      - 'compose.prod.yaml'
       - 'compose.dev.yaml'
       - 'package.json'
       - 'package-lock.json'
       - '.prettierrc.json'
       - '.prettierignore'
       - '.github/workflows/api-ci.yml'
+      - '.github/workflows/deploy.yml'
 
 defaults:
   run:
